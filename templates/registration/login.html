@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Sign in" %} · IEMS{% endblock %}
+{% block unauthenticated_content %}
+<section class="auth-brand-panel" aria-hidden="true">
+  <div class="auth-orbit orbit-one"></div><div class="auth-orbit orbit-two"></div>
+  <div class="auth-brand-copy">
+    <span class="brand-mark large">I</span>
+    <p class="eyebrow">International Events Management System</p>
+    <h1>{% trans "One calm place for every international event." %}</h1>
+    <p>{% trans "A secure operational foundation for the International Department." %}</p>
+  </div>
+</section>
+<section class="auth-form-panel">
+  <form class="login-card" method="post" novalidate>
+    {% csrf_token %}
+    <div class="login-heading"><span class="eyebrow">IEMS</span><h2>{% trans "Welcome back" %}</h2><p>{% trans "Sign in with your assigned account." %}</p></div>
+    {% if form.non_field_errors %}<div class="form-alert" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+    <label for="{{ form.username.id_for_label }}">{% trans "Username" %}</label>
+    {{ form.username }}
+    {% if form.username.errors %}<div class="field-error" id="username-error">{{ form.username.errors }}</div>{% endif %}
+    <label for="{{ form.password.id_for_label }}">{% trans "Password" %}</label>
+    {{ form.password }}
+    {% if form.password.errors %}<div class="field-error" id="password-error">{{ form.password.errors }}</div>{% endif %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    <button class="primary-button" type="submit">{% trans "Sign in" %}</button>
+    <p class="security-note"><span aria-hidden="true">●</span>{% trans "Access is limited to authorized staff." %}</p>
+  </form>
+</section>
+{% endblock %}
+

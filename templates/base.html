@@ -1,0 +1,33 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07172f">
+  <title>{% block title %}IEMS{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'js/app.js' %}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">{% trans "Skip to content" %}</a>
+  {% if user.is_authenticated %}
+    <div class="app-shell" data-shell>
+      {% include "partials/sidebar.html" %}
+      <div class="shell-main">
+        {% include "partials/topbar.html" %}
+        <main id="main-content" class="page-content" tabindex="-1">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+      <button class="sidebar-backdrop" type="button" data-sidebar-close aria-label="{% trans 'Close navigation' %}"></button>
+    </div>
+  {% else %}
+    <main id="main-content" class="auth-layout">
+      {% block unauthenticated_content %}{% endblock %}
+    </main>
+  {% endif %}
+</body>
+</html>
+

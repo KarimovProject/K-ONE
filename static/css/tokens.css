@@ -1,0 +1,42 @@
+:root {
+  --navy-950: #051124;
+  --navy-900: #07172f;
+  --navy-800: #0d2446;
+  --ink-900: #10213a;
+  --ink-700: #40506a;
+  --ink-500: #718096;
+  --surface: #ffffff;
+  --surface-soft: #f4f7fb;
+  --line: #e4eaf2;
+  --blue: #2563eb;
+  --cyan: #06b6d4;
+  --teal: #0d9488;
+  --emerald: #10b981;
+  --amber: #f59e0b;
+  --coral: #f97360;
+  --purple: #8b5cf6;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05), 0 6px 18px rgb(15 23 42 / 0.04);
+  --shadow-lg: 0 24px 60px rgb(5 17 36 / 0.16);
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.75rem, 3vw, 2.35rem);
+  --sidebar-width: 16.75rem;
+  --topbar-height: 5rem;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+

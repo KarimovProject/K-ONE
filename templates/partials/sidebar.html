@@ -1,0 +1,40 @@
+{% load i18n %}
+<aside class="sidebar" id="primary-navigation" aria-label="{% trans 'Primary navigation' %}">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">I</span>
+    <span class="brand-copy"><strong>IEMS</strong><small>International Events</small></span>
+  </div>
+  <nav class="nav-list">
+    <a class="nav-item is-active" href="{% url 'dashboard' %}" aria-current="page">
+      <span class="nav-icon" aria-hidden="true">01</span>
+      <span>{% trans "Dashboard" %}</span>
+    </a>
+    <span class="nav-section">{% trans "Workspace" %}</span>
+    <span class="nav-item is-disabled" aria-disabled="true">
+      <span class="nav-icon" aria-hidden="true">02</span><span>{% trans "Events" %}</span>
+      <small>{% trans "Later" %}</small>
+    </span>
+    <span class="nav-item is-disabled" aria-disabled="true">
+      <span class="nav-icon" aria-hidden="true">03</span><span>{% trans "Calendar" %}</span>
+      <small>{% trans "Later" %}</small>
+    </span>
+    <span class="nav-item is-disabled" aria-disabled="true">
+      <span class="nav-icon" aria-hidden="true">04</span><span>{% trans "Venues" %}</span>
+      <small>{% trans "Later" %}</small>
+    </span>
+    <span class="nav-section">{% trans "Management" %}</span>
+    <span class="nav-item is-disabled" aria-disabled="true">
+      <span class="nav-icon" aria-hidden="true">05</span><span>{% trans "Approvals" %}</span>
+      <small>{% trans "Later" %}</small>
+    </span>
+    <span class="nav-item is-disabled" aria-disabled="true">
+      <span class="nav-icon" aria-hidden="true">06</span><span>{% trans "Reports" %}</span>
+      <small>{% trans "Later" %}</small>
+    </span>
+  </nav>
+  <div class="sidebar-status">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span><strong>Phase 0</strong><small>{% trans "Foundation ready" %}</small></span>
+  </div>
+</aside>
+

@@ -1,0 +1,22 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: IEMS 0.1.0\n"
+"Language: uz\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Dashboard"
+msgstr "Boshqaruv paneli"
+
+msgid "Today's events"
+msgstr "Bugungi tadbirlar"
+
+msgid "Upcoming events"
+msgstr "Yaqinlashayotgan tadbirlar"
+
+msgid "Active halls"
+msgstr "Faol zallar"
+
+msgid "Pending approvals"
+msgstr "Tasdiq kutayotganlar"
+

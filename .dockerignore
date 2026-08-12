@@ -1,0 +1,13 @@
+.env
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+staticfiles
+media/*
+!media/.gitkeep
+playwright-report
+test-results
+

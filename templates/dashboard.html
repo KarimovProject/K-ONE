@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Dashboard" %} · IEMS{% endblock %}
+{% block content %}
+<section class="page-heading" aria-labelledby="dashboard-title">
+  <div>
+    <span class="eyebrow">IEMS / {% trans "Dashboard" %}</span>
+    <h1 id="dashboard-title">{% trans "Good day" %}, {{ user.first_name|default:user.username }}</h1>
+    <p>{% trans "Your international events command center is prepared for the next implementation phase." %}</p>
+  </div>
+  <span class="phase-badge"><span aria-hidden="true"></span>{% trans "Foundation mode" %}</span>
+</section>
+
+<section class="metric-grid" aria-label="{% trans 'Key indicators' %}">
+  {% for metric in metrics %}
+    <article class="metric-card accent-{{ metric.accent }}">
+      <div class="metric-top"><span class="metric-symbol" aria-hidden="true"></span><small>{% trans "Phase 0 placeholder" %}</small></div>
+      <strong>{{ metric.value }}</strong>
+      {% if metric.key == "today" %}<h2>{% trans "Today's events" %}</h2>{% endif %}
+      {% if metric.key == "upcoming" %}<h2>{% trans "Upcoming events" %}</h2>{% endif %}
+      {% if metric.key == "active_halls" %}<h2>{% trans "Active halls" %}</h2>{% endif %}
+      {% if metric.key == "pending" %}<h2>{% trans "Pending approvals" %}</h2>{% endif %}
+    </article>
+  {% endfor %}
+</section>
+
+<section class="dashboard-grid">
+  <article class="panel calendar-panel">
+    <header class="panel-header">
+      <div><span class="eyebrow">{% trans "Schedule" %}</span><h2>{% trans "Calendar" %}</h2></div>
+      <span class="panel-tag">{% trans "Coming in Phase 2" %}</span>
+    </header>
+    <div class="calendar-placeholder" aria-label="{% trans 'Calendar placeholder' %}">
+      <div class="calendar-days" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div>
+      <div class="calendar-lines" aria-hidden="true">
+        {% for item in "1234567890123456789012345678" %}<span></span>{% endfor %}
+      </div>
+      <div class="empty-state">
+        <span class="empty-icon" aria-hidden="true">+</span>
+        <strong>{% trans "Calendar foundation is ready" %}</strong>
+        <p>{% trans "Event scheduling and conflict checks will be implemented in a later approved phase." %}</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="panel venue-panel">
+    <header class="panel-header">
+      <div><span class="eyebrow">{% trans "Live status" %}</span><h2>{% trans "Venue cards" %}</h2></div>
+      <span class="panel-tag neutral">{% trans "Not connected" %}</span>
+    </header>
+    <div class="venue-list">
+      {% for venue in venues %}
+        <div class="venue-card">
+          <span class="venue-code">{{ venue.code }}</span>
+          <span><strong>{% trans "Venue data pending" %}</strong><small>{% trans "Master data begins in Phase 1" %}</small></span>
+          <span class="venue-state">—</span>
+        </div>
+      {% endfor %}
+    </div>
+  </article>
+</section>
+{% endblock %}
+
