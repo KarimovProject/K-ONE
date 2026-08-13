@@ -31,6 +31,7 @@ urlpatterns = [
     path("event/<str:public_token>/", PublicEventPageView.as_view(), name="public-event-page"),
     path("events/", include("apps.events.urls")),
     path("notifications/", include("apps.notifications.urls")),
+    path("publications/", include("apps.publications.urls")),
     path("calendar/", CalendarView.as_view(), name="calendar"),
     path("leadership/", LeadershipDashboardView.as_view(), name="leadership-dashboard"),
     path("display/venues/", TvWallboardView.as_view(), name="tv-wallboard"),

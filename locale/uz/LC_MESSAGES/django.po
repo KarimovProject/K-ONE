@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: IEMS 0.1.0\n"
@@ -335,8 +336,12 @@ msgstr "Kelajakdagi tadbir jarayonlari uchun toifalarni boshqaring."
 msgid "Enter a color in #RRGGBB format."
 msgstr "Rangni #RRGGBB formatida kiriting."
 
-msgid "Event scheduling and conflict checks will be implemented in a later approved phase."
-msgstr "Tadbirlarni rejalashtirish va to‘qnashuvlarni tekshirish keyingi tasdiqlangan bosqichda amalga oshiriladi."
+msgid ""
+"Event scheduling and conflict checks will be implemented in a later approved"
+" phase."
+msgstr ""
+"Tadbirlarni rejalashtirish va to‘qnashuvlarni tekshirish keyingi "
+"tasdiqlangan bosqichda amalga oshiriladi."
 
 msgid "Foundation mode"
 msgstr "Asos rejimi"
@@ -369,7 +374,8 @@ msgid "Maintain local, foreign, and partner organization records."
 msgstr "Mahalliy, xorijiy va hamkor tashkilotlar ma’lumotnomasini yuriting."
 
 msgid "Maintain sponsor identity and contact records for later event use."
-msgstr "Kelajakdagi tadbirlar uchun homiylar va ularning aloqalarini yuriting."
+msgstr ""
+"Kelajakdagi tadbirlar uchun homiylar va ularning aloqalarini yuriting."
 
 msgid "Master data begins in Phase 1"
 msgstr "Ma’lumotnomalar Phase 1 da boshlandi"
@@ -428,8 +434,11 @@ msgstr "Asosiy tarkibga o‘tish"
 msgid "Sponsor record"
 msgstr "Homiy kartasi"
 
-msgid "This action cannot be undone. Confirm only when the record is no longer required."
-msgstr "Bu amalni bekor qilib bo‘lmaydi. Yozuv boshqa kerak bo‘lmasa tasdiqlang."
+msgid ""
+"This action cannot be undone. Confirm only when the record is no longer "
+"required."
+msgstr ""
+"Bu amalni bekor qilib bo‘lmaydi. Yozuv boshqa kerak bo‘lmasa tasdiqlang."
 
 msgid "Today"
 msgstr "Bugun"
@@ -446,8 +455,12 @@ msgstr "Xona ma’lumotlari kutilmoqda"
 msgid "Welcome back"
 msgstr "Xush kelibsiz"
 
-msgid "Your international events command center is prepared for the next implementation phase."
-msgstr "Xalqaro tadbirlarni boshqarish markazi keyingi joriy etish bosqichiga tayyor."
+msgid ""
+"Your international events command center is prepared for the next "
+"implementation phase."
+msgstr ""
+"Xalqaro tadbirlarni boshqarish markazi keyingi joriy etish bosqichiga "
+"tayyor."
 
 msgid "active"
 msgstr "faol"
@@ -767,8 +780,12 @@ msgstr "CSV ga yuklash"
 msgid "Leadership Dashboard"
 msgstr "Rahbariat Boshqaruv Paneli"
 
-msgid "Real-time executive overview of active events, venue occupancy & attendance statistics."
-msgstr "Faol tadbirlar, zallar bandligi va ishtirokchilar statistikasi bo‘yicha tezkor umumiy ko‘rinish."
+msgid ""
+"Real-time executive overview of active events, venue occupancy & attendance "
+"statistics."
+msgstr ""
+"Faol tadbirlar, zallar bandligi va ishtirokchilar statistikasi bo‘yicha "
+"tezkor umumiy ko‘rinish."
 
 msgid "TV Wallboard Mode"
 msgstr "TV Rejimiga o‘tish"
@@ -823,3 +840,139 @@ msgstr "Yaqinlashib kelayotgan tadbirlar"
 
 msgid "Fullscreen"
 msgstr "To‘liq ekran"
+
+msgid "Publications"
+msgstr "Nashrlar"
+
+msgid "Publication composer"
+msgstr "Nashr tayyorlash"
+
+msgid "Prepare, approve and track public event announcements."
+msgstr "Tadbir e’lonlarini tayyorlang, tasdiqlang va kuzating."
+
+msgid "Platform preview"
+msgstr "Platforma ko‘rinishi"
+
+msgid "Save draft"
+msgstr "Qoralamani saqlash"
+
+msgid "Generate preview"
+msgstr "Ko‘rinishni yaratish"
+
+msgid "Publish now"
+msgstr "Hozir nashr qilish"
+
+msgid "Telegram channel"
+msgstr "Telegram kanali"
+
+msgid "Instagram"
+msgstr "Instagram"
+
+msgid "Draft"
+msgstr "Qoralama"
+
+msgid "Ready for approval"
+msgstr "Tasdiqlashga tayyor"
+
+msgid "Approved"
+msgstr "Tasdiqlangan"
+
+msgid "Scheduled"
+msgstr "Rejalashtirilgan"
+
+msgid "Published"
+msgstr "Nashr qilingan"
+
+msgid "Failed"
+msgstr "Xatolik"
+
+msgid "Publication history"
+msgstr "Nashrlar tarixi"
+
+msgid "Create announcement"
+msgstr "E’lon yaratish"
+
+msgid "New announcement"
+msgstr "Yangi e’lon"
+
+msgid ""
+"Instagram feed caption links are not presented as clickable. Event access is"
+" provided through the banner QR."
+msgstr ""
+"Instagram tasma matnidagi havolalar bosiladigan ko‘rinishda emas. Tadbirga "
+"banner QR kodi orqali kiriladi."
+
+msgid "No publications yet."
+msgstr "Hozircha nashrlar yo‘q."
+
+msgid "Search event or headline"
+msgstr "Tadbir yoki sarlavhani qidirish"
+
+msgid "All platforms"
+msgstr "Barcha platformalar"
+
+msgid "All languages"
+msgstr "Barcha tillar"
+
+msgid "Filter"
+msgstr "Filtrlash"
+
+msgid "Announcement"
+msgstr "E’lon"
+
+msgid "Platform"
+msgstr "Platforma"
+
+msgid "Preview"
+msgstr "Ko‘rib chiqish"
+
+msgid "No publications yet. Open an eligible event to create one."
+msgstr "Hozircha nashrlar yo‘q. Yaratish uchun mos tadbirni oching."
+
+msgid ""
+"Use approved event facts and entered copy. IEMS does not invent official "
+"wording."
+msgstr ""
+"Tasdiqlangan tadbir ma’lumotlari va kiritilgan matndan foydalaning. IEMS "
+"rasmiy matnni o‘zi to‘qimaydi."
+
+msgid "Preview after saving"
+msgstr "Saqlangandan keyingi ko‘rinish"
+
+msgid "Generate the banner and exact platform caption from the saved draft."
+msgstr "Saqlangan qoralamadan banner va platformaga mos aniq matn yarating."
+
+msgid "Approve"
+msgstr "Tasdiqlash"
+
+msgid "Retry"
+msgstr "Qayta urinish"
+
+msgid "Generated event announcement banner"
+msgstr "Yaratilgan tadbir e’loni banneri"
+
+msgid "Feed links may not be clickable. Use the QR code for event access."
+msgstr ""
+"Tasma havolalari bosilmasligi mumkin. Tadbirga kirish uchun QR koddan "
+"foydalaning."
+
+msgid "External post"
+msgstr "Tashqi nashr"
+
+msgid "Conference"
+msgstr "Konferensiya"
+
+msgid "Symposium"
+msgstr "Simpozium"
+
+msgid "Seminar"
+msgstr "Seminar"
+
+msgid "Delegation Visit"
+msgstr "Delegatsiya tashrifi"
+
+msgid "Meeting"
+msgstr "Uchrashuv"
+
+msgid "Emergency Announcement"
+msgstr "Favqulodda e’lon"

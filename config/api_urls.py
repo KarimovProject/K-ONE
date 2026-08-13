@@ -28,6 +28,11 @@ from apps.organizations.api import (
     SponsorDetailAPIView,
     SponsorListAPIView,
 )
+from apps.publications.api import (
+    PublicationActionAPIView,
+    PublicationDetailAPIView,
+    PublicationListCreateAPIView,
+)
 from apps.reporting.views import (
     DisplayVenuesAPIView,
     LeadershipSummaryAPIView,
@@ -38,6 +43,32 @@ from apps.reporting.views import (
 from apps.venues.api import VenueDetailAPIView, VenueListAPIView
 
 urlpatterns = [
+    path("publications/", PublicationListCreateAPIView.as_view(), name="api-publication-list"),
+    path(
+        "publications/<uuid:pk>/",
+        PublicationDetailAPIView.as_view(),
+        name="api-publication-detail",
+    ),
+    path(
+        "publications/<uuid:pk>/approve/",
+        PublicationActionAPIView.as_view(action="approve"),
+        name="api-publication-approve",
+    ),
+    path(
+        "publications/<uuid:pk>/schedule/",
+        PublicationActionAPIView.as_view(action="schedule"),
+        name="api-publication-schedule",
+    ),
+    path(
+        "publications/<uuid:pk>/publish/",
+        PublicationActionAPIView.as_view(action="publish"),
+        name="api-publication-publish",
+    ),
+    path(
+        "publications/<uuid:pk>/retry/",
+        PublicationActionAPIView.as_view(action="retry"),
+        name="api-publication-retry",
+    ),
     path("venues/", VenueListAPIView.as_view(), name="api-venue-list"),
     path("venues/<int:pk>/", VenueDetailAPIView.as_view(), name="api-venue-detail"),
     path(

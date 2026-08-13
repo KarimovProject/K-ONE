@@ -47,6 +47,16 @@ class AuditEventLog(models.Model):
             "telegram.event_notification_sent",
             _("Telegram Event Notification Sent"),
         )
+        PUBLICATION_CREATED = "publication.created", _("Publication Created")
+        PUBLICATION_UPDATED = "publication.updated", _("Publication Updated")
+        PUBLICATION_APPROVED = "publication.approved", _("Publication Approved")
+        PUBLICATION_SCHEDULED = "publication.scheduled", _("Publication Scheduled")
+        PUBLICATION_PUBLISHED = "publication.published", _("Publication Published")
+        PUBLICATION_FAILED = "publication.failed", _("Publication Failed")
+        PUBLICATION_CANCELLED = "publication.cancelled", _("Publication Cancelled")
+        PUBLICATION_RETRIED = "publication.retried", _("Publication Retried")
+        BANNER_GENERATED = "banner.generated", _("Banner Generated")
+        BANNER_REGENERATED = "banner.regenerated", _("Banner Regenerated")
 
     actor = models.ForeignKey(
         settings.AUTH_USER_MODEL,

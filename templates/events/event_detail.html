@@ -56,6 +56,7 @@
     {% if can_manage_reminders %}
       <a class="primary-button compact outline" href="{% url 'notifications:event-reminders' pk=event.pk %}" data-testid="telegram-reminders-link">{% trans "Telegram reminders" %}</a>
     {% endif %}
+    {% if can_create_publication %}<a class="primary-button compact" href="{% url 'publications:create' event_pk=event.pk %}" data-testid="create-publication-link">{% trans "Create announcement" %}</a>{% endif %}
     {% if can_edit %}
       <a class="primary-button compact outline" href="{% url 'events:program' pk=event.pk %}" data-testid="edit-program-btn">📋 {% trans "Program & Public Page" %}</a>
       <a class="primary-button compact" href="{% url 'events:edit' pk=event.pk %}">{% trans "Edit Event" %}</a>
@@ -274,6 +275,7 @@
       <p class="text-muted">7d · 3d · 1d · 3h · 30m</p>
       {% if can_manage_reminders %}<a href="{% url 'notifications:event-reminders' pk=event.pk %}">{% trans "Configure reminders and view delivery status" %}</a>{% endif %}
     </section>
+    <section class="detail-card" data-testid="publication-history"><div class="flex-between"><h2>{% trans "Publications" %}</h2>{% if can_create_publication %}<a href="{% url 'publications:create' event_pk=event.pk %}">{% trans "New announcement" %}</a>{% endif %}</div>{% for item in event.publications.all %}<p><span class="status-badge {{ item.status }}">{{ item.get_status_display }}</span> {{ item.get_platform_display }} · {{ item.language|upper }} · <a href="{% url 'publications:detail' pk=item.pk %}">{% trans "Preview" %}</a></p>{% empty %}<p class="text-muted">{% trans "No publications yet." %}</p>{% endfor %}</section>
 
     <section class="detail-card metadata-card">
       <h2>{% trans "Audit Metadata" %}</h2>

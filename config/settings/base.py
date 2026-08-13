@@ -141,6 +141,17 @@ TELEGRAM_BOT_USERNAME = env("TELEGRAM_BOT_USERNAME", default="")
 TELEGRAM_API_BASE_URL = env("TELEGRAM_API_BASE_URL", default="https://api.telegram.org")
 TELEGRAM_LINK_TOKEN_TTL_SECONDS = env.int("TELEGRAM_LINK_TOKEN_TTL_SECONDS", default=600)
 IEMS_BASE_URL = env("IEMS_BASE_URL", default="")
+TELEGRAM_CHANNEL_ENABLED = env.bool("TELEGRAM_CHANNEL_ENABLED", default=False)
+TELEGRAM_CHANNEL_CHAT_ID = env("TELEGRAM_CHANNEL_CHAT_ID", default="")
+INSTAGRAM_ENABLED = env.bool("INSTAGRAM_ENABLED", default=False)
+META_GRAPH_API_VERSION = env("META_GRAPH_API_VERSION", default="v23.0")
+INSTAGRAM_BUSINESS_ACCOUNT_ID = env("INSTAGRAM_BUSINESS_ACCOUNT_ID", default="")
+META_ACCESS_TOKEN = env("META_ACCESS_TOKEN", default="")
+
+CELERY_BEAT_SCHEDULE["publication-dispatcher"] = {
+    "task": "apps.publications.tasks.dispatch_scheduled_publications",
+    "schedule": 60.0,
+}
 
 CACHES = {
     "default": {

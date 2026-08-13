@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: IEMS 0.1.0\n"
@@ -118,7 +119,7 @@ msgid "View"
 msgstr "Открыть"
 
 msgid "Edit"
-msgstr "Изменить"
+msgstr "Редактировать"
 
 msgid "Delete"
 msgstr "Удалить"
@@ -271,7 +272,8 @@ msgid "Image size must not exceed 5 MB."
 msgstr "Размер изображения не должен превышать 5 МБ."
 
 msgid "The uploaded file content is not a supported image."
-msgstr "Содержимое загруженного файла не является поддерживаемым изображением."
+msgstr ""
+"Содержимое загруженного файла не является поддерживаемым изображением."
 
 msgid "Working end must be later than working start."
 msgstr "Время окончания должно быть позже времени начала."
@@ -336,8 +338,12 @@ msgstr "Управляйте категориями для будущих про
 msgid "Enter a color in #RRGGBB format."
 msgstr "Введите цвет в формате #RRGGBB."
 
-msgid "Event scheduling and conflict checks will be implemented in a later approved phase."
-msgstr "Планирование мероприятий и проверка конфликтов будут реализованы в следующем утверждённом этапе."
+msgid ""
+"Event scheduling and conflict checks will be implemented in a later approved"
+" phase."
+msgstr ""
+"Планирование мероприятий и проверка конфликтов будут реализованы в следующем"
+" утверждённом этапе."
 
 msgid "Foundation mode"
 msgstr "Режим основы"
@@ -429,8 +435,12 @@ msgstr "Перейти к содержимому"
 msgid "Sponsor record"
 msgstr "Карточка спонсора"
 
-msgid "This action cannot be undone. Confirm only when the record is no longer required."
-msgstr "Это действие нельзя отменить. Подтвердите, только если запись больше не нужна."
+msgid ""
+"This action cannot be undone. Confirm only when the record is no longer "
+"required."
+msgstr ""
+"Это действие нельзя отменить. Подтвердите, только если запись больше не "
+"нужна."
 
 msgid "Today"
 msgstr "Сегодня"
@@ -447,8 +457,12 @@ msgstr "Данные помещений ожидаются"
 msgid "Welcome back"
 msgstr "С возвращением"
 
-msgid "Your international events command center is prepared for the next implementation phase."
-msgstr "Центр управления международными мероприятиями готов к следующему этапу реализации."
+msgid ""
+"Your international events command center is prepared for the next "
+"implementation phase."
+msgstr ""
+"Центр управления международными мероприятиями готов к следующему этапу "
+"реализации."
 
 msgid "active"
 msgstr "активно"
@@ -768,7 +782,9 @@ msgstr "Экспорт в CSV"
 msgid "Leadership Dashboard"
 msgstr "Панель Руководства"
 
-msgid "Real-time executive overview of active events, venue occupancy & attendance statistics."
+msgid ""
+"Real-time executive overview of active events, venue occupancy & attendance "
+"statistics."
 msgstr "Оперативная сводка по мероприятиям, занятости залов и посещаемости."
 
 msgid "TV Wallboard Mode"
@@ -824,3 +840,142 @@ msgstr "Предстоящие мероприятия"
 
 msgid "Fullscreen"
 msgstr "Полноэкранный режим"
+
+msgid "Publications"
+msgstr "Публикации"
+
+msgid "Publication composer"
+msgstr "Редактор публикации"
+
+msgid "Prepare, approve and track public event announcements."
+msgstr ""
+"Подготавливайте, согласовывайте и отслеживайте публичные анонсы событий."
+
+msgid "Platform preview"
+msgstr "Предпросмотр платформы"
+
+msgid "Save draft"
+msgstr "Сохранить черновик"
+
+msgid "Generate preview"
+msgstr "Создать предпросмотр"
+
+msgid "Publish now"
+msgstr "Опубликовать сейчас"
+
+msgid "Telegram channel"
+msgstr "Telegram-канал"
+
+msgid "Instagram"
+msgstr "Instagram"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Ready for approval"
+msgstr "Готово к согласованию"
+
+msgid "Approved"
+msgstr "Согласовано"
+
+msgid "Scheduled"
+msgstr "Запланировано"
+
+msgid "Published"
+msgstr "Опубликовано"
+
+msgid "Failed"
+msgstr "Ошибка"
+
+msgid "Publication history"
+msgstr "История публикаций"
+
+msgid "Create announcement"
+msgstr "Создать анонс"
+
+msgid "New announcement"
+msgstr "Новый анонс"
+
+msgid ""
+"Instagram feed caption links are not presented as clickable. Event access is"
+" provided through the banner QR."
+msgstr ""
+"Ссылки в подписи Instagram не отображаются как кликабельные. Доступ к "
+"событию предоставляется через QR-код на баннере."
+
+msgid "No publications yet."
+msgstr "Публикаций пока нет."
+
+msgid "Search event or headline"
+msgstr "Поиск события или заголовка"
+
+msgid "All platforms"
+msgstr "Все платформы"
+
+msgid "All languages"
+msgstr "Все языки"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Announcement"
+msgstr "Анонс"
+
+msgid "Platform"
+msgstr "Платформа"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
+msgid "No publications yet. Open an eligible event to create one."
+msgstr ""
+"Публикаций пока нет. Откройте подходящее событие, чтобы создать анонс."
+
+msgid ""
+"Use approved event facts and entered copy. IEMS does not invent official "
+"wording."
+msgstr ""
+"Используйте согласованные данные события и введённый текст. IEMS не "
+"придумывает официальные формулировки."
+
+msgid "Preview after saving"
+msgstr "Предпросмотр после сохранения"
+
+msgid "Generate the banner and exact platform caption from the saved draft."
+msgstr ""
+"Создайте баннер и точный текст для платформы из сохранённого черновика."
+
+msgid "Approve"
+msgstr "Согласовать"
+
+msgid "Retry"
+msgstr "Повторить"
+
+msgid "Generated event announcement banner"
+msgstr "Созданный баннер анонса события"
+
+msgid "Feed links may not be clickable. Use the QR code for event access."
+msgstr ""
+"Ссылки в ленте могут быть некликабельными. Используйте QR-код для доступа к "
+"событию."
+
+msgid "External post"
+msgstr "Внешняя публикация"
+
+msgid "Conference"
+msgstr "Конференция"
+
+msgid "Symposium"
+msgstr "Симпозиум"
+
+msgid "Seminar"
+msgstr "Семинар"
+
+msgid "Delegation Visit"
+msgstr "Визит делегации"
+
+msgid "Meeting"
+msgstr "Встреча"
+
+msgid "Emergency Announcement"
+msgstr "Экстренный анонс"

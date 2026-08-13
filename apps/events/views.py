@@ -85,7 +85,6 @@ class EventTypeCreateView(
     page_title = _("Create event type")
 
 
-
 class EventTypeUpdateView(
     MasterDataManageMixin,
     MasterDataFormMixin,
@@ -126,9 +125,7 @@ class EventListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
         end_date_str = self.request.GET.get("end_date")
 
         if query:
-            queryset = queryset.filter(
-                Q(title__icontains=query) | Q(description__icontains=query)
-            )
+            queryset = queryset.filter(Q(title__icontains=query) | Q(description__icontains=query))
 
         if venue_id:
             queryset = queryset.filter(venue_id=venue_id)
@@ -189,22 +186,20 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
         event = self.get_object()
         user = self.request.user
 
-        is_owner = (
-            user == event.responsible_employee
-            or user == event.created_by
-        )
+        is_owner = user == event.responsible_employee or user == event.created_by
         is_mgmt = (
             user == event.management_responsible
             or user_has_capability(user, Capability.APPROVE_EVENTS)
             or user.is_superuser
         )
         is_admin = user_has_capability(user, Capability.MANAGE_EVENTS) or user.is_superuser
-        is_override_authorized = (
-            user.is_superuser
-            or user.role in (User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN)
+        is_override_authorized = user.is_superuser or user.role in (
+            User.Role.SUPER_ADMIN,
+            User.Role.INTERNATIONAL_ADMIN,
         )
 
         from apps.audit.models import AuditEventLog
+        from apps.publications.policies import can_prepare
 
         can_edit = (is_owner or is_admin) and event.status != Event.Status.CANCELLED
         can_cancel = (is_owner or is_admin) and event.status != Event.Status.CANCELLED
@@ -242,6 +237,7 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
                     and event.status not in (Event.Status.CANCELLED, Event.Status.COMPLETED)
                 ),
                 "can_manage_reminders": is_admin,
+                "can_create_publication": can_prepare(user, event),
                 "audit_logs": AuditEventLog.objects.filter(target_id=str(event.pk))[:15],
             }
         )
@@ -301,7 +297,6 @@ class EventCancelView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
         return reverse_lazy("events:detail", kwargs={"pk": self.event.pk})
 
     def dispatch(self, request, *args, **kwargs):
-
         self.event = get_object_or_404(Event, pk=kwargs["pk"])
         if not (
             user_has_capability(request.user, Capability.MANAGE_EVENTS)
@@ -350,10 +345,7 @@ class EventCancelView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
 class EventSubmitApprovalView(LoginRequiredMixin, View):
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = (
-            request.user == event.responsible_employee
-            or request.user == event.created_by
-        )
+        is_owner = request.user == event.responsible_employee or request.user == event.created_by
         is_admin = user_has_capability(request.user, Capability.MANAGE_EVENTS)
         if not (is_owner or is_admin):
             raise PermissionDenied(_("Only the responsible employee or admin can submit."))
@@ -364,8 +356,7 @@ class EventSubmitApprovalView(LoginRequiredMixin, View):
             submit_event_for_approval(event, request.user)
             messages.success(
                 request,
-                _("Event “%(title)s” submitted for management approval.")
-                % {"title": event.title},
+                _("Event “%(title)s” submitted for management approval.") % {"title": event.title},
             )
         except ValidationError as exc:
             messages.error(request, exc.message)
@@ -400,9 +391,7 @@ class EventApprovalListView(LoginRequiredMixin, CapabilityRequiredMixin, ListVie
                 "nav_key": "approvals",
                 "page_title": _("Event Approvals Queue"),
                 "current_status": self.request.GET.get("status", Event.Status.PENDING_APPROVAL),
-                "pending_count": Event.objects.filter(
-                    status=Event.Status.PENDING_APPROVAL
-                ).count(),
+                "pending_count": Event.objects.filter(status=Event.Status.PENDING_APPROVAL).count(),
                 "my_pending_count": Event.objects.filter(
                     management_responsible=self.request.user,
                     status=Event.Status.PENDING_APPROVAL,
@@ -471,10 +460,7 @@ class EventRejectView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
 class EventResubmitView(LoginRequiredMixin, View):
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = (
-            request.user == event.responsible_employee
-            or request.user == event.created_by
-        )
+        is_owner = request.user == event.responsible_employee or request.user == event.created_by
         is_admin = user_has_capability(request.user, Capability.MANAGE_EVENTS)
         if not (is_owner or is_admin):
             raise PermissionDenied(_("Only the responsible employee or admin can resubmit."))
@@ -570,12 +556,10 @@ class EventPostponeView(LoginRequiredMixin, FormView):
         self.form_class = EventPostponeForm
         self.event = get_object_or_404(Event, pk=kwargs["pk"])
         is_owner = (
-            request.user == self.event.responsible_employee
-            or request.user == self.event.created_by
+            request.user == self.event.responsible_employee or request.user == self.event.created_by
         )
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             raise PermissionDenied
@@ -612,12 +596,10 @@ class EventRescheduleView(LoginRequiredMixin, FormView):
         self.form_class = EventRescheduleForm
         self.event = get_object_or_404(Event, pk=kwargs["pk"])
         is_owner = (
-            request.user == self.event.responsible_employee
-            or request.user == self.event.created_by
+            request.user == self.event.responsible_employee or request.user == self.event.created_by
         )
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             raise PermissionDenied
@@ -662,7 +644,6 @@ class EventRescheduleView(LoginRequiredMixin, FormView):
         except ValidationError as exc:
             form.add_error(None, exc.message)
             return self.form_invalid(form)
-
 
 
 # --- Calendar & Live Status Views ---
@@ -770,12 +751,10 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
     def dispatch(self, request, *args, **kwargs):
         self.event = self.get_object()
         is_owner = (
-            request.user == self.event.responsible_employee
-            or request.user == self.event.created_by
+            request.user == self.event.responsible_employee or request.user == self.event.created_by
         )
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             raise PermissionDenied
@@ -918,7 +897,9 @@ class EventPrintQrView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         event = self.object
         log_audit_event("event.qr_printed", actor=self.request.user, target=event)
-        context["public_url"] = f"{self.request.scheme}://{self.request.get_host()}/event/{event.public_token}/"
+        context["public_url"] = (
+            f"{self.request.scheme}://{self.request.get_host()}/event/{event.public_token}/"
+        )
         return context
 
 
