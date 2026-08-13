@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ event.title }} · IEMS{% endblock %}
+{% block content %}
+<div class="detail-header">
+  <div>
+    <div class="detail-tags">
+      <span class="type-pill" style="--pill-color: {{ event.event_type.color }};">{{ event.event_type.localized_name }}</span>
+      <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span>
+      <span class="priority-badge {{ event.priority }}">{{ event.get_priority_display }}</span>
+    </div>
+    <h1 class="detail-title">{{ event.title }}</h1>
+    {% if event.description %}<p class="detail-subtitle">{{ event.description }}</p>{% endif %}
+  </div>
+  <div class="detail-actions">
+    <a class="secondary-link" href="{% url 'events:list' %}">← {% trans "Back to Events" %}</a>
+
+    {% if can_submit %}
+      <form method="post" action="{% url 'events:submit' pk=event.pk %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="primary-button compact" data-testid="submit-approval-btn">{% trans "Submit for Approval" %}</button>
+      </form>
+    {% endif %}
+
+    {% if can_approve %}
+      <form method="post" action="{% url 'events:approve' pk=event.pk %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="success-button compact" data-testid="approve-event-btn">{% trans "Approve Event" %}</button>
+      </form>
+    {% endif %}
+
+    {% if can_reject %}
+      <a class="danger-button compact" href="{% url 'events:reject' pk=event.pk %}" data-testid="reject-event-btn">{% trans "Reject Event" %}</a>
+    {% endif %}
+
+    {% if can_resubmit %}
+      <form method="post" action="{% url 'events:resubmit' pk=event.pk %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="primary-button compact" data-testid="resubmit-event-btn">{% trans "Resubmit Event" %}</button>
+      </form>
+    {% endif %}
+
+    {% if can_reschedule %}
+      <a class="primary-button compact outline" href="{% url 'events:reschedule' pk=event.pk %}" data-testid="reschedule-event-btn">{% trans "Reschedule" %}</a>
+    {% endif %}
+
+    {% if can_postpone %}
+      <a class="warning-button compact" href="{% url 'events:postpone' pk=event.pk %}" data-testid="postpone-event-btn">{% trans "Postpone" %}</a>
+    {% endif %}
+
+    {% if can_override %}
+      <a class="danger-button compact outline" href="{% url 'events:emergency-override' pk=event.pk %}" data-testid="emergency-override-btn">🚨 {% trans "Emergency Override" %}</a>
+    {% endif %}
+
+    <a class="primary-button compact outline" href="{% url 'events:attendance' pk=event.pk %}" data-testid="event-attendance-btn">📊 {% trans "Attendance" %} ({{ event.attendances.count }})</a>
+    {% if can_edit %}
+      <a class="primary-button compact outline" href="{% url 'events:program' pk=event.pk %}" data-testid="edit-program-btn">📋 {% trans "Program & Public Page" %}</a>
+      <a class="primary-button compact" href="{% url 'events:edit' pk=event.pk %}">{% trans "Edit Event" %}</a>
+    {% endif %}
+
+    {% if can_cancel %}
+      <a class="danger-button compact" href="{% url 'events:cancel' pk=event.pk %}">{% trans "Cancel Event" %}</a>
+    {% endif %}
+  </div>
+</div>
+
+{% if event.status == "displaced" %}
+  <div class="app-message alert" role="alert">
+    🚨 <strong>{% trans "DISPLACED BY EMERGENCY" %}:</strong> {% trans "This event was displaced by an emergency override event" %}
+    {% if event.displaced_by_event %}
+      <a href="{% url 'events:detail' pk=event.displaced_by_event.pk %}"><strong>“{{ event.displaced_by_event.title }}”</strong></a>.
+    {% endif %}
+    {% if can_reschedule %}
+      <div style="margin-top: 8px;">
+        <a class="primary-button compact" href="{% url 'events:reschedule' pk=event.pk %}">{% trans "Reschedule Now" %}</a>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if event.status == "rejected" and event.rejection_reason %}
+  <div class="app-message error" role="alert">
+    ❌ <strong>{% trans "REJECTION RATIONALE" %}:</strong> {{ event.rejection_reason }}
+  </div>
+{% endif %}
+
+{% if event.emergency_justification %}
+  <div class="app-message info" role="alert">
+    🚨 <strong>{% trans "EMERGENCY OVERRIDE RATIONALE" %}:</strong> {{ event.emergency_justification }}
+  </div>
+{% endif %}
+
+{% if event.is_over_capacity %}
+  <div class="app-message warning" role="alert">
+    ⚠️ <strong>{% trans "Capacity Warning" %}:</strong> {% trans "Expected attendees" %} ({{ event.expected_attendees }}) {% trans "exceeds venue capacity" %} ({{ event.venue.capacity }}).
+  </div>
+{% endif %}
+
+<div class="detail-grid">
+  <div class="detail-main">
+    <section class="detail-card" data-testid="detail-program-card">
+      <div class="flex-between" style="margin-bottom: 1rem;">
+        <h2>{% trans "Program & Public Page" %}</h2>
+        {% if can_edit %}
+          <a class="secondary-button compact" href="{% url 'events:program' pk=event.pk %}" data-testid="card-edit-program-btn">⚙️ {% trans "Configure Program" %}</a>
+        {% endif %}
+      </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">{% trans "Program Mode" %}</span>
+          <span class="info-value">
+            {% if event.program_source == 'pdf' %}
+              📄 {% trans "PDF Document" %} {% if event.program_pdf %}({% trans "Uploaded" %}){% else %}({% trans "Missing" %}){% endif %}
+            {% else %}
+              ⏱️ {% trans "Manual Agenda" %} ({{ event.program_items.count }} {% trans "Sessions" %})
+            {% endif %}
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Public Accessibility" %}</span>
+          <span class="info-value">
+            {% if event.is_publicly_accessible %}
+              <span class="status-badge approved">🟢 {% trans "Publicly Accessible" %}</span>
+            {% else %}
+              <span class="status-badge draft">🔴 {% trans "Private / Unpublished" %}</span>
+            {% endif %}
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Public Page Link" %}</span>
+          <span class="info-value">
+            <a href="{% url 'public-event-page' public_token=event.public_token %}" target="_blank" data-testid="public-page-link">
+              🌐 {% trans "Open Public Event Page" %}
+            </a>
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Printable QR Poster" %}</span>
+          <span class="info-value">
+            <a href="{% url 'events:print-qr' pk=event.pk %}" target="_blank" data-testid="print-qr-link">
+              🖨️ {% trans "Print Poster (A4/A5)" %}
+            </a>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2>{% trans "Schedule & Timing" %}</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">{% trans "Date & Weekday" %}</span>
+          <span class="info-value"><strong>{{ event.planned_date|date:"d.m.Y" }}</strong> ({{ event.weekday_name }})</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Time Interval" %}</span>
+          <span class="info-value">{{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Duration" %}</span>
+          <span class="info-value">{{ event.duration_minutes }} {% trans "minutes" %}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Expected Attendees" %}</span>
+          <span class="info-value">{{ event.expected_attendees }} {% trans "persons" %}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2>{% trans "Venue Details" %}</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">{% trans "Venue Name" %}</span>
+          <span class="info-value"><strong>{{ event.venue.localized_name }}</strong> ({{ event.venue.code }})</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Capacity" %}</span>
+          <span class="info-value">{{ event.venue.capacity }} {% trans "seats" %}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Location" %}</span>
+          <span class="info-value">{{ event.venue.location|default:"—" }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Working Hours" %}</span>
+          <span class="info-value">{{ event.venue.working_start|time:"H:i" }} – {{ event.venue.working_end|time:"H:i" }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2>{% trans "Partners & Sponsors" %}</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">{% trans "Organizing Organizations" %}</span>
+          <div class="info-value">
+            {% for org in event.organizing_organizations.all %}
+              <span class="tag">{{ org.name }}</span>
+            {% empty %}
+              <span>—</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-label">{% trans "Sponsors" %}</span>
+          <div class="info-value">
+            {% for sp in event.sponsors.all %}
+              <span class="tag sponsor-tag">{{ sp.name }}</span>
+            {% empty %}
+              <span>—</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2>{% trans "Audit History & Workflow Log" %}</h2>
+      <div class="audit-log-list">
+        {% for log in audit_logs %}
+          <div class="audit-log-item">
+            <span class="audit-action">{{ log.get_action_display }}</span>
+            <span class="audit-actor">{% if log.actor %}{{ log.actor.get_full_name|default:log.actor.username }}{% else %}System{% endif %}</span>
+            <span class="audit-time">{{ log.timestamp|date:"d.m.Y H:i" }}</span>
+          </div>
+        {% empty %}
+          <p class="text-muted">{% trans "No audit records found." %}</p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <div class="detail-sidebar">
+    <section class="detail-card">
+      <h2>{% trans "Responsible Staff" %}</h2>
+      <div class="person-block">
+        <span class="person-label">{% trans "Responsible Employee" %}</span>
+        <strong>{% if event.responsible_employee %}{{ event.responsible_employee.get_full_name|default:event.responsible_employee.username }}{% else %}—{% endif %}</strong>
+        {% if event.responsible_employee %}<small class="text-muted block">{{ event.responsible_employee.email }}</small>{% endif %}
+      </div>
+      <div class="person-block">
+        <span class="person-label">{% trans "Management Responsible" %}</span>
+        <strong>{% if event.management_responsible %}{{ event.management_responsible.get_full_name|default:event.management_responsible.username }}{% else %}—{% endif %}</strong>
+        {% if event.management_responsible %}<small class="text-muted block">{{ event.management_responsible.email }}</small>{% endif %}
+      </div>
+    </section>
+
+    <section class="detail-card">
+      <h2>{% trans "Online Links" %}</h2>
+      <div class="link-item">
+        <span class="info-label">{% trans "Zoom / Meeting Link" %}</span>
+        {% if event.zoom_url %}
+          <a class="external-link" href="{{ event.zoom_url }}" target="_blank" rel="noopener">{{ event.zoom_url }}</a>
+        {% else %}
+          <span class="text-muted">—</span>
+        {% endif %}
+      </div>
+      <div class="link-item">
+        <span class="info-label">{% trans "Registration Link" %}</span>
+        {% if event.registration_url %}
+          <a class="external-link" href="{{ event.registration_url }}" target="_blank" rel="noopener">{{ event.registration_url }}</a>
+        {% else %}
+          <span class="text-muted">—</span>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="detail-card metadata-card">
+      <h2>{% trans "Audit Metadata" %}</h2>
+      <small class="text-muted block">{% trans "Created by" %}: {% if event.created_by %}{{ event.created_by.get_full_name|default:event.created_by.username }}{% else %}System{% endif %}</small>
+      <small class="text-muted block">{% trans "Submitted at" %}: {{ event.submitted_at|date:"d.m.Y H:i"|default:"—" }}</small>
+      <small class="text-muted block">{% trans "Reviewed at" %}: {{ event.reviewed_at|date:"d.m.Y H:i"|default:"—" }}</small>
+      <small class="text-muted block">{% trans "Reviewed by" %}: {% if event.reviewed_by %}{{ event.reviewed_by.get_full_name|default:event.reviewed_by.username }}{% else %}—{% endif %}</small>
+      <small class="text-muted block">{% trans "Created at" %}: {{ event.created_at|date:"d.m.Y H:i" }}</small>
+      <small class="text-muted block">{% trans "Updated at" %}: {{ event.updated_at|date:"d.m.Y H:i" }}</small>
+    </section>
+  </div>
+</div>
+{% endblock %}

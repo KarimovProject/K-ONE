@@ -1,0 +1,132 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
+<head>
+  <meta charset="utf-8">
+  <title>{% trans "Print QR Code" %} · {{ event.title }}</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 1.5cm;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #ffffff;
+      color: #07172f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .poster-card {
+      border: 4px solid #07172f;
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .org-brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #2563eb;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .event-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #07172f;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-box {
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .meta-date { color: #2563eb; margin-bottom: 0.25rem; }
+    .meta-venue { color: #475569; font-size: 0.95rem; }
+
+    .qr-container {
+      background: #ffffff;
+      border: 3px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .qr-image {
+      width: 240px;
+      height: 240px;
+      display: block;
+    }
+
+    .scan-text {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #07172f;
+      margin-bottom: 0.5rem;
+    }
+    .scan-subtext {
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+
+    .print-controls {
+      margin-top: 2rem;
+    }
+    .btn-print {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media print {
+      .print-controls { display: none; }
+      body { padding: 0; background: none; }
+      .poster-card { border-width: 3px; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster-card" data-testid="print-poster-card">
+    <div class="org-brand">IEMS · Integrated Event Management</div>
+
+    <h1 class="event-title" data-testid="print-event-title">{{ event.title }}</h1>
+
+    <div class="meta-box">
+      <div class="meta-date">📅 {{ event.planned_date|date:"d E Y" }} | ⏰ {{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</div>
+      <div class="meta-venue">📍 {{ event.venue.localized_name }}</div>
+    </div>
+
+    <div class="qr-container">
+      <img class="qr-image" src="{% url 'events:qr-png' pk=event.pk %}" alt="Event QR Code" data-testid="print-qr-image">
+    </div>
+
+    <div class="scan-text" data-testid="print-scan-heading">📱 {% trans "Scan to Open Event Program" %}</div>
+    <div class="scan-subtext">{% trans "Point your camera to view the live agenda, schedule, and speakers." %}</div>
+  </div>
+
+  <div class="print-controls">
+    <button class="btn-print" onclick="window.print()" data-testid="trigger-print-btn">🖨️ {% trans "Print Poster / Save PDF" %}</button>
+  </div>
+</body>
+</html>

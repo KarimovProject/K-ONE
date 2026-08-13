@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{{ page_title }}</h1>
+    <p class="page-description">{% trans "Schedule and manage international events across university venues." %}</p>
+  </div>
+  {% if can_create %}
+    <div class="page-actions">
+      <a class="primary-button" href="{% url 'events:wizard' %}">
+        <span aria-hidden="true">+</span> {% trans "Plan New Event" %}
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<div class="filter-bar">
+  <form class="filter-form" method="get" action="">
+    <div class="search-input-wrap">
+      <input class="search-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
+    </div>
+
+    <select name="status" aria-label="{% trans 'Filter by status' %}">
+      <option value="all">{% trans "All Statuses" %}</option>
+      {% for code, label in statuses %}
+        <option value="{{ code }}"{% if status_filter == code %} selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="venue" aria-label="{% trans 'Filter by venue' %}">
+      <option value="">{% trans "All Venues" %}</option>
+      {% for v in venues %}
+        <option value="{{ v.id }}"{% if selected_venue == v.id|stringformat:"s" %} selected{% endif %}>{{ v.localized_name }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="type" aria-label="{% trans 'Filter by event type' %}">
+      <option value="">{% trans "All Types" %}</option>
+      {% for t in event_types %}
+        <option value="{{ t.id }}"{% if selected_type == t.id|stringformat:"s" %} selected{% endif %}>{{ t.localized_name }}</option>
+      {% endfor %}
+    </select>
+
+    <input type="date" name="start_date" value="{{ start_date }}" aria-label="{% trans 'Start date' %}">
+    <input type="date" name="end_date" value="{{ end_date }}" aria-label="{% trans 'End date' %}">
+
+    <button class="secondary-button compact" type="submit">{% trans "Filter" %}</button>
+    {% if search_query or status_filter != 'all' or selected_venue or selected_type or start_date or end_date %}
+      <a class="text-button" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
+    {% endif %}
+  </form>
+</div>
+
+<div class="table-card">
+  {% if events %}
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>{% trans "Title" %}</th>
+            <th>{% trans "Event Type" %}</th>
+            <th>{% trans "Date & Weekday" %}</th>
+            <th>{% trans "Time" %}</th>
+            <th>{% trans "Venue" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Responsible" %}</th>
+            <th class="text-right">{% trans "Actions" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in events %}
+            <tr>
+              <td>
+                <a class="table-title-link" href="{% url 'events:detail' pk=e.pk %}"><strong>{{ e.title }}</strong></a>
+                {% if e.is_over_capacity %}
+                  <span class="badge warning-badge" title="{% trans 'Expected attendees exceeds venue capacity' %}">⚠️ {% trans "Over Capacity" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                <span class="type-pill" style="--pill-color: {{ e.event_type.color }};">
+                  {{ e.event_type.localized_name }}
+                </span>
+              </td>
+              <td>
+                <span>{{ e.planned_date|date:"d.m.Y" }}</span>
+                <small class="text-muted block">{{ e.weekday_name }}</small>
+              </td>
+              <td>
+                <span>{{ e.start_time|time:"H:i" }} – {{ e.end_time|time:"H:i" }}</span>
+                <small class="text-muted block">{{ e.duration_minutes }} {% trans "min" %}</small>
+              </td>
+              <td>{{ e.venue.localized_name }}</td>
+              <td>
+                <span class="status-badge {{ e.status }}">
+                  {{ e.get_status_display }}
+                </span>
+              </td>
+              <td>{{ e.responsible_employee.get_full_name|default:e.responsible_employee.username }}</td>
+              <td class="text-right table-actions">
+                <a class="action-link" href="{% url 'events:detail' pk=e.pk %}">{% trans "View" %}</a>
+                {% if can_create and e.status != 'cancelled' %}
+                  <a class="action-link" href="{% url 'events:edit' pk=e.pk %}">{% trans "Edit" %}</a>
+                  <a class="action-link danger" href="{% url 'events:cancel' pk=e.pk %}">{% trans "Cancel" %}</a>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% include "master_data/pagination.html" %}
+  {% else %}
+    <div class="empty-state">
+      <span class="empty-icon" aria-hidden="true">📅</span>
+      <h3>{% trans "No events found" %}</h3>
+      <p>{% trans "Try adjusting your search query or filters." %}</p>
+      {% if can_create %}
+        <a class="primary-button compact" href="{% url 'events:wizard' %}">{% trans "Plan an Event" %}</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

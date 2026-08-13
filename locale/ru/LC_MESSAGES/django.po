@@ -21,3 +21,806 @@ msgstr "Активные залы"
 msgid "Pending approvals"
 msgstr "Ожидают согласования"
 
+msgid "Master data"
+msgstr "Справочники"
+
+msgid "Venues"
+msgstr "Помещения"
+
+msgid "Event types"
+msgstr "Типы мероприятий"
+
+msgid "Organizations"
+msgstr "Организации"
+
+msgid "Sponsors"
+msgstr "Спонсоры"
+
+msgid "Venue"
+msgstr "Помещение"
+
+msgid "Event type"
+msgstr "Тип мероприятия"
+
+msgid "Organization"
+msgstr "Организация"
+
+msgid "Sponsor"
+msgstr "Спонсор"
+
+msgid "Create venue"
+msgstr "Создать помещение"
+
+msgid "Edit venue"
+msgstr "Изменить помещение"
+
+msgid "Delete venue"
+msgstr "Удалить помещение"
+
+msgid "Create event type"
+msgstr "Создать тип мероприятия"
+
+msgid "Edit event type"
+msgstr "Изменить тип мероприятия"
+
+msgid "Delete event type"
+msgstr "Удалить тип мероприятия"
+
+msgid "Create organization"
+msgstr "Создать организацию"
+
+msgid "Edit organization"
+msgstr "Изменить организацию"
+
+msgid "Delete organization"
+msgstr "Удалить организацию"
+
+msgid "Create sponsor"
+msgstr "Создать спонсора"
+
+msgid "Edit sponsor"
+msgstr "Изменить спонсора"
+
+msgid "Delete sponsor"
+msgstr "Удалить спонсора"
+
+msgid "Search records"
+msgstr "Поиск записей"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "All statuses"
+msgstr "Все статусы"
+
+msgid "Active"
+msgstr "Активно"
+
+msgid "Inactive"
+msgstr "Неактивно"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "records"
+msgstr "записей"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "View"
+msgstr "Открыть"
+
+msgid "Edit"
+msgstr "Изменить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Save changes"
+msgstr "Сохранить"
+
+msgid "Delete permanently"
+msgstr "Удалить безвозвратно"
+
+msgid "Location"
+msgstr "Расположение"
+
+msgid "Capacity"
+msgstr "Вместимость"
+
+msgid "Working hours"
+msgstr "Рабочее время"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Localized names"
+msgstr "Названия на языках"
+
+msgid "Operational details"
+msgstr "Параметры эксплуатации"
+
+msgid "Display"
+msgstr "Отображение"
+
+msgid "Enabled"
+msgstr "Включено"
+
+msgid "Disabled"
+msgstr "Выключено"
+
+msgid "Sort order"
+msgstr "Порядок сортировки"
+
+msgid "Color"
+msgstr "Цвет"
+
+msgid "Management approval"
+msgstr "Согласование руководства"
+
+msgid "Emergency override"
+msgstr "Экстренное исключение"
+
+msgid "Required"
+msgstr "Требуется"
+
+msgid "Not required"
+msgstr "Не требуется"
+
+msgid "Allowed"
+msgstr "Разрешено"
+
+msgid "Not allowed"
+msgstr "Не разрешено"
+
+msgid "Rules"
+msgstr "Правила"
+
+msgid "Icon"
+msgstr "Значок"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Contact"
+msgstr "Контакт"
+
+msgid "Contact person"
+msgstr "Контактное лицо"
+
+msgid "Contact details"
+msgstr "Контактные данные"
+
+msgid "Contact and address"
+msgstr "Контакты и адрес"
+
+msgid "Email"
+msgstr "Эл. почта"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Notes"
+msgstr "Примечания"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "City"
+msgstr "Город"
+
+msgid "Website"
+msgstr "Сайт"
+
+msgid "Open website"
+msgstr "Открыть сайт"
+
+msgid "Organization type"
+msgstr "Тип организации"
+
+msgid "All organization types"
+msgstr "Все типы организаций"
+
+msgid "Local organization"
+msgstr "Местная организация"
+
+msgid "Foreign organization"
+msgstr "Иностранная организация"
+
+msgid "Partner organization"
+msgstr "Партнёрская организация"
+
+msgid "Previous"
+msgstr "Назад"
+
+msgid "Next"
+msgstr "Далее"
+
+msgid "Selected image preview"
+msgstr "Предпросмотр выбранного изображения"
+
+msgid "No venues found"
+msgstr "Помещения не найдены"
+
+msgid "No event types found"
+msgstr "Типы мероприятий не найдены"
+
+msgid "No organizations found"
+msgstr "Организации не найдены"
+
+msgid "No sponsors found"
+msgstr "Спонсоры не найдены"
+
+msgid "Upload a JPG, PNG, or WebP image."
+msgstr "Загрузите изображение JPG, PNG или WebP."
+
+msgid "Image size must not exceed 5 MB."
+msgstr "Размер изображения не должен превышать 5 МБ."
+
+msgid "The uploaded file content is not a supported image."
+msgstr "Содержимое загруженного файла не является поддерживаемым изображением."
+
+msgid "Working end must be later than working start."
+msgstr "Время окончания должно быть позже времени начала."
+
+msgid "%(resource)s was %(action)s successfully."
+msgstr "%(resource)s: действие «%(action)s» выполнено успешно."
+
+msgid "%(resource)s was deleted."
+msgstr "%(resource)s удалено."
+
+msgid "A secure operational foundation for the International Department."
+msgstr "Безопасная рабочая платформа международного отдела."
+
+msgid "Access is limited to authorized staff."
+msgstr "Доступ разрешён только уполномоченным сотрудникам."
+
+msgid "Adjust the filters or create the first organization record."
+msgstr "Измените фильтры или создайте первую организацию."
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Измените фильтры или создайте первого спонсора."
+
+msgid "Adjust the filters or create the first venue record."
+msgstr "Измените фильтры или создайте первое помещение."
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Измените фильтры или загрузите стандартные типы мероприятий."
+
+msgid "Approvals"
+msgstr "Согласования"
+
+msgid "Back to event types"
+msgstr "Назад к типам мероприятий"
+
+msgid "Back to organizations"
+msgstr "Назад к организациям"
+
+msgid "Back to sponsors"
+msgstr "Назад к спонсорам"
+
+msgid "Back to venues"
+msgstr "Назад к помещениям"
+
+msgid "Calendar"
+msgstr "Календарь"
+
+msgid "Calendar foundation is ready"
+msgstr "Основа календаря готова"
+
+msgid "Calendar placeholder"
+msgstr "Место для календаря"
+
+msgid "Close navigation"
+msgstr "Закрыть навигацию"
+
+msgid "Coming in Phase 2"
+msgstr "Появится в Phase 2"
+
+msgid "Control the reusable categories available to future event workflows."
+msgstr "Управляйте категориями для будущих процессов мероприятий."
+
+msgid "Enter a color in #RRGGBB format."
+msgstr "Введите цвет в формате #RRGGBB."
+
+msgid "Event scheduling and conflict checks will be implemented in a later approved phase."
+msgstr "Планирование мероприятий и проверка конфликтов будут реализованы в следующем утверждённом этапе."
+
+msgid "Foundation mode"
+msgstr "Режим основы"
+
+msgid "Future workflows"
+msgstr "Будущие процессы"
+
+msgid "Good day"
+msgstr "Добрый день"
+
+msgid "International Department"
+msgstr "Международный отдел"
+
+msgid "Key indicators"
+msgstr "Ключевые показатели"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Later"
+msgstr "Позже"
+
+msgid "Live status"
+msgstr "Текущий статус"
+
+msgid "Maintain halls and rooms available to international events."
+msgstr "Ведите справочник залов и комнат для международных мероприятий."
+
+msgid "Maintain local, foreign, and partner organization records."
+msgstr "Ведите справочник местных, иностранных и партнёрских организаций."
+
+msgid "Maintain sponsor identity and contact records for later event use."
+msgstr "Ведите данные и контакты спонсоров для будущих мероприятий."
+
+msgid "Master data begins in Phase 1"
+msgstr "Справочники добавлены в Phase 1"
+
+msgid "No venue photo"
+msgstr "Фото помещения отсутствует"
+
+msgid "Not connected"
+msgstr "Не подключено"
+
+msgid "Notifications"
+msgstr "Уведомления"
+
+msgid "Notifications are not connected in Phase 0"
+msgstr "Уведомления не подключены в Phase 0"
+
+msgid "One calm place for every international event."
+msgstr "Единое пространство для каждого международного мероприятия."
+
+msgid "Open navigation"
+msgstr "Открыть навигацию"
+
+msgid "Operations overview"
+msgstr "Обзор работы"
+
+msgid "Organization details"
+msgstr "Сведения об организации"
+
+msgid "Pagination"
+msgstr "Постраничная навигация"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Phase 0 placeholder"
+msgstr "Заполнитель Phase 0"
+
+msgid "Primary navigation"
+msgstr "Основная навигация"
+
+msgid "Schedule"
+msgstr "Расписание"
+
+msgid "Sign in"
+msgstr "Войти"
+
+msgid "Sign in with your assigned account."
+msgstr "Войдите под выданной вам учётной записью."
+
+msgid "Sign out"
+msgstr "Выйти"
+
+msgid "Skip to content"
+msgstr "Перейти к содержимому"
+
+msgid "Sponsor record"
+msgstr "Карточка спонсора"
+
+msgid "This action cannot be undone. Confirm only when the record is no longer required."
+msgstr "Это действие нельзя отменить. Подтвердите, только если запись больше не нужна."
+
+msgid "Today"
+msgstr "Сегодня"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Venue cards"
+msgstr "Карточки помещений"
+
+msgid "Venue data pending"
+msgstr "Данные помещений ожидаются"
+
+msgid "Welcome back"
+msgstr "С возвращением"
+
+msgid "Your international events command center is prepared for the next implementation phase."
+msgstr "Центр управления международными мероприятиями готов к следующему этапу реализации."
+
+msgid "active"
+msgstr "активно"
+
+msgid "address"
+msgstr "адрес"
+
+msgid "allows emergency override"
+msgstr "разрешает экстренное исключение"
+
+msgid "capacity"
+msgstr "вместимость"
+
+msgid "city"
+msgstr "город"
+
+msgid "code"
+msgstr "код"
+
+msgid "color"
+msgstr "цвет"
+
+msgid "contact person"
+msgstr "контактное лицо"
+
+msgid "country"
+msgstr "страна"
+
+msgid "created"
+msgstr "создано"
+
+msgid "description"
+msgstr "описание"
+
+msgid "display enabled"
+msgstr "отображение включено"
+
+msgid "email"
+msgstr "электронная почта"
+
+msgid "event type"
+msgstr "тип мероприятия"
+
+msgid "event types"
+msgstr "типы мероприятий"
+
+msgid "icon"
+msgstr "значок"
+
+msgid "location"
+msgstr "расположение"
+
+msgid "logo"
+msgstr "логотип"
+
+msgid "name"
+msgstr "название"
+
+msgid "name in English"
+msgstr "название на английском"
+
+msgid "name in Russian"
+msgstr "название на русском"
+
+msgid "name in Uzbek"
+msgstr "название на узбекском"
+
+msgid "notes"
+msgstr "примечания"
+
+msgid "organization"
+msgstr "организация"
+
+msgid "organization type"
+msgstr "тип организации"
+
+msgid "organizations"
+msgstr "организации"
+
+msgid "phone"
+msgstr "телефон"
+
+msgid "photo"
+msgstr "фотография"
+
+msgid "requires management approval"
+msgstr "требует согласования руководства"
+
+msgid "short name"
+msgstr "краткое название"
+
+msgid "sort order"
+msgstr "порядок сортировки"
+
+msgid "sponsor"
+msgstr "спонсор"
+
+msgid "sponsors"
+msgstr "спонсоры"
+
+msgid "updated"
+msgstr "обновлено"
+
+msgid "venue"
+msgstr "помещение"
+
+msgid "venues"
+msgstr "помещения"
+
+msgid "website"
+msgstr "веб-сайт"
+
+msgid "working end"
+msgstr "окончание работы"
+
+msgid "working start"
+msgstr "начало работы"
+
+msgid "Page %(current)s of %(total)s"
+msgstr "Страница %(current)s из %(total)s"
+
+msgid "Create %(name)s"
+msgstr "Создать: %(name)s"
+
+msgid "Delete “%(object)s”?"
+msgstr "Удалить «%(object)s»?"
+
+msgid "Location not specified"
+msgstr "Расположение не указано"
+
+msgid "No description provided."
+msgstr "Описание не указано."
+
+msgid "No notes provided."
+msgstr "Примечания не указаны."
+
+msgid "Active,Inactive"
+msgstr "Активно,Неактивно"
+
+msgid "Required,Not required"
+msgstr "Требуется,Не требуется"
+
+msgid "Allowed,Not allowed"
+msgstr "Разрешено,Не разрешено"
+
+msgid "Leadership Dashboard"
+msgstr "Панель руководства"
+
+msgid "Live operational overview"
+msgstr "Оперативная сводка в реальном времени"
+
+msgid "Open calendar"
+msgstr "Открыть календарь"
+
+msgid "Today's Events"
+msgstr "Мероприятия сегодня"
+
+msgid "In Progress"
+msgstr "Сейчас проходят"
+
+msgid "Available Venues"
+msgstr "Свободные помещения"
+
+msgid "Occupied Venues"
+msgstr "Занятые помещения"
+
+msgid "Today's Check-ins"
+msgstr "Регистрации сегодня"
+
+msgid "Live Venue Status"
+msgstr "Текущий статус помещений"
+
+msgid "Refreshes every 20 seconds"
+msgstr "Обновляется каждые 20 секунд"
+
+msgid "Available"
+msgstr "Свободно"
+
+msgid "Occupied"
+msgstr "Занято"
+
+msgid "Upcoming"
+msgstr "Скоро"
+
+msgid "Private Meeting"
+msgstr "Закрытая встреча"
+
+msgid "No event in progress"
+msgstr "Сейчас мероприятий нет"
+
+msgid "Today's Timeline"
+msgstr "Расписание на сегодня"
+
+msgid "No events today"
+msgstr "Сегодня мероприятий нет"
+
+msgid "Attendance Summary"
+msgstr "Сводка посещаемости"
+
+msgid "Expected"
+msgstr "Ожидается"
+
+msgid "Checked in"
+msgstr "Зарегистрировано"
+
+msgid "Emergency / High Priority"
+msgstr "Экстренные и приоритетные"
+
+msgid "No high-priority events"
+msgstr "Приоритетных мероприятий нет"
+
+msgid "Upcoming Events"
+msgstr "Предстоящие мероприятия"
+
+msgid "Next 7 days"
+msgstr "Следующие 7 дней"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Time"
+msgstr "Время"
+
+msgid "Event"
+msgstr "Мероприятие"
+
+msgid "Organizer"
+msgstr "Организатор"
+
+msgid "No upcoming events"
+msgstr "Предстоящих мероприятий нет"
+
+msgid "Live Venue Display"
+msgstr "Экран статуса помещений"
+
+msgid "Fullscreen"
+msgstr "На весь экран"
+
+msgid "Available now"
+msgstr "Сейчас свободно"
+
+msgid "Next"
+msgstr "Далее"
+
+msgid "No more events today"
+msgstr "Сегодня больше мероприятий нет"
+
+msgid "Today's Schedule"
+msgstr "Расписание на сегодня"
+
+msgid "%(minutes)s minutes remaining"
+msgstr "Осталось %(minutes)s мин."
+
+msgid "Starts in %(minutes)s minutes"
+msgstr "Начало через %(minutes)s мин."
+
+msgid "minutes remaining"
+msgstr "мин. осталось"
+
+msgid "Starts in"
+msgstr "Начало через"
+
+msgid "Free until %(time)s"
+msgstr "Свободно до %(time)s"
+
+msgid "Men keldim"
+msgstr "Я пришёл"
+
+msgid "Check in"
+msgstr "Регистрация"
+
+msgid "Я пришёл"
+msgstr "Я пришёл"
+
+msgid "Ro‘yxatdan o‘tdingiz"
+msgstr "Вы зарегистрированы"
+
+msgid "Ishtirokingiz qayd etildi."
+msgstr "Ваше присутствие отмечено."
+
+msgid "Siz avval ro‘yxatdan o‘tgansiz."
+msgstr "Вы уже зарегистрированы."
+
+msgid "Check-in hali ochilmagan."
+msgstr "Регистрация еще не открыта."
+
+msgid "Check-in yakunlangan."
+msgstr "Регистрация завершена."
+
+msgid "nafar ishtirokchi"
+msgstr "участников"
+
+msgid "Attendance Management"
+msgstr "Управление посещаемостью"
+
+msgid "Expected Attendees"
+msgstr "Ожидается участников"
+
+msgid "Checked In"
+msgstr "Прибыли"
+
+msgid "Attendance Rate"
+msgstr "Процент посещаемости"
+
+msgid "Anonymous"
+msgstr "Анонимно"
+
+msgid "Identified"
+msgstr "С данными"
+
+msgid "Staff Manual Check-in"
+msgstr "Ручная регистрация"
+
+msgid "Export CSV"
+msgstr "Экспорт в CSV"
+
+msgid "Leadership Dashboard"
+msgstr "Панель Руководства"
+
+msgid "Real-time executive overview of active events, venue occupancy & attendance statistics."
+msgstr "Оперативная сводка по мероприятиям, занятости залов и посещаемости."
+
+msgid "TV Wallboard Mode"
+msgstr "Режим Информационного Табло (TV)"
+
+msgid "Today's Events"
+msgstr "Мероприятий Сегодня"
+
+msgid "In Progress"
+msgstr "Проходят Сейчас"
+
+msgid "Available Venues"
+msgstr "Свободных Залов"
+
+msgid "Occupied / Upcoming"
+msgstr "Занято / Подготовка"
+
+msgid "Today's Check-ins"
+msgstr "Регистраций Сегодня"
+
+msgid "Live Venue Status"
+msgstr "Текущий Статус Залов"
+
+msgid "BO‘SH"
+msgstr "СВОБОДНО"
+
+msgid "BAND"
+msgstr "ЗАНЯТО"
+
+msgid "TAYYORLANMOQDA"
+msgstr "ПОДГОТОВКА"
+
+msgid "Tugashiga:"
+msgstr "До окончания:"
+
+msgid "Boshlanishiga:"
+msgstr "До начала:"
+
+msgid "daqiqa"
+msgstr "мин"
+
+msgid "Private Meeting"
+msgstr "Закрытое заседание"
+
+msgid "Occupied (Private Event)"
+msgstr "Занято (Служебное заседание)"
+
+msgid "Bugungi kun tartibi"
+msgstr "Повестка дня на сегодня"
+
+msgid "Yaqinlashib kelayotgan tadbirlar"
+msgstr "Предстоящие мероприятия"
+
+msgid "Fullscreen"
+msgstr "Полноэкранный режим"

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% if object %}{% trans "Edit Speaker" %}{% else %}{% trans "Add Speaker" %}{% endif %} · IEMS{% endblock %}
+
+{% block content %}
+<div class="form-container wide">
+  <div class="form-header">
+    <h1>{% if object %}{% trans "Edit Speaker" %}: {{ object.full_name }}{% else %}{% trans "Add New Speaker" %}{% endif %}</h1>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="app-form" data-testid="speaker-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label class="form-label">{% trans "Full Name" %}</label>
+      {{ form.full_name }}
+    </div>
+
+    <div class="grid-layout cols-2 gap-10">
+      <div class="form-group">
+        <label class="form-label">{% trans "Title / Position" %}</label>
+        {{ form.title }}
+      </div>
+      <div class="form-group">
+        <label class="form-label">{% trans "Organization" %}</label>
+        {{ form.organization }}
+      </div>
+    </div>
+
+    <div class="grid-layout cols-2 gap-10">
+      <div class="form-group">
+        <label class="form-label">{% trans "Country" %}</label>
+        {{ form.country }}
+      </div>
+      <div class="form-group">
+        <label class="form-label">{% trans "Email (Private - Internal Only)" %}</label>
+        {{ form.email }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">{% trans "Biography / Profile" %}</label>
+      {{ form.bio }}
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">{% trans "Speaker Photo" %}</label>
+      {{ form.photo }}
+    </div>
+
+    <div class="form-group">
+      <label style="font-weight: 600; cursor: pointer;">
+        {{ form.public_profile_enabled }}
+        {% trans "Enable Public Profile on Event Program Pages" %}
+      </label>
+    </div>
+
+    <div class="form-actions align-right">
+      <a class="secondary-button" href="{% url 'events:speaker-list' %}">{% trans "Cancel" %}</a>
+      <button class="primary-button" type="submit" data-testid="save-speaker-btn">{% trans "Save Speaker" %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{{ page_title }}</h1>
+    <p class="page-description">{% trans "Live real-time operational status foundation across university halls." %}</p>
+  </div>
+  <div class="page-actions">
+    <a class="secondary-link" href="{% url 'venues:list' %}">← {% trans "Venue Directory" %}</a>
+  </div>
+</div>
+
+<div class="venue-status-grid">
+  {% for status_item in venue_statuses %}
+    {% with v=status_item.venue %}
+      <div class="status-card {% if status_item.occupied_now %}is-occupied{% else %}is-available{% endif %}">
+        <div class="status-card-header">
+          <span class="venue-code-badge">{{ v.code }}</span>
+          <h3>{{ v.localized_name }}</h3>
+          <span class="live-indicator {% if status_item.occupied_now %}occupied{% else %}available{% endif %}">
+            {% if status_item.occupied_now %}🔴 {% trans "OCCUPIED" %}{% else %}🟢 {% trans "AVAILABLE" %}{% endif %}
+          </span>
+        </div>
+
+        <div class="status-card-body">
+          <p class="venue-meta"><strong>{% trans "Capacity" %}:</strong> {{ v.capacity }} | <strong>{% trans "Working Hours" %}:</strong> {{ v.working_start|time:"H:i" }} – {{ v.working_end|time:"H:i" }}</p>
+
+          {% if status_item.current_event %}
+            <div class="current-event-box">
+              <span class="box-label">{% trans "Current Event" %}:</span>
+              <strong>{{ status_item.current_event.title }}</strong>
+              <small class="block text-muted">{{ status_item.current_event.start_time|time:"H:i" }} – {{ status_item.current_event.end_time|time:"H:i" }}</small>
+            </div>
+          {% else %}
+            <div class="current-event-box free">
+              <span>{% trans "Currently free for bookings" %}</span>
+            </div>
+          {% endif %}
+
+          {% if status_item.next_event %}
+            <div class="next-event-box">
+              <span class="box-label">{% trans "Next Event" %}:</span>
+              <span>{{ status_item.next_event.title }}</span>
+              <small class="block text-muted">{{ status_item.next_event.start_time|time:"H:i" }} – {{ status_item.next_event.end_time|time:"H:i" }}</small>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endwith %}
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,791 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>{{ event.title }} · IEMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #07172f 0%, #0d254c 50%, #051326 100%);
+      --card-bg: rgba(13, 37, 76, 0.7);
+      --card-border: rgba(56, 189, 248, 0.15);
+      --primary-cyan: #38bdf8;
+      --electric-blue: #2563eb;
+      --accent-glow: #06b6d4;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --success-green: #10b981;
+      --warning-amber: #f59e0b;
+      --badge-bg: rgba(37, 99, 235, 0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 3rem;
+    }
+
+    .public-container {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+    }
+
+    /* Header Nav & Lang Switcher */
+    .public-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 1.5rem;
+    }
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .lang-switcher form { display: flex; gap: 0.25rem; }
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--electric-blue);
+      color: #fff;
+      border-color: var(--primary-cyan);
+    }
+
+    /* Hero Section */
+    .hero-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(56, 189, 248, 0.1);
+    }
+
+    .status-countdown-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .status-countdown-bar.upcoming { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .status-countdown-bar.ongoing { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); animation: pulse 2s infinite; }
+    .status-countdown-bar.completed { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .event-type-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-left: 0.5rem;
+    }
+
+    .event-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .event-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--card-border);
+    }
+    .meta-item { display: flex; align-items: center; gap: 0.75rem; }
+    .meta-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--primary-cyan);
+    }
+    .meta-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+    .meta-value { font-size: 0.95rem; font-weight: 700; color: #fff; }
+
+    /* Buttons & Actions */
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .btn-public {
+      flex: 1;
+      min-width: 200px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.25rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-primary-cyan {
+      background: linear-gradient(135deg, #06b6d4, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(6, 182, 212, 0.3);
+      border: none;
+    }
+    .btn-primary-cyan:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(6, 182, 212, 0.4);
+    }
+    .btn-outline-cyan {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--primary-cyan);
+      color: var(--primary-cyan);
+    }
+    .btn-outline-cyan:hover {
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    /* Content Cards */
+    .content-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* Agenda Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 1rem; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-left: 3px solid var(--primary-cyan);
+      border-radius: 0 12px 12px 0;
+    }
+    .time-slot { font-size: 0.85rem; font-weight: 700; color: var(--primary-cyan); }
+    .item-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+    .item-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .item-speaker-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.15);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    /* Speakers Grid */
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .speaker-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .speaker-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 0.75rem auto;
+      border: 2px solid var(--primary-cyan);
+      background: rgba(56, 189, 248, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .speaker-name { font-size: 1rem; font-weight: 800; color: #fff; }
+    .speaker-title { font-size: 0.8rem; color: var(--primary-cyan); font-weight: 600; }
+    .speaker-org { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* Partners / Sponsors */
+    .sponsor-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    .sponsor-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .public-footer {
+      text-align: center;
+      padding-top: 2rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .event-title { font-size: 1.4rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+
+    /* Phase 5 Attendance Card & Modal */
+    .attendance-card {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(37, 99, 235, 0.2));
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .attendance-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .attendance-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+    .btn-checkin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      max-width: 320px;
+      padding: 0.95rem 1.5rem;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%);
+      border: none;
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-checkin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(6, 182, 212, 0.5);
+    }
+    .btn-checkin:active { transform: translateY(0); }
+    .attendee-count-badge {
+      display: inline-block;
+      margin-top: 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+    .success-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .success-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    /* Modal Backdrop & Container */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(3, 11, 24, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-sheet {
+      background: #0d254c;
+      border: 1px solid var(--primary-cyan);
+      border-radius: 24px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+      transform: translateY(20px);
+      transition: transform 0.25s ease;
+    }
+    .modal-backdrop.active .modal-sheet {
+      transform: translateY(0);
+    }
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .modal-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--primary-cyan);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .btn-modal-submit {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #06b6d4, #2563eb);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-modal-cancel {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-weight: 600;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="public-container">
+    <!-- Navigation Header -->
+    <header class="public-nav">
+      <div class="brand-title">IEMS · Event Hub</div>
+      <div class="lang-switcher">
+        <form action="/i18n/setlang/" method="post">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ request.path }}">
+          <button type="submit" name="language" value="uz" class="lang-btn {% if LANGUAGE_CODE == 'uz' %}active{% endif %}">UZ</button>
+          <button type="submit" name="language" value="ru" class="lang-btn {% if LANGUAGE_CODE == 'ru' %}active{% endif %}">RU</button>
+          <button type="submit" name="language" value="en" class="lang-btn {% if LANGUAGE_CODE == 'en' %}active{% endif %}">EN</button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Main Hero Card -->
+    <main>
+      <div class="hero-card" data-testid="public-hero-card">
+        <div class="status-countdown-bar {{ countdown_info.state }}" data-testid="status-countdown-bar">
+          <span>●</span>
+          <span>{{ countdown_info.text }}</span>
+        </div>
+        <span class="event-type-badge" style="background: {{ event.event_type.color }}22; color: {{ event.event_type.color }}; border: 1px solid {{ event.event_type.color }}44;">
+          {{ event.event_type.localized_name }}
+        </span>
+
+        <h1 class="event-title" data-testid="public-event-title">{{ event.title }}</h1>
+
+        {% if event.description %}
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;" data-testid="public-event-description">{{ event.description }}</p>
+        {% endif %}
+
+        <div class="event-meta-grid">
+          <div class="meta-item">
+            <div class="meta-icon">📅</div>
+            <div>
+              <div class="meta-label">{% trans "Date & Time" %}</div>
+              <div class="meta-value">{{ event.planned_date|date:"d E Y" }} ({{ event.weekday_name }})</div>
+              <div style="font-size: 0.85rem; color: var(--primary-cyan); font-weight: 600;">{{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</div>
+            </div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-icon">📍</div>
+            <div>
+              <div class="meta-label">{% trans "Venue Location" %}</div>
+              <div class="meta-value">{{ event.venue.localized_name }}</div>
+              {% if event.venue.building %}<div style="font-size: 0.8rem; color: var(--text-muted);">{{ event.venue.building }}</div>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 5 Attendance Section -->
+      {% if event.checkin_enabled %}
+        <div class="attendance-card {% if user_checked_in %}success-card{% endif %}" id="attendance-section-card" data-testid="public-attendance-card">
+          {% if user_checked_in %}
+            <div class="success-icon">✓</div>
+            <h2 class="attendance-title" style="color: #34d399;" data-testid="already-checked-in-title">
+              {% trans "Ro‘yxatdan o‘tdingiz" %}
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">
+              {% trans "Ishtirokingiz qayd etildi." %}
+            </p>
+            <div class="attendee-count-badge" id="live-attendee-badge" data-testid="live-attendee-count">
+              <span id="live-attendee-count-num">{{ attendance_count }}</span> {% trans "nafar ishtirokchi" %}
+            </div>
+          {% else %}
+            {% if checkin_status.eligible %}
+              <h2 class="attendance-title">{% trans "Tadbirga keldingizmi?" %}</h2>
+              <button type="button" class="btn-checkin" id="open-checkin-modal-btn" data-testid="public-checkin-btn">
+                ✓ {% trans "MEN KELDIM" %}
+              </button>
+              <div>
+                <div class="attendee-count-badge" id="live-attendee-badge" data-testid="live-attendee-count">
+                  <span id="live-attendee-count-num">{{ attendance_count }}</span> {% trans "nafar ishtirokchi" %}
+                </div>
+              </div>
+            {% else %}
+              <h2 class="attendance-title">{% trans "Check-in Ma'lumoti" %}</h2>
+              <div style="font-size: 0.95rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem;" data-testid="checkin-status-message">
+                {{ checkin_status.reason }}
+              </div>
+              <div class="attendee-count-badge" id="live-attendee-badge" data-testid="live-attendee-count">
+                <span id="live-attendee-count-num">{{ attendance_count }}</span> {% trans "nafar ishtirokchi" %}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+
+        <!-- Optional Guest Information Modal -->
+        <div class="modal-backdrop" id="checkin-modal" data-testid="checkin-modal">
+          <div class="modal-sheet">
+            <h3 class="modal-title">{% trans "Tadbirga kelganingizni tasdiqlang" %}</h3>
+            <p class="modal-subtitle">{% trans "Ma'lumotlar ixtiyoriy. Anonim qatnashish ham mumkin." %}</p>
+
+            <form id="public-checkin-form">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="form-label" for="id_attendee_name">{% trans "F.I.Sh. / Full Name" %}</label>
+                <input type="text" id="id_attendee_name" name="attendee_name" class="form-control" placeholder="{% trans 'F.I.Sh. (ixtiyoriy)' %}" data-testid="modal-input-name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="id_attendee_organization">{% trans "Tashkilot / Organization" %}</label>
+                <input type="text" id="id_attendee_organization" name="attendee_organization" class="form-control" placeholder="{% trans 'Tashkilot nomi (ixtiyoriy)' %}" data-testid="modal-input-org">
+              </div>
+
+              <div id="modal-error-alert" style="display:none; margin-top: 0.5rem; padding: 0.5rem; background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; border-radius: 8px; color: #fca5a5; font-size: 0.85rem;" data-testid="modal-error-alert"></div>
+
+              <div class="modal-actions">
+                <button type="button" class="btn-modal-cancel" id="close-modal-btn" data-testid="modal-cancel-btn">{% trans "Bekor qilish" %}</button>
+                <button type="submit" class="btn-modal-submit" id="submit-checkin-btn" data-testid="modal-submit-btn">{% trans "Tasdiqlash" %}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Action Buttons (Zoom & Registration) -->
+      {% if event.zoom_url or event.registration_url %}
+        <div class="action-row">
+          {% if event.zoom_url %}
+            <a class="btn-public btn-primary-cyan" href="{{ event.zoom_url }}" target="_blank" rel="noopener" data-testid="public-zoom-btn">
+              🎥 {% trans "Join Live Zoom Meeting" %}
+            </a>
+          {% endif %}
+          {% if event.registration_url %}
+            <a class="btn-public btn-outline-cyan" href="{{ event.registration_url }}" target="_blank" rel="noopener" data-testid="public-register-btn">
+              📝 {% trans "Register for Event" %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- PDF Program Section -->
+      {% if has_pdf %}
+        <div class="content-card" data-testid="pdf-program-card">
+          <h2 class="section-title">📄 {% trans "Official Event Program (PDF)" %}</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+            {% trans "View or download the official printable PDF schedule for this conference." %}
+          </p>
+          <div class="action-row" style="margin-bottom: 0;">
+            <a class="btn-public btn-primary-cyan" href="{{ pdf_url }}" target="_blank" rel="noopener" data-testid="open-pdf-btn">
+              👁️ {% trans "Open PDF Program" %}
+            </a>
+            <a class="btn-public btn-outline-cyan" href="{{ pdf_url }}" download data-testid="download-pdf-btn">
+              ⬇️ {% trans "Download PDF" %}
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Manual Agenda Program Section -->
+      {% if program_source == 'manual' and agenda_items %}
+        <div class="content-card" data-testid="manual-agenda-card">
+          <h2 class="section-title">⏱️ {% trans "Event Agenda & Schedule" %}</h2>
+          {% if event.program_intro %}
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">{{ event.program_intro }}</p>
+          {% endif %}
+
+          <div class="timeline" data-testid="agenda-timeline">
+            {% for item in agenda_items %}
+              <div class="timeline-item" data-testid="agenda-item-{{ item.pk }}">
+                <div class="time-slot">{{ item.start_time|time:"H:i" }} – {{ item.end_time|time:"H:i" }}</div>
+                <div>
+                  <div class="item-title">{{ item.title }}</div>
+                  {% if item.description %}<div class="item-desc">{{ item.description }}</div>{% endif %}
+                  {% if item.speaker_display_name %}
+                    <span class="item-speaker-pill">🗣️ {{ item.speaker_display_name }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          {% if event.program_notes %}
+            <div style="margin-top: 1.25rem; padding: 0.75rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; font-size: 0.85rem; color: var(--text-muted);">
+              📌 {{ event.program_notes }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Speakers Section -->
+      {% if speakers %}
+        <div class="content-card" data-testid="speakers-card">
+          <h2 class="section-title">🎙️ {% trans "Keynote Speakers & Experts" %}</h2>
+          <div class="speakers-grid">
+            {% for speaker in speakers %}
+              <div class="speaker-card" data-testid="speaker-card-{{ speaker.pk }}">
+                {% if speaker.photo %}
+                  <img class="speaker-avatar" src="{{ speaker.photo.url }}" alt="{{ speaker.full_name }}">
+                {% else %}
+                  <div class="speaker-avatar">{{ speaker.full_name|slice:":1" }}</div>
+                {% endif %}
+                <div class="speaker-name">{{ speaker.full_name }}</div>
+                {% if speaker.title %}<div class="speaker-title">{{ speaker.title }}</div>{% endif %}
+                {% if speaker.organization %}<div class="speaker-org">{{ speaker.organization }} {% if speaker.country %}({{ speaker.country }}){% endif %}</div>{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Organizing Organizations & Sponsors -->
+      {% if event.organizing_organizations.exists or event.sponsors.exists %}
+        <div class="content-card">
+          {% if event.organizing_organizations.exists %}
+            <h2 class="section-title" style="font-size: 1rem;">🏢 {% trans "Organized By" %}</h2>
+            <div class="sponsor-strip" style="margin-bottom: 1.25rem;">
+              {% for org in event.organizing_organizations.all %}
+                <div class="sponsor-item">{{ org.localized_name }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if event.sponsors.exists %}
+            <h2 class="section-title" style="font-size: 1rem;">🤝 {% trans "Sponsors & Partners" %}</h2>
+            <div class="sponsor-strip">
+              {% for sponsor in event.sponsors.all %}
+                <div class="sponsor-item">{{ sponsor.localized_name }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </main>
+
+    <footer class="public-footer">
+      <p>© IEMS · Integrated Event Management System</p>
+      <p style="font-size: 0.75rem; margin-top: 0.25rem;">Official Digital Program Page</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const publicToken = "{{ event.public_token }}";
+      const openBtn = document.getElementById('open-checkin-modal-btn');
+      const closeBtn = document.getElementById('close-modal-btn');
+      const modal = document.getElementById('checkin-modal');
+      const form = document.getElementById('public-checkin-form');
+      const errorAlert = document.getElementById('modal-error-alert');
+      const card = document.getElementById('attendance-section-card');
+      const countNumEl = document.getElementById('live-attendee-count-num');
+
+      if (openBtn) {
+        openBtn.addEventListener('click', function() {
+          if (modal) modal.classList.add('active');
+        });
+      }
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          if (modal) modal.classList.remove('active');
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const submitBtn = document.getElementById('submit-checkin-btn');
+          if (submitBtn) submitBtn.disabled = true;
+
+          const formData = new FormData(form);
+          fetch(`/event/${publicToken}/checkin/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (submitBtn) submitBtn.disabled = false;
+            if (data.success || data.already_checked_in) {
+              if (modal) modal.classList.remove('active');
+              if (card) {
+                card.classList.add('success-card');
+                card.innerHTML = `
+                  <div class="success-icon">✓</div>
+                  <h2 class="attendance-title" style="color: #34d399;" data-testid="already-checked-in-title">${data.already_checked_in ? 'Siz avval ro‘yxatdan o‘tgansiz.' : 'Ro‘yxatdan o‘tdingiz'}</h2>
+                  <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">${data.message}</p>
+                  <div class="attendee-count-badge" id="live-attendee-badge" data-testid="live-attendee-count">
+                    <span id="live-attendee-count-num">${data.count}</span> nafar ishtirokchi
+                  </div>
+                `;
+              }
+            } else {
+              if (errorAlert) {
+                errorAlert.style.display = 'block';
+                errorAlert.textContent = data.message || 'Check-in bajarilmadi.';
+              }
+            }
+          })
+          .catch(err => {
+            if (submitBtn) submitBtn.disabled = false;
+            if (errorAlert) {
+              errorAlert.style.display = 'block';
+              errorAlert.textContent = 'Tarmoq xatosi yuz berdi.';
+            }
+          });
+        });
+      }
+
+      // Live Count Polling (~20 seconds)
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion && publicToken) {
+        setInterval(function() {
+          fetch(`/api/v1/public/events/${publicToken}/attendance-count/`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.success && countNumEl) {
+                countNumEl.textContent = data.count;
+              }
+            })
+            .catch(() => {});
+        }, 20000);
+      }
+    });
+  </script>
+</body>
+</html>

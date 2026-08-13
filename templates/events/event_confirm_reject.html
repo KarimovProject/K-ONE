@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Reject Event" %} · IEMS{% endblock %}
+{% block content %}
+<div class="confirm-container">
+  <div class="confirm-card">
+    <div class="confirm-icon danger">❌</div>
+    <h1>{% trans "Reject Event" %}</h1>
+    <p class="confirm-text">
+      {% blocktrans with title=event.title %}Provide a mandatory rationale for rejecting <strong>{{ title }}</strong>.{% endblocktrans %}
+    </p>
+
+    <form method="post" class="app-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_reason">{% trans "Rejection Rationale (Mandatory)" %}</label>
+        {{ form.reason }}
+        {% if form.reason.errors %}
+          <div class="field-error">{{ form.reason.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-actions align-right">
+        <a class="secondary-button" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
+        <button class="danger-button" type="submit" data-testid="confirm-reject-btn">{% trans "Confirm Rejection" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

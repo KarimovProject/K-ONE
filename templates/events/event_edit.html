@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Edit Event" %} · {{ event.title }} · IEMS{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{% trans "Edit Event" %}</h1>
+    <p class="page-description">{% trans "Update event parameters, venue reservation, or schedule." %}</p>
+  </div>
+  <div class="page-actions">
+    <a class="secondary-link" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
+  </div>
+</div>
+
+<form class="data-form" method="post" novalidate>
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+    <div class="form-alert" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
+  <div class="form-grid">
+    {% for field in form %}
+      <div class="form-field{% if field.errors %} has-error{% endif %}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true">*</span>{% endif %}</label>
+        {{ field }}
+        {% if field.help_text %}<small id="{{ field.id_for_label }}_helptext">{{ field.help_text }}</small>{% endif %}
+        {% if field.errors %}<div class="field-error" role="alert">{{ field.errors }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  <div class="form-actions">
+    <a class="secondary-link" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
+    <button class="primary-button compact" type="submit">{% trans "Save Changes" %}</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+{% include "master_data/page_header.html" %}
+<section class="data-surface">
+  <div class="data-toolbar"><span><strong>{{ total_count }}</strong> {% trans "records" %}</span>{% include "master_data/filters.html" %}</div>
+  {% if venues %}
+  <div class="table-scroll"><table class="data-table">
+    <thead><tr><th>{% trans "Venue" %}</th><th>{% trans "Location" %}</th><th>{% trans "Capacity" %}</th><th>{% trans "Working hours" %}</th><th>{% trans "Status" %}</th><th><span class="sr-only">{% trans "Actions" %}</span></th></tr></thead>
+    <tbody>{% for venue in venues %}<tr>
+      <td><a class="record-title" href="{% url 'venues:detail' venue.pk %}"><span class="record-code">{{ venue.code }}</span><span><strong>{{ venue.localized_name }}</strong><small>{{ venue.name_en }}</small></span></a></td>
+      <td>{{ venue.location|default:"—" }}</td><td>{{ venue.capacity }}</td><td>{{ venue.working_start|time:"H:i" }}–{{ venue.working_end|time:"H:i" }}</td>
+      <td><span class="status-badge{% if not venue.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{% if venue.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</span></td>
+      <td class="table-actions"><a href="{% url 'venues:detail' venue.pk %}">{% trans "View" %}</a>{% if can_manage %}<a href="{% url 'venues:edit' venue.pk %}">{% trans "Edit" %}</a>{% endif %}</td>
+    </tr>{% endfor %}</tbody>
+  </table></div>
+  {% include "master_data/pagination.html" %}
+  {% else %}<div class="empty-list"><span aria-hidden="true">ICH</span><h2>{% trans "No venues found" %}</h2><p>{% trans "Adjust the filters or create the first venue record." %}</p></div>{% endif %}
+</section>
+{% endblock %}

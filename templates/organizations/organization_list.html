@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+{% include "master_data/page_header.html" %}
+<section class="data-surface">
+  <div class="data-toolbar"><span><strong>{{ total_count }}</strong> {% trans "records" %}</span>{% include "master_data/filters.html" %}</div>
+  {% if organizations %}<div class="table-scroll"><table class="data-table">
+    <thead><tr><th>{% trans "Organization" %}</th><th>{% trans "Type" %}</th><th>{% trans "Location" %}</th><th>{% trans "Contact" %}</th><th>{% trans "Status" %}</th><th><span class="sr-only">{% trans "Actions" %}</span></th></tr></thead>
+    <tbody>{% for organization in organizations %}<tr>
+      <td><a class="record-title" href="{% url 'organizations:detail' organization.pk %}">{% if organization.logo %}<img class="record-logo" src="{{ organization.logo.url }}" alt="">{% else %}<span class="record-logo fallback">{{ organization.name|slice:':1'|upper }}</span>{% endif %}<span><strong>{{ organization.name }}</strong><small>{{ organization.short_name|default:"—" }}</small></span></a></td>
+      <td><span class="soft-badge">{{ organization.get_organization_type_display }}</span></td><td>{{ organization.city|default:"—" }}{% if organization.country %}, {{ organization.country }}{% endif %}</td><td>{{ organization.contact_person|default:organization.email|default:"—" }}</td>
+      <td><span class="status-badge{% if not organization.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{{ organization.is_active|yesno:_('Active,Inactive') }}</span></td>
+      <td class="table-actions"><a href="{% url 'organizations:detail' organization.pk %}">{% trans "View" %}</a>{% if can_manage %}<a href="{% url 'organizations:edit' organization.pk %}">{% trans "Edit" %}</a>{% endif %}</td>
+    </tr>{% endfor %}</tbody></table></div>{% include "master_data/pagination.html" %}
+  {% else %}<div class="empty-list"><span aria-hidden="true">ORG</span><h2>{% trans "No organizations found" %}</h2><p>{% trans "Adjust the filters or create the first organization record." %}</p></div>{% endif %}
+</section>
+{% endblock %}

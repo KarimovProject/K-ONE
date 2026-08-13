@@ -18,6 +18,8 @@ class Capability(StrEnum):
     VIEW_LEADERSHIP_DASHBOARD = "view_leadership_dashboard"
     MANAGE_CONTENT = "manage_content"
     MANAGE_ATTENDANCE = "manage_attendance"
+    VIEW_MASTER_DATA = "view_master_data"
+    MANAGE_MASTER_DATA = "manage_master_data"
 
 
 ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
@@ -27,15 +29,29 @@ ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
             Capability.MANAGE_EVENTS,
             Capability.CREATE_OWN_EVENTS,
             Capability.VIEW_LEADERSHIP_DASHBOARD,
+            Capability.VIEW_MASTER_DATA,
+            Capability.MANAGE_MASTER_DATA,
         }
     ),
-    User.Role.RESPONSIBLE_EMPLOYEE: frozenset({Capability.CREATE_OWN_EVENTS}),
-    User.Role.MANAGEMENT_RESPONSIBLE: frozenset(
-        {Capability.APPROVE_EVENTS, Capability.VIEW_LEADERSHIP_DASHBOARD}
+    User.Role.RESPONSIBLE_EMPLOYEE: frozenset(
+        {Capability.CREATE_OWN_EVENTS, Capability.VIEW_MASTER_DATA}
     ),
-    User.Role.LEADERSHIP_VIEWER: frozenset({Capability.VIEW_LEADERSHIP_DASHBOARD}),
-    User.Role.CONTENT_MANAGER: frozenset({Capability.MANAGE_CONTENT}),
-    User.Role.RECEPTION_OPERATOR: frozenset({Capability.MANAGE_ATTENDANCE}),
+    User.Role.MANAGEMENT_RESPONSIBLE: frozenset(
+        {
+            Capability.APPROVE_EVENTS,
+            Capability.VIEW_LEADERSHIP_DASHBOARD,
+            Capability.VIEW_MASTER_DATA,
+        }
+    ),
+    User.Role.LEADERSHIP_VIEWER: frozenset(
+        {Capability.VIEW_LEADERSHIP_DASHBOARD, Capability.VIEW_MASTER_DATA}
+    ),
+    User.Role.CONTENT_MANAGER: frozenset(
+        {Capability.MANAGE_CONTENT, Capability.VIEW_MASTER_DATA}
+    ),
+    User.Role.RECEPTION_OPERATOR: frozenset(
+        {Capability.MANAGE_ATTENDANCE, Capability.VIEW_MASTER_DATA}
+    ),
 }
 
 

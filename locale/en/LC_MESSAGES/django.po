@@ -5,3 +5,113 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Men keldim"
+msgstr "Check in"
+
+msgid "Check in"
+msgstr "Check in"
+
+msgid "Я пришёл"
+msgstr "Check in"
+
+msgid "Ro‘yxatdan o‘tdingiz"
+msgstr "Successfully checked in"
+
+msgid "Ishtirokingiz qayd etildi."
+msgstr "Your attendance has been recorded."
+
+msgid "Siz avval ro‘yxatdan o‘tgansiz."
+msgstr "You are already checked in."
+
+msgid "Check-in hali ochilmagan."
+msgstr "Check-in is not open yet."
+
+msgid "Check-in yakunlangan."
+msgstr "Check-in is closed."
+
+msgid "nafar ishtirokchi"
+msgstr "attendees"
+
+msgid "Attendance Management"
+msgstr "Attendance Management"
+
+msgid "Expected Attendees"
+msgstr "Expected Attendees"
+
+msgid "Checked In"
+msgstr "Checked In"
+
+msgid "Attendance Rate"
+msgstr "Attendance Rate"
+
+msgid "Anonymous"
+msgstr "Anonymous"
+
+msgid "Identified"
+msgstr "Identified"
+
+msgid "Staff Manual Check-in"
+msgstr "Staff Manual Check-in"
+
+msgid "Export CSV"
+msgstr "Export CSV"
+
+msgid "Leadership Dashboard"
+msgstr "Leadership Dashboard"
+
+msgid "Real-time executive overview of active events, venue occupancy & attendance statistics."
+msgstr "Real-time executive overview of active events, venue occupancy & attendance statistics."
+
+msgid "TV Wallboard Mode"
+msgstr "TV Wallboard Mode"
+
+msgid "Today's Events"
+msgstr "Today's Events"
+
+msgid "In Progress"
+msgstr "In Progress"
+
+msgid "Available Venues"
+msgstr "Available Venues"
+
+msgid "Occupied / Upcoming"
+msgstr "Occupied / Upcoming"
+
+msgid "Today's Check-ins"
+msgstr "Today's Check-ins"
+
+msgid "Live Venue Status"
+msgstr "Live Venue Status"
+
+msgid "BO‘SH"
+msgstr "AVAILABLE"
+
+msgid "BAND"
+msgstr "OCCUPIED"
+
+msgid "TAYYORLANMOQDA"
+msgstr "UPCOMING"
+
+msgid "Tugashiga:"
+msgstr "Time remaining:"
+
+msgid "Boshlanishiga:"
+msgstr "Starts in:"
+
+msgid "daqiqa"
+msgstr "min"
+
+msgid "Private Meeting"
+msgstr "Private Meeting"
+
+msgid "Occupied (Private Event)"
+msgstr "Occupied (Private Event)"
+
+msgid "Bugungi kun tartibi"
+msgstr "Today's Agenda"
+
+msgid "Yaqinlashib kelayotgan tadbirlar"
+msgstr "Upcoming Events"
+
+msgid "Fullscreen"
+msgstr "Fullscreen"

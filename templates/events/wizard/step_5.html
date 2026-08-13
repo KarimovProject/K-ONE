@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="wizard-header">
+  <div class="wizard-progress">
+    <div class="wizard-step is-complete"><span class="step-num">1</span><span>{% trans "Basic Info" %}</span></div>
+    <div class="wizard-step is-complete"><span class="step-num">2</span><span>{% trans "Date & Venue" %}</span></div>
+    <div class="wizard-step is-complete"><span class="step-num">3</span><span>{% trans "People" %}</span></div>
+    <div class="wizard-step is-complete"><span class="step-num">4</span><span>{% trans "Partners" %}</span></div>
+    <div class="wizard-step is-active"><span class="step-num">5</span><span>{% trans "Review" %}</span></div>
+  </div>
+</div>
+
+<form class="data-form wizard-form" method="post" action="{% url 'events:wizard' %}">
+  {% csrf_token %}
+  <input type="hidden" name="current_step" value="5">
+
+  <h2>{% trans "Step 5: Online Links & Final Review" %}</h2>
+  <p class="form-help">{% trans "Provide remote meeting URLs and review event schedule before finalizing." %}</p>
+
+  {% if form.non_field_errors %}
+    <div class="form-alert" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <div class="form-grid">
+    {% for field in form %}
+      <div class="form-field{% if field.errors %} has-error{% endif %}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true">*</span>{% endif %}</label>
+        {{ field }}
+        {% if field.help_text %}<small id="{{ field.id_for_label }}_helptext">{{ field.help_text }}</small>{% endif %}
+        {% if field.errors %}<div class="field-error" role="alert">{{ field.errors }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="review-summary-card">
+    <h3>{% trans "Event Summary Review" %}</h3>
+    <div class="summary-grid">
+      <div><strong>{% trans "Title" %}:</strong> {{ summary_data.title|default:"—" }}</div>
+      <div><strong>{% trans "Event Type" %}:</strong> {{ summary_data.event_type.localized_name|default:"—" }}</div>
+      <div><strong>{% trans "Planned Date" %}:</strong> {{ summary_data.planned_date|default:"—" }}</div>
+      <div><strong>{% trans "Time" %}:</strong> {{ summary_data.start_time|default:"—" }} – {{ summary_data.end_time|default:"—" }}</div>
+      <div><strong>{% trans "Venue" %}:</strong> {{ summary_data.venue.localized_name|default:"—" }}</div>
+      <div><strong>{% trans "Attendees" %}:</strong> {{ summary_data.expected_attendees|default:"1" }}</div>
+      <div><strong>{% trans "Responsible" %}:</strong> {{ summary_data.responsible_employee.get_full_name|default:summary_data.responsible_employee.username|default:"—" }}</div>
+      <div><strong>{% trans "Management" %}:</strong> {{ summary_data.management_responsible.get_full_name|default:summary_data.management_responsible.username|default:"—" }}</div>
+    </div>
+  </div>
+
+  {% if availability_result %}
+    <div class="availability-card" aria-live="polite">
+      <div class="availability-indicator {{ availability_result.status_label|lower }}">
+        <span class="status-icon">
+          {% if availability_result.is_available %}✅{% else %}⚠️{% endif %}
+        </span>
+        <div>
+          <strong>{% trans "Conflict Status" %}: {{ availability_result.status_label }}</strong>
+          <p>{{ availability_result.message }}</p>
+        </div>
+      </div>
+      {% if availability_result.capacity_warning %}
+        <div class="capacity-warning-box">
+          ⚠️ {{ availability_result.capacity_warning }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="form-actions wizard-actions">
+    <button class="secondary-button compact" type="submit" name="action" value="back">← {% trans "Back" %}</button>
+    <button class="secondary-button compact" type="submit" name="action" value="save_draft">💾 {% trans "Save as Draft" %}</button>
+    <button class="primary-button compact" type="submit" name="action" value="save_planned">📌 {% trans "Save as Planned" %}</button>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Attendance Management" %} · {{ event.title }} · IEMS{% endblock %}
+
+{% block content %}
+<style>
+  .attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .kpi-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+  .kpi-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+  }
+  .kpi-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .kpi-sub {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+  }
+  .config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .panel-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .panel-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .live-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+  .filter-bar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .search-input {
+    padding: 0.5rem 0.85rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    min-width: 240px;
+  }
+  .select-input {
+    padding: 0.5rem 0.85rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+  .method-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .method-badge.public_qr { background: #e0f2fe; color: #0369a1; }
+  .method-badge.staff_manual { background: #fef3c7; color: #b45309; }
+</style>
+
+<div class="attendance-header">
+  <div>
+    <a class="secondary-link" href="{% url 'events:detail' pk=event.pk %}">← {% trans "Back to Event Details" %}</a>
+    <h1 class="detail-title" style="margin-top: 0.35rem;" data-testid="attendance-page-title">
+      {% trans "Attendance Management" %}: {{ event.title }}
+    </h1>
+  </div>
+  <div>
+    <a class="primary-button compact" href="{% url 'events:attendance-export' pk=event.pk %}" data-testid="export-csv-btn">
+      📥 {% trans "Export CSV" %}
+    </a>
+  </div>
+</div>
+
+<!-- Summary KPI Cards -->
+<div class="kpi-grid" data-testid="kpi-summary-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">{% trans "Expected Attendees" %}</div>
+    <div class="kpi-value" data-testid="kpi-expected">{{ stats.expected_attendees }}</div>
+    <div class="kpi-sub">{% trans "Target capacity" %}</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-label">{% trans "Checked In" %}</div>
+    <div class="kpi-value" style="color: #2563eb;" id="kpi-total-val" data-testid="kpi-checked-in">{{ stats.total_checked_in }}</div>
+    <div class="kpi-sub"><span class="live-dot"></span> {% trans "Live count" %}</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-label">{% trans "Attendance Rate" %}</div>
+    <div class="kpi-value" style="color: #059669;" id="kpi-rate-val" data-testid="kpi-rate">{{ stats.attendance_rate }}%</div>
+    <div class="kpi-sub">{% trans "Of expected attendees" %}</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-label">{% trans "Anonymous" %}</div>
+    <div class="kpi-value" style="color: #475569;" id="kpi-anon-val" data-testid="kpi-anonymous">{{ stats.anonymous_count }}</div>
+    <div class="kpi-sub">{% trans "Quick QR check-in" %}</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-label">{% trans "Identified" %}</div>
+    <div class="kpi-value" style="color: #7c3aed;" id="kpi-ident-val" data-testid="kpi-identified">{{ stats.identified_count }}</div>
+    <div class="kpi-sub">{% trans "Name or org provided" %}</div>
+  </div>
+</div>
+
+{% if can_manage %}
+  <div class="config-grid">
+    <!-- Check-in Window Configuration -->
+    <div class="panel-card" data-testid="config-panel">
+      <h2 class="panel-title">⚙️ {% trans "Event Check-in Configuration" %}</h2>
+      <form method="post" action="{% url 'events:attendance' pk=event.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="update_config">
+
+        <div style="margin-bottom: 1rem;">
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; cursor: pointer;">
+            <input type="checkbox" name="checkin_enabled" {% if event.checkin_enabled %}checked{% endif %} data-testid="checkin-enabled-checkbox">
+            <span>{% trans "Enable Public QR Check-in for this event" %}</span>
+          </label>
+          <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.25rem;">
+            {% trans "When enabled, guests scanning the QR code can record attendance on the public page." %}
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label class="form-label">{% trans "Check-in Opens At" %}</label>
+            {{ config_form.checkin_opens_at }}
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.2rem;">
+              {% trans "Default: 60m before event start" %}
+            </div>
+          </div>
+          <div>
+            <label class="form-label">{% trans "Check-in Closes At" %}</label>
+            {{ config_form.checkin_closes_at }}
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.2rem;">
+              {% trans "Default: event end time" %}
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="primary-button compact" data-testid="save-config-btn">{% trans "Save Configuration" %}</button>
+      </form>
+    </div>
+
+    <!-- Staff Manual Check-in Form -->
+    <div class="panel-card" data-testid="manual-checkin-panel">
+      <h2 class="panel-title">✍️ {% trans "Staff Manual Check-in" %}</h2>
+      <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+        {% trans "Manually record guest attendance for VIPs or guests unable to scan QR code." %}
+      </p>
+
+      <form method="post" action="{% url 'events:attendance' pk=event.pk %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="manual_checkin">
+
+        <div style="margin-bottom: 0.75rem;">
+          <label class="form-label">{% trans "Full Name / F.I.Sh." %} *</label>
+          {{ manual_form.attendee_name }}
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label class="form-label">{% trans "Organization / Tashkilot" %}</label>
+          {{ manual_form.attendee_organization }}
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label class="form-label">{% trans "Role / Title" %}</label>
+          {{ manual_form.attendee_role }}
+        </div>
+
+        <button type="submit" class="success-button compact" data-testid="manual-checkin-submit-btn">
+          ✓ {% trans "Check In Attendee" %}
+        </button>
+      </form>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Attendee Table Card -->
+<div class="panel-card" data-testid="attendee-table-card">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+    <h2 class="panel-title" style="margin-bottom: 0;">📋 {% trans "Attendee Directory" %}</h2>
+
+    <form method="get" class="filter-bar" style="margin-bottom: 0;">
+      <input type="text" name="q" value="{{ search_query }}" class="search-input" placeholder="{% trans 'Search by name or org...' %}" data-testid="search-input">
+      <select name="method" class="select-input" onchange="this.form.submit()" data-testid="method-filter-select">
+        <option value="">{% trans "All Methods" %}</option>
+        {% for code, label in method_choices %}
+          <option value="{{ code }}" {% if method_filter == code %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      {% if search_query or method_filter %}
+        <a href="{% url 'events:attendance' pk=event.pk %}" class="secondary-link" style="align-self: center;">{% trans "Reset" %}</a>
+      {% endif %}
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table" data-testid="attendees-table">
+      <thead>
+        <tr>
+          <th>{% trans "Time" %}</th>
+          <th>{% trans "Full Name" %}</th>
+          <th>{% trans "Organization" %}</th>
+          <th>{% trans "Check-in Method" %}</th>
+        </tr>
+      </thead>
+      <tbody id="attendees-tbody">
+        {% for item in attendances %}
+          <tr data-testid="attendee-row-{{ item.pk }}">
+            <td style="font-weight: 600; font-size: 0.85rem;">{{ item.checked_in_at|date:"H:i:s (d.m.Y)" }}</td>
+            <td>
+              {% if item.attendee_name %}
+                <strong>{{ item.attendee_name }}</strong>
+                {% if item.attendee_role %}<div style="font-size: 0.8rem; color: #64748b;">{{ item.attendee_role }}</div>{% endif %}
+              {% else %}
+                <em style="color: #94a3b8;">{% trans "Anonymous Guest" %}</em>
+              {% endif %}
+            </td>
+            <td>{{ item.attendee_organization|default:"—" }}</td>
+            <td>
+              <span class="method-badge {{ item.checkin_method }}">{{ item.get_checkin_method_display }}</span>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" style="text-align: center; color: #64748b; padding: 2rem;">
+              {% trans "No attendance records recorded yet." %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if attendances.has_other_pages %}
+    <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 0.5rem;">
+      {% if attendances.has_previous %}
+        <a href="?page={{ attendances.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if method_filter %}&method={{ method_filter }}{% endif %}" class="secondary-link">« {% trans "Previous" %}</a>
+      {% endif %}
+      <span style="font-size: 0.9rem; color: #64748b; align-self: center;">{% trans "Page" %} {{ attendances.number }} / {{ attendances.paginator.num_pages }}</span>
+      {% if attendances.has_next %}
+        <a href="?page={{ attendances.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if method_filter %}&method={{ method_filter }}{% endif %}" class="secondary-link">{% trans "Next" %} »</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const eventId = "{{ event.pk }}";
+    const totalEl = document.getElementById('kpi-total-val');
+    const rateEl = document.getElementById('kpi-rate-val');
+    const anonEl = document.getElementById('kpi-anon-val');
+    const identEl = document.getElementById('kpi-ident-val');
+
+    // Poll live stats every 10 seconds
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion && eventId) {
+      setInterval(function() {
+        fetch(`/api/v1/events/${eventId}/attendance/stats/`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.stats) {
+              const s = data.stats;
+              if (totalEl) totalEl.textContent = s.total_checked_in;
+              if (rateEl) rateEl.textContent = s.attendance_rate + '%';
+              if (anonEl) anonEl.textContent = s.anonymous_count;
+              if (identEl) identEl.textContent = s.identified_count;
+            }
+          })
+          .catch(() => {});
+      }, 10000);
+    }
+  });
+</script>
+{% endblock %}

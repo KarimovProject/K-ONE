@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Speakers Directory" %} · IEMS{% endblock %}
+
+{% block content %}
+<div class="page-header flex-between">
+  <div>
+    <h1 class="page-title">{% trans "Speakers Directory" %}</h1>
+    <p class="page-subtitle">{% trans "Manage keynote speakers, presenters, and experts." %}</p>
+  </div>
+  <div>
+    <a class="primary-button" href="{% url 'events:speaker-create' %}" data-testid="add-speaker-btn">➕ {% trans "Add New Speaker" %}</a>
+  </div>
+</div>
+
+<div class="data-table-container">
+  {% if speakers %}
+    <table class="data-table" data-testid="speakers-table">
+      <thead>
+        <tr>
+          <th>{% trans "Full Name" %}</th>
+          <th>{% trans "Title / Position" %}</th>
+          <th>{% trans "Organization" %}</th>
+          <th>{% trans "Country" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>{% trans "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for speaker in speakers %}
+          <tr data-testid="speaker-row-{{ speaker.pk }}">
+            <td style="font-weight: bold;">{{ speaker.full_name }}</td>
+            <td>{{ speaker.title|default:"—" }}</td>
+            <td>{{ speaker.organization|default:"—" }}</td>
+            <td>{{ speaker.country|default:"—" }}</td>
+            <td>
+              {% if speaker.public_profile_enabled %}
+                <span class="status-badge approved">Public</span>
+              {% else %}
+                <span class="status-badge draft">Hidden</span>
+              {% endif %}
+            </td>
+            <td>
+              <a class="secondary-button compact" href="{% url 'events:speaker-edit' pk=speaker.pk %}" data-testid="edit-speaker-btn-{{ speaker.pk }}">✏️ Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="app-message info">{% trans "No speakers found in directory." %}</div>
+  {% endif %}
+</div>
+{% endblock %}

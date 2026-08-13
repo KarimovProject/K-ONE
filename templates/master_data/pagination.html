@@ -1,0 +1,10 @@
+{% load i18n %}
+{% if is_paginated %}
+<nav class="pagination" aria-label="{% trans 'Pagination' %}">
+  <span>{% blocktrans with current=page_obj.number total=page_obj.paginator.num_pages %}Page {{ current }} of {{ total }}{% endblocktrans %}</span>
+  <div>
+    {% if page_obj.has_previous %}<a href="?q={{ search_query|urlencode }}&status={{ status_filter }}&type={{ type_filter }}&page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>{% endif %}
+    {% if page_obj.has_next %}<a href="?q={{ search_query|urlencode }}&status={{ status_filter }}&type={{ type_filter }}&page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>{% endif %}
+  </div>
+</nav>
+{% endif %}

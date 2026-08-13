@@ -5,36 +5,49 @@
     <span class="brand-copy"><strong>IEMS</strong><small>International Events</small></span>
   </div>
   <nav class="nav-list">
-    <a class="nav-item is-active" href="{% url 'dashboard' %}" aria-current="page">
-      <span class="nav-icon" aria-hidden="true">01</span>
-      <span>{% trans "Dashboard" %}</span>
+    <a class="nav-item{% if nav_key == 'dashboard' %} is-active{% endif %}" href="{% url 'dashboard' %}"{% if nav_key == 'dashboard' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">01</span><span>{% trans "Dashboard" %}</span>
     </a>
-    <span class="nav-section">{% trans "Workspace" %}</span>
-    <span class="nav-item is-disabled" aria-disabled="true">
+
+    <span class="nav-section">{% trans "Event Scheduling" %}</span>
+    <a class="nav-item{% if nav_key == 'events' %} is-active{% endif %}" href="{% url 'events:list' %}"{% if nav_key == 'events' %} aria-current="page"{% endif %}>
       <span class="nav-icon" aria-hidden="true">02</span><span>{% trans "Events" %}</span>
-      <small>{% trans "Later" %}</small>
-    </span>
-    <span class="nav-item is-disabled" aria-disabled="true">
+    </a>
+    <a class="nav-item{% if nav_key == 'calendar' %} is-active{% endif %}" href="{% url 'calendar' %}"{% if nav_key == 'calendar' %} aria-current="page"{% endif %}>
       <span class="nav-icon" aria-hidden="true">03</span><span>{% trans "Calendar" %}</span>
-      <small>{% trans "Later" %}</small>
-    </span>
-    <span class="nav-item is-disabled" aria-disabled="true">
-      <span class="nav-icon" aria-hidden="true">04</span><span>{% trans "Venues" %}</span>
-      <small>{% trans "Later" %}</small>
-    </span>
-    <span class="nav-section">{% trans "Management" %}</span>
-    <span class="nav-item is-disabled" aria-disabled="true">
-      <span class="nav-icon" aria-hidden="true">05</span><span>{% trans "Approvals" %}</span>
-      <small>{% trans "Later" %}</small>
-    </span>
-    <span class="nav-item is-disabled" aria-disabled="true">
-      <span class="nav-icon" aria-hidden="true">06</span><span>{% trans "Reports" %}</span>
-      <small>{% trans "Later" %}</small>
-    </span>
+    </a>
+
+    <span class="nav-section">{% trans "Approval & Emergency" %}</span>
+    <a class="nav-item{% if nav_key == 'approvals' %} is-active{% endif %}" href="{% url 'events:approval-list' %}"{% if nav_key == 'approvals' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">04</span><span>{% trans "Approval Queue" %}</span>
+    </a>
+    <a class="nav-item{% if nav_key == 'displaced' %} is-active{% endif %}" href="{% url 'events:displaced-list' %}"{% if nav_key == 'displaced' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">05</span><span>{% trans "Displaced Events" %}</span>
+    </a>
+
+    <span class="nav-section">{% trans "Master data" %}</span>
+    <a class="nav-item{% if nav_key == 'venues' %} is-active{% endif %}" href="{% url 'venues:list' %}"{% if nav_key == 'venues' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">06</span><span>{% trans "Venues" %}</span>
+    </a>
+    <a class="nav-item{% if nav_key == 'event_types' %} is-active{% endif %}" href="{% url 'event-types:list' %}"{% if nav_key == 'event_types' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">07</span><span>{% trans "Event types" %}</span>
+    </a>
+    <a class="nav-item{% if nav_key == 'organizations' %} is-active{% endif %}" href="{% url 'organizations:list' %}"{% if nav_key == 'organizations' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">08</span><span>{% trans "Organizations" %}</span>
+    </a>
+    <a class="nav-item{% if nav_key == 'sponsors' %} is-active{% endif %}" href="{% url 'sponsors:list' %}"{% if nav_key == 'sponsors' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">09</span><span>{% trans "Sponsors" %}</span>
+    </a>
+    <a class="nav-item{% if nav_key == 'speakers' %} is-active{% endif %}" href="{% url 'events:speaker-list' %}"{% if nav_key == 'speakers' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">10</span><span>{% trans "Speakers" %}</span>
+    </a>
+    <span class="nav-section">{% trans "Executive & Display" %}</span>
+    <a class="nav-item{% if nav_key == 'leadership' %} is-active{% endif %}" href="{% url 'leadership-dashboard' %}"{% if nav_key == 'leadership' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">11</span><span>{% trans "Leadership Dashboard" %}</span>
+    </a>
   </nav>
   <div class="sidebar-status">
     <span class="status-dot" aria-hidden="true"></span>
-    <span><strong>Phase 0</strong><small>{% trans "Foundation ready" %}</small></span>
+    <span><strong>Phase 6</strong><small>{% trans "Leadership & TV Wallboard" %}</small></span>
   </div>
 </aside>
-

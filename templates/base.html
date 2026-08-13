@@ -8,6 +8,7 @@
   <title>{% block title %}IEMS{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% block extra_css %}{% endblock %}
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>
 <body>
@@ -18,6 +19,11 @@
       <div class="shell-main">
         {% include "partials/topbar.html" %}
         <main id="main-content" class="page-content" tabindex="-1">
+          {% if messages %}
+            <div class="message-stack" aria-live="polite">
+              {% for message in messages %}<div class="app-message {{ message.tags }}">{{ message }}</div>{% endfor %}
+            </div>
+          {% endif %}
           {% block content %}{% endblock %}
         </main>
       </div>
@@ -28,6 +34,6 @@
       {% block unauthenticated_content %}{% endblock %}
     </main>
   {% endif %}
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
-

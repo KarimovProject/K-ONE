@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{{ page_title }}</h1>
+    <p class="page-description">{% trans "Interactive calendar overview of planned international events and venue schedules." %}</p>
+  </div>
+  <div class="page-actions">
+    <a class="primary-button" href="{% url 'events:wizard' %}">
+      <span aria-hidden="true">+</span> {% trans "Plan New Event" %}
+    </a>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <form class="filter-form" id="calendar-filter-form">
+    <select id="filter-venue" aria-label="{% trans 'Filter by venue' %}">
+      <option value="">{% trans "All Venues" %}</option>
+      {% for v in venues %}
+        <option value="{{ v.id }}">{{ v.localized_name }}</option>
+      {% endfor %}
+    </select>
+
+    <select id="filter-type" aria-label="{% trans 'Filter by event type' %}">
+      <option value="">{% trans "All Event Types" %}</option>
+      {% for t in event_types %}
+        <option value="{{ t.id }}">{{ t.localized_name }}</option>
+      {% endfor %}
+    </select>
+
+    <select id="filter-status" aria-label="{% trans 'Filter by status' %}">
+      <option value="all">{% trans "All Statuses" %}</option>
+      {% for code, label in statuses %}
+        <option value="{{ code }}">{{ label }}</option>
+      {% endfor %}
+    </select>
+
+    <button class="secondary-button compact" type="button" id="btn-apply-filters">{% trans "Apply Filters" %}</button>
+    <button class="text-button" type="button" id="btn-reset-filters">{% trans "Reset" %}</button>
+  </form>
+</div>
+
+<div class="calendar-card">
+  <div id="calendar-container"></div>
+</div>
+
+<!-- Event Drawer / Modal for Event Details -->
+<div class="drawer-overlay" id="event-drawer-overlay" hidden>
+  <div class="drawer-panel" id="event-drawer">
+    <button class="drawer-close" type="button" id="btn-close-drawer" aria-label="{% trans 'Close drawer' %}">×</button>
+    <div class="drawer-header">
+      <span class="type-pill" id="drawer-type-pill"></span>
+      <span class="status-badge" id="drawer-status-badge"></span>
+      <h2 id="drawer-title"></h2>
+    </div>
+    <div class="drawer-body">
+      <div class="info-item">
+        <span class="info-label">{% trans "Date & Time" %}</span>
+        <span class="info-value" id="drawer-datetime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Venue" %}</span>
+        <span class="info-value" id="drawer-venue"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Responsible Staff" %}</span>
+        <span class="info-value" id="drawer-responsible"></span>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <a class="primary-button compact" id="drawer-detail-link" href="#">{% trans "Full Event Details →" %}</a>
+    </div>
+  </div>
+</div>
+
+<!-- FullCalendar JS & CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const calendarEl = document.getElementById("calendar-container");
+    const lang = document.documentElement.lang || "uz";
+    const localeMap = { uz: "uz", ru: "ru", en: "en" };
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: "dayGridMonth",
+      locale: localeMap[lang] || "uz",
+      headerToolbar: {
+        left: "prev,next today",
+        center: "title",
+        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+      },
+      buttonText: {
+        today: "{% trans 'Today' %}",
+        month: "{% trans 'Month' %}",
+        week: "{% trans 'Week' %}",
+        day: "{% trans 'Day' %}",
+        list: "{% trans 'List' %}"
+      },
+      events: function (info, successCallback, failureCallback) {
+        const venue = document.getElementById("filter-venue").value;
+        const type = document.getElementById("filter-type").value;
+        const status = document.getElementById("filter-status").value;
+
+        let url = `/api/v1/calendar/events/?start=${info.startStr.substr(0,10)}&end=${info.endStr.substr(0,10)}`;
+        if (venue) url += `&venue=${venue}`;
+        if (type) url += `&type=${type}`;
+        if (status && status !== 'all') url += `&status=${status}`;
+
+        fetch(url)
+          .then(res => res.json())
+          .then(data => successCallback(data))
+          .catch(err => failureCallback(err));
+      },
+      eventClick: function (info) {
+        const e = info.event;
+        const props = e.extendedProps;
+
+        document.getElementById("drawer-title").textContent = e.title;
+        document.getElementById("drawer-type-pill").textContent = props.event_type_name || "";
+        document.getElementById("drawer-type-pill").style.backgroundColor = e.backgroundColor;
+
+        const statusBadge = document.getElementById("drawer-status-badge");
+        statusBadge.textContent = props.status_label || "";
+        statusBadge.className = `status-badge ${props.status}`;
+
+        document.getElementById("drawer-datetime").textContent = `${e.start.toLocaleDateString()} ${e.start.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} – ${e.end.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+        document.getElementById("drawer-venue").textContent = props.venue_name || "";
+        document.getElementById("drawer-responsible").textContent = props.responsible_name || "";
+        document.getElementById("drawer-detail-link").href = props.detail_url || "#";
+
+        document.getElementById("event-drawer-overlay").hidden = false;
+      }
+    });
+
+    calendar.render();
+
+    // Filters
+    document.getElementById("btn-apply-filters").addEventListener("click", () => calendar.refetchEvents());
+    document.getElementById("btn-reset-filters").addEventListener("click", () => {
+      document.getElementById("filter-venue").value = "";
+      document.getElementById("filter-type").value = "";
+      document.getElementById("filter-status").value = "all";
+      calendar.refetchEvents();
+    });
+
+    // Drawer close
+    const closeDrawer = () => document.getElementById("event-drawer-overlay").hidden = true;
+    document.getElementById("btn-close-drawer").addEventListener("click", closeDrawer);
+    document.getElementById("event-drawer-overlay").addEventListener("click", (e) => {
+      if (e.target.id === "event-drawer-overlay") closeDrawer();
+    });
+  });
+</script>
+{% endblock %}

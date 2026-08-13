@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+{% include "master_data/page_header.html" %}
+<section class="data-surface">
+  <div class="data-toolbar"><span><strong>{{ total_count }}</strong> {% trans "records" %}</span>{% include "master_data/filters.html" %}</div>
+  {% if event_types %}<div class="table-scroll"><table class="data-table">
+    <thead><tr><th>{% trans "Event type" %}</th><th>{% trans "Color" %}</th><th>{% trans "Management approval" %}</th><th>{% trans "Emergency override" %}</th><th>{% trans "Status" %}</th><th><span class="sr-only">{% trans "Actions" %}</span></th></tr></thead>
+    <tbody>{% for event_type in event_types %}<tr>
+      <td><a class="record-title" href="{% url 'event-types:detail' event_type.pk %}"><span class="type-dot" style="--type-color: {{ event_type.color }}" aria-hidden="true"></span><span><strong>{{ event_type.localized_name }}</strong><small>{{ event_type.code }}</small></span></a></td>
+      <td><code class="color-code"><span style="--type-color: {{ event_type.color }}"></span>{{ event_type.color }}</code></td>
+      <td>{% if event_type.requires_management_approval %}{% trans "Required" %}{% else %}{% trans "Not required" %}{% endif %}</td><td>{% if event_type.allows_emergency_override %}{% trans "Allowed" %}{% else %}{% trans "Not allowed" %}{% endif %}</td>
+      <td><span class="status-badge{% if not event_type.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{% if event_type.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</span></td>
+      <td class="table-actions"><a href="{% url 'event-types:detail' event_type.pk %}">{% trans "View" %}</a>{% if can_manage %}<a href="{% url 'event-types:edit' event_type.pk %}">{% trans "Edit" %}</a>{% endif %}</td>
+    </tr>{% endfor %}</tbody></table></div>{% include "master_data/pagination.html" %}
+  {% else %}<div class="empty-list"><span aria-hidden="true">+</span><h2>{% trans "No event types found" %}</h2><p>{% trans "Adjust the filters or seed the default event types." %}</p></div>{% endif %}
+</section>
+{% endblock %}

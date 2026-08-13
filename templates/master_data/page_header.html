@@ -1,0 +1,11 @@
+{% load i18n %}
+<section class="page-heading master-heading" aria-labelledby="page-title">
+  <div>
+    <span class="eyebrow">IEMS / {% trans "Master data" %}</span>
+    <h1 id="page-title">{{ page_title }}</h1>
+    <p>{{ page_description }}</p>
+  </div>
+  {% if can_manage and create_url_name %}
+    <a class="primary-link" href="{% url create_url_name %}"><span aria-hidden="true">+</span>{% blocktrans with name=resource_name %}Create {{ name }}{% endblocktrans %}</a>
+  {% endif %}
+</section>

@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Manage Program & Public Page" %} · {{ event.title }}{% endblock %}
+
+{% block content %}
+<div class="page-header flex-between">
+  <div>
+    <h1 class="page-title">{% trans "Manage Program & Public Page" %}</h1>
+    <p class="page-subtitle">{{ event.title }} ({{ event.planned_date|date:"d E Y" }})</p>
+  </div>
+  <div class="flex-gap">
+    <a class="secondary-button" href="{% url 'events:detail' pk=event.pk %}">← {% trans "Back to Event" %}</a>
+    <a class="primary-button" href="{% url 'public-event-page' public_token=event.public_token %}" target="_blank" data-testid="preview-public-page-btn">
+      🌐 {% trans "Preview Public Page" %}
+    </a>
+  </div>
+</div>
+
+<div class="grid-layout cols-2 gap-15">
+  <!-- Left Column: Program Configuration & Manual Agenda -->
+  <div>
+    <!-- Program Source Mode Form -->
+    <div class="form-container compact-margin" data-testid="program-mode-card">
+      <div class="form-header">
+        <h2>{% trans "1. Program Mode & Details" %}</h2>
+      </div>
+      <form method="post" action="{% url 'events:program' pk=event.pk %}" class="app-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="set_source">
+
+        <div class="form-group">
+          <label class="form-label">{% trans "Select Program Mode" %}</label>
+          <div class="flex-gap margin-v-5">
+            <label style="font-weight: 600; cursor: pointer;">
+              <input type="radio" name="program_source" value="pdf" {% if event.program_source == 'pdf' %}checked{% endif %} data-testid="radio-program-pdf">
+              📄 {% trans "Upload PDF Document" %}
+            </label>
+            <label style="font-weight: 600; cursor: pointer; margin-left: 1rem;">
+              <input type="radio" name="program_source" value="manual" {% if event.program_source == 'manual' %}checked{% endif %} data-testid="radio-program-manual">
+              ⏱️ {% trans "Structured Agenda Timeline" %}
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{% trans "Program Introduction / Note" %}</label>
+          {{ mode_form.program_intro }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{% trans "Program Footer Notes" %}</label>
+          {{ mode_form.program_notes }}
+        </div>
+
+        <div class="form-actions align-right">
+          <button type="submit" class="primary-button" data-testid="save-program-mode-btn">{% trans "Save Program Settings" %}</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- PDF Upload Card (Shown when PDF mode selected or PDF exists) -->
+    <div class="form-container compact-margin" data-testid="pdf-upload-card">
+      <div class="form-header">
+        <h2>{% trans "2. PDF Document Upload" %}</h2>
+      </div>
+      {% if event.program_pdf %}
+        <div class="app-message success" style="margin-bottom: 1rem;">
+          📄 <strong>{% trans "Current PDF" %}:</strong>
+          <a href="{{ event.program_pdf.url }}" target="_blank" style="font-weight: bold; color: inherit;">
+            {{ event.program_pdf.name }}
+          </a>
+        </div>
+      {% else %}
+        <div class="app-message warning" style="margin-bottom: 1rem;">
+          ⚠️ {% trans "No PDF document uploaded yet. Upload a PDF to publish in PDF mode." %}
+        </div>
+      {% endif %}
+
+      <form method="post" action="{% url 'events:program' pk=event.pk %}" enctype="multipart/form-data" class="app-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="upload_pdf">
+        <div class="form-group">
+          <label class="form-label">{% trans "Upload / Replace PDF (Max 10 MB)" %}</label>
+          {{ pdf_form.program_pdf }}
+        </div>
+        <div class="form-actions flex-between">
+          <button type="submit" class="primary-button" data-testid="upload-pdf-btn">
+            {% if event.program_pdf %}🔄 {% trans "Replace PDF" %}{% else %}📤 {% trans "Upload PDF" %}{% endif %}
+          </button>
+      </form>
+
+      {% if event.program_pdf %}
+        <form method="post" action="{% url 'events:program' pk=event.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="remove_pdf">
+          <button type="submit" class="danger-button compact" data-testid="remove-pdf-btn">🗑️ {% trans "Delete PDF" %}</button>
+        </form>
+      {% endif %}
+        </div>
+    </div>
+
+    <!-- Agenda Timeline Items Card -->
+    <div class="form-container" data-testid="agenda-manager-card">
+      <div class="form-header flex-between">
+        <h2>{% trans "3. Structured Agenda Items" %}</h2>
+        <span class="badge">{{ program_items.count }} {% trans "Items" %}</span>
+      </div>
+
+      {% if program_items %}
+        <table class="data-table compact" style="margin-bottom: 1.5rem;" data-testid="program-items-table">
+          <thead>
+            <tr>
+              <th>{% trans "Time" %}</th>
+              <th>{% trans "Title" %}</th>
+              <th>{% trans "Speaker" %}</th>
+              <th>{% trans "Action" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in program_items %}
+              <tr data-testid="program-item-row-{{ item.pk }}">
+                <td style="font-weight: bold; white-space: nowrap;">{{ item.start_time|time:"H:i" }}–{{ item.end_time|time:"H:i" }}</td>
+                <td>
+                  <strong>{{ item.title }}</strong>
+                  {% if item.description %}<br><small class="text-muted">{{ item.description|truncatechars:50 }}</small>{% endif %}
+                </td>
+                <td>{{ item.speaker_display_name|default:"—" }}</td>
+                <td>
+                  <form method="post" action="{% url 'events:program' pk=event.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="delete_item">
+                    <input type="hidden" name="item_id" value="{{ item.pk }}">
+                    <button type="submit" class="danger-button compact" data-testid="delete-item-btn-{{ item.pk }}">🗑️</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="text-muted" style="margin-bottom: 1rem;">{% trans "No manual agenda items added yet." %}</p>
+      {% endif %}
+
+      <!-- Add Agenda Item Form -->
+      <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">{% trans "Add New Agenda Session" %}</h3>
+      <form method="post" action="{% url 'events:program' pk=event.pk %}" class="app-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add_item">
+        <div class="grid-layout cols-2 gap-10">
+          <div class="form-group">
+            <label class="form-label">{% trans "Start Time" %}</label>
+            {{ item_form.start_time }}
+          </div>
+          <div class="form-group">
+            <label class="form-label">{% trans "End Time" %}</label>
+            {{ item_form.end_time }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">{% trans "Session Title" %}</label>
+          {{ item_form.title }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{% trans "Speaker (Select or Override)" %}</label>
+          {{ item_form.speaker }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{% trans "Speaker Name Override (If not in directory)" %}</label>
+          {{ item_form.speaker_name_override }}
+        </div>
+        <div class="form-group">
+          <label class="form-label">{% trans "Description / Abstract" %}</label>
+          {{ item_form.description }}
+        </div>
+        <div class="form-actions align-right">
+          <button type="submit" class="primary-button" data-testid="add-agenda-item-btn">➕ {% trans "Add Agenda Session" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right Column: Public Page Status & Printable QR Management -->
+  <div>
+    <!-- Public Status Card -->
+    <div class="form-container compact-margin" data-testid="public-status-card">
+      <div class="form-header">
+        <h2>{% trans "Public Access & Status" %}</h2>
+      </div>
+
+      <div class="info-block" style="margin-bottom: 1rem;">
+        <div><strong>{% trans "Publication Eligibility" %}:</strong></div>
+        {% if event.is_publicly_accessible %}
+          <span class="status-badge approved" data-testid="public-eligible-badge">🟢 {% trans "PUBLICLY ACCESSIBLE" %}</span>
+        {% else %}
+          <span class="status-badge draft" data-testid="public-eligible-badge">🔴 {% trans "PRIVATE / HIDDEN" %} ({{ event.get_status_display }})</span>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{% trans "Public Event URL" %}</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" readonly class="form-control" value="{{ public_url }}" id="publicUrlInput" data-testid="public-url-input">
+          <button type="button" class="secondary-button" onclick="navigator.clipboard.writeText('{{ public_url }}')">📋</button>
+        </div>
+      </div>
+
+      <div class="flex-between" style="margin-top: 1.25rem;">
+        <form method="post" action="{% url 'events:program' pk=event.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="toggle_public">
+          <input type="hidden" name="is_public_enabled" value="{% if event.is_public_enabled %}false{% else %}true{% endif %}">
+          <button type="submit" class="secondary-button compact" data-testid="toggle-public-btn">
+            {% if event.is_public_enabled %}🔒 {% trans "Disable Public Access" %}{% else %}🔓 {% trans "Enable Public Access" %}{% endif %}
+          </button>
+        </form>
+
+        <form method="post" action="{% url 'events:program' pk=event.pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="rotate_token">
+          <button type="submit" class="warning-button compact" data-testid="rotate-token-btn" onclick="return confirm('Rotate public URL token? Old printed QRs will stop working!');">
+            🔄 {% trans "Rotate Token" %}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Permanent Printable QR Card -->
+    <div class="form-container" data-testid="qr-preview-card" style="text-align: center;">
+      <div class="form-header">
+        <h2>{% trans "Permanent Printable QR Code" %}</h2>
+      </div>
+
+      <div style="padding: 1rem; background: #ffffff; border-radius: 16px; display: inline-block; margin-bottom: 1.25rem; border: 2px solid var(--card-border);">
+        <img src="{% url 'events:qr-png' pk=event.pk %}" alt="Event QR Code" style="width: 180px; height: 180px;" data-testid="qr-code-img">
+      </div>
+
+      <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 1.25rem;">
+        {% trans "Scan with smartphone camera to immediately open the digital event program and schedule." %}
+      </p>
+
+      <div class="flex-gap" style="justify-content: center;">
+        <a class="primary-button" href="{% url 'events:print-qr' pk=event.pk %}" target="_blank" data-testid="print-qr-btn">
+          🖨️ {% trans "Print Poster QR (A4/A5)" %}
+        </a>
+        <a class="secondary-button" href="{% url 'events:qr-png' pk=event.pk %}" download="event_{{ event.pk }}_qr.png" data-testid="download-qr-btn">
+          ⬇️ {% trans "Download PNG" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

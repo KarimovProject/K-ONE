@@ -4,7 +4,15 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
-from apps.reporting.views import dashboard
+from apps.attendance.views import PublicCheckinView
+from apps.events.urls import event_type_patterns
+from apps.events.views import CalendarView, PublicEventPageView, VenueLiveStatusView
+from apps.organizations.urls import organization_patterns, sponsor_patterns
+from apps.reporting.views import (
+    LeadershipDashboardView,
+    TvWallboardView,
+    dashboard,
+)
 from config import health
 
 urlpatterns = [
@@ -15,9 +23,31 @@ urlpatterns = [
     path("health/", health.application_health, name="application-health"),
     path("health/database/", health.database_health, name="database-health"),
     path("health/redis/", health.redis_health, name="redis-health"),
+    path(
+        "event/<str:public_token>/checkin/",
+        PublicCheckinView.as_view(),
+        name="public-event-checkin",
+    ),
+    path("event/<str:public_token>/", PublicEventPageView.as_view(), name="public-event-page"),
+    path("events/", include("apps.events.urls")),
+    path("notifications/", include("apps.notifications.urls")),
+    path("calendar/", CalendarView.as_view(), name="calendar"),
+    path("leadership/", LeadershipDashboardView.as_view(), name="leadership-dashboard"),
+    path("display/venues/", TvWallboardView.as_view(), name="tv-wallboard"),
+    path("display/<str:token>/", TvWallboardView.as_view(), name="tv-wallboard-token"),
+
+    path(
+        "master-data/venues/live-status/",
+        VenueLiveStatusView.as_view(),
+        name="venue-live-status",
+    ),
+    path("master-data/venues/", include("apps.venues.urls")),
+    path("master-data/event-types/", include(event_type_patterns)),
+    path("master-data/organizations/", include(organization_patterns)),
+    path("master-data/sponsors/", include(sponsor_patterns)),
+    path("api/v1/", include("config.api_urls")),
     path("", dashboard, name="dashboard"),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

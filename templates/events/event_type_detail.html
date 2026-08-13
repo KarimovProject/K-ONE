@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ event_type.localized_name }} · IEMS{% endblock %}
+{% block content %}
+<section class="detail-heading">
+  <a class="back-link" href="{% url 'event-types:list' %}">← {% trans "Back to event types" %}</a>
+  <div class="detail-title"><span class="type-dot large" style="--type-color: {{ event_type.color }}" aria-hidden="true"></span><div><h1>{{ event_type.localized_name }}</h1><p>{{ event_type.code }}</p></div></div>
+  {% if can_manage %}<div class="detail-actions"><a class="secondary-link" href="{% url 'event-types:edit' event_type.pk %}">{% trans "Edit" %}</a><a class="danger-link" href="{% url 'event-types:delete' event_type.pk %}">{% trans "Delete" %}</a></div>{% endif %}
+</section>
+<div class="detail-layout"><section class="detail-main"><h2>{% trans "Description" %}</h2><p>{{ event_type.description|default:_('No description provided.')|linebreaksbr }}</p><h2>{% trans "Localized names" %}</h2><dl class="detail-list"><div><dt>UZ</dt><dd>{{ event_type.name_uz }}</dd></div><div><dt>RU</dt><dd>{{ event_type.name_ru }}</dd></div><div><dt>EN</dt><dd>{{ event_type.name_en }}</dd></div></dl></section><aside class="detail-meta"><h2>{% trans "Rules" %}</h2><dl><div><dt>{% trans "Color" %}</dt><dd><code>{{ event_type.color }}</code></dd></div><div><dt>{% trans "Icon" %}</dt><dd>{{ event_type.icon|default:"—" }}</dd></div><div><dt>{% trans "Management approval" %}</dt><dd>{{ event_type.requires_management_approval|yesno:_('Required,Not required') }}</dd></div><div><dt>{% trans "Emergency override" %}</dt><dd>{{ event_type.allows_emergency_override|yesno:_('Allowed,Not allowed') }}</dd></div><div><dt>{% trans "Status" %}</dt><dd>{{ event_type.is_active|yesno:_('Active,Inactive') }}</dd></div></dl></aside></div>
+{% endblock %}

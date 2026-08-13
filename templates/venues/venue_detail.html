@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ venue.localized_name }} · IEMS{% endblock %}
+{% block content %}
+<section class="detail-heading">
+  <a class="back-link" href="{% url 'venues:list' %}">← {% trans "Back to venues" %}</a>
+  <div class="detail-title"><span class="record-code large">{{ venue.code }}</span><div><h1>{{ venue.localized_name }}</h1><p>{{ venue.location|default:_('Location not specified') }}</p></div></div>
+  {% if can_manage %}<div class="detail-actions"><a class="secondary-link" href="{% url 'venues:edit' venue.pk %}">{% trans "Edit" %}</a><a class="danger-link" href="{% url 'venues:delete' venue.pk %}">{% trans "Delete" %}</a></div>{% endif %}
+</section>
+<div class="detail-layout">
+  <section class="detail-main">
+    {% if venue.photo %}<img class="detail-image" src="{{ venue.photo.url }}" alt="{{ venue.localized_name }}">{% else %}<div class="image-placeholder"><span>{{ venue.code }}</span><small>{% trans "No venue photo" %}</small></div>{% endif %}
+    <h2>{% trans "Description" %}</h2><p>{{ venue.description|default:_('No description provided.')|linebreaksbr }}</p>
+    <h2>{% trans "Localized names" %}</h2><dl class="detail-list"><div><dt>UZ</dt><dd>{{ venue.name_uz }}</dd></div><div><dt>RU</dt><dd>{{ venue.name_ru }}</dd></div><div><dt>EN</dt><dd>{{ venue.name_en }}</dd></div></dl>
+  </section>
+  <aside class="detail-meta"><h2>{% trans "Operational details" %}</h2><dl><div><dt>{% trans "Capacity" %}</dt><dd>{{ venue.capacity }}</dd></div><div><dt>{% trans "Working hours" %}</dt><dd>{{ venue.working_start|time:"H:i" }}–{{ venue.working_end|time:"H:i" }}</dd></div><div><dt>{% trans "Display" %}</dt><dd>{% if venue.display_enabled %}{% trans "Enabled" %}{% else %}{% trans "Disabled" %}{% endif %}</dd></div><div><dt>{% trans "Status" %}</dt><dd>{% if venue.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</dd></div><div><dt>{% trans "Sort order" %}</dt><dd>{{ venue.sort_order }}</dd></div></dl></aside>
+</div>
+{% endblock %}

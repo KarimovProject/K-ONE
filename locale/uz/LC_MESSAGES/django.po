@@ -20,3 +20,806 @@ msgstr "Faol zallar"
 msgid "Pending approvals"
 msgstr "Tasdiq kutayotganlar"
 
+msgid "Master data"
+msgstr "Ma’lumotnomalar"
+
+msgid "Venues"
+msgstr "Xonalar"
+
+msgid "Event types"
+msgstr "Tadbir turlari"
+
+msgid "Organizations"
+msgstr "Tashkilotlar"
+
+msgid "Sponsors"
+msgstr "Homiylar"
+
+msgid "Venue"
+msgstr "Xona"
+
+msgid "Event type"
+msgstr "Tadbir turi"
+
+msgid "Organization"
+msgstr "Tashkilot"
+
+msgid "Sponsor"
+msgstr "Homiy"
+
+msgid "Create venue"
+msgstr "Xona yaratish"
+
+msgid "Edit venue"
+msgstr "Xonani tahrirlash"
+
+msgid "Delete venue"
+msgstr "Xonani o‘chirish"
+
+msgid "Create event type"
+msgstr "Tadbir turini yaratish"
+
+msgid "Edit event type"
+msgstr "Tadbir turini tahrirlash"
+
+msgid "Delete event type"
+msgstr "Tadbir turini o‘chirish"
+
+msgid "Create organization"
+msgstr "Tashkilot yaratish"
+
+msgid "Edit organization"
+msgstr "Tashkilotni tahrirlash"
+
+msgid "Delete organization"
+msgstr "Tashkilotni o‘chirish"
+
+msgid "Create sponsor"
+msgstr "Homiy yaratish"
+
+msgid "Edit sponsor"
+msgstr "Homiyni tahrirlash"
+
+msgid "Delete sponsor"
+msgstr "Homiyni o‘chirish"
+
+msgid "Search records"
+msgstr "Yozuvlarni qidirish"
+
+msgid "Search"
+msgstr "Qidiruv"
+
+msgid "Status"
+msgstr "Holat"
+
+msgid "All statuses"
+msgstr "Barcha holatlar"
+
+msgid "Active"
+msgstr "Faol"
+
+msgid "Inactive"
+msgstr "Nofaol"
+
+msgid "Apply"
+msgstr "Qo‘llash"
+
+msgid "Clear"
+msgstr "Tozalash"
+
+msgid "records"
+msgstr "yozuv"
+
+msgid "Actions"
+msgstr "Amallar"
+
+msgid "View"
+msgstr "Ko‘rish"
+
+msgid "Edit"
+msgstr "Tahrirlash"
+
+msgid "Delete"
+msgstr "O‘chirish"
+
+msgid "Cancel"
+msgstr "Bekor qilish"
+
+msgid "Save changes"
+msgstr "Saqlash"
+
+msgid "Delete permanently"
+msgstr "Butunlay o‘chirish"
+
+msgid "Location"
+msgstr "Joylashuv"
+
+msgid "Capacity"
+msgstr "Sig‘im"
+
+msgid "Working hours"
+msgstr "Ish vaqti"
+
+msgid "Description"
+msgstr "Tavsif"
+
+msgid "Localized names"
+msgstr "Tillardagi nomlar"
+
+msgid "Operational details"
+msgstr "Foydalanish tafsilotlari"
+
+msgid "Display"
+msgstr "Ko‘rsatish"
+
+msgid "Enabled"
+msgstr "Yoqilgan"
+
+msgid "Disabled"
+msgstr "O‘chirilgan"
+
+msgid "Sort order"
+msgstr "Saralash tartibi"
+
+msgid "Color"
+msgstr "Rang"
+
+msgid "Management approval"
+msgstr "Rahbariyat tasdig‘i"
+
+msgid "Emergency override"
+msgstr "Favqulodda istisno"
+
+msgid "Required"
+msgstr "Talab qilinadi"
+
+msgid "Not required"
+msgstr "Talab qilinmaydi"
+
+msgid "Allowed"
+msgstr "Ruxsat etilgan"
+
+msgid "Not allowed"
+msgstr "Ruxsat etilmagan"
+
+msgid "Rules"
+msgstr "Qoidalar"
+
+msgid "Icon"
+msgstr "Belgi"
+
+msgid "Type"
+msgstr "Tur"
+
+msgid "Contact"
+msgstr "Aloqa"
+
+msgid "Contact person"
+msgstr "Aloqa shaxsi"
+
+msgid "Contact details"
+msgstr "Aloqa ma’lumotlari"
+
+msgid "Contact and address"
+msgstr "Aloqa va manzil"
+
+msgid "Email"
+msgstr "Elektron pochta"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Address"
+msgstr "Manzil"
+
+msgid "Notes"
+msgstr "Izohlar"
+
+msgid "Country"
+msgstr "Mamlakat"
+
+msgid "City"
+msgstr "Shahar"
+
+msgid "Website"
+msgstr "Veb-sayt"
+
+msgid "Open website"
+msgstr "Saytni ochish"
+
+msgid "Organization type"
+msgstr "Tashkilot turi"
+
+msgid "All organization types"
+msgstr "Barcha tashkilot turlari"
+
+msgid "Local organization"
+msgstr "Mahalliy tashkilot"
+
+msgid "Foreign organization"
+msgstr "Xorijiy tashkilot"
+
+msgid "Partner organization"
+msgstr "Hamkor tashkilot"
+
+msgid "Previous"
+msgstr "Oldingi"
+
+msgid "Next"
+msgstr "Keyingi"
+
+msgid "Selected image preview"
+msgstr "Tanlangan rasm ko‘rinishi"
+
+msgid "No venues found"
+msgstr "Xonalar topilmadi"
+
+msgid "No event types found"
+msgstr "Tadbir turlari topilmadi"
+
+msgid "No organizations found"
+msgstr "Tashkilotlar topilmadi"
+
+msgid "No sponsors found"
+msgstr "Homiylar topilmadi"
+
+msgid "Upload a JPG, PNG, or WebP image."
+msgstr "JPG, PNG yoki WebP rasm yuklang."
+
+msgid "Image size must not exceed 5 MB."
+msgstr "Rasm hajmi 5 MB dan oshmasligi kerak."
+
+msgid "The uploaded file content is not a supported image."
+msgstr "Yuklangan fayl qo‘llab-quvvatlanadigan rasm emas."
+
+msgid "Working end must be later than working start."
+msgstr "Ish tugash vaqti boshlanish vaqtidan keyin bo‘lishi kerak."
+
+msgid "%(resource)s was %(action)s successfully."
+msgstr "%(resource)s muvaffaqiyatli %(action)s."
+
+msgid "%(resource)s was deleted."
+msgstr "%(resource)s o‘chirildi."
+
+msgid "A secure operational foundation for the International Department."
+msgstr "Xalqaro bo‘lim uchun xavfsiz ish platformasi."
+
+msgid "Access is limited to authorized staff."
+msgstr "Kirish faqat vakolatli xodimlar uchun."
+
+msgid "Adjust the filters or create the first organization record."
+msgstr "Filtrlarni o‘zgartiring yoki birinchi tashkilotni yarating."
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Filtrlarni o‘zgartiring yoki birinchi homiyni yarating."
+
+msgid "Adjust the filters or create the first venue record."
+msgstr "Filtrlarni o‘zgartiring yoki birinchi xonani yarating."
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Filtrlarni o‘zgartiring yoki standart tadbir turlarini yuklang."
+
+msgid "Approvals"
+msgstr "Tasdiqlar"
+
+msgid "Back to event types"
+msgstr "Tadbir turlariga qaytish"
+
+msgid "Back to organizations"
+msgstr "Tashkilotlarga qaytish"
+
+msgid "Back to sponsors"
+msgstr "Homiylarga qaytish"
+
+msgid "Back to venues"
+msgstr "Xonalarga qaytish"
+
+msgid "Calendar"
+msgstr "Taqvim"
+
+msgid "Calendar foundation is ready"
+msgstr "Taqvim asosi tayyor"
+
+msgid "Calendar placeholder"
+msgstr "Taqvim uchun joy"
+
+msgid "Close navigation"
+msgstr "Navigatsiyani yopish"
+
+msgid "Coming in Phase 2"
+msgstr "Phase 2 da qo‘shiladi"
+
+msgid "Control the reusable categories available to future event workflows."
+msgstr "Kelajakdagi tadbir jarayonlari uchun toifalarni boshqaring."
+
+msgid "Enter a color in #RRGGBB format."
+msgstr "Rangni #RRGGBB formatida kiriting."
+
+msgid "Event scheduling and conflict checks will be implemented in a later approved phase."
+msgstr "Tadbirlarni rejalashtirish va to‘qnashuvlarni tekshirish keyingi tasdiqlangan bosqichda amalga oshiriladi."
+
+msgid "Foundation mode"
+msgstr "Asos rejimi"
+
+msgid "Future workflows"
+msgstr "Kelajakdagi jarayonlar"
+
+msgid "Good day"
+msgstr "Xayrli kun"
+
+msgid "International Department"
+msgstr "Xalqaro bo‘lim"
+
+msgid "Key indicators"
+msgstr "Asosiy ko‘rsatkichlar"
+
+msgid "Language"
+msgstr "Til"
+
+msgid "Later"
+msgstr "Keyinroq"
+
+msgid "Live status"
+msgstr "Joriy holat"
+
+msgid "Maintain halls and rooms available to international events."
+msgstr "Xalqaro tadbirlar uchun zal va xonalar ma’lumotnomasini yuriting."
+
+msgid "Maintain local, foreign, and partner organization records."
+msgstr "Mahalliy, xorijiy va hamkor tashkilotlar ma’lumotnomasini yuriting."
+
+msgid "Maintain sponsor identity and contact records for later event use."
+msgstr "Kelajakdagi tadbirlar uchun homiylar va ularning aloqalarini yuriting."
+
+msgid "Master data begins in Phase 1"
+msgstr "Ma’lumotnomalar Phase 1 da boshlandi"
+
+msgid "No venue photo"
+msgstr "Xona rasmi yo‘q"
+
+msgid "Not connected"
+msgstr "Ulanmagan"
+
+msgid "Notifications"
+msgstr "Bildirishnomalar"
+
+msgid "Notifications are not connected in Phase 0"
+msgstr "Bildirishnomalar Phase 0 da ulanmagan"
+
+msgid "One calm place for every international event."
+msgstr "Har bir xalqaro tadbir uchun yagona qulay makon."
+
+msgid "Open navigation"
+msgstr "Navigatsiyani ochish"
+
+msgid "Operations overview"
+msgstr "Ishlar sharhi"
+
+msgid "Organization details"
+msgstr "Tashkilot tafsilotlari"
+
+msgid "Pagination"
+msgstr "Sahifalash"
+
+msgid "Password"
+msgstr "Parol"
+
+msgid "Phase 0 placeholder"
+msgstr "Phase 0 namunasi"
+
+msgid "Primary navigation"
+msgstr "Asosiy navigatsiya"
+
+msgid "Schedule"
+msgstr "Jadval"
+
+msgid "Sign in"
+msgstr "Kirish"
+
+msgid "Sign in with your assigned account."
+msgstr "Sizga berilgan hisob bilan kiring."
+
+msgid "Sign out"
+msgstr "Chiqish"
+
+msgid "Skip to content"
+msgstr "Asosiy tarkibga o‘tish"
+
+msgid "Sponsor record"
+msgstr "Homiy kartasi"
+
+msgid "This action cannot be undone. Confirm only when the record is no longer required."
+msgstr "Bu amalni bekor qilib bo‘lmaydi. Yozuv boshqa kerak bo‘lmasa tasdiqlang."
+
+msgid "Today"
+msgstr "Bugun"
+
+msgid "Username"
+msgstr "Foydalanuvchi nomi"
+
+msgid "Venue cards"
+msgstr "Xona kartalari"
+
+msgid "Venue data pending"
+msgstr "Xona ma’lumotlari kutilmoqda"
+
+msgid "Welcome back"
+msgstr "Xush kelibsiz"
+
+msgid "Your international events command center is prepared for the next implementation phase."
+msgstr "Xalqaro tadbirlarni boshqarish markazi keyingi joriy etish bosqichiga tayyor."
+
+msgid "active"
+msgstr "faol"
+
+msgid "address"
+msgstr "manzil"
+
+msgid "allows emergency override"
+msgstr "favqulodda istisnoga ruxsat beradi"
+
+msgid "capacity"
+msgstr "sig‘im"
+
+msgid "city"
+msgstr "shahar"
+
+msgid "code"
+msgstr "kod"
+
+msgid "color"
+msgstr "rang"
+
+msgid "contact person"
+msgstr "aloqa shaxsi"
+
+msgid "country"
+msgstr "mamlakat"
+
+msgid "created"
+msgstr "yaratildi"
+
+msgid "description"
+msgstr "tavsif"
+
+msgid "display enabled"
+msgstr "ko‘rsatish yoqilgan"
+
+msgid "email"
+msgstr "elektron pochta"
+
+msgid "event type"
+msgstr "tadbir turi"
+
+msgid "event types"
+msgstr "tadbir turlari"
+
+msgid "icon"
+msgstr "belgi"
+
+msgid "location"
+msgstr "joylashuv"
+
+msgid "logo"
+msgstr "logotip"
+
+msgid "name"
+msgstr "nom"
+
+msgid "name in English"
+msgstr "inglizcha nom"
+
+msgid "name in Russian"
+msgstr "ruscha nom"
+
+msgid "name in Uzbek"
+msgstr "o‘zbekcha nom"
+
+msgid "notes"
+msgstr "izohlar"
+
+msgid "organization"
+msgstr "tashkilot"
+
+msgid "organization type"
+msgstr "tashkilot turi"
+
+msgid "organizations"
+msgstr "tashkilotlar"
+
+msgid "phone"
+msgstr "telefon"
+
+msgid "photo"
+msgstr "rasm"
+
+msgid "requires management approval"
+msgstr "rahbariyat tasdig‘ini talab qiladi"
+
+msgid "short name"
+msgstr "qisqa nom"
+
+msgid "sort order"
+msgstr "saralash tartibi"
+
+msgid "sponsor"
+msgstr "homiy"
+
+msgid "sponsors"
+msgstr "homiylar"
+
+msgid "updated"
+msgstr "yangilandi"
+
+msgid "venue"
+msgstr "xona"
+
+msgid "venues"
+msgstr "xonalar"
+
+msgid "website"
+msgstr "veb-sayt"
+
+msgid "working end"
+msgstr "ish tugashi"
+
+msgid "working start"
+msgstr "ish boshlanishi"
+
+msgid "Page %(current)s of %(total)s"
+msgstr "%(total)s sahifadan %(current)s-sahifa"
+
+msgid "Create %(name)s"
+msgstr "%(name)s yaratish"
+
+msgid "Delete “%(object)s”?"
+msgstr "«%(object)s» o‘chirilsinmi?"
+
+msgid "Location not specified"
+msgstr "Joylashuv ko‘rsatilmagan"
+
+msgid "No description provided."
+msgstr "Tavsif berilmagan."
+
+msgid "No notes provided."
+msgstr "Izohlar berilmagan."
+
+msgid "Active,Inactive"
+msgstr "Faol,Nofaol"
+
+msgid "Required,Not required"
+msgstr "Talab qilinadi,Talab qilinmaydi"
+
+msgid "Allowed,Not allowed"
+msgstr "Ruxsat etilgan,Ruxsat etilmagan"
+
+msgid "Leadership Dashboard"
+msgstr "Rahbariyat paneli"
+
+msgid "Live operational overview"
+msgstr "Jonli operatsion ko‘rinish"
+
+msgid "Open calendar"
+msgstr "Taqvimni ochish"
+
+msgid "Today's Events"
+msgstr "Bugungi tadbirlar"
+
+msgid "In Progress"
+msgstr "Davom etmoqda"
+
+msgid "Available Venues"
+msgstr "Bo‘sh xonalar"
+
+msgid "Occupied Venues"
+msgstr "Band xonalar"
+
+msgid "Today's Check-ins"
+msgstr "Bugungi kirishlar"
+
+msgid "Live Venue Status"
+msgstr "Xonalarning jonli holati"
+
+msgid "Refreshes every 20 seconds"
+msgstr "Har 20 soniyada yangilanadi"
+
+msgid "Available"
+msgstr "Bo‘sh"
+
+msgid "Occupied"
+msgstr "Band"
+
+msgid "Upcoming"
+msgstr "Tez orada"
+
+msgid "Private Meeting"
+msgstr "Yopiq uchrashuv"
+
+msgid "No event in progress"
+msgstr "Hozir tadbir yo‘q"
+
+msgid "Today's Timeline"
+msgstr "Bugungi vaqt jadvali"
+
+msgid "No events today"
+msgstr "Bugun tadbirlar yo‘q"
+
+msgid "Attendance Summary"
+msgstr "Davomat xulosasi"
+
+msgid "Expected"
+msgstr "Kutilmoqda"
+
+msgid "Checked in"
+msgstr "Kirganlar"
+
+msgid "Emergency / High Priority"
+msgstr "Favqulodda va ustuvor"
+
+msgid "No high-priority events"
+msgstr "Ustuvor tadbirlar yo‘q"
+
+msgid "Upcoming Events"
+msgstr "Yaqinlashayotgan tadbirlar"
+
+msgid "Next 7 days"
+msgstr "Keyingi 7 kun"
+
+msgid "Date"
+msgstr "Sana"
+
+msgid "Time"
+msgstr "Vaqt"
+
+msgid "Event"
+msgstr "Tadbir"
+
+msgid "Organizer"
+msgstr "Tashkilotchi"
+
+msgid "No upcoming events"
+msgstr "Yaqinlashayotgan tadbirlar yo‘q"
+
+msgid "Live Venue Display"
+msgstr "Xonalar jonli ekrani"
+
+msgid "Fullscreen"
+msgstr "To‘liq ekran"
+
+msgid "Available now"
+msgstr "Hozir bo‘sh"
+
+msgid "Next"
+msgstr "Keyingi"
+
+msgid "No more events today"
+msgstr "Bugun boshqa tadbir yo‘q"
+
+msgid "Today's Schedule"
+msgstr "Bugungi jadval"
+
+msgid "%(minutes)s minutes remaining"
+msgstr "Tugashiga %(minutes)s daqiqa"
+
+msgid "Starts in %(minutes)s minutes"
+msgstr "Boshlanishiga %(minutes)s daqiqa"
+
+msgid "minutes remaining"
+msgstr "daqiqa qoldi"
+
+msgid "Starts in"
+msgstr "Boshlanishiga"
+
+msgid "Free until %(time)s"
+msgstr "%(time)s gacha bo‘sh"
+
+msgid "Men keldim"
+msgstr "Men keldim"
+
+msgid "Check in"
+msgstr "Ro‘yxatdan o‘tish"
+
+msgid "Я пришёл"
+msgstr "Men keldim"
+
+msgid "Ro‘yxatdan o‘tdingiz"
+msgstr "Ro‘yxatdan o‘tdingiz"
+
+msgid "Ishtirokingiz qayd etildi."
+msgstr "Ishtirokingiz qayd etildi."
+
+msgid "Siz avval ro‘yxatdan o‘tgansiz."
+msgstr "Siz avval ro‘yxatdan o‘tgansiz."
+
+msgid "Check-in hali ochilmagan."
+msgstr "Check-in hali ochilmagan."
+
+msgid "Check-in yakunlangan."
+msgstr "Check-in yakunlangan."
+
+msgid "nafar ishtirokchi"
+msgstr "nafar ishtirokchi"
+
+msgid "Attendance Management"
+msgstr "Ishtirok Boshqaruvi"
+
+msgid "Expected Attendees"
+msgstr "Kutilayotgan ishtirokchilar"
+
+msgid "Checked In"
+msgstr "Kelganlar"
+
+msgid "Attendance Rate"
+msgstr "Qatnashish ko‘rsatkichi"
+
+msgid "Anonymous"
+msgstr "Anonim"
+
+msgid "Identified"
+msgstr "Identifikatsiyalangan"
+
+msgid "Staff Manual Check-in"
+msgstr "Qo‘lda qayd etish"
+
+msgid "Export CSV"
+msgstr "CSV ga yuklash"
+
+msgid "Leadership Dashboard"
+msgstr "Rahbariat Boshqaruv Paneli"
+
+msgid "Real-time executive overview of active events, venue occupancy & attendance statistics."
+msgstr "Faol tadbirlar, zallar bandligi va ishtirokchilar statistikasi bo‘yicha tezkor umumiy ko‘rinish."
+
+msgid "TV Wallboard Mode"
+msgstr "TV Rejimiga o‘tish"
+
+msgid "Today's Events"
+msgstr "Bugungi Tadbirlar"
+
+msgid "In Progress"
+msgstr "Davom Etmoqda"
+
+msgid "Available Venues"
+msgstr "Bo‘sh Zallar"
+
+msgid "Occupied / Upcoming"
+msgstr "Band / Tayyorlanayotgan"
+
+msgid "Today's Check-ins"
+msgstr "Bugungi Tashriflar"
+
+msgid "Live Venue Status"
+msgstr "Zallarning Jonli Holati"
+
+msgid "BO‘SH"
+msgstr "BO‘SH"
+
+msgid "BAND"
+msgstr "BAND"
+
+msgid "TAYYORLANMOQDA"
+msgstr "TAYYORLANMOQDA"
+
+msgid "Tugashiga:"
+msgstr "Tugashiga:"
+
+msgid "Boshlanishiga:"
+msgstr "Boshlanishiga:"
+
+msgid "daqiqa"
+msgstr "daqiqa"
+
+msgid "Private Meeting"
+msgstr "Maxfiy majlis"
+
+msgid "Occupied (Private Event)"
+msgstr "Band (Xizmat foydalanishi uchun)"
+
+msgid "Bugungi kun tartibi"
+msgstr "Bugungi kun tartibi"
+
+msgid "Yaqinlashib kelayotgan tadbirlar"
+msgstr "Yaqinlashib kelayotgan tadbirlar"
+
+msgid "Fullscreen"
+msgstr "To‘liq ekran"

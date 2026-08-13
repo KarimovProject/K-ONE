@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="wizard-header">
+  <div class="wizard-progress">
+    <div class="wizard-step is-complete"><span class="step-num">1</span><span>{% trans "Basic Info" %}</span></div>
+    <div class="wizard-step is-active"><span class="step-num">2</span><span>{% trans "Date & Venue" %}</span></div>
+    <div class="wizard-step"><span class="step-num">3</span><span>{% trans "People" %}</span></div>
+    <div class="wizard-step"><span class="step-num">4</span><span>{% trans "Partners" %}</span></div>
+    <div class="wizard-step"><span class="step-num">5</span><span>{% trans "Review" %}</span></div>
+  </div>
+</div>
+
+<form class="data-form wizard-form" method="post" action="{% url 'events:wizard' %}" id="step2-form">
+  {% csrf_token %}
+  <input type="hidden" name="current_step" value="2">
+
+  <h2>{% trans "Step 2: Date, Time & Venue" %}</h2>
+  <p class="form-help">{% trans "Select event date, time interval, and available venue hall." %}</p>
+
+  {% if form.non_field_errors %}
+    <div class="form-alert" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <div class="form-grid">
+    <div class="form-field{% if form.planned_date.errors %} has-error{% endif %}">
+      <label for="{{ form.planned_date.id_for_label }}">{{ form.planned_date.label }}<span aria-hidden="true">*</span></label>
+      {{ form.planned_date }}
+      <small id="weekday-display" class="weekday-tag" aria-live="polite"></small>
+      {% if form.planned_date.errors %}<div class="field-error" role="alert">{{ form.planned_date.errors }}</div>{% endif %}
+    </div>
+
+    <div class="form-field{% if form.start_time.errors %} has-error{% endif %}">
+      <label for="{{ form.start_time.id_for_label }}">{{ form.start_time.label }}<span aria-hidden="true">*</span></label>
+      {{ form.start_time }}
+      {% if form.start_time.errors %}<div class="field-error" role="alert">{{ form.start_time.errors }}</div>{% endif %}
+    </div>
+
+    <div class="form-field{% if form.end_time.errors %} has-error{% endif %}">
+      <label for="{{ form.end_time.id_for_label }}">{{ form.end_time.label }}<span aria-hidden="true">*</span></label>
+      {{ form.end_time }}
+      {% if form.end_time.errors %}<div class="field-error" role="alert">{{ form.end_time.errors }}</div>{% endif %}
+    </div>
+
+    <div class="form-field{% if form.venue.errors %} has-error{% endif %}">
+      <label for="{{ form.venue.id_for_label }}">{{ form.venue.label }}<span aria-hidden="true">*</span></label>
+      {{ form.venue }}
+      {% if form.venue.errors %}<div class="field-error" role="alert">{{ form.venue.errors }}</div>{% endif %}
+    </div>
+  </div>
+
+  <div id="availability-panel" class="availability-card" aria-live="polite">
+    {% if availability_result %}
+      <div class="availability-indicator {{ availability_result.status_label|lower }}">
+        <span class="status-icon">
+          {% if availability_result.is_available %}✅{% else %}⚠️{% endif %}
+        </span>
+        <div>
+          <strong>{{ availability_result.status_label }}</strong>
+          <p>{{ availability_result.message }}</p>
+        </div>
+      </div>
+
+      {% if availability_result.capacity_warning %}
+        <div class="capacity-warning-box">
+          ⚠️ <strong>{% trans "Capacity Warning" %}:</strong> {{ availability_result.capacity_warning }}
+        </div>
+      {% endif %}
+
+      {% if availability_result.alternative_venues %}
+        <div class="alternatives-box">
+          <h4>{% trans "Suggested Alternative Venues" %}:</h4>
+          <ul>
+            {% for alt in availability_result.alternative_venues %}
+              <li><strong>{{ alt.name }}</strong> ({{ alt.code }}) — {% trans "Capacity" %}: {{ alt.capacity }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="form-actions wizard-actions">
+    <button class="secondary-button compact" type="submit" name="action" value="back">← {% trans "Back" %}</button>
+    <button class="primary-button compact" type="submit" name="action" value="next">{% trans "Next: Responsible People →" %}</button>
+  </div>
+</form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const dateInput = document.getElementById("id_step2-planned_date");
+    const weekdayTag = document.getElementById("weekday-display");
+
+    const updateWeekday = () => {
+      if (!dateInput.value) {
+        weekdayTag.textContent = "";
+        return;
+      }
+      const parts = dateInput.value.split("-");
+      if (parts.length === 3) {
+        const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+        const lang = document.documentElement.lang || "uz";
+        const localeMap = { uz: "uz-UZ", ru: "ru-RU", en: "en-US" };
+        const dayName = dateObj.toLocaleDateString(localeMap[lang] || "uz-UZ", { weekday: "long" });
+        weekdayTag.textContent = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+      }
+    };
+
+    dateInput?.addEventListener("change", updateWeekday);
+    updateWeekday();
+  });
+</script>
+{% endblock %}

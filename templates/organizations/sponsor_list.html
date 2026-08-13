@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+{% include "master_data/page_header.html" %}
+<section class="data-surface">
+  <div class="data-toolbar"><span><strong>{{ total_count }}</strong> {% trans "records" %}</span>{% include "master_data/filters.html" %}</div>
+  {% if sponsors %}<div class="table-scroll"><table class="data-table">
+    <thead><tr><th>{% trans "Sponsor" %}</th><th>{% trans "Contact person" %}</th><th>{% trans "Email" %}</th><th>{% trans "Phone" %}</th><th>{% trans "Status" %}</th><th><span class="sr-only">{% trans "Actions" %}</span></th></tr></thead>
+    <tbody>{% for sponsor in sponsors %}<tr>
+      <td><a class="record-title" href="{% url 'sponsors:detail' sponsor.pk %}">{% if sponsor.logo %}<img class="record-logo" src="{{ sponsor.logo.url }}" alt="">{% else %}<span class="record-logo fallback">{{ sponsor.name|slice:':1'|upper }}</span>{% endif %}<span><strong>{{ sponsor.name }}</strong><small>{{ sponsor.website|default:"—" }}</small></span></a></td>
+      <td>{{ sponsor.contact_person|default:"—" }}</td><td>{{ sponsor.email|default:"—" }}</td><td>{{ sponsor.phone|default:"—" }}</td>
+      <td><span class="status-badge{% if not sponsor.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{{ sponsor.is_active|yesno:_('Active,Inactive') }}</span></td>
+      <td class="table-actions"><a href="{% url 'sponsors:detail' sponsor.pk %}">{% trans "View" %}</a>{% if can_manage %}<a href="{% url 'sponsors:edit' sponsor.pk %}">{% trans "Edit" %}</a>{% endif %}</td>
+    </tr>{% endfor %}</tbody></table></div>{% include "master_data/pagination.html" %}
+  {% else %}<div class="empty-list"><span aria-hidden="true">S</span><h2>{% trans "No sponsors found" %}</h2><p>{% trans "Adjust the filters or create the first sponsor record." %}</p></div>{% endif %}
+</section>
+{% endblock %}

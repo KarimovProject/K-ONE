@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="wizard-header">
+  <div class="wizard-progress">
+    <div class="wizard-step is-complete"><span class="step-num">1</span><span>{% trans "Basic Info" %}</span></div>
+    <div class="wizard-step is-complete"><span class="step-num">2</span><span>{% trans "Date & Venue" %}</span></div>
+    <div class="wizard-step is-complete"><span class="step-num">3</span><span>{% trans "People" %}</span></div>
+    <div class="wizard-step is-active"><span class="step-num">4</span><span>{% trans "Partners" %}</span></div>
+    <div class="wizard-step"><span class="step-num">5</span><span>{% trans "Review" %}</span></div>
+  </div>
+</div>
+
+<form class="data-form wizard-form" method="post" action="{% url 'events:wizard' %}">
+  {% csrf_token %}
+  <input type="hidden" name="current_step" value="4">
+
+  <h2>{% trans "Step 4: Organizations & Sponsors" %}</h2>
+  <p class="form-help">{% trans "Attach co-organizing local/foreign organizations and supporting sponsors." %}</p>
+
+  {% if form.non_field_errors %}
+    <div class="form-alert" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <div class="form-grid">
+    {% for field in form %}
+      <div class="form-field{% if field.errors %} has-error{% endif %}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true">*</span>{% endif %}</label>
+        {{ field }}
+        {% if field.help_text %}<small id="{{ field.id_for_label }}_helptext">{{ field.help_text }}</small>{% endif %}
+        {% if field.errors %}<div class="field-error" role="alert">{{ field.errors }}</div>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="form-actions wizard-actions">
+    <button class="secondary-button compact" type="submit" name="action" value="back">← {% trans "Back" %}</button>
+    <button class="primary-button compact" type="submit" name="action" value="next">{% trans "Next: Review & Submit →" %}</button>
+  </div>
+</form>
+{% endblock %}

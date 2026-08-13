@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ page_title }} · IEMS{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{{ page_title }}</h1>
+    <p class="page-description">{% trans "Cancelling an event releases the venue reservation and marks the record as cancelled." %}</p>
+  </div>
+</div>
+
+<section class="confirm-panel" aria-labelledby="confirm-title">
+  <span class="confirm-symbol warning-symbol" aria-hidden="true">⚠️</span>
+  <div>
+    <h2 id="confirm-title">{% blocktrans with title=event.title %}Cancel “{{ title }}”?{% endblocktrans %}</h2>
+    <p>{% trans "This action will release the venue schedule slot. Operational records will retain cancellation history." %}</p>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-field">
+      <label for="{{ form.reason.id_for_label }}">{{ form.reason.label }}</label>
+      {{ form.reason }}
+    </div>
+    <div class="form-actions">
+      <a class="secondary-link" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
+      <button class="danger-button" type="submit">{% trans "Confirm Cancellation" %}</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

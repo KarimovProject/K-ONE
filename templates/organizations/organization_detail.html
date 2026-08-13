@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ organization.name }} · IEMS{% endblock %}
+{% block content %}
+<section class="detail-heading">
+  <a class="back-link" href="{% url 'organizations:list' %}">← {% trans "Back to organizations" %}</a>
+  <div class="detail-title">{% if organization.logo %}<img class="detail-logo" src="{{ organization.logo.url }}" alt="">{% else %}<span class="record-logo fallback large">{{ organization.name|slice:':1'|upper }}</span>{% endif %}<div><h1>{{ organization.name }}</h1><p>{{ organization.get_organization_type_display }}{% if organization.short_name %} · {{ organization.short_name }}{% endif %}</p></div></div>
+  {% if can_manage %}<div class="detail-actions"><a class="secondary-link" href="{% url 'organizations:edit' organization.pk %}">{% trans "Edit" %}</a><a class="danger-link" href="{% url 'organizations:delete' organization.pk %}">{% trans "Delete" %}</a></div>{% endif %}
+</section>
+<div class="detail-layout"><section class="detail-main"><h2>{% trans "Contact and address" %}</h2><dl class="detail-list"><div><dt>{% trans "Contact person" %}</dt><dd>{{ organization.contact_person|default:"—" }}</dd></div><div><dt>{% trans "Email" %}</dt><dd>{% if organization.email %}<a href="mailto:{{ organization.email }}">{{ organization.email }}</a>{% else %}—{% endif %}</dd></div><div><dt>{% trans "Phone" %}</dt><dd>{{ organization.phone|default:"—" }}</dd></div><div><dt>{% trans "Address" %}</dt><dd>{{ organization.address|default:"—" }}</dd></div></dl><h2>{% trans "Notes" %}</h2><p>{{ organization.notes|default:_('No notes provided.')|linebreaksbr }}</p></section><aside class="detail-meta"><h2>{% trans "Organization details" %}</h2><dl><div><dt>{% trans "Country" %}</dt><dd>{{ organization.country|default:"—" }}</dd></div><div><dt>{% trans "City" %}</dt><dd>{{ organization.city|default:"—" }}</dd></div><div><dt>{% trans "Website" %}</dt><dd>{% if organization.website %}<a href="{{ organization.website }}" rel="noopener noreferrer" target="_blank">{% trans "Open website" %}</a>{% else %}—{% endif %}</dd></div><div><dt>{% trans "Status" %}</dt><dd>{{ organization.is_active|yesno:_('Active,Inactive') }}</dd></div></dl></aside></div>
+{% endblock %}

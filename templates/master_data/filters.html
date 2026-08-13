@@ -1,0 +1,27 @@
+{% load i18n %}
+<form class="filter-bar" method="get" role="search">
+  <label class="search-field">
+    <span class="sr-only">{% trans "Search" %}</span>
+    <span aria-hidden="true">⌕</span>
+    <input type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search records' %}">
+  </label>
+  <label>
+    <span class="sr-only">{% trans "Status" %}</span>
+    <select name="status">
+      <option value="all"{% if status_filter == 'all' %} selected{% endif %}>{% trans "All statuses" %}</option>
+      <option value="active"{% if status_filter == 'active' %} selected{% endif %}>{% trans "Active" %}</option>
+      <option value="inactive"{% if status_filter == 'inactive' %} selected{% endif %}>{% trans "Inactive" %}</option>
+    </select>
+  </label>
+  {% if organization_types %}
+    <label>
+      <span class="sr-only">{% trans "Organization type" %}</span>
+      <select name="type">
+        <option value="all">{% trans "All organization types" %}</option>
+        {% for value, label in organization_types %}<option value="{{ value }}"{% if type_filter == value %} selected{% endif %}>{{ label }}</option>{% endfor %}
+      </select>
+    </label>
+  {% endif %}
+  <button class="secondary-button" type="submit">{% trans "Apply" %}</button>
+  {% if search_query or status_filter != 'all' or type_filter != 'all' %}<a class="quiet-link" href=".">{% trans "Clear" %}</a>{% endif %}
+</form>

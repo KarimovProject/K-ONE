@@ -19,5 +19,14 @@
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeSidebar();
   });
-})();
 
+  document.querySelectorAll("[data-image-form] input[type='file']").forEach((input) => {
+    input.addEventListener("change", () => {
+      const preview = input.closest(".form-field")?.querySelector("[data-image-preview]");
+      const file = input.files?.[0];
+      if (!preview || !file) return;
+      preview.src = URL.createObjectURL(file);
+      preview.hidden = false;
+    });
+  });
+})();
