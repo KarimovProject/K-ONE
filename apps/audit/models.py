@@ -57,6 +57,9 @@ class AuditEventLog(models.Model):
         PUBLICATION_RETRIED = "publication.retried", _("Publication Retried")
         BANNER_GENERATED = "banner.generated", _("Banner Generated")
         BANNER_REGENERATED = "banner.regenerated", _("Banner Regenerated")
+        REPORT_CSV_EXPORTED = "report.csv_exported", _("CSV Report Exported")
+        REPORT_XLSX_EXPORTED = "report.xlsx_exported", _("XLSX Report Exported")
+        REPORT_PDF_EXPORTED = "report.pdf_exported", _("PDF Report Exported")
 
     actor = models.ForeignKey(
         settings.AUTH_USER_MODEL,

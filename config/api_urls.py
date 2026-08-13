@@ -33,6 +33,7 @@ from apps.publications.api import (
     PublicationDetailAPIView,
     PublicationListCreateAPIView,
 )
+from apps.reporting.api import ReportAPIView
 from apps.reporting.views import (
     DisplayVenuesAPIView,
     LeadershipSummaryAPIView,
@@ -43,6 +44,24 @@ from apps.reporting.views import (
 from apps.venues.api import VenueDetailAPIView, VenueListAPIView
 
 urlpatterns = [
+    path("reports/summary/", ReportAPIView.as_view(section="summary"), name="api-report-summary"),
+    path("reports/events/", ReportAPIView.as_view(section="events"), name="api-report-events"),
+    path("reports/venues/", ReportAPIView.as_view(section="venues"), name="api-report-venues"),
+    path(
+        "reports/attendance/",
+        ReportAPIView.as_view(section="attendance"),
+        name="api-report-attendance",
+    ),
+    path(
+        "reports/approvals/",
+        ReportAPIView.as_view(section="approvals"),
+        name="api-report-approvals",
+    ),
+    path(
+        "reports/publications/",
+        ReportAPIView.as_view(section="publications"),
+        name="api-report-publications",
+    ),
     path("publications/", PublicationListCreateAPIView.as_view(), name="api-publication-list"),
     path(
         "publications/<uuid:pk>/",

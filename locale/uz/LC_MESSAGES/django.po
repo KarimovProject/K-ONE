@@ -661,10 +661,10 @@ msgid "Attendance Summary"
 msgstr "Davomat xulosasi"
 
 msgid "Expected"
-msgstr "Kutilmoqda"
+msgstr "Kutilgan"
 
 msgid "Checked in"
-msgstr "Kirganlar"
+msgstr "Ro‘yxatdan o‘tgan"
 
 msgid "Emergency / High Priority"
 msgstr "Favqulodda va ustuvor"
@@ -769,7 +769,7 @@ msgid "Anonymous"
 msgstr "Anonim"
 
 msgid "Identified"
-msgstr "Identifikatsiyalangan"
+msgstr "Aniqlangan"
 
 msgid "Staff Manual Check-in"
 msgstr "Qo‘lda qayd etish"
@@ -976,3 +976,158 @@ msgstr "Uchrashuv"
 
 msgid "Emergency Announcement"
 msgstr "Favqulodda e’lon"
+
+msgid "Reports"
+msgstr "Hisobotlar"
+
+msgid "Reports & Analytics"
+msgstr "Hisobotlar va tahlil"
+
+msgid "Reporting & analytics"
+msgstr "Hisobot va tahlil"
+
+msgid "Bounded operational and leadership insight from verified IEMS records."
+msgstr ""
+"Tasdiqlangan IEMS yozuvlari asosidagi chegaralangan operatsion va rahbariyat"
+" tahlili."
+
+msgid "Apply filters"
+msgstr "Filtrlarni qo‘llash"
+
+msgid "Total Events"
+msgstr "Jami tadbirlar"
+
+msgid "Previous period"
+msgstr "Oldingi davr"
+
+msgid "Venue utilization"
+msgstr "Zallardan foydalanish"
+
+msgid "Reminder success"
+msgstr "Eslatmalar muvaffaqiyati"
+
+msgid "Event trend"
+msgstr "Tadbirlar dinamikasi"
+
+msgid "active days"
+msgstr "faol kun"
+
+msgid "No data for selected period."
+msgstr "Tanlangan davr uchun ma’lumot yo‘q."
+
+msgid "Attendance"
+msgstr "Davomat"
+
+msgid "Staff manual"
+msgstr "Xodim tomonidan"
+
+msgid "Approval performance"
+msgstr "Tasdiqlash samaradorligi"
+
+msgid "Average hours"
+msgstr "O‘rtacha soat"
+
+msgid "Median hours"
+msgstr "Median soat"
+
+msgid "Publication status"
+msgstr "Nashr holati"
+
+msgid "Retries"
+msgstr "Qayta urinishlar"
+
+msgid "Telegram reminders"
+msgstr "Telegram eslatmalari"
+
+msgid "Sent"
+msgstr "Yuborilgan"
+
+msgid "Connected recipients"
+msgstr "Ulangan oluvchilar"
+
+msgid "This Week"
+msgstr "Shu hafta"
+
+msgid "This Month"
+msgstr "Shu oy"
+
+msgid "This Quarter"
+msgstr "Shu chorak"
+
+msgid "This Year"
+msgstr "Shu yil"
+
+msgid "Status distribution"
+msgstr "Holatlar taqsimoti"
+
+msgid "Event type distribution"
+msgstr "Tadbir turlari taqsimoti"
+
+msgid "Publication distribution"
+msgstr "Nashrlar taqsimoti"
+
+msgid "Organization activity"
+msgstr "Tashkilotlar faolligi"
+
+msgid "Assigned workload"
+msgstr "Taqsimlangan ish hajmi"
+
+msgid "Event Scheduling"
+msgstr "Tadbirlarni rejalashtirish"
+
+msgid "Events"
+msgstr "Tadbirlar"
+
+msgid "Approval Queue"
+msgstr "Tasdiqlash navbati"
+
+msgid "Displaced Events"
+msgstr "Ko‘chirilgan tadbirlar"
+
+msgid "Executive & Display"
+msgstr "Rahbariyat va ekran"
+
+msgid "Speakers"
+msgstr "Spikerlar"
+
+msgid "Period"
+msgstr "Davr"
+
+msgid "Start date"
+msgstr "Boshlanish sanasi"
+
+msgid "End date"
+msgstr "Tugash sanasi"
+
+msgid "Responsible"
+msgstr "Mas’ul"
+
+msgid "Publication platform"
+msgstr "Nashr platformasi"
+
+msgid "All priorities"
+msgstr "Barcha ustuvorliklar"
+
+msgid "Current language"
+msgstr "Joriy til"
+
+msgid "Expected attendees"
+msgstr "Kutilayotgan ishtirokchilar"
+
+msgid "Attendance rate"
+msgstr "Qatnashish ko‘rsatkichi"
+
+msgid "Event trend data"
+msgstr "Tadbirlar dinamikasi ma’lumotlari"
+
+msgid "Public QR"
+msgstr "Ommaviy QR"
+
+msgid "Submitted"
+msgstr "Yuborilgan"
+
+msgid "Total"
+msgstr "Jami"
+
+msgid "Custom Date Range"
+msgstr "Maxsus sana oralig‘i"

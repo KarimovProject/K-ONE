@@ -51,9 +51,12 @@
     <a class="nav-item{% if nav_key == 'publications' %} is-active{% endif %}" href="{% url 'publications:list' %}"{% if nav_key == 'publications' %} aria-current="page"{% endif %}>
       <span class="nav-icon" aria-hidden="true">13</span><span>{% trans "Publications" %}</span>
     </a>
+    <a class="nav-item{% if nav_key == 'reports' %} is-active{% endif %}" href="{% url 'reporting:dashboard' %}"{% if nav_key == 'reports' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">14</span><span>{% trans "Reports" %}</span>
+    </a>
   </nav>
   <div class="sidebar-status">
     <span class="status-dot" aria-hidden="true"></span>
-    <span><strong>Phase 8</strong><small>{% trans "Social publication composer" %}</small></span>
+    <span><strong>Phase 9</strong><small>{% trans "Reporting & analytics" %}</small></span>
   </div>
 </aside>

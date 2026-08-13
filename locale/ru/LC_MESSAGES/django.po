@@ -663,7 +663,7 @@ msgid "Attendance Summary"
 msgstr "Сводка посещаемости"
 
 msgid "Expected"
-msgstr "Ожидается"
+msgstr "Ожидалось"
 
 msgid "Checked in"
 msgstr "Зарегистрировано"
@@ -768,10 +768,10 @@ msgid "Attendance Rate"
 msgstr "Процент посещаемости"
 
 msgid "Anonymous"
-msgstr "Анонимно"
+msgstr "Анонимные"
 
 msgid "Identified"
-msgstr "С данными"
+msgstr "Идентифицированные"
 
 msgid "Staff Manual Check-in"
 msgstr "Ручная регистрация"
@@ -979,3 +979,158 @@ msgstr "Встреча"
 
 msgid "Emergency Announcement"
 msgstr "Экстренный анонс"
+
+msgid "Reports"
+msgstr "Отчёты"
+
+msgid "Reports & Analytics"
+msgstr "Отчёты и аналитика"
+
+msgid "Reporting & analytics"
+msgstr "Отчётность и аналитика"
+
+msgid "Bounded operational and leadership insight from verified IEMS records."
+msgstr ""
+"Операционная и руководящая аналитика по проверенным данным IEMS в заданном "
+"периоде."
+
+msgid "Apply filters"
+msgstr "Применить фильтры"
+
+msgid "Total Events"
+msgstr "Всего событий"
+
+msgid "Previous period"
+msgstr "Предыдущий период"
+
+msgid "Venue utilization"
+msgstr "Использование залов"
+
+msgid "Reminder success"
+msgstr "Успешность напоминаний"
+
+msgid "Event trend"
+msgstr "Динамика событий"
+
+msgid "active days"
+msgstr "активных дней"
+
+msgid "No data for selected period."
+msgstr "Нет данных за выбранный период."
+
+msgid "Attendance"
+msgstr "Посещаемость"
+
+msgid "Staff manual"
+msgstr "Вручную сотрудником"
+
+msgid "Approval performance"
+msgstr "Эффективность согласования"
+
+msgid "Average hours"
+msgstr "Среднее, часов"
+
+msgid "Median hours"
+msgstr "Медиана, часов"
+
+msgid "Publication status"
+msgstr "Статус публикаций"
+
+msgid "Retries"
+msgstr "Повторные попытки"
+
+msgid "Telegram reminders"
+msgstr "Напоминания Telegram"
+
+msgid "Sent"
+msgstr "Отправлено"
+
+msgid "Connected recipients"
+msgstr "Подключённые получатели"
+
+msgid "This Week"
+msgstr "Эта неделя"
+
+msgid "This Month"
+msgstr "Этот месяц"
+
+msgid "This Quarter"
+msgstr "Этот квартал"
+
+msgid "This Year"
+msgstr "Этот год"
+
+msgid "Status distribution"
+msgstr "Распределение по статусам"
+
+msgid "Event type distribution"
+msgstr "Распределение по типам событий"
+
+msgid "Publication distribution"
+msgstr "Распределение публикаций"
+
+msgid "Organization activity"
+msgstr "Активность организаций"
+
+msgid "Assigned workload"
+msgstr "Распределённая нагрузка"
+
+msgid "Event Scheduling"
+msgstr "Планирование событий"
+
+msgid "Events"
+msgstr "События"
+
+msgid "Approval Queue"
+msgstr "Очередь согласования"
+
+msgid "Displaced Events"
+msgstr "Перемещённые события"
+
+msgid "Executive & Display"
+msgstr "Руководство и экраны"
+
+msgid "Speakers"
+msgstr "Спикеры"
+
+msgid "Period"
+msgstr "Период"
+
+msgid "Start date"
+msgstr "Дата начала"
+
+msgid "End date"
+msgstr "Дата окончания"
+
+msgid "Responsible"
+msgstr "Ответственный"
+
+msgid "Publication platform"
+msgstr "Платформа публикации"
+
+msgid "All priorities"
+msgstr "Все приоритеты"
+
+msgid "Current language"
+msgstr "Текущий язык"
+
+msgid "Expected attendees"
+msgstr "Ожидаемые участники"
+
+msgid "Attendance rate"
+msgstr "Показатель посещаемости"
+
+msgid "Event trend data"
+msgstr "Данные динамики событий"
+
+msgid "Public QR"
+msgstr "Публичный QR"
+
+msgid "Submitted"
+msgstr "Отправлено"
+
+msgid "Total"
+msgstr "Всего"
+
+msgid "Custom Date Range"
+msgstr "Произвольный период"
