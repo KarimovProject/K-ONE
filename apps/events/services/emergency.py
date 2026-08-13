@@ -8,6 +8,7 @@ from apps.events.models import Event
 from apps.events.services.conflicts import find_conflicting_events
 from apps.notifications.models import Notification
 from apps.notifications.services import send_notification
+from apps.notifications.telegram.services import schedule_event_notification
 from apps.venues.models import Venue
 
 
@@ -18,8 +19,7 @@ def execute_emergency_override(
 ) -> tuple[Event, list[Event]]:
     # Enforce RBAC server-side: super_admin or international_admin only
     if not (
-        actor.is_superuser
-        or actor.role in (User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN)
+        actor.is_superuser or actor.role in (User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN)
     ):
         raise PermissionDenied(
             _("Only super admins and international admins can execute emergency overrides.")
@@ -92,6 +92,7 @@ def execute_emergency_override(
                     severity=Notification.Severity.ALERT,
                     target_url=f"/events/{conf_event.pk}/",
                 )
+            schedule_event_notification(conf_event, "displaced")
 
         # Set target event as PLANNED with EMERGENCY priority
         event.status = Event.Status.PLANNED
@@ -117,5 +118,7 @@ def execute_emergency_override(
                 "displaced_count": len(displaced_events),
             },
         )
+
+        schedule_event_notification(event, "emergency", include_admins=True)
 
         return event, displaced_events

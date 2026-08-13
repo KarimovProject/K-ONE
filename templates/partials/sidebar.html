@@ -45,9 +45,12 @@
     <a class="nav-item{% if nav_key == 'leadership' %} is-active{% endif %}" href="{% url 'leadership-dashboard' %}"{% if nav_key == 'leadership' %} aria-current="page"{% endif %}>
       <span class="nav-icon" aria-hidden="true">11</span><span>{% trans "Leadership Dashboard" %}</span>
     </a>
+    <a class="nav-item{% if nav_key == 'telegram' %} is-active{% endif %}" href="{% url 'notifications:telegram-settings' %}"{% if nav_key == 'telegram' %} aria-current="page"{% endif %}>
+      <span class="nav-icon" aria-hidden="true">12</span><span>{% trans "Telegram" %}</span>
+    </a>
   </nav>
   <div class="sidebar-status">
     <span class="status-dot" aria-hidden="true"></span>
-    <span><strong>Phase 6</strong><small>{% trans "Leadership & TV Wallboard" %}</small></span>
+    <span><strong>Phase 7</strong><small>{% trans "Staff Telegram reminders" %}</small></span>
   </div>
 </aside>

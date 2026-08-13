@@ -38,3 +38,74 @@ class Notification(models.Model):
 
     def __str__(self) -> str:
         return f"[{self.severity.upper()}] {self.recipient.username}: {self.title}"
+
+
+class TelegramConnection(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="telegram_connection",
+    )
+    chat_id = models.CharField(max_length=32)
+    telegram_user_id = models.BigIntegerField()
+    telegram_username = models.CharField(max_length=64, blank=True, default="")
+    connected_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    last_verified_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"Telegram connection for {self.user}"
+
+
+class TelegramLinkToken(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="telegram_link_tokens",
+    )
+    token_hash = models.CharField(max_length=64, unique=True)
+    expires_at = models.DateTimeField()
+    used_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=("token_hash", "expires_at"))]
+
+
+class TelegramDelivery(models.Model):
+    class Status(models.TextChoices):
+        PENDING = "pending", _("Pending")
+        SENT = "sent", _("Sent")
+        FAILED = "failed", _("Failed")
+        SKIPPED = "skipped", _("Skipped")
+
+    event = models.ForeignKey(
+        "events.Event",
+        on_delete=models.CASCADE,
+        related_name="telegram_deliveries",
+    )
+    recipient_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="telegram_deliveries",
+    )
+    notification_type = models.CharField(max_length=48)
+    scheduled_for = models.DateTimeField()
+    attempted_at = models.DateTimeField(null=True, blank=True)
+    sent_at = models.DateTimeField(null=True, blank=True)
+    telegram_message_id = models.CharField(max_length=64, blank=True, default="")
+    status = models.CharField(max_length=16, choices=Status.choices, default=Status.PENDING)
+    error_code = models.CharField(max_length=64, blank=True, default="")
+    retry_count = models.PositiveSmallIntegerField(default=0)
+    message_text = models.TextField(blank=True, default="")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+        constraints = [
+            models.UniqueConstraint(
+                fields=("event", "recipient_user", "notification_type", "scheduled_for"),
+                name="uniq_telegram_delivery",
+            )
+        ]
+        indexes = [models.Index(fields=("status", "scheduled_for"))]

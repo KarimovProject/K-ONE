@@ -249,6 +249,14 @@ class Event(models.Model):
     checkin_opens_at = models.DateTimeField(_("check-in opens at"), null=True, blank=True)
     checkin_closes_at = models.DateTimeField(_("check-in closes at"), null=True, blank=True)
 
+    # Phase 7 personal staff reminder policy.
+    reminders_enabled = models.BooleanField(_("Telegram reminders enabled"), default=True)
+    reminder_7d = models.BooleanField(_("7 days before"), default=True)
+    reminder_3d = models.BooleanField(_("3 days before"), default=True)
+    reminder_1d = models.BooleanField(_("1 day before"), default=True)
+    reminder_3h = models.BooleanField(_("3 hours before"), default=True)
+    reminder_30m = models.BooleanField(_("30 minutes before"), default=True)
+
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -294,6 +302,10 @@ class Event(models.Model):
         lang = (translation.get_language() or "uz").split("-")[0]
         names = WEEKDAY_NAMES.get(lang, WEEKDAY_NAMES["uz"])
         return names[self.planned_date.weekday()]
+
+    def weekday_name_for(self, language: str) -> str:
+        names = WEEKDAY_NAMES.get(language, WEEKDAY_NAMES["uz"])
+        return names[self.planned_date.weekday()] if self.planned_date else ""
 
     @property
     def start_datetime(self) -> datetime:

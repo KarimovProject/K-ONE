@@ -128,6 +128,19 @@ CELERY_RESULT_BACKEND = env(
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULER = "celery.beat:PersistentScheduler"
+CELERY_BEAT_SCHEDULE = {
+    "telegram-reminder-dispatcher": {
+        "task": "apps.notifications.telegram.tasks.dispatch_due_reminders",
+        "schedule": 60.0,
+    }
+}
+
+TELEGRAM_BOT_ENABLED = env.bool("TELEGRAM_BOT_ENABLED", default=False)
+TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
+TELEGRAM_BOT_USERNAME = env("TELEGRAM_BOT_USERNAME", default="")
+TELEGRAM_API_BASE_URL = env("TELEGRAM_API_BASE_URL", default="https://api.telegram.org")
+TELEGRAM_LINK_TOKEN_TTL_SECONDS = env.int("TELEGRAM_LINK_TOKEN_TTL_SECONDS", default=600)
+IEMS_BASE_URL = env("IEMS_BASE_URL", default="")
 
 CACHES = {
     "default": {

@@ -34,6 +34,19 @@ class AuditEventLog(models.Model):
         DISPLAY_TOKEN_ROTATED = "display.token_rotated", _("Display Token Rotated")
         DISPLAY_ENABLED = "display.enabled", _("Display Enabled")
         DISPLAY_DISABLED = "display.disabled", _("Display Disabled")
+        TELEGRAM_CONNECTION_CREATED = "telegram.connection_created", _("Telegram Connected")
+        TELEGRAM_CONNECTION_REMOVED = "telegram.connection_removed", _("Telegram Disconnected")
+        TELEGRAM_TEST_SENT = "telegram.test_sent", _("Telegram Test Sent")
+        TELEGRAM_REMINDER_SCHEDULED = (
+            "telegram.reminder_scheduled",
+            _("Telegram Reminder Scheduled"),
+        )
+        TELEGRAM_REMINDER_SENT = "telegram.reminder_sent", _("Telegram Reminder Sent")
+        TELEGRAM_REMINDER_FAILED = "telegram.reminder_failed", _("Telegram Reminder Failed")
+        TELEGRAM_EVENT_NOTIFICATION_SENT = (
+            "telegram.event_notification_sent",
+            _("Telegram Event Notification Sent"),
+        )
 
     actor = models.ForeignKey(
         settings.AUTH_USER_MODEL,

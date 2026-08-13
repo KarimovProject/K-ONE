@@ -241,6 +241,7 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
                     is_override_authorized
                     and event.status not in (Event.Status.CANCELLED, Event.Status.COMPLETED)
                 ),
+                "can_manage_reminders": is_admin,
                 "audit_logs": AuditEventLog.objects.filter(target_id=str(event.pk))[:15],
             }
         )
