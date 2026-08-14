@@ -53,3 +53,5 @@ try {
 } finally {
     Pop-Location
 }
+
+Write-Host "All required local services are ready."
