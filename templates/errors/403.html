@@ -1,3 +1,4 @@
 {% extends "base.html" %}{% load i18n %}
 {% block title %}{% trans "Access denied" %} · IEMS{% endblock %}
-{% block content %}<main class="error-page"><p class="eyebrow">403</p><h1>{% trans "Access denied" %}</h1><p>{% trans "Your account does not have permission to perform this action." %}</p><a class="primary-button compact" href="/">{% trans "Return to dashboard" %}</a></main>{% endblock %}
+{% block content %}{% include "errors/_403_body.html" %}{% endblock %}
+{% block unauthenticated_content %}{% include "errors/_403_body.html" %}{% endblock %}

@@ -26,13 +26,19 @@ def test_acceptance_demo_is_idempotent_and_cleanup_is_scoped(monkeypatch):
     call_command("prepare_acceptance_demo", with_events=True)
     call_command("prepare_acceptance_demo", with_events=True)
 
-    assert User.objects.filter(username__startswith="acceptance_").count() == 7
+    assert User.objects.filter(username__startswith="acceptance_").count() == 8
     assert Venue.objects.filter(code__startswith="ACCD").count() == 4
     assert EventType.objects.filter(code="acceptance_demo").count() == 1
     assert Organization.objects.filter(name__startswith="[ACCEPTANCE_DEMO]").count() == 1
     assert Sponsor.objects.filter(name__startswith="[ACCEPTANCE_DEMO]").count() == 1
     assert Event.objects.filter(title__startswith="[ACCEPTANCE_DEMO]").count() == 3
     assert User.objects.get(username="acceptance_super_admin").check_password(password)
+    acceptance_admin = User.objects.get(username="acceptance_admin")
+    assert acceptance_admin.role == User.Role.SUPER_ADMIN
+    assert acceptance_admin.is_active
+    assert acceptance_admin.is_staff
+    assert acceptance_admin.is_superuser
+    assert acceptance_admin.check_password(password)
 
     call_command("cleanup_acceptance_demo")
 

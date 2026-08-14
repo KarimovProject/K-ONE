@@ -66,6 +66,8 @@ def dashboard(request: HttpRequest) -> HttpResponse:
 
 class LeadershipRequiredMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
         if not user_can_view_leadership(request.user):
             raise PermissionDenied(
                 _("You do not have permission to view the Leadership Dashboard.")
@@ -154,6 +156,8 @@ class DisplayVenuesAPIView(View):
 
 class ReportingRequiredMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
         if not reporting_user_allowed(request.user):
             raise PermissionDenied(_("You do not have permission to view reports."))
         return super().dispatch(request, *args, **kwargs)

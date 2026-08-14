@@ -64,7 +64,8 @@ def sample_venue(db):
 class TestMasterDataRBACPermissions:
     def test_unauthenticated_user_denied_access(self, client, sample_venue):
         res = client.get(reverse("venues:list"))
-        assert res.status_code == status.HTTP_403_FORBIDDEN
+        assert res.status_code == status.HTTP_302_FOUND
+        assert res.url == f"{reverse('login')}?next={reverse('venues:list')}"
 
     def test_read_access_for_all_master_data_roles(
         self, client, resp_employee, mgmt_resp, lead_viewer, sample_venue

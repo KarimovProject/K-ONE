@@ -371,7 +371,7 @@ class EventSubmitApprovalView(LoginRequiredMixin, View):
 
 class EventApprovalListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
     required_capability = Capability.APPROVE_EVENTS
-    template_name = "events/approval_list.html"
+    template_name = "events/event_list.html"
     context_object_name = "events"
     paginate_by = 15
 
@@ -532,7 +532,7 @@ class EventEmergencyOverrideView(LoginRequiredMixin, CapabilityRequiredMixin, Fo
 
 class DisplacedEventsListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
     required_capability = Capability.VIEW_MASTER_DATA
-    template_name = "events/displaced_list.html"
+    template_name = "events/event_list.html"
     context_object_name = "events"
     paginate_by = 15
 

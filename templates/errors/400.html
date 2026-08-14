@@ -1,3 +1,4 @@
 {% extends "base.html" %}{% load i18n %}
 {% block title %}{% trans "Invalid request" %} · IEMS{% endblock %}
-{% block content %}<main class="error-page"><p class="eyebrow">400</p><h1>{% trans "Invalid request" %}</h1><p>{% trans "The request could not be processed. Check the entered information and try again." %}</p><a class="primary-button compact" href="/">{% trans "Return to dashboard" %}</a></main>{% endblock %}
+{% block content %}{% include "errors/_400_body.html" %}{% endblock %}
+{% block unauthenticated_content %}{% include "errors/_400_body.html" %}{% endblock %}

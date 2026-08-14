@@ -1,3 +1,4 @@
 {% extends "base.html" %}{% load i18n %}
 {% block title %}{% trans "Service error" %} · IEMS{% endblock %}
-{% block content %}<main class="error-page"><p class="eyebrow">500</p><h1>{% trans "Something went wrong" %}</h1><p>{% trans "The service could not complete the request. Please try again later." %}</p><a class="primary-button compact" href="/">{% trans "Return to dashboard" %}</a></main>{% endblock %}
+{% block content %}{% include "errors/_500_body.html" %}{% endblock %}
+{% block unauthenticated_content %}{% include "errors/_500_body.html" %}{% endblock %}

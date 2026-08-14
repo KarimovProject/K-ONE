@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any, TypeVar, cast
 
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 
@@ -75,7 +76,7 @@ def capability_required(capability: Capability) -> Callable[[ViewFunction], View
         @wraps(view)
         def wrapped(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
             if not request.user.is_authenticated:
-                raise PermissionDenied
+                return redirect_to_login(request.get_full_path())
             if not user_has_capability(cast(User, request.user), capability):
                 raise PermissionDenied
             return view(request, *args, **kwargs)
@@ -92,4 +93,6 @@ class CapabilityRequiredMixin(UserPassesTestMixin):
         return user_has_capability(self.request.user, self.required_capability)
 
     def handle_no_permission(self) -> HttpResponse:
+        if not self.request.user.is_authenticated:
+            return cast(HttpResponse, super().handle_no_permission())
         raise PermissionDenied

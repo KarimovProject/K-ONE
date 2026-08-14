@@ -16,6 +16,7 @@ DEMO_TAG = "[ACCEPTANCE_DEMO]"
 DEMO_PASSWORD_ENV = "IEMS_ACCEPTANCE_PASSWORD"
 
 DEMO_USERS = (
+    ("acceptance_admin", User.Role.SUPER_ADMIN, "Acceptance Admin"),
     ("acceptance_super_admin", User.Role.SUPER_ADMIN, "Super Admin"),
     ("acceptance_international_admin", User.Role.INTERNATIONAL_ADMIN, "International Admin"),
     ("acceptance_responsible", User.Role.RESPONSIBLE_EMPLOYEE, "Responsible Employee"),
