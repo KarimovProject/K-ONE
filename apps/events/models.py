@@ -8,6 +8,8 @@ from django.db import models
 from django.utils import timezone, translation
 from django.utils.translation import gettext_lazy as _
 
+from config.validators import validate_image_upload, validate_pdf_upload
+
 
 def generate_public_token() -> str:
     return secrets.token_urlsafe(16)
@@ -229,7 +231,10 @@ class Event(models.Model):
         upload_to="event_programs/",
         null=True,
         blank=True,
-        validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["pdf"]),
+            validate_pdf_upload,
+        ],
     )
     program_intro = models.TextField(_("program intro"), blank=True, default="")
     program_notes = models.TextField(_("program notes"), blank=True, default="")
@@ -454,7 +459,13 @@ class Speaker(models.Model):
     organization = models.CharField(_("organization"), max_length=255, blank=True)
     country = models.CharField(_("country"), max_length=100, blank=True)
     bio = models.TextField(_("bio"), blank=True)
-    photo = models.ImageField(_("photo"), upload_to="speakers/", null=True, blank=True)
+    photo = models.ImageField(
+        _("photo"),
+        upload_to="speakers/",
+        null=True,
+        blank=True,
+        validators=[validate_image_upload],
+    )
     email = models.EmailField(_("email"), blank=True)  # Private field
     public_profile_enabled = models.BooleanField(_("public profile enabled"), default=True)
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)

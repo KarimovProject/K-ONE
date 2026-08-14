@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -21,7 +22,11 @@ from django.views.generic import (
 
 from apps.accounts.models import User
 from apps.accounts.rbac import Capability, CapabilityRequiredMixin, user_has_capability
-from apps.attendance.services import is_already_checked_in
+from apps.attendance.services import (
+    CHECKIN_COOKIE_NAME,
+    get_or_create_browser_checkin_token,
+    is_already_checked_in,
+)
 from apps.audit.services import log_audit_event
 from apps.events.forms import (
     EventCancelForm,
@@ -694,6 +699,15 @@ class PublicEventPageView(DetailView):
     slug_field = "public_token"
     slug_url_kwarg = "public_token"
 
+    def dispatch(self, request, *args, **kwargs):
+        from config.rate_limit import is_rate_limited
+        from config.views import rate_limited_response
+
+        token = kwargs.get("public_token", "")
+        if is_rate_limited(request, "public-event", 600, 60, token):
+            return rate_limited_response(request)
+        return super().dispatch(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
         token = self.kwargs.get("public_token")
         event = get_object_or_404(
@@ -705,6 +719,20 @@ class PublicEventPageView(DetailView):
         if not event.is_publicly_accessible:
             raise Http404(_("This event page is not currently published or unavailable."))
         return event
+
+    def render_to_response(self, context, **response_kwargs):
+        response = super().render_to_response(context, **response_kwargs)
+        if not self.request.COOKIES.get(CHECKIN_COOKIE_NAME):
+            token, _ = get_or_create_browser_checkin_token(self.request)
+            response.set_cookie(
+                CHECKIN_COOKIE_NAME,
+                token,
+                max_age=365 * 24 * 3600,
+                samesite="Lax",
+                httponly=True,
+                secure=settings.SESSION_COOKIE_SECURE,
+            )
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

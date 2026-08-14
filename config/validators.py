@@ -2,6 +2,7 @@ from pathlib import Path
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from PIL import Image, UnidentifiedImageError
 
 MAX_IMAGE_SIZE = 5 * 1024 * 1024
 ALLOWED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
@@ -42,4 +43,33 @@ def validate_image_upload(upload) -> None:
         raise ValidationError(
             _("The uploaded file content is not a supported image."),
             code="invalid_image_signature",
+        )
+    position = upload.tell() if hasattr(upload, "tell") else None
+    try:
+        Image.open(upload).verify()
+    except (OSError, UnidentifiedImageError, ValueError) as exc:
+        raise ValidationError(
+            _("The uploaded image is damaged or unsafe."), code="invalid_image_binary"
+        ) from exc
+    finally:
+        if hasattr(upload, "seek"):
+            upload.seek(position or 0)
+
+
+MAX_PDF_SIZE = 10 * 1024 * 1024
+
+
+def validate_pdf_upload(upload) -> None:
+    extension = Path(upload.name).suffix.lower()
+    if extension != ".pdf":
+        raise ValidationError(_("Only PDF files are allowed."), code="invalid_pdf_extension")
+    if upload.size > MAX_PDF_SIZE:
+        raise ValidationError(_("PDF size must not exceed 10 MB."), code="pdf_too_large")
+    position = upload.tell() if hasattr(upload, "tell") else None
+    header = upload.read(5)
+    if hasattr(upload, "seek"):
+        upload.seek(position or 0)
+    if header != b"%PDF-":
+        raise ValidationError(
+            _("The uploaded file is not a valid PDF document."), code="invalid_pdf_signature"
         )

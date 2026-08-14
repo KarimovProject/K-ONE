@@ -13,6 +13,7 @@ from apps.events.models import Event, EventType
 from apps.events.selectors import calendar_events
 from apps.events.services.conflicts import check_venue_availability
 from apps.venues.models import Venue
+from config.rate_limit import is_rate_limited
 
 
 class EventTypeSerializer(serializers.ModelSerializer):
@@ -526,6 +527,10 @@ class PublicEventAPIView(APIView):
     permission_classes = ()  # Public endpoint - no login required
 
     def get(self, request, token: str):
+        if is_rate_limited(request, "public-event-api", 180, 60, token):
+            return Response(
+                {"error": "Too many requests"}, status=status.HTTP_429_TOO_MANY_REQUESTS
+            )
         event = get_object_or_404(
             Event.objects.select_related("event_type", "venue").prefetch_related(
                 "organizing_organizations", "sponsors", "program_items__speaker"

@@ -1,3 +1,4 @@
+import io
 from datetime import time
 
 import pytest
@@ -5,6 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.utils import translation
 from django.utils.translation import gettext
+from PIL import Image
 
 from apps.accounts.models import User
 from apps.accounts.rbac import Capability, user_has_capability
@@ -93,9 +95,11 @@ def test_upload_rejects_oversized_image():
 
 @pytest.mark.django_db
 def test_valid_png_signature_is_accepted():
+    payload = io.BytesIO()
+    Image.new("RGB", (2, 2), "blue").save(payload, format="PNG")
     upload = SimpleUploadedFile(
         "venue.png",
-        b"\x89PNG\r\n\x1a\n" + b"valid-test-payload",
+        payload.getvalue(),
         content_type="image/png",
     )
     form = VenueForm(data=venue_form_data(), files={"photo": upload})

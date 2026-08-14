@@ -52,7 +52,7 @@ def run_verification():
         results["screenshots"].append(venue_form_shot)
 
         # Test Venue Create
-        page.fill("form.data-form input[name='code']", "TEST_HALL")
+        page.fill("form.data-form input[name='code']", "P10_VISUAL")
         page.fill("form.data-form input[name='name_uz']", "Test Zali")
         page.fill("form.data-form input[name='name_ru']", "Тестовый зал")
         page.fill("form.data-form input[name='name_en']", "Test Hall")
@@ -61,15 +61,15 @@ def run_verification():
         page.fill("form.data-form input[name='working_end']", "18:00")
         page.click("form.data-form button[type='submit']")
         page.wait_for_url(f"{BASE_URL}/master-data/venues/")
-        assert "TEST_HALL" in page.content(), "TEST_HALL not found after creation"
+        assert "P10_VISUAL" in page.content(), "P10 visual hall not found after creation"
 
         # Test Venue Detail & Edit
-        venue_row = page.locator("tr:has-text('TEST_HALL')")
+        venue_row = page.locator("tr:has-text('P10_VISUAL')")
         detail_link = venue_row.locator("a").first
         if detail_link.count() > 0:
             detail_link.click()
             page.wait_for_timeout(500)
-            assert "TEST_HALL" in page.content()
+            assert "P10_VISUAL" in page.content()
 
         # Test Venue Validation Error (working_end <= working_start)
         page.goto(f"{BASE_URL}/master-data/venues/new/")
@@ -99,13 +99,13 @@ def run_verification():
         results["screenshots"].append(et_form_shot)
 
         # Test EventType Create
-        page.fill("form.data-form input[name='code']", "webinar")
+        page.fill("form.data-form input[name='code']", "p10-visual-webinar")
         page.fill("form.data-form input[name='name_uz']", "Vebinar")
         page.fill("form.data-form input[name='name_ru']", "Вебинар")
         page.fill("form.data-form input[name='name_en']", "Webinar")
         page.click("form.data-form button[type='submit']")
         page.wait_for_url(f"{BASE_URL}/master-data/event-types/")
-        assert "webinar" in page.content() or "Vebinar" in page.content()
+        assert "p10-visual-webinar" in page.content() or "Vebinar" in page.content()
 
         results["web_crud"]["event_types"] = "PASS"
 
@@ -121,13 +121,13 @@ def run_verification():
         results["screenshots"].append(org_form_shot)
 
         # Test Organization Create
-        page.fill("form.data-form input[name='name']", "Test Organization")
+        page.fill("form.data-form input[name='name']", "P10 Visual Organization")
         page.fill("form.data-form input[name='short_name']", "TO")
         page.fill("form.data-form input[name='country']", "Uzbekistan")
         page.fill("form.data-form input[name='website']", "https://testorg.uz")
         page.click("form.data-form button[type='submit']")
         page.wait_for_url(f"{BASE_URL}/master-data/organizations/")
-        assert "Test Organization" in page.content()
+        assert "P10 Visual Organization" in page.content()
 
         # Test Organization invalid website URL error
         page.goto(f"{BASE_URL}/master-data/organizations/new/")
@@ -151,11 +151,11 @@ def run_verification():
         results["screenshots"].append(sp_form_shot)
 
         # Test Sponsor Create
-        page.fill("form.data-form input[name='name']", "Test Sponsor Inc")
+        page.fill("form.data-form input[name='name']", "P10 Visual Sponsor")
         page.fill("form.data-form input[name='website']", "https://sponsor.com")
         page.click("form.data-form button[type='submit']")
         page.wait_for_url(f"{BASE_URL}/master-data/sponsors/")
-        assert "Test Sponsor Inc" in page.content()
+        assert "P10 Visual Sponsor" in page.content()
 
         results["web_crud"]["sponsors"] = "PASS"
         context.close()

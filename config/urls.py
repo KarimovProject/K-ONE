@@ -14,15 +14,17 @@ from apps.reporting.views import (
     dashboard,
 )
 from config import health
+from config.views import ThrottledLoginView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("accounts/login/", auth_views.LoginView.as_view(), name="login"),
+    path("accounts/login/", ThrottledLoginView.as_view(), name="login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("i18n/", include("django.conf.urls.i18n")),
     path("health/", health.application_health, name="application-health"),
     path("health/database/", health.database_health, name="database-health"),
     path("health/redis/", health.redis_health, name="redis-health"),
+    path("health/ready/", health.readiness_health, name="readiness-health"),
     path(
         "event/<str:public_token>/checkin/",
         PublicCheckinView.as_view(),
@@ -50,6 +52,11 @@ urlpatterns = [
     path("api/v1/", include("config.api_urls")),
     path("", dashboard, name="dashboard"),
 ]
+
+handler400 = "config.views.error_400"
+handler403 = "config.views.error_403"
+handler404 = "config.views.error_404"
+handler500 = "config.views.error_500"
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

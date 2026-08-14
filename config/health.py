@@ -21,3 +21,8 @@ def database_health(request: HttpRequest) -> JsonResponse:
 def redis_health(request: HttpRequest) -> JsonResponse:
     return _health_response(check_redis)
 
+
+def readiness_health(request: HttpRequest) -> JsonResponse:
+    checks = (check_application(), check_database(), check_redis())
+    healthy = all(result.is_healthy for result in checks)
+    return JsonResponse({"status": "ok" if healthy else "error"}, status=200 if healthy else 503)

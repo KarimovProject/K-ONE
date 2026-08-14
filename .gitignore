@@ -16,3 +16,6 @@ playwright-report/
 test-results/
 db.sqlite3
 celerybeat-schedule*
+celerybeat-*
+backups/
+restore-media/

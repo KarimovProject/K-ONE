@@ -1,4 +1,5 @@
 from celery import shared_task
+from django.core.cache import cache
 from django.utils import timezone
 
 from apps.audit.services import log_audit_event
@@ -25,6 +26,16 @@ def dispatch_due_reminders() -> int:
     name="apps.notifications.telegram.tasks.send_telegram_delivery",
 )
 def send_telegram_delivery(self, delivery_id: int) -> str:
+    lock_key = f"telegram-delivery-lock:{delivery_id}"
+    if not cache.add(lock_key, "1", timeout=120):
+        return "in_progress"
+    try:
+        return _send_locked_delivery(self, delivery_id)
+    finally:
+        cache.delete(lock_key)
+
+
+def _send_locked_delivery(task, delivery_id: int) -> str:
     delivery = TelegramDelivery.objects.select_related("recipient_user", "event").get(
         pk=delivery_id
     )
@@ -51,7 +62,7 @@ def send_telegram_delivery(self, delivery_id: int) -> str:
             delivery.save(update_fields=("status",))
             log_audit_event("telegram.reminder_failed", target=delivery.event)
             return delivery.status
-        raise self.retry(exc=exc) from exc
+        raise task.retry(exc=exc) from exc
     except (TelegramPermanentError, TelegramDisabledError) as exc:
         delivery.status = TelegramDelivery.Status.FAILED
         delivery.error_code = exc.code

@@ -1060,6 +1060,45 @@ msgstr "Этот квартал"
 msgid "This Year"
 msgstr "Этот год"
 
+msgid "Invalid request"
+msgstr "Некорректный запрос"
+
+msgid "The request could not be processed. Check the entered information and try again."
+msgstr "Не удалось обработать запрос. Проверьте введённые данные и повторите попытку."
+
+msgid "Access denied"
+msgstr "Доступ запрещён"
+
+msgid "Your account does not have permission to perform this action."
+msgstr "У вашей учётной записи нет разрешения на это действие."
+
+msgid "Page not found"
+msgstr "Страница не найдена"
+
+msgid "The requested page is unavailable or the link has expired."
+msgstr "Запрошенная страница недоступна или срок действия ссылки истёк."
+
+msgid "Too many requests"
+msgstr "Слишком много запросов"
+
+msgid "Please slow down"
+msgstr "Пожалуйста, подождите"
+
+msgid "Too many requests. Please try again later."
+msgstr "Слишком много запросов. Повторите попытку позже."
+
+msgid "Service error"
+msgstr "Ошибка сервиса"
+
+msgid "Something went wrong"
+msgstr "Произошла ошибка"
+
+msgid "The service could not complete the request. Please try again later."
+msgstr "Сервис не смог выполнить запрос. Повторите попытку позже."
+
+msgid "Return to dashboard"
+msgstr "Вернуться на панель управления"
+
 msgid "Status distribution"
 msgstr "Распределение по статусам"
 

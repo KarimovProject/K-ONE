@@ -430,3 +430,6 @@ button { border: 0; }
   .publication-canvas { min-height: 16rem; padding: var(--space-3); }
   .preview-media { min-height: 14rem; }
 }
+.error-page { max-width: 42rem; margin: clamp(3rem, 10vh, 8rem) auto; }
+.error-page h1 { margin-bottom: var(--space-3); }
+.error-page > p:not(.eyebrow) { max-width: 58ch; color: var(--ink-500); margin-bottom: var(--space-6); }

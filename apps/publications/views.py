@@ -22,6 +22,8 @@ from apps.publications.services import (
     publish_publication,
     schedule_publication,
 )
+from config.rate_limit import is_rate_limited
+from config.views import rate_limited_response
 
 
 class PublicationListView(LoginRequiredMixin, ListView):
@@ -142,6 +144,10 @@ class PublicationActionView(LoginRequiredMixin, View):
     action = ""
 
     def post(self, request, pk):
+        if self.action in ("publish", "retry") and is_rate_limited(
+            request, "publication-action", 10, 60, str(request.user.pk)
+        ):
+            return rate_limited_response(request)
         publication = get_object_or_404(Publication, pk=pk)
         try:
             if self.action == "prepare":

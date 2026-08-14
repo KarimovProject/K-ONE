@@ -1057,6 +1057,45 @@ msgstr "Shu chorak"
 msgid "This Year"
 msgstr "Shu yil"
 
+msgid "Invalid request"
+msgstr "Noto‘g‘ri so‘rov"
+
+msgid "The request could not be processed. Check the entered information and try again."
+msgstr "So‘rovni bajarib bo‘lmadi. Kiritilgan ma’lumotlarni tekshirib, qayta urinib ko‘ring."
+
+msgid "Access denied"
+msgstr "Kirish taqiqlangan"
+
+msgid "Your account does not have permission to perform this action."
+msgstr "Hisobingizda bu amalni bajarish uchun ruxsat yo‘q."
+
+msgid "Page not found"
+msgstr "Sahifa topilmadi"
+
+msgid "The requested page is unavailable or the link has expired."
+msgstr "So‘ralgan sahifa mavjud emas yoki havola muddati tugagan."
+
+msgid "Too many requests"
+msgstr "Juda ko‘p so‘rov"
+
+msgid "Please slow down"
+msgstr "Biroz kuting"
+
+msgid "Too many requests. Please try again later."
+msgstr "Juda ko‘p so‘rov yuborildi. Keyinroq qayta urinib ko‘ring."
+
+msgid "Service error"
+msgstr "Xizmat xatosi"
+
+msgid "Something went wrong"
+msgstr "Xatolik yuz berdi"
+
+msgid "The service could not complete the request. Please try again later."
+msgstr "Xizmat so‘rovni yakunlay olmadi. Keyinroq qayta urinib ko‘ring."
+
+msgid "Return to dashboard"
+msgstr "Boshqaruv paneliga qaytish"
+
 msgid "Status distribution"
 msgstr "Holatlar taqsimoti"
 

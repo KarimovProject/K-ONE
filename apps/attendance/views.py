@@ -1,6 +1,7 @@
 import csv
 import json
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -30,6 +31,7 @@ from apps.attendance.services import (
 )
 from apps.audit.services import log_audit_event
 from apps.events.models import Event
+from config.rate_limit import is_rate_limited
 
 
 def user_can_view_attendance(user, event) -> bool:
@@ -87,6 +89,15 @@ class PublicCheckinView(View):
     """Processes public QR attendance check-in submissions."""
 
     def post(self, request, public_token):
+        if is_rate_limited(request, "public-checkin", 300, 60, public_token):
+            return JsonResponse(
+                {
+                    "success": False,
+                    "code": "rate_limited",
+                    "message": str(_("Too many requests. Please try again later.")),
+                },
+                status=429,
+            )
         event = get_object_or_404(Event, public_token=public_token)
         if not event.is_publicly_accessible:
             return JsonResponse(
@@ -143,7 +154,8 @@ class PublicCheckinView(View):
                     token,
                     max_age=365 * 24 * 3600,
                     samesite="Lax",
-                    httponly=False,
+                    httponly=True,
+                    secure=settings.SESSION_COOKIE_SECURE,
                 )
 
         return response
@@ -153,6 +165,8 @@ class PublicAttendanceCountAPIView(View):
     """Returns public attendance count and check-in status for an event."""
 
     def get(self, request, token):
+        if is_rate_limited(request, "public-attendance-count", 120, 60, token):
+            return JsonResponse({"error": "Too many requests"}, status=429)
         event = get_object_or_404(Event, public_token=token)
         if not event.is_publicly_accessible:
             return JsonResponse({"error": "Event not found"}, status=404)

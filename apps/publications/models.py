@@ -4,6 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from config.validators import validate_image_upload
+
 
 class Publication(models.Model):
     class Platform(models.TextChoices):
@@ -46,7 +48,9 @@ class Publication(models.Model):
     )
     include_qr = models.BooleanField(default=True)
     include_sponsors = models.BooleanField(default=True)
-    banner = models.ImageField(upload_to="publications/%Y/%m/", blank=True)
+    banner = models.ImageField(
+        upload_to="publications/%Y/%m/", blank=True, validators=[validate_image_upload]
+    )
     scheduled_for = models.DateTimeField(null=True, blank=True)
     published_at = models.DateTimeField(null=True, blank=True)
     created_by = models.ForeignKey(

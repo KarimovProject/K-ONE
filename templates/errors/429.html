@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% load i18n %}
+{% block title %}{% trans "Too many requests" %} · IEMS{% endblock %}
+{% block content %}<main class="error-page"><p class="eyebrow">429</p><h1>{% trans "Please slow down" %}</h1><p>{{ message|default:_('Too many requests. Please try again later.') }}</p><a class="primary-button compact" href="/">{% trans "Return to dashboard" %}</a></main>{% endblock %}

@@ -22,6 +22,8 @@ from apps.reporting.selectors import (
 from apps.reporting.services import get_leadership_dashboard_data, get_tv_wallboard_data
 from apps.venues.models import DisplayToken
 from apps.venues.services.live_status import all_venues_live_status
+from config.rate_limit import is_rate_limited
+from config.views import rate_limited_response
 
 
 def user_can_view_leadership(user) -> bool:
@@ -141,6 +143,8 @@ class LeadershipUpcomingAPIView(LeadershipRequiredMixin, View):
 
 class DisplayVenuesAPIView(View):
     def get(self, request, token, *args, **kwargs):
+        if is_rate_limited(request, "display-api", 180, 60, token):
+            return JsonResponse({"error": "Too many requests"}, status=429)
         display_token = DisplayToken.objects.filter(token=token, is_active=True).first()
         if not display_token:
             return JsonResponse({"error": "Invalid or disabled display token"}, status=403)
@@ -187,6 +191,8 @@ class ReportExportView(ReportingRequiredMixin, View):
 
     def get(self, request):
         kind = request.GET.get("kind", "events")
+        if is_rate_limited(request, "report-export", 20, 60, str(request.user.pk)):
+            return rate_limited_response(request)
         if not user_can_export(request.user, self.format, kind):
             raise PermissionDenied(_("You do not have permission to export this report."))
         language = request.GET.get("language") or translation.get_language() or "uz"
