@@ -38,5 +38,10 @@
   --sidebar-width: 16.75rem;
   --topbar-height: 5rem;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --motion-fast: 140ms;
+  --motion-normal: 220ms;
+  --motion-slow: 420ms;
+  --content-max: 90rem;
 }
-

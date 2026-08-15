@@ -1,0 +1,37 @@
+{% load i18n static %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07172f">
+  <title>{% block title %}IEMS{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'css/public.css' %}">
+  <link rel="stylesheet" href="{% static 'css/phase11c.css' %}">
+  <link rel="stylesheet" href="{% static 'css/phase11d.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="public-body">
+  <a class="skip-link" href="#main-content">{% trans "Skip to content" %}</a>
+  <header class="public-header">
+    <a class="public-brand" href="{% url 'public-dashboard' %}">{% include "partials/institutional_lockup.html" %}</a>
+    <nav class="public-nav" aria-label="{% trans 'Public navigation' %}">
+      <a href="{% url 'public-dashboard' %}"{% if public_nav == 'dashboard' %} aria-current="page"{% endif %}>{% trans "Live dashboard" %}</a>
+      <a href="{% url 'public-calendar' %}"{% if public_nav == 'calendar' %} aria-current="page"{% endif %}>{% trans "Calendar" %}</a>
+      <a href="{% url 'public-live-venues' %}"{% if public_nav == 'venues' %} aria-current="page"{% endif %}>{% trans "Venues" %}</a>
+    </nav>
+    <div class="public-actions"><span class="header-live"><i></i>{% trans "Live" %}</span>
+      <form class="public-languages" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Language' %}">
+        {% csrf_token %}<input name="next" type="hidden" value="{{ request.get_full_path }}">
+        {% get_current_language as CURRENT_LANGUAGE %}
+        {% for code, name in LANGUAGES %}<button name="language" value="{{ code }}" type="submit"{% if code == CURRENT_LANGUAGE %} aria-current="true"{% endif %}>{{ code|upper }}</button>{% endfor %}
+      </form>
+      {% if user.is_authenticated %}<a class="public-login" href="{% url 'dashboard' %}">{% trans "Workspace" %}</a>{% else %}<a class="public-login" href="{% url 'login' %}">{% trans "Staff sign in" %}</a>{% endif %}
+    </div>
+  </header>
+  <main id="main-content" class="public-main" tabindex="-1">{% block content %}{% endblock %}</main>
+  <footer class="public-footer"><span>IEMS</span><span>{% trans "Official international events information" %}</span></footer>
+  <script src="{% static 'js/phase11d-shell.js' %}" defer></script>{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,3 +1,4 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: IEMS 0.1.0\n"
@@ -59,8 +60,12 @@ msgstr "Export CSV"
 msgid "Leadership Dashboard"
 msgstr "Leadership Dashboard"
 
-msgid "Real-time executive overview of active events, venue occupancy & attendance statistics."
-msgstr "Real-time executive overview of active events, venue occupancy & attendance statistics."
+msgid ""
+"Real-time executive overview of active events, venue occupancy & attendance "
+"statistics."
+msgstr ""
+"Real-time executive overview of active events, venue occupancy & attendance "
+"statistics."
 
 msgid "TV Wallboard Mode"
 msgstr "TV Wallboard Mode"
@@ -115,3 +120,756 @@ msgstr "Upcoming Events"
 
 msgid "Fullscreen"
 msgstr "Fullscreen"
+
+msgid "International Events Management System"
+msgstr "International Events Management System"
+
+msgid "Public navigation"
+msgstr "Public navigation"
+
+msgid "Live dashboard"
+msgstr "Live dashboard"
+
+msgid "Staff sign in"
+msgstr "Staff sign in"
+
+msgid "Workspace"
+msgstr "Workspace"
+
+msgid "Official international events information"
+msgstr "Official international events information"
+
+msgid "Live events dashboard"
+msgstr "Live events dashboard"
+
+msgid "Live institutional schedule"
+msgstr "Live institutional schedule"
+
+msgid "International events, clearly coordinated."
+msgstr "International events, clearly coordinated."
+
+msgid ""
+"A public, real-time overview of today's programme, active venues and "
+"upcoming international events."
+msgstr ""
+"A public, real-time overview of today's programme, active venues and "
+"upcoming international events."
+
+msgid "Current time in Tashkent"
+msgstr "Current time in Tashkent"
+
+msgid "Today at a glance"
+msgstr "Today at a glance"
+
+msgid "In progress"
+msgstr "In progress"
+
+msgid "right now"
+msgstr "right now"
+
+msgid "Starting soon"
+msgstr "Starting soon"
+
+msgid "within one hour"
+msgstr "within one hour"
+
+msgid "Active venues"
+msgstr "Active venues"
+
+msgid "monitored"
+msgstr "monitored"
+
+msgid "Live operations"
+msgstr "Live operations"
+
+msgid "Venue status"
+msgstr "Venue status"
+
+msgid "View all venues"
+msgstr "View all venues"
+
+msgid "No active venues"
+msgstr "No active venues"
+
+msgid "Venue status will appear when active venues are configured."
+msgstr "Venue status will appear when active venues are configured."
+
+msgid "Programme timeline"
+msgstr "Programme timeline"
+
+msgid "Open calendar"
+msgstr "Open calendar"
+
+msgid "No public events today"
+msgstr "No public events today"
+
+msgid "The next published programme will appear here."
+msgstr "The next published programme will appear here."
+
+msgid "Next seven days"
+msgstr "Next seven days"
+
+msgid "No upcoming public events."
+msgstr "No upcoming public events."
+
+msgid "Live data refreshes automatically."
+msgstr "Live data refreshes automatically."
+
+msgid "Available for scheduling"
+msgstr "Available for scheduling"
+
+msgid "Live venues"
+msgstr "Live venues"
+
+msgid "Operational visibility"
+msgstr "Operational visibility"
+
+msgid "Live venue status"
+msgstr "Live venue status"
+
+msgid ""
+"Current availability and the next public programme item for each active "
+"venue."
+msgstr ""
+"Current availability and the next public programme item for each active "
+"venue."
+
+msgid "Public event calendar"
+msgstr "Public event calendar"
+
+msgid "Published schedule"
+msgstr "Published schedule"
+
+msgid "International events calendar"
+msgstr "International events calendar"
+
+msgid "Explore public events by date, venue, type and status."
+msgstr "Explore public events by date, venue, type and status."
+
+msgid "Previous period"
+msgstr "Previous period"
+
+msgid "Next period"
+msgstr "Next period"
+
+msgid "All venues"
+msgstr "All venues"
+
+msgid "All types"
+msgstr "All types"
+
+msgid "All statuses"
+msgstr "All statuses"
+
+msgid "Open public event page"
+msgstr "Open public event page"
+
+msgid "Venue occupied"
+msgstr "Venue occupied"
+
+msgid "Private meeting"
+msgstr "Private meeting"
+
+msgid "My workspace"
+msgstr "My workspace"
+
+msgid "My events"
+msgstr "My events"
+
+msgid "Operations"
+msgstr "Operations"
+
+msgid "Communication"
+msgstr "Communication"
+
+msgid "Insights"
+msgstr "Insights"
+
+msgid "System operational"
+msgstr "System operational"
+
+msgid "Phase 11 interface"
+msgstr "Phase 11 interface"
+
+msgid "Coordinated events workspace"
+msgstr "Coordinated events workspace"
+
+msgid "Public view"
+msgstr "Public view"
+
+msgid "Role-aware workspace"
+msgstr "Role-aware workspace"
+
+msgid ""
+"Your priorities, upcoming events and required actions in one focused view."
+msgstr ""
+"Your priorities, upcoming events and required actions in one focused view."
+
+msgid "Plan new event"
+msgstr "Plan new event"
+
+msgid "Needs action"
+msgstr "Needs action"
+
+msgid "Pending approval"
+msgstr "Pending approval"
+
+msgid "Unread notifications"
+msgstr "Unread notifications"
+
+msgid "Your schedule"
+msgstr "Your schedule"
+
+msgid "Your schedule is clear"
+msgstr "Your schedule is clear"
+
+msgid "Assigned and upcoming events will appear here."
+msgstr "Assigned and upcoming events will appear here."
+
+msgid "Quick access"
+msgstr "Quick access"
+
+msgid "Tools for your role"
+msgstr "Tools for your role"
+
+msgid "Internal calendar"
+msgstr "Internal calendar"
+
+msgid "Telegram settings"
+msgstr "Telegram settings"
+
+msgid "Profile and language"
+msgstr "Profile and language"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Account control"
+msgstr "Account control"
+
+msgid "Profile and preferences"
+msgstr "Profile and preferences"
+
+msgid ""
+"Manage your identity and interface language. Access role changes require an "
+"administrator."
+msgstr ""
+"Manage your identity and interface language. Access role changes require an "
+"administrator."
+
+msgid "Preferred language"
+msgstr "Preferred language"
+
+msgid "Profile updated successfully."
+msgstr "Profile updated successfully."
+
+msgid "Save profile"
+msgstr "Save profile"
+
+msgid "Access"
+msgstr "Access"
+
+msgid "Role and permissions are managed centrally."
+msgstr "Role and permissions are managed centrally."
+
+msgid "Assigned events"
+msgstr "Assigned events"
+
+msgid "Management events"
+msgstr "Management events"
+
+msgid "Boshqaruv markazi"
+msgstr "Boshqaruv markazi"
+
+msgid "Month"
+msgstr "Month"
+
+msgid "Week"
+msgstr "Week"
+
+msgid "Day"
+msgstr "Day"
+
+msgid "List"
+msgstr "List"
+
+msgid "events"
+msgstr "events"
+
+msgid "Planned"
+msgstr "Planned"
+
+msgid "Approved"
+msgstr "Approved"
+
+msgid "Available"
+msgstr "Available"
+
+msgid "Occupied"
+msgstr "Occupied"
+
+msgid "Upcoming"
+msgstr "Upcoming"
+
+msgid "Event type"
+msgstr "Event type"
+
+msgid "Priority"
+msgstr "Priority"
+
+msgid "Role"
+msgstr "Role"
+
+msgid "Activity"
+msgstr "Activity"
+
+msgid "Connected"
+msgstr "Connected"
+
+msgid "Not connected"
+msgstr "Not connected"
+
+msgid "View all"
+msgstr "View all"
+
+msgid "Available venues"
+msgstr "Available venues"
+
+msgid "Occupied venues"
+msgstr "Occupied venues"
+
+msgid "Seven-day calendar preview"
+msgstr "Seven-day calendar preview"
+
+msgid "Calendar preview"
+msgstr "Calendar preview"
+
+msgid "Open interactive calendar"
+msgstr "Open interactive calendar"
+
+msgid "Try again"
+msgstr "Try again"
+
+msgid "Could not refresh data."
+msgstr "Could not refresh data."
+
+msgid "Loading calendar"
+msgstr "Loading calendar"
+
+msgid "Publications to prepare"
+msgstr "Publications to prepare"
+
+msgid "Today's check-in events"
+msgstr "Today's check-in events"
+
+msgid "International Events"
+msgstr "International Events"
+
+msgid "Approval queue"
+msgstr "Approval queue"
+
+msgid "Displaced events"
+msgstr "Displaced events"
+
+msgid "Leadership dashboard"
+msgstr "Leadership dashboard"
+
+msgid "Super administrator"
+msgstr "Super administrator"
+
+msgid "International department administrator"
+msgstr "International department administrator"
+
+msgid "Responsible employee"
+msgstr "Responsible employee"
+
+msgid "Management responsible"
+msgstr "Management responsible"
+
+msgid "Leadership viewer"
+msgstr "Leadership viewer"
+
+msgid "Content manager"
+msgstr "Content manager"
+
+msgid "Reception operator"
+msgstr "Reception operator"
+
+msgid "Management"
+msgstr "Management"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "All events"
+msgstr "All events"
+
+msgid "Rescheduling"
+msgstr "Rescheduling"
+
+msgid "Programs"
+msgstr "Programs"
+
+msgid "Reference data"
+msgstr "Reference data"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Staff"
+msgstr "Staff"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "Analytics"
+msgstr "Analytics"
+
+msgid "System"
+msgstr "System"
+
+msgid "Audit log"
+msgstr "Audit log"
+
+msgid "Control center"
+msgstr "Control center"
+
+msgid "IEMS Control Center"
+msgstr "IEMS Control Center"
+
+msgid "Manage the system, events and international activity from one place."
+msgstr "Manage the system, events and international activity from one place."
+
+msgid "Live operational context and secure administrative tools."
+msgstr "Live operational context and secure administrative tools."
+
+msgid "System indicators"
+msgstr "System indicators"
+
+msgid "registered in IEMS"
+msgstr "registered in IEMS"
+
+msgid "Today's events"
+msgstr "Today's events"
+
+msgid "on today's schedule"
+msgstr "on today's schedule"
+
+msgid "Awaiting approval"
+msgstr "Awaiting approval"
+
+msgid "requires a decision"
+msgstr "requires a decision"
+
+msgid "available to the system"
+msgstr "available to the system"
+
+msgid "Today's attendance"
+msgstr "Today's attendance"
+
+msgid "recorded check-ins"
+msgstr "recorded check-ins"
+
+msgid "Quick actions"
+msgstr "Quick actions"
+
+msgid "Start a common task"
+msgstr "Start a common task"
+
+msgid "New event"
+msgstr "New event"
+
+msgid "Plan and assign"
+msgstr "Plan and assign"
+
+msgid "Add speaker"
+msgstr "Add speaker"
+
+msgid "Create profile"
+msgstr "Create profile"
+
+msgid "Add organization"
+msgstr "Add organization"
+
+msgid "Register partner"
+msgstr "Register partner"
+
+msgid "Add venue"
+msgstr "Add venue"
+
+msgid "Configure space"
+msgstr "Configure space"
+
+msgid "Review schedule"
+msgstr "Review schedule"
+
+msgid "Operational insight"
+msgstr "Operational insight"
+
+msgid "Administration"
+msgstr "Administration"
+
+msgid "System modules"
+msgstr "System modules"
+
+msgid "awaiting approval"
+msgstr "awaiting approval"
+
+msgid "active spaces"
+msgstr "active spaces"
+
+msgid "Manage venues"
+msgstr "Manage venues"
+
+msgid "Display access"
+msgstr "Display access"
+
+msgid "Partners and sponsors"
+msgstr "Partners and sponsors"
+
+msgid "Users and access"
+msgstr "Users and access"
+
+msgid "Staff accounts and roles"
+msgstr "Staff accounts and roles"
+
+msgid "Communications"
+msgstr "Communications"
+
+msgid "Telegram and publications"
+msgstr "Telegram and publications"
+
+msgid "Telegram deliveries"
+msgstr "Telegram deliveries"
+
+msgid "Governance"
+msgstr "Governance"
+
+msgid "Attendance and audit history"
+msgstr "Attendance and audit history"
+
+msgid "Recent changes"
+msgstr "Recent changes"
+
+msgid "No new activity yet"
+msgstr "No new activity yet"
+
+msgid "Administrative changes will appear here."
+msgstr "Administrative changes will appear here."
+
+msgid "Manage all international events"
+msgstr "Manage all international events"
+
+msgid "Search, filter and manage permitted records."
+msgstr "Search, filter and manage permitted records."
+
+msgid "Clear filters"
+msgstr "Clear filters"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "New record"
+msgstr "New record"
+
+msgid "Complete the fields below. Required information is clearly marked."
+msgstr "Complete the fields below. Required information is clearly marked."
+
+msgid "Basic information"
+msgstr "Basic information"
+
+msgid "Schedule and venue"
+msgstr "Schedule and venue"
+
+msgid "Responsible persons and partners"
+msgstr "Responsible persons and partners"
+
+msgid "Public information and attendance"
+msgstr "Public information and attendance"
+
+msgid "Workflow"
+msgstr "Workflow"
+
+msgid "Reminder policy"
+msgstr "Reminder policy"
+
+msgid "System metadata"
+msgstr "System metadata"
+
+msgid "Choose a module to view and manage permitted records."
+msgstr "Choose a module to view and manage permitted records."
+
+msgid "Secure administrative records"
+msgstr "Secure administrative records"
+
+msgid "View records"
+msgstr "View records"
+
+msgid "Add new"
+msgstr "Add new"
+
+msgid "Audit trail"
+msgstr "Audit trail"
+
+msgid "Change history"
+msgstr "Change history"
+
+msgid "No change history"
+msgstr "No change history"
+
+msgid "Changes to this record will appear here."
+msgstr "Changes to this record will appear here."
+
+msgid "Event"
+msgstr "Event"
+
+msgid "Date / time"
+msgstr "Date / time"
+
+msgid "Venue"
+msgstr "Venue"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Responsible"
+msgstr "Responsible"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Filters"
+msgstr "Filters"
+
+msgid "Search by event title, organization or responsible person…"
+msgstr "Search by event title, organization or responsible person…"
+
+msgid "Search records…"
+msgstr "Search records…"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid "Pending Approval"
+msgstr "Pending Approval"
+
+msgid "Planned Events"
+msgstr "Planned Events"
+
+msgid "Schedule and manage international events across university venues."
+msgstr "Schedule and manage international events across university venues."
+
+msgid "Plan New Event"
+msgstr "Plan New Event"
+
+msgid "Search by event title or description..."
+msgstr "Search by event title or description..."
+
+msgid "All Statuses"
+msgstr "All Statuses"
+
+msgid "All Venues"
+msgstr "All Venues"
+
+msgid "All Types"
+msgstr "All Types"
+
+msgid "Event Type"
+msgstr "Event Type"
+
+msgid "Date & Weekday"
+msgstr "Date & Weekday"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "View"
+msgstr "View"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "No events found"
+msgstr "No events found"
+
+msgid "Try adjusting your search query or filters."
+msgstr "Try adjusting your search query or filters."
+
+msgid "Plan an Event"
+msgstr "Plan an Event"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "System active"
+msgstr "System active"
+
+msgid "Operational"
+msgstr "Operational"
+
+msgid "%(minutes)s minutes remaining"
+msgstr "%(minutes)s minutes remaining"
+
+msgid "Starts in %(minutes)s minutes"
+msgstr "Starts in %(minutes)s minutes"
+
+msgid "Free until"
+msgstr "Free until"
+
+msgid "Public dashboard"
+msgstr "Public dashboard"
+
+msgid "Today's timeline"
+msgstr "Today's timeline"
+
+msgid "No events scheduled today"
+msgstr "No events scheduled today"
+
+msgid "No events awaiting approval"
+msgstr "No events awaiting approval"
+
+msgid "Live"
+msgstr "Live"
+
+msgid "System online"
+msgstr "System online"
+
+msgid "Tashkent operational time"
+msgstr "Tashkent operational time"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Search events"
+msgstr "Search events"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Responsible person"
+msgstr "Responsible person"
+
+msgid "Organization"
+msgstr "Organization"
+
+msgid "No events planned"
+msgstr "No events planned"
+
+msgid "Republican Oncology Center and Gustave Roussy International Uzbekistan"
+msgstr ""
+"Republican Oncology Center and Gustave Roussy International Uzbekistan"
+
+msgid "Republic Oncology Center"
+msgstr "Republic Oncology Center"

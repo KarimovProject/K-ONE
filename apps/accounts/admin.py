@@ -14,4 +14,10 @@ class IEMSUserAdmin(UserAdmin):
     )
     list_display = ("username", "email", "role", "is_staff", "is_active")
     list_filter = UserAdmin.list_filter + ("role", "preferred_language")
+    search_fields = ("username", "first_name", "last_name", "email")
+    ordering = ("username",)
 
+
+admin.site.site_header = "IEMS Boshqaruv markazi"
+admin.site.site_title = "IEMS Admin"
+admin.site.index_title = "Tizim boshqaruvi"

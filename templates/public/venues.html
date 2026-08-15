@@ -1,0 +1,4 @@
+{% extends "public/base.html" %}{% load i18n static %}
+{% block title %}{% trans "Live venues" %} · IEMS{% endblock %}
+{% block content %}<section class="public-page-head"><p class="public-kicker">{% trans "Operational visibility" %}</p><h1>{% trans "Live venue status" %}</h1><p>{% trans "Current availability and the next public programme item for each active venue." %}</p></section><section class="live-venue-grid venue-page-grid" data-venue-grid data-endpoint="{% url 'public-venues-api' %}">{% for venue in venues %}{% include "public/_venue_card.html" %}{% empty %}<div class="public-empty"><strong>{% trans "No active venues" %}</strong></div>{% endfor %}</section>{% endblock %}
+{% block extra_js %}<script src="{% static 'js/public-dashboard.js' %}" defer></script>{% endblock %}

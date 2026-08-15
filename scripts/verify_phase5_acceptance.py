@@ -260,7 +260,7 @@ def main():
             page.fill("input[name='username']", "p5_admin")
             page.fill("input[name='password']", "Password123!")
             page.click("button[type='submit']")
-            page.wait_for_url(f"{BASE_URL}/")
+            page.wait_for_url(f"{BASE_URL}/workspace/")
 
             # Open internal attendance management page
             att_url = f"{BASE_URL}/events/{active_event.pk}/attendance/"

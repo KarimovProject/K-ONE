@@ -120,7 +120,9 @@ class EventListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        queryset = base_event_queryset()
+        queryset = base_event_queryset().exclude(
+            Q(title__istartswith="[ACCEPTANCE_DEMO]") | Q(title__istartswith="[P11]")
+        )
         query = self.request.GET.get("q", "").strip()
         venue_id = self.request.GET.get("venue")
         event_type_id = self.request.GET.get("type")

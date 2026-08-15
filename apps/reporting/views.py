@@ -1,8 +1,10 @@
+from datetime import date, timedelta
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpRequest, HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.http import Http404, HttpRequest, HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
 from django.utils import timezone, translation
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -12,10 +14,16 @@ from apps.accounts.models import User
 from apps.accounts.rbac import Capability, user_has_capability
 from apps.audit.services import log_audit_event
 from apps.reporting.exports import csv_response, pdf_response, xlsx_response
+from apps.reporting.public_selectors import (
+    public_dashboard_data,
+    public_events,
+    public_filter_options,
+    public_venue_statuses,
+)
 from apps.reporting.reports import report_context
 from apps.reporting.selectors import (
     allowed_report_sections,
-    get_dashboard_shell_data,
+    get_workspace_data,
     reporting_user_allowed,
     user_can_export,
 )
@@ -57,10 +65,91 @@ def _serialize_venues(venues):
     return [{key: item[key] for key in keys} for item in venues]
 
 
+def home(request: HttpRequest) -> HttpResponse:
+    return redirect("public-dashboard")
+
+
+class PublicDashboardView(TemplateView):
+    template_name = "public/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(public_dashboard_data())
+        return context
+
+
+class PublicCalendarView(TemplateView):
+    template_name = "public/calendar.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(public_filter_options())
+        return context
+
+
+class PublicLiveVenuesView(TemplateView):
+    template_name = "public/venues.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["venues"] = public_venue_statuses()
+        return context
+
+
+class PublicDashboardAPIView(View):
+    def get(self, request):
+        if is_rate_limited(request, "public-dashboard", 180, 60):
+            return JsonResponse({"error": "Too many requests"}, status=429)
+        return JsonResponse(public_dashboard_data())
+
+
+class PublicVenuesAPIView(View):
+    def get(self, request):
+        if is_rate_limited(request, "public-venues", 180, 60):
+            return JsonResponse({"error": "Too many requests"}, status=429)
+        return JsonResponse({"venues": public_venue_statuses()})
+
+
+class PublicCalendarAPIView(View):
+    def get(self, request):
+        today = timezone.localdate()
+        try:
+            start = date.fromisoformat(request.GET.get("start", today.isoformat()))
+            end = date.fromisoformat(
+                request.GET.get("end", (today + timedelta(days=31)).isoformat())
+            )
+        except ValueError as exc:
+            raise Http404 from exc
+        if end < start or end - start > timedelta(days=93):
+            return JsonResponse({"error": "Invalid date range"}, status=400)
+        rows = public_events(start, end)
+        venue = request.GET.get("venue")
+        event_type = request.GET.get("type")
+        status = request.GET.get("status")
+        priority = request.GET.get("priority")
+        search = request.GET.get("search", "").strip().casefold()
+        if venue:
+            rows = [row for row in rows if row["venue_code"] == venue]
+        if event_type:
+            rows = [row for row in rows if row.get("event_type_code") == event_type]
+        if status:
+            rows = [row for row in rows if row["status"] == status]
+        if priority:
+            rows = [row for row in rows if row.get("priority") == priority]
+        if search:
+            rows = [
+                row
+                for row in rows
+                if search in row.get("title", "").casefold()
+                or search in row.get("venue", "").casefold()
+            ]
+        return JsonResponse({"events": rows})
+
+
 @login_required
 def dashboard(request: HttpRequest) -> HttpResponse:
-    context = get_dashboard_shell_data()
-    context["nav_key"] = "dashboard"
+    context = get_workspace_data(request.user)
+    context["nav_key"] = "workspace"
     return render(request, "dashboard.html", context)
 
 
@@ -179,12 +268,8 @@ class ReportDashboardView(ReportingRequiredMixin, TemplateView):
                 "active_query": self.request.GET.urlencode(),
                 "report_sections": sections,
                 "full_exports": user_can_export(self.request.user, "xlsx"),
-                "attendance_export": user_can_export(
-                    self.request.user, "csv", "attendance"
-                ),
-                "publication_export": user_can_export(
-                    self.request.user, "csv", "publications"
-                ),
+                "attendance_export": user_can_export(self.request.user, "csv", "attendance"),
+                "publication_export": user_can_export(self.request.user, "csv", "publications"),
             }
         )
         return context

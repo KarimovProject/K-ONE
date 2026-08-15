@@ -1,0 +1,75 @@
+{% load i18n static account_ui %}<!doctype html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="NONE,NOARCHIVE"><meta name="theme-color" content="#071d3a">
+  <title>{% block title %}IEMS Admin{% endblock %}</title>
+  <link rel="stylesheet" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}">
+  <link rel="stylesheet" href="{% static 'admin/css/responsive.css' %}">
+  {% block extrastyle %}{% endblock %}
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin-pages.css' %}">
+  <link rel="stylesheet" href="{% static 'css/phase11c.css' %}">
+  <link rel="stylesheet" href="{% static 'css/phase11d.css' %}">
+  {% block extrahead %}{% endblock %}
+</head>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now 'Z' %}">
+<a href="#content-start" class="skip-to-content-link">{% trans "Skip to main content" %}</a>
+{% if user.is_authenticated and user.is_staff and not is_popup %}
+<div class="admin-shell" data-admin-shell>
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div id="branding">{% block branding %}{% endblock %}</div>
+    <nav class="admin-nav" aria-label="{% trans 'Admin navigation' %}">
+      <p>{% trans "Management" %}</p>
+      <a href="{% url 'admin:index' %}"{% if request.path == '/admin/' %} aria-current="page"{% endif %}><i>{% include "admin/includes/iems_icon.html" with name="dashboard" %}</i><span>{% trans "Overview" %}</span></a>
+      <a href="{% url 'public-live-venues' %}"><i>{% include "admin/includes/iems_icon.html" with name="pulse" %}</i><span>{% trans "Live status" %}</span></a>
+      <a href="{% url 'calendar' %}"><i>{% include "admin/includes/iems_icon.html" with name="calendar" %}</i><span>{% trans "Calendar" %}</span></a>
+      {% if perms.events.view_event or perms.events.view_speaker %}<p>{% trans "Events" %}</p>{% endif %}
+      {% if perms.events.view_event %}<a href="{% url 'admin:events_event_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="event" %}</i><span>{% trans "All events" %}</span></a>{% endif %}
+      {% if perms.events.view_event %}<a href="{% url 'events:approval-list' %}"><i>{% include "admin/includes/iems_icon.html" with name="check" %}</i><span>{% trans "Approvals" %}</span></a>{% endif %}
+      {% if perms.events.view_event %}<a href="{% url 'events:displaced-list' %}"><i>{% include "admin/includes/iems_icon.html" with name="move" %}</i><span>{% trans "Rescheduling" %}</span></a>{% endif %}
+      {% if perms.events.view_eventprogramitem %}<a href="{% url 'admin:events_eventprogramitem_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="list" %}</i><span>{% trans "Programs" %}</span></a>{% endif %}
+      {% if perms.events.view_speaker %}<a href="{% url 'admin:events_speaker_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="speaker" %}</i><span>{% trans "Speakers" %}</span></a>{% endif %}
+      {% if perms.venues.view_venue or perms.organizations.view_organization %}<p>{% trans "Reference data" %}</p>{% endif %}
+      {% if perms.venues.view_venue %}<a href="{% url 'admin:venues_venue_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="venue" %}</i><span>{% trans "Venues" %}</span></a>{% endif %}
+      {% if perms.events.view_eventtype %}<a href="{% url 'admin:events_eventtype_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="tag" %}</i><span>{% trans "Event types" %}</span></a>{% endif %}
+      {% if perms.organizations.view_organization %}<a href="{% url 'admin:organizations_organization_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="organization" %}</i><span>{% trans "Organizations" %}</span></a>{% endif %}
+      {% if perms.organizations.view_sponsor %}<a href="{% url 'admin:organizations_sponsor_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="organization" %}</i><span>{% trans "Sponsors" %}</span></a>{% endif %}
+      {% if perms.accounts.view_user or perms.auth.view_group %}<p>{% trans "Users" %}</p>{% endif %}
+      {% if perms.accounts.view_user %}<a href="{% url 'admin:accounts_user_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="users" %}</i><span>{% trans "Staff" %}</span></a>{% endif %}
+      {% if perms.auth.view_group %}<a href="{% url 'admin:auth_group_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="users" %}</i><span>{% trans "Roles" %}</span></a>{% endif %}
+      <p>{% trans "Communication" %}</p>
+      {% if perms.notifications.view_telegramconnection %}<a href="{% url 'admin:notifications_telegramconnection_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="send" %}</i><span>Telegram</span></a>{% endif %}
+      {% if perms.publications.view_publication %}<a href="{% url 'admin:publications_publication_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="publication" %}</i><span>{% trans "Publications" %}</span></a>{% endif %}
+      <p>{% trans "Analytics" %}</p>
+      <a href="{% url 'reporting:dashboard' %}"><i>{% include "admin/includes/iems_icon.html" with name="report" %}</i><span>{% trans "Reports" %}</span></a>
+      {% if perms.attendance.view_eventattendance %}<a href="{% url 'admin:attendance_eventattendance_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="check" %}</i><span>{% trans "Attendance" %}</span></a>{% endif %}
+      {% if perms.audit.view_auditeventlog %}<p>{% trans "System" %}</p><a href="{% url 'admin:audit_auditeventlog_changelist' %}"><i>{% include "admin/includes/iems_icon.html" with name="audit" %}</i><span>{% trans "Audit log" %}</span></a>{% endif %}
+    </nav>
+    <button class="sidebar-collapse" type="button" data-sidebar-collapse aria-label="{% trans 'Collapse sidebar' %}">‹</button>
+  </aside>
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button type="button" class="admin-menu" data-sidebar-open aria-label="{% trans 'Open navigation' %}">☰</button>
+      <div class="admin-crumbs">{% block breadcrumbs %}<a href="{% url 'admin:index' %}">{% trans "Management" %}</a>{% if title %}<span>/</span><strong>{{ title }}</strong>{% endif %}{% endblock %}</div>
+      <div class="admin-top-actions">
+        <a class="top-search" href="{% url 'admin:events_event_changelist' %}" aria-label="{% trans 'Search events' %}">⌕</a>
+        <form class="admin-languages" action="{% url 'set_language' %}" method="post">{% csrf_token %}<input name="next" type="hidden" value="{{ request.get_full_path }}">{% get_current_language as CURRENT_LANGUAGE %}{% for code,name in LANGUAGES %}<button name="language" value="{{ code }}"{% if code == CURRENT_LANGUAGE %} aria-current="true"{% endif %}>{{ code|upper }}</button>{% endfor %}</form>
+        <a class="top-notification" href="{% url 'notifications:list' %}" aria-label="{% trans 'Notifications' %}">●</a>
+        <details class="admin-profile"><summary><span class="admin-avatar">{{ user.username|slice:':1'|upper }}</span><span><strong>{{ user.get_full_name|default:user.username }}</strong><small>{{ user|localized_role }}</small></span><b>⌄</b></summary><div><a href="{% url 'profile' %}">{% trans "Profile" %}</a><a href="{% url 'dashboard' %}">{% trans "Workspace" %}</a><a href="{% url 'public-dashboard' %}">{% trans "Public dashboard" %}</a>{% if user.has_usable_password %}<a href="{% url 'admin:password_change' %}">{% trans "Change password" %}</a>{% endif %}<form method="post" action="{% url 'admin:logout' %}">{% csrf_token %}<button>{% trans "Sign out" %}</button></form></div></details>
+      </div>
+    </header>
+    <main id="content-start" class="admin-content" tabindex="-1">
+      {% block messages %}{% if messages %}<ul class="messagelist" aria-live="polite">{% for message in messages %}<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}<button type="button" aria-label="{% trans 'Close' %}">×</button></li>{% endfor %}</ul>{% endif %}{% endblock %}
+      <div id="content" class="{% block coltype %}colM{% endblock %}">{% block pretitle %}{% endblock %}{% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}{% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}{% block content %}{{ content }}{% endblock %}{% block sidebar %}{% endblock %}</div>
+    </main>
+  </div>
+  <button class="admin-backdrop" data-sidebar-close aria-label="{% trans 'Close navigation' %}"></button>
+</div>
+{% else %}
+<main id="content-start" class="admin-auth"><div id="content">{{ content }}</div></main>
+{% endif %}
+{% block footer %}{% endblock %}<script src="{% static 'js/admin-ui.js' %}" defer></script>{% block extrabody %}{% endblock %}
+</body></html>

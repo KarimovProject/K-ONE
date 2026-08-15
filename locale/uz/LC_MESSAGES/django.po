@@ -37,7 +37,7 @@ msgid "Sponsors"
 msgstr "Homiylar"
 
 msgid "Venue"
-msgstr "Xona"
+msgstr "Zal"
 
 msgid "Event type"
 msgstr "Tadbir turi"
@@ -88,7 +88,7 @@ msgid "Search records"
 msgstr "Yozuvlarni qidirish"
 
 msgid "Search"
-msgstr "Qidiruv"
+msgstr "Qidirish"
 
 msgid "Status"
 msgstr "Holat"
@@ -190,7 +190,7 @@ msgid "Icon"
 msgstr "Belgi"
 
 msgid "Type"
-msgstr "Tur"
+msgstr "Turi"
 
 msgid "Contact"
 msgstr "Aloqa"
@@ -715,7 +715,7 @@ msgid "%(minutes)s minutes remaining"
 msgstr "Tugashiga %(minutes)s daqiqa"
 
 msgid "Starts in %(minutes)s minutes"
-msgstr "Boshlanishiga %(minutes)s daqiqa"
+msgstr "%(minutes)s daqiqadan keyin boshlanadi"
 
 msgid "minutes remaining"
 msgstr "daqiqa qoldi"
@@ -827,7 +827,7 @@ msgid "daqiqa"
 msgstr "daqiqa"
 
 msgid "Private Meeting"
-msgstr "Maxfiy majlis"
+msgstr "Yopiq uchrashuv"
 
 msgid "Occupied (Private Event)"
 msgstr "Band (Xizmat foydalanishi uchun)"
@@ -1060,8 +1060,12 @@ msgstr "Shu yil"
 msgid "Invalid request"
 msgstr "Noto‘g‘ri so‘rov"
 
-msgid "The request could not be processed. Check the entered information and try again."
-msgstr "So‘rovni bajarib bo‘lmadi. Kiritilgan ma’lumotlarni tekshirib, qayta urinib ko‘ring."
+msgid ""
+"The request could not be processed. Check the entered information and try "
+"again."
+msgstr ""
+"So‘rovni bajarib bo‘lmadi. Kiritilgan ma’lumotlarni tekshirib, qayta urinib "
+"ko‘ring."
 
 msgid "Access denied"
 msgstr "Kirish taqiqlangan"
@@ -1170,3 +1174,676 @@ msgstr "Jami"
 
 msgid "Custom Date Range"
 msgstr "Maxsus sana oralig‘i"
+
+msgid "International Events Management System"
+msgstr "Xalqaro tadbirlarni boshqarish tizimi"
+
+msgid "Public navigation"
+msgstr "Ommaviy navigatsiya"
+
+msgid "Live dashboard"
+msgstr "Jonli panel"
+
+msgid "Staff sign in"
+msgstr "Xodimlar kirishi"
+
+msgid "Workspace"
+msgstr "Ish maydoni"
+
+msgid "Official international events information"
+msgstr "Xalqaro tadbirlar bo‘yicha rasmiy ma’lumot"
+
+msgid "Live events dashboard"
+msgstr "Tadbirlar jonli paneli"
+
+msgid "Live institutional schedule"
+msgstr "Muassasaning jonli jadvali"
+
+msgid "International events, clearly coordinated."
+msgstr "Xalqaro tadbirlar — aniq muvofiqlashtirilgan."
+
+msgid ""
+"A public, real-time overview of today's programme, active venues and "
+"upcoming international events."
+msgstr ""
+"Bugungi dastur, faol zallar va yaqinlashayotgan xalqaro tadbirlarning ochiq "
+"jonli ko‘rinishi."
+
+msgid "Current time in Tashkent"
+msgstr "Toshkentdagi joriy vaqt"
+
+msgid "Today at a glance"
+msgstr "Bugungi qisqa ko‘rinish"
+
+msgid "In progress"
+msgstr "Davom etmoqda"
+
+msgid "right now"
+msgstr "hozir"
+
+msgid "Starting soon"
+msgstr "Tez orada boshlanadi"
+
+msgid "within one hour"
+msgstr "bir soat ichida"
+
+msgid "Active venues"
+msgstr "Faol zallar"
+
+msgid "monitored"
+msgstr "kuzatuvda"
+
+msgid "Live operations"
+msgstr "Jonli operatsiyalar"
+
+msgid "Venue status"
+msgstr "Zallar holati"
+
+msgid "View all venues"
+msgstr "Barcha zallar"
+
+msgid "No active venues"
+msgstr "Faol zallar yo‘q"
+
+msgid "Venue status will appear when active venues are configured."
+msgstr "Faol zallar sozlangach, ularning holati shu yerda ko‘rinadi."
+
+msgid "Programme timeline"
+msgstr "Dastur vaqt jadvali"
+
+msgid "No public events today"
+msgstr "Bugun ochiq tadbirlar yo‘q"
+
+msgid "The next published programme will appear here."
+msgstr "Keyingi e’lon qilingan dastur shu yerda ko‘rinadi."
+
+msgid "Next seven days"
+msgstr "Keyingi yetti kun"
+
+msgid "No upcoming public events."
+msgstr "Yaqin kunlarda ochiq tadbirlar yo‘q."
+
+msgid "Live data refreshes automatically."
+msgstr "Jonli ma’lumot avtomatik yangilanadi."
+
+msgid "Available for scheduling"
+msgstr "Rejalashtirish uchun bo‘sh"
+
+msgid "Live venues"
+msgstr "Jonli zallar"
+
+msgid "Operational visibility"
+msgstr "Operativ ko‘rinish"
+
+msgid "Live venue status"
+msgstr "Zallarning jonli holati"
+
+msgid ""
+"Current availability and the next public programme item for each active "
+"venue."
+msgstr "Har bir faol zalning joriy bandligi va keyingi ochiq dasturi."
+
+msgid "Public event calendar"
+msgstr "Ochiq tadbirlar taqvimi"
+
+msgid "Published schedule"
+msgstr "E’lon qilingan jadval"
+
+msgid "International events calendar"
+msgstr "Xalqaro tadbirlar taqvimi"
+
+msgid "Explore public events by date, venue, type and status."
+msgstr "Ochiq tadbirlarni sana, zal, tur va holat bo‘yicha ko‘ring."
+
+msgid "Next period"
+msgstr "Keyingi davr"
+
+msgid "All venues"
+msgstr "Barcha zallar"
+
+msgid "All types"
+msgstr "Barcha turlar"
+
+msgid "Open public event page"
+msgstr "Tadbirning ochiq sahifasini ochish"
+
+msgid "Venue occupied"
+msgstr "Zal band"
+
+msgid "Private meeting"
+msgstr "Yopiq uchrashuv"
+
+msgid "My workspace"
+msgstr "Mening ish maydonim"
+
+msgid "My events"
+msgstr "Mening tadbirlarim"
+
+msgid "Operations"
+msgstr "Operatsiyalar"
+
+msgid "Communication"
+msgstr "Aloqa"
+
+msgid "Insights"
+msgstr "Tahlil"
+
+msgid "System operational"
+msgstr "Tizim ishlamoqda"
+
+msgid "Phase 11 interface"
+msgstr "11-bosqich interfeysi"
+
+msgid "Coordinated events workspace"
+msgstr "Muvofiqlashtirilgan tadbirlar maydoni"
+
+msgid "Public view"
+msgstr "Ochiq ko‘rinish"
+
+msgid "Role-aware workspace"
+msgstr "Rolga mos ish maydoni"
+
+msgid ""
+"Your priorities, upcoming events and required actions in one focused view."
+msgstr ""
+"Ustuvor vazifalar, yaqin tadbirlar va kerakli harakatlar bitta aniq "
+"ko‘rinishda."
+
+msgid "Plan new event"
+msgstr "Yangi tadbir rejalash"
+
+msgid "Needs action"
+msgstr "Harakat talab qiladi"
+
+msgid "Pending approval"
+msgstr "Tasdiq kutilmoqda"
+
+msgid "Unread notifications"
+msgstr "O‘qilmagan bildirishnomalar"
+
+msgid "Your schedule"
+msgstr "Sizning jadvalingiz"
+
+msgid "Your schedule is clear"
+msgstr "Jadvalingiz bo‘sh"
+
+msgid "Assigned and upcoming events will appear here."
+msgstr "Biriktirilgan va yaqin tadbirlar shu yerda ko‘rinadi."
+
+msgid "Quick access"
+msgstr "Tezkor kirish"
+
+msgid "Tools for your role"
+msgstr "Rolingiz uchun vositalar"
+
+msgid "Internal calendar"
+msgstr "Ichki taqvim"
+
+msgid "Telegram settings"
+msgstr "Telegram sozlamalari"
+
+msgid "Profile and language"
+msgstr "Profil va til"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Account control"
+msgstr "Hisob boshqaruvi"
+
+msgid "Profile and preferences"
+msgstr "Profil va sozlamalar"
+
+msgid ""
+"Manage your identity and interface language. Access role changes require an "
+"administrator."
+msgstr ""
+"Shaxsiy ma’lumot va interfeys tilini boshqaring. Rolni faqat administrator "
+"o‘zgartiradi."
+
+msgid "Preferred language"
+msgstr "Afzal til"
+
+msgid "Profile updated successfully."
+msgstr "Profil muvaffaqiyatli yangilandi."
+
+msgid "Save profile"
+msgstr "Profilni saqlash"
+
+msgid "Access"
+msgstr "Kirish huquqi"
+
+msgid "Role and permissions are managed centrally."
+msgstr "Rol va huquqlar markaziy boshqariladi."
+
+msgid "Assigned events"
+msgstr "Biriktirilgan tadbirlar"
+
+msgid "Management events"
+msgstr "Boshqaruv tadbirlari"
+
+msgid "Boshqaruv markazi"
+msgstr "Boshqaruv markazi"
+
+msgid "Month"
+msgstr "Oy"
+
+msgid "Week"
+msgstr "Hafta"
+
+msgid "Day"
+msgstr "Kun"
+
+msgid "List"
+msgstr "Ro‘yxat"
+
+msgid "events"
+msgstr "tadbir"
+
+msgid "Planned"
+msgstr "Rejalashtirilgan"
+
+msgid "Priority"
+msgstr "Ustuvorlik"
+
+msgid "Role"
+msgstr "Rol"
+
+msgid "Activity"
+msgstr "Faollik"
+
+msgid "Connected"
+msgstr "Ulangan"
+
+msgid "View all"
+msgstr "Barchasini ko‘rish"
+
+msgid "Available venues"
+msgstr "Bo‘sh zallar"
+
+msgid "Occupied venues"
+msgstr "Band zallar"
+
+msgid "Seven-day calendar preview"
+msgstr "Yetti kunlik taqvim ko‘rinishi"
+
+msgid "Calendar preview"
+msgstr "Taqvim ko‘rinishi"
+
+msgid "Open interactive calendar"
+msgstr "Interaktiv taqvimni ochish"
+
+msgid "Try again"
+msgstr "Qayta urinish"
+
+msgid "Could not refresh data."
+msgstr "Ma’lumotlarni yangilab bo‘lmadi."
+
+msgid "Loading calendar"
+msgstr "Taqvim yuklanmoqda"
+
+msgid "Publications to prepare"
+msgstr "Tayyorlanadigan nashrlar"
+
+msgid "Today's check-in events"
+msgstr "Bugungi ro‘yxatdan o‘tish tadbirlari"
+
+msgid "International Events"
+msgstr "Xalqaro tadbirlar"
+
+msgid "Approval queue"
+msgstr "Tasdiqlash kutilayotgan tadbirlar"
+
+msgid "Displaced events"
+msgstr "Boshqa vaqtga ko‘chiriladigan tadbirlar"
+
+msgid "Leadership dashboard"
+msgstr "Rahbariyat paneli"
+
+msgid "Super administrator"
+msgstr "Bosh administrator"
+
+msgid "International department administrator"
+msgstr "Xalqaro bo‘lim administratori"
+
+msgid "Responsible employee"
+msgstr "Mas’ul xodim"
+
+msgid "Management responsible"
+msgstr "Rahbariyat vakili"
+
+msgid "Leadership viewer"
+msgstr "Rahbariyat kuzatuvchisi"
+
+msgid "Content manager"
+msgstr "Kontent menejeri"
+
+msgid "Reception operator"
+msgstr "Qabul operatori"
+
+msgid "Management"
+msgstr "Boshqaruv"
+
+msgid "Overview"
+msgstr "Bosh sahifa"
+
+msgid "All events"
+msgstr "Barcha tadbirlar"
+
+msgid "Rescheduling"
+msgstr "Ko‘chirilganlar"
+
+msgid "Programs"
+msgstr "Dasturlar"
+
+msgid "Reference data"
+msgstr "Ma’lumotnomalar"
+
+msgid "Users"
+msgstr "Foydalanuvchilar"
+
+msgid "Staff"
+msgstr "Xodimlar"
+
+msgid "Roles"
+msgstr "Rollar"
+
+msgid "Analytics"
+msgstr "Analitika"
+
+msgid "System"
+msgstr "Tizim"
+
+msgid "Audit log"
+msgstr "Audit jurnali"
+
+msgid "Control center"
+msgstr "Boshqaruv markazi"
+
+msgid "IEMS Control Center"
+msgstr "IEMS boshqaruv markazi"
+
+msgid "Manage the system, events and international activity from one place."
+msgstr "Tizim, tadbirlar va xalqaro faoliyatni yagona markazdan boshqaring."
+
+msgid "Live operational context and secure administrative tools."
+msgstr "Jonli operativ holat va xavfsiz boshqaruv vositalari."
+
+msgid "System indicators"
+msgstr "Tizim ko‘rsatkichlari"
+
+msgid "registered in IEMS"
+msgstr "IEMS tizimida ro‘yxatdan o‘tgan"
+
+msgid "on today's schedule"
+msgstr "bugungi jadvalda"
+
+msgid "Awaiting approval"
+msgstr "Tasdiqlash kutilmoqda"
+
+msgid "requires a decision"
+msgstr "qaror talab qiladi"
+
+msgid "available to the system"
+msgstr "tizimda faol"
+
+msgid "Today's attendance"
+msgstr "Bugungi qatnashuv"
+
+msgid "recorded check-ins"
+msgstr "qayd etilgan kirishlar"
+
+msgid "Quick actions"
+msgstr "Tezkor amallar"
+
+msgid "Start a common task"
+msgstr "Asosiy vazifani boshlang"
+
+msgid "New event"
+msgstr "Yangi tadbir"
+
+msgid "Plan and assign"
+msgstr "Rejalash va biriktirish"
+
+msgid "Add speaker"
+msgstr "Spiker qo‘shish"
+
+msgid "Create profile"
+msgstr "Profil yaratish"
+
+msgid "Add organization"
+msgstr "Tashkilot qo‘shish"
+
+msgid "Register partner"
+msgstr "Hamkorni ro‘yxatga olish"
+
+msgid "Add venue"
+msgstr "Zal qo‘shish"
+
+msgid "Configure space"
+msgstr "Maydonni sozlash"
+
+msgid "Review schedule"
+msgstr "Jadvalni ko‘rish"
+
+msgid "Operational insight"
+msgstr "Operativ tahlil"
+
+msgid "Administration"
+msgstr "Administratsiya"
+
+msgid "System modules"
+msgstr "Tizim modullari"
+
+msgid "awaiting approval"
+msgstr "tasdiqlash kutilmoqda"
+
+msgid "active spaces"
+msgstr "faol zal"
+
+msgid "Manage venues"
+msgstr "Zallarni boshqarish"
+
+msgid "Display access"
+msgstr "Ekran kirishi"
+
+msgid "Partners and sponsors"
+msgstr "Hamkorlar va homiylar"
+
+msgid "Users and access"
+msgstr "Foydalanuvchilar va kirish"
+
+msgid "Staff accounts and roles"
+msgstr "Xodim hisoblari va rollar"
+
+msgid "Communications"
+msgstr "Kommunikatsiyalar"
+
+msgid "Telegram and publications"
+msgstr "Telegram va nashrlar"
+
+msgid "Telegram deliveries"
+msgstr "Telegram yuborishlari"
+
+msgid "Governance"
+msgstr "Nazorat"
+
+msgid "Attendance and audit history"
+msgstr "Davomat va audit tarixi"
+
+msgid "Recent changes"
+msgstr "So‘nggi harakatlar"
+
+msgid "No new activity yet"
+msgstr "Hozircha yangi harakat yo‘q"
+
+msgid "Administrative changes will appear here."
+msgstr "Ma’muriy o‘zgarishlar shu yerda ko‘rinadi."
+
+msgid "Manage all international events"
+msgstr "Barcha xalqaro tadbirlarni boshqarish"
+
+msgid "Search, filter and manage permitted records."
+msgstr "Ruxsat etilgan yozuvlarni qidiring, filtrlang va boshqaring."
+
+msgid "Clear filters"
+msgstr "Filtrlarni tozalash"
+
+msgid "New record"
+msgstr "Yangi yozuv"
+
+msgid "Complete the fields below. Required information is clearly marked."
+msgstr ""
+"Quyidagi maydonlarni to‘ldiring. Majburiy ma’lumotlar aniq belgilangan."
+
+msgid "Basic information"
+msgstr "Asosiy ma’lumotlar"
+
+msgid "Schedule and venue"
+msgstr "Jadval va zal"
+
+msgid "Responsible persons and partners"
+msgstr "Mas’ullar va hamkorlar"
+
+msgid "Public information and attendance"
+msgstr "Ochiq ma’lumot va davomat"
+
+msgid "Workflow"
+msgstr "Ish jarayoni"
+
+msgid "Reminder policy"
+msgstr "Eslatma siyosati"
+
+msgid "System metadata"
+msgstr "Tizim ma’lumotlari"
+
+msgid "Choose a module to view and manage permitted records."
+msgstr ""
+"Ruxsat etilgan yozuvlarni ko‘rish va boshqarish uchun modulni tanlang."
+
+msgid "Secure administrative records"
+msgstr "Himoyalangan ma’muriy yozuvlar"
+
+msgid "View records"
+msgstr "Yozuvlarni ko‘rish"
+
+msgid "Add new"
+msgstr "Yangi qo‘shish"
+
+msgid "Audit trail"
+msgstr "O‘zgarishlar jurnali"
+
+msgid "Change history"
+msgstr "O‘zgarishlar tarixi"
+
+msgid "No change history"
+msgstr "O‘zgarishlar tarixi yo‘q"
+
+msgid "Changes to this record will appear here."
+msgstr "Ushbu yozuvdagi o‘zgarishlar shu yerda ko‘rinadi."
+
+msgid "Date / time"
+msgstr "Sana / vaqt"
+
+msgid "Filters"
+msgstr "Filtrlar"
+
+msgid "Search by event title, organization or responsible person…"
+msgstr "Tadbir nomi, tashkilot yoki mas’ul bo‘yicha qidirish…"
+
+msgid "Search records…"
+msgstr "Yozuvlarni qidirish…"
+
+msgid "Normal"
+msgstr "Oddiy"
+
+msgid "Cancelled"
+msgstr "Bekor qilingan"
+
+msgid "Pending Approval"
+msgstr "Tasdiqlash kutilmoqda"
+
+msgid "Planned Events"
+msgstr "Rejalashtirilgan tadbirlar"
+
+msgid "Schedule and manage international events across university venues."
+msgstr "Xalqaro tadbirlarni rejalashtiring va boshqaring."
+
+msgid "Plan New Event"
+msgstr "Yangi tadbir"
+
+msgid "Search by event title or description..."
+msgstr "Tadbir nomi yoki tavsifi bo‘yicha qidirish..."
+
+msgid "All Statuses"
+msgstr "Barcha holatlar"
+
+msgid "All Venues"
+msgstr "Barcha zallar"
+
+msgid "All Types"
+msgstr "Barcha turlar"
+
+msgid "Event Type"
+msgstr "Turi"
+
+msgid "Date & Weekday"
+msgstr "Sana"
+
+msgid "No events found"
+msgstr "Tadbirlar topilmadi"
+
+msgid "Try adjusting your search query or filters."
+msgstr "Qidiruv yoki filtrlarni o‘zgartirib ko‘ring."
+
+msgid "Plan an Event"
+msgstr "Yangi tadbir yaratish"
+
+msgid "System active"
+msgstr "Tizim faol"
+
+msgid "Operational"
+msgstr "Ishlamoqda"
+
+msgid "Free until"
+msgstr "Bo‘sh, keyingi tadbir"
+
+msgid "Public dashboard"
+msgstr "Ochiq panel"
+
+msgid "Today's timeline"
+msgstr "Bugungi vaqt jadvali"
+
+msgid "No events scheduled today"
+msgstr "Bugun tadbir rejalashtirilmagan"
+
+msgid "No events awaiting approval"
+msgstr "Tasdiqlash kutilayotgan tadbir yo‘q"
+
+msgid "Live"
+msgstr "Jonli"
+
+msgid "System online"
+msgstr "Tizim onlayn"
+
+msgid "Tashkent operational time"
+msgstr "Toshkent operatsion vaqti"
+
+msgid "Search events"
+msgstr "Tadbirlarni qidirish"
+
+msgid "Reset"
+msgstr "Tiklash"
+
+msgid "Responsible person"
+msgstr "Mas’ul shaxs"
+
+msgid "No events planned"
+msgstr "Tadbir rejalashtirilmagan"
+
+msgid "Republican Oncology Center and Gustave Roussy International Uzbekistan"
+msgstr ""
+"Respublika onkologiya markazi va Gustave Roussy International Uzbekistan"
+
+msgid "Republic Oncology Center"
+msgstr "Respublika onkologiya markazi"

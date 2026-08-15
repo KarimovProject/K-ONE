@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}{% load i18n admin_ui %}
+{% block title %}{{ app_label|iems_app_label }} · IEMS Admin{% endblock %}
+{% block breadcrumbs %}<a href="{% url 'admin:index' %}">{% trans "Management" %}</a><span>/</span><strong>{{ app_label|iems_app_label }}</strong>{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content %}
+<section class="admin-list-heading"><div><p>{% trans "Administration" %}</p><h1>{{ app_label|iems_app_label }}</h1><span>{% trans "Choose a module to view and manage permitted records." %}</span></div></section>
+<section class="admin-app-grid" aria-label="{{ app_label|iems_app_label }}">
+  {% for model in app_list.0.models %}<article class="admin-app-model"><div><span class="admin-app-symbol">{{ model.name|slice:":1" }}</span><div><h2>{{ model.name }}</h2><p>{% trans "Secure administrative records" %}</p></div></div><nav>{% if model.admin_url %}<a href="{{ model.admin_url }}">{% trans "View records" %}<span>→</span></a>{% endif %}{% if model.add_url %}<a href="{{ model.add_url }}">{% trans "Add new" %}<span>＋</span></a>{% endif %}</nav></article>{% empty %}<div class="admin-empty"><i>✓</i><strong>{% trans "No permitted modules" %}</strong><p>{% trans "Your account does not have access to records in this section." %}</p></div>{% endfor %}
+</section>{% endblock %}

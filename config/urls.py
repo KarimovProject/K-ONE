@@ -4,20 +4,36 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
+from apps.accounts.views import ProfileView
 from apps.attendance.views import PublicCheckinView
 from apps.events.urls import event_type_patterns
 from apps.events.views import CalendarView, PublicEventPageView, VenueLiveStatusView
 from apps.organizations.urls import organization_patterns, sponsor_patterns
 from apps.reporting.views import (
     LeadershipDashboardView,
+    PublicCalendarAPIView,
+    PublicCalendarView,
+    PublicDashboardAPIView,
+    PublicDashboardView,
+    PublicLiveVenuesView,
+    PublicVenuesAPIView,
     TvWallboardView,
     dashboard,
+    home,
 )
 from config import health
 from config.views import ThrottledLoginView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("dashboard/", PublicDashboardView.as_view(), name="public-dashboard"),
+    path("dashboard/calendar/", PublicCalendarView.as_view(), name="public-calendar"),
+    path("venues/live/", PublicLiveVenuesView.as_view(), name="public-live-venues"),
+    path("api/public/dashboard/", PublicDashboardAPIView.as_view(), name="public-dashboard-api"),
+    path("api/public/calendar/", PublicCalendarAPIView.as_view(), name="public-calendar-api"),
+    path("api/public/venues/", PublicVenuesAPIView.as_view(), name="public-venues-api"),
+    path("workspace/", dashboard, name="dashboard"),
+    path("profile/", ProfileView.as_view(), name="profile"),
     path("accounts/login/", ThrottledLoginView.as_view(), name="login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("i18n/", include("django.conf.urls.i18n")),
@@ -39,7 +55,6 @@ urlpatterns = [
     path("leadership/", LeadershipDashboardView.as_view(), name="leadership-dashboard"),
     path("display/venues/", TvWallboardView.as_view(), name="tv-wallboard"),
     path("display/<str:token>/", TvWallboardView.as_view(), name="tv-wallboard-token"),
-
     path(
         "master-data/venues/live-status/",
         VenueLiveStatusView.as_view(),
@@ -50,7 +65,7 @@ urlpatterns = [
     path("master-data/organizations/", include(organization_patterns)),
     path("master-data/sponsors/", include(sponsor_patterns)),
     path("api/v1/", include("config.api_urls")),
-    path("", dashboard, name="dashboard"),
+    path("", home, name="home"),
 ]
 
 handler400 = "config.views.error_400"

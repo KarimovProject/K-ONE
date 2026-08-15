@@ -1,4 +1,5 @@
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
+from django.utils import timezone
 
 from apps.accounts.models import User
 from apps.events.models import Event
@@ -81,3 +82,51 @@ def user_can_export(user: User, export_format: str, kind: str = "events") -> boo
 
 def get_dashboard_shell_data():
     return {"metrics": [], "venues": []}
+
+
+def get_workspace_data(user: User) -> dict:
+    today = timezone.localdate()
+    base = (
+        Event.objects.select_related("venue", "event_type")
+        .order_by("planned_date", "start_time")
+        .exclude(Q(title__istartswith="[ACCEPTANCE_DEMO]") | Q(title__istartswith="[P11]"))
+    )
+    if user.is_superuser or user.role in {
+        User.Role.SUPER_ADMIN,
+        User.Role.INTERNATIONAL_ADMIN,
+    }:
+        relevant = base.filter(planned_date__gte=today)
+    elif user.role == User.Role.MANAGEMENT_RESPONSIBLE:
+        relevant = base.filter(
+            Q(management_responsible=user) | Q(status=Event.Status.PENDING_APPROVAL)
+        )
+    else:
+        relevant = base.filter(Q(responsible_employee=user) | Q(created_by=user))
+    upcoming = list(relevant[:8])
+    from apps.publications.models import Publication
+
+    return {
+        "upcoming": upcoming,
+        "upcoming_count": relevant.count(),
+        "needs_action_count": relevant.filter(
+            status__in=(Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.DISPLACED)
+        ).count(),
+        "pending_approval_count": base.filter(status=Event.Status.PENDING_APPROVAL).count(),
+        "notification_count": user.notifications.filter(is_read=False).count(),
+        "content_pending_count": Publication.objects.filter(
+            status__in=(
+                Publication.Status.DRAFT,
+                Publication.Status.READY,
+                Publication.Status.FAILED,
+            )
+        ).count()
+        if user.role == User.Role.CONTENT_MANAGER
+        else 0,
+        "checkin_today_count": base.filter(
+            planned_date=today,
+            checkin_enabled=True,
+            status__in=(Event.Status.APPROVED, Event.Status.PLANNED, Event.Status.SCHEDULED),
+        ).count()
+        if user.role == User.Role.RECEPTION_OPERATOR
+        else 0,
+    }

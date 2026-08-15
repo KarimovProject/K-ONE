@@ -1,0 +1,66 @@
+.admin-app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+.admin-app-model,
+.admin-history-card {
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.admin-app-model > div { display: flex; align-items: center; gap: 1rem; }
+.admin-app-symbol {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  color: var(--blue);
+  background: #eaf2ff;
+  border-radius: 1rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.admin-app-model h2 { margin: 0; font-size: 1.1rem; }
+.admin-app-model p { margin: .3rem 0 0; color: var(--ink-500); }
+.admin-app-model nav { display: grid; gap: .4rem; margin-top: 1rem; padding-top: .75rem; border-top: 1px solid var(--line); }
+.admin-app-model nav a { display: flex; justify-content: space-between; padding: .65rem .75rem; border-radius: .65rem; color: var(--ink-700); font-weight: 700; text-decoration: none; }
+.admin-app-model nav a:hover { color: var(--blue); background: var(--surface-soft); }
+.admin-history-card table { width: 100%; }
+.admin-history-card td small { display: block; color: var(--ink-500); }
+
+/* Changelist filters are a compact disclosure, not Django's tall filter rail. */
+.admin-list-shell { display: flex !important; flex-direction: column; }
+.admin-list-tools { width: 100%; }
+.admin-filters { grid-column: 1 !important; grid-row: 2 !important; }
+.admin-filters[open] > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: .75rem 1rem;
+  max-height: 26rem;
+  overflow: auto;
+}
+.admin-filters[open] > div > details { border: 0; }
+#changelist-form { width: 100%; }
+.field-event_status,
+.field-event_priority {
+  font-weight: 750;
+}
+.field-event_status {
+  color: #047857 !important;
+}
+.field-event_priority { color: #92400e !important; }
+#changelist-search button {
+  min-height: 2.85rem;
+  padding: 0 1rem;
+  color: #fff;
+  background: var(--blue);
+  border: 0;
+  border-radius: .6rem;
+  font-weight: 750;
+}
+.admin-search-clear { padding: .65rem; color: var(--ink-500); font-weight: 700; }
+.iems-icon { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.iems-icon use[href$="#dashboard"], .iems-icon use[href$="#event"] { fill: currentColor; stroke: none; }

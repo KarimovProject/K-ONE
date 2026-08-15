@@ -1,0 +1,8 @@
+{% load i18n %}<article class="live-venue-card status-{{ venue.status|lower }}">
+  <header><span class="venue-monogram">{{ venue.code }}</span><span class="live-status"><i></i>{{ venue.status_label }}</span></header>
+  <h3>{{ venue.name }}</h3>
+  {% if venue.current_title %}<p class="venue-current">{{ venue.current_title }}</p>{% else %}<p class="venue-current">{% trans "Available for scheduling" %}</p>{% endif %}
+  {% if venue.minutes_remaining %}<strong class="venue-countdown">{% blocktranslate with minutes=venue.minutes_remaining %}{{ minutes }} minutes remaining{% endblocktranslate %}</strong><div class="venue-progress"><i style="width:68%"></i></div>{% elif venue.minutes_until_start %}<strong class="venue-countdown">{% blocktranslate with minutes=venue.minutes_until_start %}Starts in {{ minutes }} minutes{% endblocktranslate %}</strong>{% endif %}
+  {% if venue.next_title %}<div class="venue-next"><span>{% trans "Next" %} · {{ venue.next_start }}</span><strong>{{ venue.next_title }}</strong></div>{% endif %}
+  <footer>{% if venue.ends_at %}<span>{% trans "Until" %} {{ venue.ends_at }}</span>{% elif venue.next_start %}<span>{% trans "Free until" %} {{ venue.next_start }}</span>{% else %}<span>{% trans "Open" %}</span>{% endif %}<small>{{ venue.today_count }} {% trans "today" %}</small></footer>
+</article>

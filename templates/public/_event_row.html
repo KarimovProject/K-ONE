@@ -1,0 +1,6 @@
+<article class="timeline-event">
+  <time datetime="{{ event.start }}"><strong>{{ event.start_time }}</strong><span>{{ event.date }}</span></time>
+  <i style="--event-color:{{ event.color|default:'#06b6d4' }}"></i>
+  <div><h3>{{ event.title }}</h3><p>{{ event.venue }}{% if event.event_type %} · {{ event.event_type }}{% endif %}</p></div>
+  <span class="event-status status-{{ event.status }}">{{ event.status_label|default:event.status }}</span>
+</article>

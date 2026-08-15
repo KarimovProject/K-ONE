@@ -1,0 +1,1 @@
+(() => { const header=document.querySelector(".public-header"); if(!header)return; const update=()=>header.classList.toggle("is-scrolled",scrollY>12); update(); addEventListener("scroll",update,{passive:true}); })();

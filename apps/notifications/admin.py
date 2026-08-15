@@ -12,6 +12,8 @@ from apps.notifications.models import (
 class NotificationAdmin(admin.ModelAdmin):
     list_display = ("recipient", "title", "severity", "is_read", "created_at")
     list_filter = ("severity", "is_read")
+    search_fields = ("recipient__username", "title", "message")
+    readonly_fields = ("created_at",)
 
 
 @admin.register(TelegramConnection)
@@ -31,7 +33,16 @@ class TelegramDeliveryAdmin(admin.ModelAdmin):
         "scheduled_for",
     )
     list_filter = ("status", "notification_type")
-    readonly_fields = ("message_text",)
+    readonly_fields = tuple(field.name for field in TelegramDelivery._meta.fields)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(TelegramLinkToken)

@@ -38,7 +38,7 @@ msgid "Sponsors"
 msgstr "Спонсоры"
 
 msgid "Venue"
-msgstr "Помещение"
+msgstr "Зал"
 
 msgid "Event type"
 msgstr "Тип мероприятия"
@@ -98,7 +98,7 @@ msgid "All statuses"
 msgstr "Все статусы"
 
 msgid "Active"
-msgstr "Активно"
+msgstr "Активные"
 
 msgid "Inactive"
 msgstr "Неактивно"
@@ -116,16 +116,16 @@ msgid "Actions"
 msgstr "Действия"
 
 msgid "View"
-msgstr "Открыть"
+msgstr "Просмотр"
 
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Изменить"
 
 msgid "Delete"
 msgstr "Удалить"
 
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Отменить"
 
 msgid "Save changes"
 msgstr "Сохранить"
@@ -639,10 +639,10 @@ msgid "Refreshes every 20 seconds"
 msgstr "Обновляется каждые 20 секунд"
 
 msgid "Available"
-msgstr "Свободно"
+msgstr "Свободен"
 
 msgid "Occupied"
-msgstr "Занято"
+msgstr "Занят"
 
 msgid "Upcoming"
 msgstr "Скоро"
@@ -714,7 +714,7 @@ msgid "Today's Schedule"
 msgstr "Расписание на сегодня"
 
 msgid "%(minutes)s minutes remaining"
-msgstr "Осталось %(minutes)s мин."
+msgstr "До завершения %(minutes)s мин."
 
 msgid "Starts in %(minutes)s minutes"
 msgstr "Начало через %(minutes)s мин."
@@ -827,7 +827,7 @@ msgid "daqiqa"
 msgstr "мин"
 
 msgid "Private Meeting"
-msgstr "Закрытое заседание"
+msgstr "Закрытая встреча"
 
 msgid "Occupied (Private Event)"
 msgstr "Занято (Служебное заседание)"
@@ -1063,8 +1063,12 @@ msgstr "Этот год"
 msgid "Invalid request"
 msgstr "Некорректный запрос"
 
-msgid "The request could not be processed. Check the entered information and try again."
-msgstr "Не удалось обработать запрос. Проверьте введённые данные и повторите попытку."
+msgid ""
+"The request could not be processed. Check the entered information and try "
+"again."
+msgstr ""
+"Не удалось обработать запрос. Проверьте введённые данные и повторите "
+"попытку."
 
 msgid "Access denied"
 msgstr "Доступ запрещён"
@@ -1118,7 +1122,7 @@ msgid "Event Scheduling"
 msgstr "Планирование событий"
 
 msgid "Events"
-msgstr "События"
+msgstr "Мероприятия"
 
 msgid "Approval Queue"
 msgstr "Очередь согласования"
@@ -1173,3 +1177,679 @@ msgstr "Всего"
 
 msgid "Custom Date Range"
 msgstr "Произвольный период"
+
+msgid "International Events Management System"
+msgstr "Система управления международными мероприятиями"
+
+msgid "Public navigation"
+msgstr "Публичная навигация"
+
+msgid "Live dashboard"
+msgstr "Панель в реальном времени"
+
+msgid "Staff sign in"
+msgstr "Вход для сотрудников"
+
+msgid "Workspace"
+msgstr "Рабочее пространство"
+
+msgid "Official international events information"
+msgstr "Официальная информация о международных мероприятиях"
+
+msgid "Live events dashboard"
+msgstr "Панель мероприятий в реальном времени"
+
+msgid "Live institutional schedule"
+msgstr "Расписание учреждения в реальном времени"
+
+msgid "International events, clearly coordinated."
+msgstr "Международные мероприятия — чётко скоординированы."
+
+msgid ""
+"A public, real-time overview of today's programme, active venues and "
+"upcoming international events."
+msgstr ""
+"Публичный обзор сегодняшней программы, активных залов и предстоящих "
+"международных мероприятий."
+
+msgid "Current time in Tashkent"
+msgstr "Текущее время в Ташкенте"
+
+msgid "Today at a glance"
+msgstr "Сегодня в цифрах"
+
+msgid "In progress"
+msgstr "Идёт сейчас"
+
+msgid "right now"
+msgstr "сейчас"
+
+msgid "Starting soon"
+msgstr "Скоро начнётся"
+
+msgid "within one hour"
+msgstr "в течение часа"
+
+msgid "Active venues"
+msgstr "Активные залы"
+
+msgid "monitored"
+msgstr "под наблюдением"
+
+msgid "Live operations"
+msgstr "Текущие операции"
+
+msgid "Venue status"
+msgstr "Статус залов"
+
+msgid "View all venues"
+msgstr "Все залы"
+
+msgid "No active venues"
+msgstr "Нет активных залов"
+
+msgid "Venue status will appear when active venues are configured."
+msgstr "Статус появится после настройки активных залов."
+
+msgid "Programme timeline"
+msgstr "Хронология программы"
+
+msgid "No public events today"
+msgstr "Сегодня нет публичных мероприятий"
+
+msgid "The next published programme will appear here."
+msgstr "Следующая опубликованная программа появится здесь."
+
+msgid "Next seven days"
+msgstr "Следующие семь дней"
+
+msgid "No upcoming public events."
+msgstr "Предстоящих публичных мероприятий нет."
+
+msgid "Live data refreshes automatically."
+msgstr "Данные обновляются автоматически."
+
+msgid "Available for scheduling"
+msgstr "Доступен для планирования"
+
+msgid "Live venues"
+msgstr "Залы в реальном времени"
+
+msgid "Operational visibility"
+msgstr "Оперативная видимость"
+
+msgid "Live venue status"
+msgstr "Статус залов в реальном времени"
+
+msgid ""
+"Current availability and the next public programme item for each active "
+"venue."
+msgstr ""
+"Текущая доступность и следующий публичный пункт программы каждого активного "
+"зала."
+
+msgid "Public event calendar"
+msgstr "Календарь публичных мероприятий"
+
+msgid "Published schedule"
+msgstr "Опубликованное расписание"
+
+msgid "International events calendar"
+msgstr "Календарь международных мероприятий"
+
+msgid "Explore public events by date, venue, type and status."
+msgstr "Просматривайте публичные мероприятия по дате, залу, типу и статусу."
+
+msgid "Next period"
+msgstr "Следующий период"
+
+msgid "All venues"
+msgstr "Все залы"
+
+msgid "All types"
+msgstr "Все типы"
+
+msgid "Open public event page"
+msgstr "Открыть публичную страницу мероприятия"
+
+msgid "Venue occupied"
+msgstr "Зал занят"
+
+msgid "Private meeting"
+msgstr "Закрытая встреча"
+
+msgid "My workspace"
+msgstr "Моё рабочее пространство"
+
+msgid "My events"
+msgstr "Мои мероприятия"
+
+msgid "Operations"
+msgstr "Операции"
+
+msgid "Communication"
+msgstr "Коммуникации"
+
+msgid "Insights"
+msgstr "Аналитика"
+
+msgid "System operational"
+msgstr "Система работает"
+
+msgid "Phase 11 interface"
+msgstr "Интерфейс этапа 11"
+
+msgid "Coordinated events workspace"
+msgstr "Рабочая среда координации мероприятий"
+
+msgid "Public view"
+msgstr "Публичный вид"
+
+msgid "Role-aware workspace"
+msgstr "Рабочее пространство по роли"
+
+msgid ""
+"Your priorities, upcoming events and required actions in one focused view."
+msgstr ""
+"Приоритеты, предстоящие мероприятия и необходимые действия в одном "
+"представлении."
+
+msgid "Plan new event"
+msgstr "Запланировать мероприятие"
+
+msgid "Needs action"
+msgstr "Требует действий"
+
+msgid "Pending approval"
+msgstr "Ожидает согласования"
+
+msgid "Unread notifications"
+msgstr "Непрочитанные уведомления"
+
+msgid "Your schedule"
+msgstr "Ваше расписание"
+
+msgid "Your schedule is clear"
+msgstr "Ваше расписание свободно"
+
+msgid "Assigned and upcoming events will appear here."
+msgstr "Назначенные и предстоящие мероприятия появятся здесь."
+
+msgid "Quick access"
+msgstr "Быстрый доступ"
+
+msgid "Tools for your role"
+msgstr "Инструменты для вашей роли"
+
+msgid "Internal calendar"
+msgstr "Внутренний календарь"
+
+msgid "Telegram settings"
+msgstr "Настройки Telegram"
+
+msgid "Profile and language"
+msgstr "Профиль и язык"
+
+msgid "Profile"
+msgstr "Профиль"
+
+msgid "Account control"
+msgstr "Управление учётной записью"
+
+msgid "Profile and preferences"
+msgstr "Профиль и настройки"
+
+msgid ""
+"Manage your identity and interface language. Access role changes require an "
+"administrator."
+msgstr ""
+"Управляйте личными данными и языком интерфейса. Роль изменяет только "
+"администратор."
+
+msgid "Preferred language"
+msgstr "Предпочитаемый язык"
+
+msgid "Profile updated successfully."
+msgstr "Профиль успешно обновлён."
+
+msgid "Save profile"
+msgstr "Сохранить профиль"
+
+msgid "Access"
+msgstr "Доступ"
+
+msgid "Role and permissions are managed centrally."
+msgstr "Роль и разрешения управляются централизованно."
+
+msgid "Assigned events"
+msgstr "Назначенные мероприятия"
+
+msgid "Management events"
+msgstr "Мероприятия руководства"
+
+msgid "Boshqaruv markazi"
+msgstr "Центр управления"
+
+msgid "Month"
+msgstr "Месяц"
+
+msgid "Week"
+msgstr "Неделя"
+
+msgid "Day"
+msgstr "День"
+
+msgid "List"
+msgstr "Список"
+
+msgid "events"
+msgstr "мероприятий"
+
+msgid "Planned"
+msgstr "Запланировано"
+
+msgid "Priority"
+msgstr "Приоритет"
+
+msgid "Role"
+msgstr "Роль"
+
+msgid "Activity"
+msgstr "Активность"
+
+msgid "Connected"
+msgstr "Подключено"
+
+msgid "View all"
+msgstr "Смотреть все"
+
+msgid "Available venues"
+msgstr "Свободные залы"
+
+msgid "Occupied venues"
+msgstr "Занятые залы"
+
+msgid "Seven-day calendar preview"
+msgstr "Предпросмотр календаря на семь дней"
+
+msgid "Calendar preview"
+msgstr "Предпросмотр календаря"
+
+msgid "Open interactive calendar"
+msgstr "Открыть интерактивный календарь"
+
+msgid "Try again"
+msgstr "Повторить"
+
+msgid "Could not refresh data."
+msgstr "Не удалось обновить данные."
+
+msgid "Loading calendar"
+msgstr "Календарь загружается"
+
+msgid "Publications to prepare"
+msgstr "Публикации к подготовке"
+
+msgid "Today's check-in events"
+msgstr "Сегодняшние мероприятия с регистрацией"
+
+msgid "International Events"
+msgstr "Международные мероприятия"
+
+msgid "Approval queue"
+msgstr "Очередь согласования"
+
+msgid "Displaced events"
+msgstr "Мероприятия для переноса"
+
+msgid "Leadership dashboard"
+msgstr "Панель руководства"
+
+msgid "Super administrator"
+msgstr "Главный администратор"
+
+msgid "International department administrator"
+msgstr "Администратор международного отдела"
+
+msgid "Responsible employee"
+msgstr "Ответственный сотрудник"
+
+msgid "Management responsible"
+msgstr "Ответственный руководитель"
+
+msgid "Leadership viewer"
+msgstr "Наблюдатель руководства"
+
+msgid "Content manager"
+msgstr "Контент-менеджер"
+
+msgid "Reception operator"
+msgstr "Оператор приёма"
+
+msgid "Management"
+msgstr "Управление"
+
+msgid "Overview"
+msgstr "Обзор"
+
+msgid "All events"
+msgstr "Все мероприятия"
+
+msgid "Rescheduling"
+msgstr "Переносы"
+
+msgid "Programs"
+msgstr "Программы"
+
+msgid "Reference data"
+msgstr "Справочники"
+
+msgid "Users"
+msgstr "Пользователи"
+
+msgid "Staff"
+msgstr "Сотрудники"
+
+msgid "Roles"
+msgstr "Роли"
+
+msgid "Analytics"
+msgstr "Аналитика"
+
+msgid "System"
+msgstr "Система"
+
+msgid "Audit log"
+msgstr "Журнал аудита"
+
+msgid "Control center"
+msgstr "Центр управления"
+
+msgid "IEMS Control Center"
+msgstr "Центр управления IEMS"
+
+msgid "Manage the system, events and international activity from one place."
+msgstr ""
+"Управляйте системой, мероприятиями и международной деятельностью из единого "
+"центра."
+
+msgid "Live operational context and secure administrative tools."
+msgstr "Оперативная обстановка и защищённые инструменты управления."
+
+msgid "System indicators"
+msgstr "Показатели системы"
+
+msgid "registered in IEMS"
+msgstr "зарегистрировано в IEMS"
+
+msgid "on today's schedule"
+msgstr "в расписании на сегодня"
+
+msgid "Awaiting approval"
+msgstr "Ожидают согласования"
+
+msgid "requires a decision"
+msgstr "требуют решения"
+
+msgid "available to the system"
+msgstr "активны в системе"
+
+msgid "Today's attendance"
+msgstr "Посещаемость сегодня"
+
+msgid "recorded check-ins"
+msgstr "зарегистрированных отметок"
+
+msgid "Quick actions"
+msgstr "Быстрые действия"
+
+msgid "Start a common task"
+msgstr "Начните основную задачу"
+
+msgid "New event"
+msgstr "Новое мероприятие"
+
+msgid "Plan and assign"
+msgstr "Планирование и назначение"
+
+msgid "Add speaker"
+msgstr "Добавить спикера"
+
+msgid "Create profile"
+msgstr "Создать профиль"
+
+msgid "Add organization"
+msgstr "Добавить организацию"
+
+msgid "Register partner"
+msgstr "Зарегистрировать партнёра"
+
+msgid "Add venue"
+msgstr "Добавить зал"
+
+msgid "Configure space"
+msgstr "Настроить пространство"
+
+msgid "Review schedule"
+msgstr "Просмотреть расписание"
+
+msgid "Operational insight"
+msgstr "Оперативная аналитика"
+
+msgid "Administration"
+msgstr "Администрирование"
+
+msgid "System modules"
+msgstr "Модули системы"
+
+msgid "awaiting approval"
+msgstr "ожидают согласования"
+
+msgid "active spaces"
+msgstr "активных залов"
+
+msgid "Manage venues"
+msgstr "Управление залами"
+
+msgid "Display access"
+msgstr "Доступ к экранам"
+
+msgid "Partners and sponsors"
+msgstr "Партнёры и спонсоры"
+
+msgid "Users and access"
+msgstr "Пользователи и доступ"
+
+msgid "Staff accounts and roles"
+msgstr "Учётные записи и роли"
+
+msgid "Communications"
+msgstr "Коммуникации"
+
+msgid "Telegram and publications"
+msgstr "Telegram и публикации"
+
+msgid "Telegram deliveries"
+msgstr "Отправки Telegram"
+
+msgid "Governance"
+msgstr "Контроль"
+
+msgid "Attendance and audit history"
+msgstr "Посещаемость и история аудита"
+
+msgid "Recent changes"
+msgstr "Последние изменения"
+
+msgid "No new activity yet"
+msgstr "Новых действий пока нет"
+
+msgid "Administrative changes will appear here."
+msgstr "Административные изменения появятся здесь."
+
+msgid "Manage all international events"
+msgstr "Управление всеми международными мероприятиями"
+
+msgid "Search, filter and manage permitted records."
+msgstr "Ищите, фильтруйте и управляйте разрешёнными записями."
+
+msgid "Clear filters"
+msgstr "Очистить фильтры"
+
+msgid "New record"
+msgstr "Новая запись"
+
+msgid "Complete the fields below. Required information is clearly marked."
+msgstr "Заполните поля ниже. Обязательные данные чётко обозначены."
+
+msgid "Basic information"
+msgstr "Основная информация"
+
+msgid "Schedule and venue"
+msgstr "Расписание и зал"
+
+msgid "Responsible persons and partners"
+msgstr "Ответственные и партнёры"
+
+msgid "Public information and attendance"
+msgstr "Публичная информация и посещаемость"
+
+msgid "Workflow"
+msgstr "Рабочий процесс"
+
+msgid "Reminder policy"
+msgstr "Правила напоминаний"
+
+msgid "System metadata"
+msgstr "Системные данные"
+
+msgid "Choose a module to view and manage permitted records."
+msgstr "Выберите модуль для просмотра и управления разрешёнными записями."
+
+msgid "Secure administrative records"
+msgstr "Защищённые административные записи"
+
+msgid "View records"
+msgstr "Просмотреть записи"
+
+msgid "Add new"
+msgstr "Добавить"
+
+msgid "Audit trail"
+msgstr "Журнал изменений"
+
+msgid "Change history"
+msgstr "История изменений"
+
+msgid "No change history"
+msgstr "История изменений отсутствует"
+
+msgid "Changes to this record will appear here."
+msgstr "Изменения этой записи появятся здесь."
+
+msgid "Date / time"
+msgstr "Дата / время"
+
+msgid "Filters"
+msgstr "Фильтры"
+
+msgid "Search by event title, organization or responsible person…"
+msgstr "Поиск по названию, организации или ответственному…"
+
+msgid "Search records…"
+msgstr "Поиск записей…"
+
+msgid "Normal"
+msgstr "Обычный"
+
+msgid "Cancelled"
+msgstr "Отменено"
+
+msgid "Pending Approval"
+msgstr "Ожидает согласования"
+
+msgid "Planned Events"
+msgstr "Запланированные мероприятия"
+
+msgid "Schedule and manage international events across university venues."
+msgstr "Планируйте международные мероприятия и управляйте ими."
+
+msgid "Plan New Event"
+msgstr "Новое мероприятие"
+
+msgid "Search by event title or description..."
+msgstr "Поиск по названию или описанию мероприятия..."
+
+msgid "All Statuses"
+msgstr "Все статусы"
+
+msgid "All Venues"
+msgstr "Все залы"
+
+msgid "All Types"
+msgstr "Все типы"
+
+msgid "Event Type"
+msgstr "Тип"
+
+msgid "Date & Weekday"
+msgstr "Дата"
+
+msgid "No events found"
+msgstr "Мероприятия не найдены"
+
+msgid "Try adjusting your search query or filters."
+msgstr "Измените поисковый запрос или фильтры."
+
+msgid "Plan an Event"
+msgstr "Создать мероприятие"
+
+msgid "System active"
+msgstr "Система активна"
+
+msgid "Operational"
+msgstr "Работает"
+
+msgid "Free until"
+msgstr "Свободен до"
+
+msgid "Public dashboard"
+msgstr "Публичная панель"
+
+msgid "Today's timeline"
+msgstr "Расписание на сегодня"
+
+msgid "No events scheduled today"
+msgstr "Сегодня мероприятий нет"
+
+msgid "No events awaiting approval"
+msgstr "Нет мероприятий на согласовании"
+
+msgid "Live"
+msgstr "Онлайн"
+
+msgid "System online"
+msgstr "Система онлайн"
+
+msgid "Tashkent operational time"
+msgstr "Операционное время Ташкента"
+
+msgid "Search events"
+msgstr "Поиск мероприятий"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "Responsible person"
+msgstr "Ответственное лицо"
+
+msgid "No events planned"
+msgstr "Мероприятий нет"
+
+msgid "Republican Oncology Center and Gustave Roussy International Uzbekistan"
+msgstr ""
+"Республиканский онкологический центр и Gustave Roussy International "
+"Uzbekistan"
+
+msgid "Republic Oncology Center"
+msgstr "Республиканский онкологический центр"
