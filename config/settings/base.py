@@ -175,6 +175,10 @@ REST_FRAMEWORK = {
 
 APP_VERSION = env("APP_VERSION", default="0.1.0")
 LOG_LEVEL = env("LOG_LEVEL", default="INFO")
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+WEB_LOG_FILE = LOG_DIR / "web.log"
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -193,15 +197,33 @@ LOGGING = {
         "production_console": {
             "class": "logging.StreamHandler",
             "formatter": "json",
-        }
+        },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(WEB_LOG_FILE),
+            "maxBytes": 10 * 1024 * 1024,
+            "backupCount": 5,
+            "encoding": "utf-8",
+            "formatter": "standard",
+        },
     },
-    "root": {"handlers": ["console"], "level": LOG_LEVEL},
+    "root": {"handlers": ["console", "file"], "level": LOG_LEVEL},
     "loggers": {
         "django.request": {
-            "handlers": ["console"],
+            "handlers": ["console", "file"],
             "level": "WARNING",
             "propagate": False,
-        }
+        },
+        "django.server": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "waitress": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
+            "propagate": False,
+        },
     },
 }
 
