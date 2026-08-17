@@ -1,4 +1,261 @@
-{% extends "public/base.html" %}{% load i18n static %}
+{% extends "public/base.html" %}
+{% load i18n static %}
+
 {% block title %}{% trans "Live venues" %} · IEMS{% endblock %}
-{% block content %}<section class="public-page-head"><p class="public-kicker">{% trans "Operational visibility" %}</p><h1>{% trans "Live venue status" %}</h1><p>{% trans "Current availability and the next public programme item for each active venue." %}</p></section><section class="live-venue-grid venue-page-grid" data-venue-grid data-endpoint="{% url 'public-venues-api' %}">{% for venue in venues %}{% include "public/_venue_card.html" %}{% empty %}<div class="public-empty"><strong>{% trans "No active venues" %}</strong></div>{% endfor %}</section>{% endblock %}
-{% block extra_js %}<script src="{% static 'js/public-dashboard.js' %}" defer></script>{% endblock %}
+
+{% block extra_css %}
+<style>
+  .venues-command-center {
+    background: radial-gradient(circle at 50% 10%, #0A2342 0%, var(--midnight-navy) 60%, var(--deep-navy) 100%);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border-radius: var(--radius-xl);
+    color: #FFFFFF;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+  }
+  .venues-command-center::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(25, 198, 244, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(25, 198, 244, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .venues-head {
+    position: relative;
+    z-index: 2;
+    margin-bottom: var(--space-5);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .venues-head h1 {
+    font-size: var(--font-size-page-title);
+    font-weight: var(--font-weight-extrabold);
+    color: #FFFFFF;
+    margin: var(--space-1) 0;
+    letter-spacing: -0.03em;
+  }
+  .venues-head p {
+    color: #94A3B8;
+    font-size: var(--font-size-body);
+    margin: 0;
+  }
+  .venues-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-meta);
+    color: #94A3B8;
+    background: rgba(255, 255, 255, 0.05);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .venues-command-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .venues-command-grid .live-venue-card {
+    background: rgba(7, 26, 47, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 14.5rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    transition: all var(--motion-micro) var(--ease-standard);
+  }
+  .venues-command-grid .live-venue-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(25, 198, 244, 0.5);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  }
+  .venues-command-grid .live-venue-card.status-occupied {
+    border-left: 4px solid var(--brand-cyan);
+  }
+  .venues-command-grid .live-venue-card.status-upcoming {
+    border-left: 4px solid var(--warm-amber);
+  }
+  .venues-command-grid .live-venue-card.status-available {
+    border-left: 4px solid var(--live-emerald);
+  }
+  .venues-command-grid .live-venue-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+  .venue-identity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .venues-command-grid .venue-monogram {
+    padding: 0.2rem 0.65rem;
+    background: rgba(23, 107, 255, 0.25);
+    border: 1px solid rgba(47, 128, 255, 0.45);
+    border-radius: var(--radius-sm);
+    color: var(--brand-cyan);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-extrabold);
+    font-family: var(--font-mono);
+  }
+  .venue-capacity-tag {
+    font-size: var(--font-size-meta);
+    color: #94A3B8;
+  }
+  .venues-command-grid .live-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-badge);
+    font-weight: var(--font-weight-bold);
+  }
+  .venues-command-grid .status-available .live-status { color: #FFFFFF; background: var(--live-emerald-dark); box-shadow: 0 0 12px rgba(32, 201, 151, 0.4); }
+  .venues-command-grid .status-occupied .live-status { color: #FFFFFF; background: var(--brand-cobalt); box-shadow: 0 0 12px rgba(23, 107, 255, 0.4); }
+  .venues-command-grid .status-upcoming .live-status { color: #FFFFFF; background: var(--warm-amber-dark); box-shadow: 0 0 12px rgba(245, 159, 0, 0.4); }
+  
+  .venues-command-grid .venue-title {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    color: #FFFFFF;
+    margin: 0 0 var(--space-2);
+  }
+  .venues-command-grid .venue-current {
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-cyan);
+    margin-bottom: var(--space-2);
+    line-height: var(--line-height-snug);
+  }
+  .venues-command-grid .venue-current.is-free {
+    color: #94A3B8;
+    font-weight: var(--font-weight-normal);
+  }
+  .venues-command-grid .venue-countdown {
+    color: #CBD5E1;
+    font-size: var(--font-size-meta);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: var(--space-1) 0;
+  }
+  .venues-command-grid .venue-progress {
+    height: 5px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    margin: var(--space-2) 0;
+  }
+  .venues-command-grid .venue-progress i {
+    display: block;
+    height: 100%;
+    background: var(--grad-cobalt-cyan);
+    border-radius: var(--radius-full);
+  }
+  .venues-command-grid .venue-progress.is-upcoming i {
+    background: var(--warm-amber);
+  }
+  .venues-command-grid .venue-next {
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+  }
+  .venues-command-grid .venue-next .next-label {
+    display: block;
+    color: #94A3B8;
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+  }
+  .venues-command-grid .venue-next .next-title {
+    display: block;
+    color: #FFFFFF;
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .venues-command-grid footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #94A3B8;
+    font-size: var(--font-size-meta);
+  }
+  .footer-left strong {
+    color: #FFFFFF;
+  }
+  .footer-count {
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.08);
+    color: #CBD5E1;
+    font-size: var(--font-size-2xs);
+  }
+  @media (max-width: 54rem) {
+    .venues-command-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="venues-command-center">
+  <header class="venues-head">
+    <div>
+      <p class="public-kicker" style="color: var(--brand-cyan);">
+        <span class="live-beacon cyan"></span>
+        {% trans "Operatsion ko'rinish" %}
+      </p>
+      <h1>{% trans "Jonli zallar holati" %}</h1>
+      <p>{% trans "Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va navbatdagi dasturlari." %}</p>
+    </div>
+
+    <div class="venues-legend">
+      <span class="legend-item"><span class="live-beacon"></span>{% trans "Erkin" %}</span>
+      <span class="legend-item"><span class="live-beacon cyan"></span>{% trans "Faol tadbir" %}</span>
+      <span class="legend-item" style="color: var(--warm-amber);">● {% trans "Tez orada" %}</span>
+    </div>
+  </header>
+
+  <main class="venues-command-grid" data-venue-grid data-endpoint="{% url 'public-venues-api' %}">
+    {% for venue in venues %}
+      {% include "public/_venue_card.html" %}
+    {% empty %}
+      <div class="empty-state-card" style="grid-column: 1 / -1; background: rgba(7, 26, 47, 0.6); color: #FFFFFF;">
+        <strong>{% trans "Hozirda faol zallar mavjud emas" %}</strong>
+      </div>
+    {% endfor %}
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/public-dashboard.js' %}" defer></script>
+{% endblock %}

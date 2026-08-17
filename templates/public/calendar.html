@@ -1,8 +1,99 @@
-{% extends "public/base.html" %}{% load i18n static %}
-{% block title %}{% trans "Public event calendar" %} · IEMS{% endblock %}
-{% block content %}<section class="public-page-head compact-head"><div><p class="public-kicker">{% trans "Published schedule" %}</p><h1>{% trans "International events calendar" %}</h1></div><p>{% trans "Explore public events by date, venue, type and status." %}</p></section>
-<section class="public-calendar" data-calendar data-endpoint="{% url 'public-calendar-api' %}"><header class="calendar-toolbar"><div class="period-controls"><button type="button" data-prev aria-label="{% trans 'Previous period' %}">←</button><button type="button" data-today>{% trans "Today" %}</button><button type="button" data-next aria-label="{% trans 'Next period' %}">→</button></div><h2 data-calendar-title></h2><div class="view-tabs" role="tablist"><button type="button" data-view="month" aria-selected="true">{% trans "Month" %}</button><button type="button" data-view="week">{% trans "Week" %}</button><button type="button" data-view="day">{% trans "Day" %}</button><button type="button" data-view="list">{% trans "List" %}</button></div></header>
-<div class="calendar-filters"><label class="calendar-search"><span>{% trans "Search" %}</span><input type="search" data-filter="search" placeholder="{% trans 'Search events' %}"></label><label><span>{% trans "Venue" %}</span><select data-filter="venue"><option value="">{% trans "All venues" %}</option>{% for venue in venues %}<option value="{{ venue.code }}">{{ venue.localized_name }}</option>{% endfor %}</select></label><label><span>{% trans "Event type" %}</span><select data-filter="type"><option value="">{% trans "All types" %}</option>{% for event_type in event_types %}<option value="{{ event_type.code }}">{{ event_type.localized_name }}</option>{% endfor %}</select></label><label><span>{% trans "Status" %}</span><select data-filter="status"><option value="">{% trans "All statuses" %}</option>{% for value,label in statuses %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select></label><label><span>{% trans "Priority" %}</span><select data-filter="priority"><option value="">{% trans "All priorities" %}</option><option value="normal">{% trans "Normal" %}</option><option value="high">{% trans "High" %}</option><option value="emergency">{% trans "Emergency" %}</option></select></label><button type="button" class="calendar-clear" data-clear-filters>{% trans "Reset" %}</button></div><div class="filter-chips" data-filter-chips aria-live="polite"></div>
-<div class="calendar-stage" data-calendar-stage aria-live="polite"><div class="calendar-loading"><span></span><span></span><span></span><p>{% trans "Loading calendar" %}</p></div></div></section>
-<dialog class="event-dialog event-drawer" data-event-dialog aria-labelledby="event-drawer-title"><button type="button" data-dialog-close aria-label="{% trans 'Close' %}">×</button><div class="drawer-mark" aria-hidden="true"></div><p class="public-kicker" data-dialog-status></p><h2 id="event-drawer-title" data-dialog-title></h2><dl><div><dt>{% trans "Date and time" %}</dt><dd data-dialog-time></dd></div><div><dt>{% trans "Venue" %}</dt><dd data-dialog-venue></dd></div><div><dt>{% trans "Event type" %}</dt><dd data-dialog-type></dd></div><div><dt>{% trans "Responsible person" %}</dt><dd data-dialog-responsible></dd></div><div><dt>{% trans "Organization" %}</dt><dd data-dialog-organization></dd></div><div><dt>{% trans "Priority" %}</dt><dd data-dialog-priority></dd></div></dl><p class="drawer-description" data-dialog-description></p><a class="drawer-cta" data-dialog-link href="#">{% trans "Open public event page" %} →</a></dialog>
-{% endblock %}{% block extra_js %}<script src="{% static 'js/public-calendar.js' %}" defer></script>{% endblock %}
+{% extends "public/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Taqvim" %} - IEMS{% endblock %}
+
+{% block content %}
+<div class="public-calendar animate-stagger-2" data-calendar data-endpoint="{% url 'public-calendar-api' %}">
+
+  <div style="font-size:var(--text-micro); font-weight:var(--weight-bold); color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:var(--space-1);">
+    {% trans "REJALASHTIRILGAN DASTUR" %}
+  </div>
+  <h1 style="font-size:var(--text-title-xl); font-weight:var(--weight-black); color:var(--color-text-title); margin:0 0 var(--space-4) 0; letter-spacing:-0.02em;">
+    {% trans "Xalqaro tadbirlar taqvimi" %}
+  </h1>
+
+  <!-- COMMAND BAR (using original data attributes) -->
+  <div class="calendar-command-bar">
+    <div class="calendar-command-bar__left">
+      <button type="button" class="btn btn--secondary" data-prev aria-label="{% trans 'Oldingi' %}">←</button>
+      <button type="button" class="btn btn--secondary" data-today>{% trans "Bugun" %}</button>
+      <button type="button" class="btn btn--secondary" data-next aria-label="{% trans 'Keyingi' %}">→</button>
+    </div>
+    
+    <div class="calendar-command-bar__center" data-calendar-title></div>
+    
+    <div class="calendar-command-bar__right">
+      <div class="segmented-control" role="tablist">
+        <button type="button" class="segmented-control__btn is-active" data-view="month" aria-selected="true">{% trans "Oy" %}</button>
+        <button type="button" class="segmented-control__btn" data-view="week">{% trans "Hafta" %}</button>
+        <button type="button" class="segmented-control__btn" data-view="day">{% trans "Kun" %}</button>
+        <button type="button" class="segmented-control__btn" data-view="list">{% trans "Ro'yxat" %}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="calendar-filters">
+    <input type="search" data-filter="search" class="input-control" placeholder="{% trans 'Tadbirni qidirish...' %}" style="flex:2;">
+    <select data-filter="venue" class="input-control select-control" style="flex:1;">
+      <option value="">{% trans "Barcha Zallar" %}</option>
+      {% for v in venues %}
+        <option value="{{ v.code }}">{{ v.code }} - {{ v.localized_name }}</option>
+      {% endfor %}
+    </select>
+    <select data-filter="type" class="input-control select-control" style="flex:1;">
+      <option value="">{% trans "Barcha Turlar" %}</option>
+      {% for event_type in event_types %}
+        <option value="{{ event_type.code }}">{{ event_type.localized_name }}</option>
+      {% endfor %}
+    </select>
+    <button type="button" class="btn btn--ghost" data-clear-filters>{% trans "Tozalash" %}</button>
+  </div>
+  
+  <div class="filter-chips" data-filter-chips aria-live="polite"></div>
+
+  <!-- MONTH GRID / STAGE (JS target) -->
+  <div class="calendar-stage calendar-month animate-stagger-3" data-calendar-stage aria-live="polite">
+    <div class="calendar-loading">
+      <span></span><span></span><span></span>
+      <p>{% trans "Yuklanmoqda..." %}</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Calendar Inspector Drawer (Drawer Logic using original tags) -->
+<div class="calendar-inspector" id="calendar-inspector" data-event-dialog aria-labelledby="inspector-title" aria-modal="true" role="dialog">
+  <button type="button" class="btn btn--ghost" style="align-self:flex-end; margin-bottom:var(--space-4);" data-dialog-close aria-label="{% trans 'Yopish' %}">Yopish ✕</button>
+  <div class="chip" data-dialog-status style="margin-bottom: var(--space-2); align-self: flex-start;"></div>
+  <h2 id="inspector-title" style="font-size:var(--text-heading); margin-bottom:var(--space-2);" data-dialog-title></h2>
+  
+  <div style="display:flex; flex-direction:column; gap:var(--space-3); margin-bottom:var(--space-5);">
+    <div>
+      <div style="font-size:var(--text-micro); color:var(--color-text-muted);">{% trans "Vaqt" %}</div>
+      <div style="font-size:var(--text-body); color:var(--color-text-main);" data-dialog-time></div>
+    </div>
+    <div>
+      <div style="font-size:var(--text-micro); color:var(--color-text-muted);">{% trans "Zal" %}</div>
+      <div style="font-size:var(--text-body); color:var(--color-text-main);" data-dialog-venue></div>
+    </div>
+    <div>
+      <div style="font-size:var(--text-micro); color:var(--color-text-muted);">{% trans "Turi" %}</div>
+      <div style="font-size:var(--text-body); color:var(--color-text-main);" data-dialog-type></div>
+    </div>
+    <div>
+      <div style="font-size:var(--text-micro); color:var(--color-text-muted);">{% trans "Mas'ul" %}</div>
+      <div style="font-size:var(--text-body); color:var(--color-text-main);" data-dialog-responsible></div>
+    </div>
+  </div>
+  
+  <p style="font-size:var(--text-body); color:var(--color-text-secondary);" data-dialog-description></p>
+  <a class="btn btn--primary" data-dialog-link href="#" style="margin-top:auto;">{% trans "Tadbir sahifasiga o'tish" %} →</a>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/public-calendar.js' %}"></script>
+{% endblock %}

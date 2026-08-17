@@ -1,14 +1,327 @@
-{% load i18n %}
-<!doctype html><html lang="{{ LANGUAGE_CODE|default:'uz' }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ page_title }}</title>
-<style>
-:root{color-scheme:dark;--bg:#061426;--panel:#0d2540;--line:#24425f;--text:#edf5fb;--muted:#9db0c4;--cyan:#54d8ed;--ok:#52dfa0;--warn:#ffd166;--busy:#ff8c85}*{box-sizing:border-box}body{margin:0;height:100vh;overflow:hidden;background:var(--bg);color:var(--text);font-family:Segoe UI,system-ui,sans-serif;padding:1.5rem;display:grid;grid-template-rows:auto 1fr auto;gap:1rem}.tv-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:1rem}.brand{font-size:1.6rem;font-weight:850;color:var(--cyan)}.clock{font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums}.date{color:var(--muted)}button{min-height:44px;border:1px solid var(--line);border-radius:.65rem;background:var(--panel);color:var(--text);padding:.55rem 1rem;font-weight:700;cursor:pointer}button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}.head-tools{display:flex;align-items:center;gap:1rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:1rem;min-height:0}.venue{border:1px solid var(--line);border-radius:1rem;background:var(--panel);padding:1.35rem;display:grid;grid-template-rows:auto 1fr auto;box-shadow:0 .6rem 1.8rem #020a1399}.venue-head{display:flex;justify-content:space-between;gap:1rem}.venue h2{font-size:1.45rem;margin:0}.status{border-radius:999px;padding:.35rem .7rem;font-size:.8rem;font-weight:850}.AVAILABLE{color:var(--ok);background:#0d4938}.OCCUPIED{color:var(--busy);background:#55272d}.UPCOMING{color:var(--warn);background:#53431e}.status.OCCUPIED::before{content:'●';margin-right:.4rem;animation:pulse 1.8s ease-out infinite}.main-event{align-self:center}.event-title{font-size:1.75rem;font-weight:800;line-height:1.2;margin-bottom:.55rem}.event-time{font-size:1.25rem;color:var(--cyan);font-variant-numeric:tabular-nums}.countdown{margin-top:.65rem;color:var(--muted)}.next{padding-top:.8rem;border-top:1px solid var(--line);color:var(--muted)}.ticker{display:flex;gap:1.5rem;align-items:center;overflow:hidden;border:1px solid var(--line);border-radius:.75rem;background:var(--panel);padding:.8rem 1rem;white-space:nowrap}.ticker strong{color:var(--cyan)}@keyframes pulse{50%{opacity:.35}}@media(min-width:2500px){body{font-size:1.35rem;padding:2rem}.venue h2{font-size:2rem}.event-title{font-size:2.5rem}.clock{font-size:3rem}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}</style></head>
-<body data-testid="tv-wallboard-container"><header class="tv-head"><div><div class="brand">IEMS · {% trans "Live Venue Display" %}</div><div class="date" id="tv-date">{{ date_str }}</div></div><div class="head-tools"><div class="clock" id="tv-clock" data-testid="tv-clock-display">{{ time_str }}</div><button id="fullscreen" type="button">{% trans "Fullscreen" %}</button></div></header>
-<main class="grid" id="tv-grid" data-testid="tv-venues-grid">{% for item in venues %}<article class="venue" data-venue="{{ item.venue_id }}" data-testid="tv-venue-card-{{ item.venue_code }}"><div class="venue-head"><h2>{{ item.venue_name }}</h2><span class="status {{ item.current_status }}" data-field="status">{{ item.status_label }}</span></div><div class="main-event"><div class="event-title" data-field="title">{% if item.current_status == 'OCCUPIED' %}{{ item.current_event_title|default:'—' }}{% elif item.current_status == 'UPCOMING' %}{{ item.next_event_title|default:'—' }}{% else %}{% trans "Available now" %}{% endif %}</div><div class="event-time" data-field="time">{% if item.current_status == 'OCCUPIED' %}{{ item.current_event_start_time }}–{{ item.current_event_end_time }}{% elif item.current_status == 'UPCOMING' %}{{ item.next_event_start_time }}{% endif %}</div><div class="countdown" data-field="countdown">{% if item.minutes_remaining %}{% blocktrans with minutes=item.minutes_remaining %}{{ minutes }} minutes remaining{% endblocktrans %}{% elif item.minutes_until_start %}{% blocktrans with minutes=item.minutes_until_start %}Starts in {{ minutes }} minutes{% endblocktrans %}{% endif %}</div></div><div class="next" data-field="next">{% if item.next_event_start_time %}{% trans "Next" %}: {{ item.next_event_start_time }} {{ item.next_event_title }}{% elif item.free_until %}{% blocktrans with time=item.free_until %}Free until {{ time }}{% endblocktrans %}{% else %}{% trans "No more events today" %}{% endif %}</div></article>{% endfor %}</main>
-<footer class="ticker"><strong>{% trans "Today's Schedule" %}</strong>{% for item in timeline %}<span>{{ item.start_time }} · {{ item.title }} · {{ item.venue_name }}</span>{% empty %}<span>{% trans "No events today" %}</span>{% endfor %}</footer>
-<script>
-const token='{{ display_token|escapejs }}',labels={available:'{% trans "Available now" %}',next:'{% trans "Next" %}',none:'{% trans "No more events today" %}',remaining:'{% trans "minutes remaining" %}',starts:'{% trans "Starts in" %}'};
-function clock(){const now=new Date(),locale=document.documentElement.lang||'uz';document.getElementById('tv-clock').textContent=now.toLocaleTimeString(locale,{hour12:false});document.getElementById('tv-date').textContent=now.toLocaleDateString(locale,{dateStyle:'full'})}setInterval(clock,1000);clock();
-document.getElementById('fullscreen').addEventListener('click',()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen());
-function render(item){const card=document.querySelector(`[data-venue="${item.venue_id}"]`);if(!card)return;const status=card.querySelector('[data-field="status"]');status.className=`status ${item.current_status}`;status.textContent=item.status_label;const title=card.querySelector('[data-field="title"]'),time=card.querySelector('[data-field="time"]'),countdown=card.querySelector('[data-field="countdown"]'),next=card.querySelector('[data-field="next"]');if(item.current_status==='OCCUPIED'){title.textContent=item.current_event_title||'—';time.textContent=`${item.current_event_start_time}–${item.current_event_end_time}`;countdown.textContent=item.minutes_remaining?`${item.minutes_remaining} ${labels.remaining}`:''}else if(item.current_status==='UPCOMING'){title.textContent=item.next_event_title||'—';time.textContent=item.next_event_start_time||'';countdown.textContent=item.minutes_until_start?`${labels.starts} ${item.minutes_until_start}`:''}else{title.textContent=labels.available;time.textContent='';countdown.textContent=''}next.textContent=item.next_event_start_time?`${labels.next}: ${item.next_event_start_time} ${item.next_event_title||''}`:item.free_until?item.free_until:labels.none}
-async function poll(){try{const response=await fetch(`/api/v1/display/${encodeURIComponent(token)}/venues/`,{cache:'no-store'});if(!response.ok)return;const data=await response.json();data.venues.forEach(render)}catch(error){console.warn('Wallboard refresh failed')}}setInterval(poll,15000);
-</script></body></html>
+{% load i18n static %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE|default:'uz' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ page_title }} · IEMS TV</title>
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+  <style>
+    :root {
+      color-scheme: dark;
+      --tv-bg: #071427;
+      --tv-panel: #0B1F38;
+      --tv-panel-glass: rgba(11, 31, 56, 0.88);
+      --tv-border: rgba(255, 255, 255, 0.12);
+      --tv-cyan: #16C7E8;
+      --tv-blue: #165DFF;
+      --tv-emerald: #16B978;
+      --tv-amber: #F5A524;
+      --tv-coral: #F05D5E;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 10%, #13335A 0%, var(--tv-bg) 80%);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(1rem, 2vw, 1.75rem);
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(22, 199, 232, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 199, 232, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .tv-head {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--tv-border);
+      padding-bottom: 1.25rem;
+    }
+    .brand {
+      font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+    .brand span {
+      color: var(--tv-cyan);
+    }
+    .clock {
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      color: #FFFFFF;
+      text-shadow: 0 0 28px rgba(22, 199, 232, 0.45);
+      line-height: 1;
+    }
+    .date {
+      color: #CBD5E1;
+      font-size: clamp(1rem, 1.3vw, 1.35rem);
+      margin-top: 0.25rem;
+    }
+    button {
+      min-height: 3rem;
+      border: 1px solid var(--tv-border);
+      border-radius: var(--radius-md);
+      background: var(--tv-panel-glass);
+      color: #FFFFFF;
+      padding: 0.5rem 1.25rem;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s;
+    }
+    button:hover {
+      border-color: var(--tv-cyan);
+      box-shadow: 0 0 16px rgba(22, 199, 232, 0.3);
+    }
+    .head-tools {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: clamp(1rem, 2vw, 1.75rem);
+      min-height: 0;
+    }
+    .venue {
+      border: 1px solid var(--tv-border);
+      border-radius: var(--radius-2xl);
+      background: var(--tv-panel-glass);
+      backdrop-filter: blur(20px);
+      padding: clamp(1.5rem, 2.5vw, 2.25rem);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s ease;
+    }
+    .venue:hover {
+      border-color: rgba(22, 199, 232, 0.4);
+      transform: translateY(-2px);
+    }
+    .venue-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .venue h2 {
+      font-size: clamp(1.6rem, 2.2vw, 2.25rem);
+      margin: 0;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .status {
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .AVAILABLE { color: #FFFFFF; background: var(--tv-emerald); box-shadow: 0 0 16px rgba(22, 185, 120, 0.35); }
+    .OCCUPIED { color: #FFFFFF; background: var(--tv-coral); box-shadow: 0 0 16px rgba(240, 93, 94, 0.35); }
+    .UPCOMING { color: #FFFFFF; background: var(--tv-amber); box-shadow: 0 0 16px rgba(245, 165, 36, 0.35); }
+    .status.OCCUPIED::before {
+      content: '●';
+      margin-right: 0.4rem;
+      animation: pulse-dot 1.8s ease-out infinite;
+    }
+    .main-event {
+      align-self: center;
+      padding: 0.5rem 0;
+    }
+    .event-title {
+      font-size: clamp(1.75rem, 2.5vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      color: #FFFFFF;
+    }
+    .event-time {
+      font-size: clamp(1.35rem, 1.8vw, 1.85rem);
+      color: var(--tv-cyan);
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+    .countdown {
+      margin-top: 0.5rem;
+      color: #CBD5E1;
+      font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+    }
+    .next {
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--tv-border);
+      color: #94A3B8;
+      font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+    }
+    .ticker {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid var(--tv-border);
+      border-radius: var(--radius-xl);
+      background: var(--tv-panel-glass);
+      padding: 1rem 1.5rem;
+      white-space: nowrap;
+      font-size: clamp(1rem, 1.3vw, 1.3rem);
+      backdrop-filter: blur(16px);
+    }
+    .ticker strong {
+      color: var(--tv-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    @keyframes pulse-dot {
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body data-testid="tv-wallboard-container">
+  <header class="tv-head">
+    <div>
+      <div class="brand">IEMS · <span>{% trans "Live Venue Display" %}</span></div>
+      <div class="date" id="tv-date">{{ date_str }}</div>
+    </div>
+    <div class="head-tools">
+      <div class="clock" id="tv-clock" data-testid="tv-clock-display">{{ time_str }}</div>
+      <button id="fullscreen" type="button">{% trans "Fullscreen" %}</button>
+    </div>
+  </header>
+
+  <main class="grid" id="tv-grid" data-testid="tv-venues-grid">
+    {% for item in venues %}
+    <article class="venue" data-venue="{{ item.venue_id }}" data-testid="tv-venue-card-{{ item.venue_code }}">
+      <div class="venue-head">
+        <h2>{{ item.venue_name }}</h2>
+        <span class="status {{ item.current_status }}" data-field="status">{{ item.status_label }}</span>
+      </div>
+      <div class="main-event">
+        <div class="event-title" data-field="title">
+          {% if item.current_status == 'OCCUPIED' %}
+            {{ item.current_event_title|default:'—' }}
+          {% elif item.current_status == 'UPCOMING' %}
+            {{ item.next_event_title|default:'—' }}
+          {% else %}
+            {% trans "Available now" %}
+          {% endif %}
+        </div>
+        <div class="event-time" data-field="time">
+          {% if item.current_status == 'OCCUPIED' %}
+            {{ item.current_event_start_time }}–{{ item.current_event_end_time }}
+          {% elif item.current_status == 'UPCOMING' %}
+            {{ item.next_event_start_time }}
+          {% endif %}
+        </div>
+        <div class="countdown" data-field="countdown">
+          {% if item.minutes_remaining %}
+            {% blocktrans with minutes=item.minutes_remaining %}{{ minutes }} minutes remaining{% endblocktrans %}
+          {% elif item.minutes_until_start %}
+            {% blocktrans with minutes=item.minutes_until_start %}Starts in {{ minutes }} minutes{% endblocktrans %}
+          {% endif %}
+        </div>
+      </div>
+      <div class="next" data-field="next">
+        {% if item.next_event_start_time %}
+          {% trans "Next" %}: {{ item.next_event_start_time }} {{ item.next_event_title }}
+        {% elif item.free_until %}
+          {% blocktrans with time=item.free_until %}Free until {{ time }}{% endblocktrans %}
+        {% else %}
+          {% trans "No more events today" %}
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </main>
+
+  <footer class="ticker">
+    <strong>{% trans "Today's Schedule" %}</strong>
+    {% for item in timeline %}
+      <span>{{ item.start_time }} · {{ item.title }} · {{ item.venue_name }}</span>
+    {% empty %}
+      <span>{% trans "No events today" %}</span>
+    {% endfor %}
+  </footer>
+
+  <script>
+    const token = '{{ display_token|escapejs }}';
+    const labels = {
+      available: '{% trans "Available now" %}',
+      next: '{% trans "Next" %}',
+      none: '{% trans "No more events today" %}',
+      remaining: '{% trans "minutes remaining" %}',
+      starts: '{% trans "Starts in" %}'
+    };
+    function clock() {
+      const now = new Date(), locale = document.documentElement.lang || 'uz';
+      document.getElementById('tv-clock').textContent = now.toLocaleTimeString(locale, { hour12: false });
+      document.getElementById('tv-date').textContent = now.toLocaleDateString(locale, { dateStyle: 'full' });
+    }
+    setInterval(clock, 1000);
+    clock();
+    document.getElementById('fullscreen').addEventListener('click', () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
+    function render(item) {
+      const card = document.querySelector(`[data-venue="${item.venue_id}"]`);
+      if (!card) return;
+      const status = card.querySelector('[data-field="status"]');
+      status.className = `status ${item.current_status}`;
+      status.textContent = item.status_label;
+      const title = card.querySelector('[data-field="title"]');
+      const time = card.querySelector('[data-field="time"]');
+      const countdown = card.querySelector('[data-field="countdown"]');
+      const next = card.querySelector('[data-field="next"]');
+      if (item.current_status === 'OCCUPIED') {
+        title.textContent = item.current_event_title || '—';
+        time.textContent = `${item.current_event_start_time}–${item.current_event_end_time}`;
+        countdown.textContent = item.minutes_remaining ? `${item.minutes_remaining} ${labels.remaining}` : '';
+      } else if (item.current_status === 'UPCOMING') {
+        title.textContent = item.next_event_title || '—';
+        time.textContent = item.next_event_start_time || '';
+        countdown.textContent = item.minutes_until_start ? `${labels.starts} ${item.minutes_until_start}` : '';
+      } else {
+        title.textContent = labels.available;
+        time.textContent = '';
+        countdown.textContent = '';
+      }
+      next.textContent = item.next_event_start_time ? `${labels.next}: ${item.next_event_start_time} ${item.next_event_title || ''}` : item.free_until ? item.free_until : labels.none;
+    }
+    async function poll() {
+      try {
+        const response = await fetch(`/api/v1/display/${encodeURIComponent(token)}/venues/`, { cache: 'no-store' });
+        if (!response.ok) return;
+        const data = await response.json();
+        data.venues.forEach(render);
+      } catch (error) {
+        console.warn('Wallboard refresh failed');
+      }
+    }
+    setInterval(poll, 15000);
+  </script>
+</body>
+</html>

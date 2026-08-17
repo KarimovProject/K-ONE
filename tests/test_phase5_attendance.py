@@ -77,7 +77,7 @@ def content_manager_user(db):
 
 @pytest.fixture
 def approved_event(db, test_venue, test_event_type, responsible_user, mgmt_user):
-    today = timezone.now().date()
+    today = timezone.localdate()
     event = Event.objects.create(
         title="International Health Conference Phase 5",
         event_type=test_event_type,

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
+
 {% block title %}{{ page_title }} · IEMS{% endblock %}
+
 {% block content %}
 <div class="page-header">
   <div>
@@ -10,7 +12,8 @@
   {% if can_create %}
     <div class="page-actions">
       <a class="primary-button" href="{% url 'events:wizard' %}">
-        <span aria-hidden="true">+</span> {% trans "Plan New Event" %}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        {% trans "Plan New Event" %}
       </a>
     </div>
   {% endif %}
@@ -66,7 +69,7 @@
             <th>{% trans "Venue" %}</th>
             <th>{% trans "Status" %}</th>
             <th>{% trans "Responsible" %}</th>
-            <th class="text-right">{% trans "Actions" %}</th>
+            <th style="text-align: right;">{% trans "Actions" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -75,21 +78,21 @@
               <td>
                 <a class="table-title-link" href="{% url 'events:detail' pk=e.pk %}"><strong>{{ e.title }}</strong></a>
                 {% if e.is_over_capacity %}
-                  <span class="badge warning-badge" title="{% trans 'Expected attendees exceeds venue capacity' %}">⚠️ {% trans "Over Capacity" %}</span>
+                  <span class="status-badge pending_approval" style="margin-left: var(--space-2);" title="{% trans 'Expected attendees exceeds venue capacity' %}">⚠️ {% trans "Over Capacity" %}</span>
                 {% endif %}
               </td>
               <td>
-                <span class="type-pill" style="--pill-color: {{ e.event_type.color }};">
+                <span class="type-pill" style="border-left: 3px solid {{ e.event_type.color|default:'#165DFF' }};">
                   {{ e.event_type.localized_name }}
                 </span>
               </td>
               <td>
                 <span>{{ e.planned_date|date:"d.m.Y" }}</span>
-                <small class="text-muted block">{{ e.weekday_name }}</small>
+                <small style="display: block; color: var(--text-muted);">{{ e.weekday_name }}</small>
               </td>
               <td>
                 <span>{{ e.start_time|time:"H:i" }} – {{ e.end_time|time:"H:i" }}</span>
-                <small class="text-muted block">{{ e.duration_minutes }} {% trans "min" %}</small>
+                <small style="display: block; color: var(--text-muted);">{{ e.duration_minutes }} {% trans "min" %}</small>
               </td>
               <td>{{ e.venue.localized_name }}</td>
               <td>
@@ -98,7 +101,18 @@
                 </span>
               </td>
               <td>{{ e.responsible_employee.get_full_name|default:e.responsible_employee.username }}</td>
-              <td class="text-right table-actions"><details class="row-actions"><summary aria-label="{% trans 'Actions' %}">•••</summary><div><a href="{% url 'events:detail' pk=e.pk %}">{% trans "View" %}</a>{% if can_create and e.status != 'cancelled' %}<a href="{% url 'events:edit' pk=e.pk %}">{% trans "Edit" %}</a><a class="danger" href="{% url 'events:cancel' pk=e.pk %}">{% trans "Cancel" %}</a>{% endif %}</div></details></td>
+              <td style="text-align: right;">
+                <details class="row-actions">
+                  <summary aria-label="{% trans 'Actions' %}">•••</summary>
+                  <div>
+                    <a href="{% url 'events:detail' pk=e.pk %}">{% trans "View" %}</a>
+                    {% if can_create and e.status != 'cancelled' %}
+                      <a href="{% url 'events:edit' pk=e.pk %}">{% trans "Edit" %}</a>
+                      <a class="danger" href="{% url 'events:cancel' pk=e.pk %}">{% trans "Cancel" %}</a>
+                    {% endif %}
+                  </div>
+                </details>
+              </td>
             </tr>
           {% endfor %}
         </tbody>
@@ -106,10 +120,10 @@
     </div>
     {% include "master_data/pagination.html" %}
   {% else %}
-    <div class="empty-state">
-      <span class="empty-icon" aria-hidden="true">📅</span>
-      <h3>{% trans "No events found" %}</h3>
-      <p>{% trans "Try adjusting your search query or filters." %}</p>
+    <div class="empty-state" style="padding: var(--space-12); text-align: center;">
+      <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-3);" aria-hidden="true">📅</span>
+      <h3 style="margin: 0 0 var(--space-2); font-size: var(--font-size-lg); font-weight: var(--font-weight-bold);">{% trans "No events found" %}</h3>
+      <p style="color: var(--text-muted); margin-bottom: var(--space-4);">{% trans "Try adjusting your search query or filters." %}</p>
       {% if can_create %}
         <a class="primary-button compact" href="{% url 'events:wizard' %}">{% trans "Plan an Event" %}</a>
       {% endif %}

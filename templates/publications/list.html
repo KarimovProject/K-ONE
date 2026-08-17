@@ -1,8 +1,113 @@
-{% extends "base.html" %}{% load i18n %}
+{% extends "base.html" %}
+{% load i18n %}
+
 {% block title %}{% trans "Publications" %} · IEMS{% endblock %}
+
 {% block content %}
-<div class="page-heading"><div><p class="eyebrow">IEMS · Phase 8</p><h1>{% trans "Publications" %}</h1><p>{% trans "Prepare, approve and track public event announcements." %}</p></div></div>
-<div class="publication-metrics" data-testid="publication-dashboard"><div><strong>{{ counts.draft|default:0 }}</strong><span>{% trans "Draft" %}</span></div><div><strong>{{ counts.ready|default:0 }}</strong><span>{% trans "Ready" %}</span></div><div><strong>{{ counts.scheduled|default:0 }}</strong><span>{% trans "Scheduled" %}</span></div><div><strong>{{ counts.published|default:0 }}</strong><span>{% trans "Published" %}</span></div><div><strong>{{ counts.failed|default:0 }}</strong><span>{% trans "Failed" %}</span></div></div>
-<form method="get" class="filter-bar publication-filters"><input name="q" value="{{ request.GET.q }}" placeholder="{% trans 'Search event or headline' %}"><select name="platform"><option value="">{% trans "All platforms" %}</option>{% for value,label in platforms %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select><select name="language"><option value="">{% trans "All languages" %}</option>{% for value,label in languages %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select><select name="status"><option value="">{% trans "All statuses" %}</option>{% for value,label in statuses %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select><button class="secondary-button" type="submit">{% trans "Filter" %}</button></form>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>{% trans "Announcement" %}</th><th>{% trans "Platform" %}</th><th>{% trans "Language" %}</th><th>{% trans "Status" %}</th><th>{% trans "Schedule" %}</th><th></th></tr></thead><tbody>{% for item in publications %}<tr><td><strong>{{ item.headline }}</strong><small class="block text-muted">{{ item.event.title }}</small></td><td>{{ item.get_platform_display }}</td><td>{{ item.language|upper }}</td><td><span class="status-badge {{ item.status }}">{{ item.get_status_display }}</span></td><td>{{ item.scheduled_for|date:"d.m.Y H:i"|default:"—" }}</td><td><a href="{% url 'publications:detail' pk=item.pk %}">{% trans "Preview" %}</a></td></tr>{% empty %}<tr><td colspan="6">{% trans "No publications yet. Open an eligible event to create one." %}</td></tr>{% endfor %}</tbody></table></div>
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">{% trans "Public Communications" %}</p>
+    <h1>{% trans "Publications" %}</h1>
+    <p>{% trans "Prepare, approve and track public event announcements." %}</p>
+  </div>
+</div>
+
+<div class="publication-metrics" data-testid="publication-dashboard">
+  <div>
+    <span>{% trans "Draft" %}</span>
+    <strong>{{ counts.draft|default:0 }}</strong>
+  </div>
+  <div>
+    <span>{% trans "Ready" %}</span>
+    <strong>{{ counts.ready|default:0 }}</strong>
+  </div>
+  <div>
+    <span>{% trans "Scheduled" %}</span>
+    <strong>{{ counts.scheduled|default:0 }}</strong>
+  </div>
+  <div>
+    <span>{% trans "Published" %}</span>
+    <strong>{{ counts.published|default:0 }}</strong>
+  </div>
+  <div>
+    <span>{% trans "Failed" %}</span>
+    <strong>{{ counts.failed|default:0 }}</strong>
+  </div>
+</div>
+
+<div class="filter-bar publication-filters">
+  <form method="get" class="filter-form">
+    <div class="search-input-wrap">
+      <input class="search-input" name="q" value="{{ request.GET.q }}" placeholder="{% trans 'Search event or headline...' %}" aria-label="{% trans 'Search' %}">
+    </div>
+    <select name="platform" aria-label="{% trans 'Platform' %}">
+      <option value="">{% trans "All platforms" %}</option>
+      {% for value, label in platforms %}
+        <option value="{{ value }}"{% if request.GET.platform == value %} selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <select name="language" aria-label="{% trans 'Language' %}">
+      <option value="">{% trans "All languages" %}</option>
+      {% for value, label in languages %}
+        <option value="{{ value }}"{% if request.GET.language == value %} selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <select name="status" aria-label="{% trans 'Status' %}">
+      <option value="">{% trans "All statuses" %}</option>
+      {% for value, label in statuses %}
+        <option value="{{ value }}"{% if request.GET.status == value %} selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <button class="secondary-button compact" type="submit">{% trans "Filter" %}</button>
+    {% if request.GET.q or request.GET.platform or request.GET.language or request.GET.status %}
+      <a class="text-button" href="{% url 'publications:list' %}">{% trans "Reset" %}</a>
+    {% endif %}
+  </form>
+</div>
+
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>{% trans "Announcement" %}</th>
+          <th>{% trans "Platform" %}</th>
+          <th>{% trans "Language" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>{% trans "Schedule" %}</th>
+          <th style="text-align: right;">{% trans "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in publications %}
+          <tr>
+            <td>
+              <a class="table-title-link" href="{% url 'publications:detail' pk=item.pk %}"><strong>{{ item.headline }}</strong></a>
+              <small style="display: block; color: var(--text-muted);">{{ item.event.title }}</small>
+            </td>
+            <td>
+              <span class="tag">{{ item.get_platform_display }}</span>
+            </td>
+            <td>
+              <span class="phase-badge">{{ item.language|upper }}</span>
+            </td>
+            <td>
+              <span class="status-badge {{ item.status }}">{{ item.get_status_display }}</span>
+            </td>
+            <td>{{ item.scheduled_for|date:"d.m.Y H:i"|default:"—" }}</td>
+            <td style="text-align: right;">
+              <a class="secondary-button compact" href="{% url 'publications:detail' pk=item.pk %}">{% trans "Preview" %}</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" style="padding: var(--space-8); text-align: center; color: var(--text-muted);">
+              {% trans "No publications yet. Open an eligible event to create one." %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

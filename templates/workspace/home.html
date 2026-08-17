@@ -1,5 +1,145 @@
-{% extends "base.html" %}{% load i18n %}
+{% extends "base.html" %}
+{% load i18n %}
+
 {% block title %}{% trans "My workspace" %} · IEMS{% endblock %}
-{% block content %}<span class="sr-only">Phase 0 foundation preserved</span><section class="workspace-hero"><div><p class="eyebrow">{% trans "Role-aware workspace" %}</p><h1>{% trans "Good day" %}, {{ user.first_name|default:user.username }}</h1><p>{% trans "Your priorities, upcoming events and required actions in one focused view." %}</p></div><a class="primary-link" href="{% url 'events:wizard' %}">+ {% trans "Plan new event" %}</a></section>
-<section class="workspace-metrics"><article><span>{% trans "Upcoming" %}</span><strong>{{ upcoming_count }}</strong></article><article><span>{% trans "Needs action" %}</span><strong>{{ needs_action_count }}</strong></article>{% if user.role == 'management_responsible' or user.is_superuser %}<article><span>{% trans "Pending approval" %}</span><strong>{{ pending_approval_count }}</strong></article>{% elif user.role == 'content_manager' %}<article><span>{% trans "Publications to prepare" %}</span><strong>{{ content_pending_count }}</strong></article>{% elif user.role == 'reception_operator' %}<article><span>{% trans "Today's check-in events" %}</span><strong>{{ checkin_today_count }}</strong></article>{% endif %}<article><span>{% trans "Unread notifications" %}</span><strong>{{ notification_count }}</strong></article></section>
-<section class="workspace-grid"><article class="panel"><header class="panel-header"><div><p class="eyebrow">{% trans "Your schedule" %}</p><h2>{% trans "Upcoming events" %}</h2></div><a href="{% url 'events:list' %}">{% trans "View all" %} →</a></header><div class="workspace-event-list">{% for event in upcoming %}<a href="{% url 'events:detail' event.pk %}"><time>{{ event.planned_date|date:"d M" }}<small>{{ event.start_time|time:"H:i" }}</small></time><span><strong>{{ event.title }}</strong><small>{{ event.venue.localized_name }} · {{ event.get_status_display }}</small></span></a>{% empty %}<div class="workspace-empty"><strong>{% trans "Your schedule is clear" %}</strong><p>{% trans "Assigned and upcoming events will appear here." %}</p></div>{% endfor %}</div></article><aside class="panel workspace-shortcuts"><p class="eyebrow">{% trans "Quick access" %}</p><h2>{% trans "Tools for your role" %}</h2><a href="{% url 'calendar' %}">{% trans "Internal calendar" %}<span>→</span></a><a href="{% url 'notifications:telegram-settings' %}">{% trans "Telegram settings" %}<span>→</span></a><a href="{% url 'profile' %}">{% trans "Profile and language" %}<span>→</span></a><a href="{% url 'public-dashboard' %}">{% trans "Public dashboard" %}<span>↗</span></a></aside></section>{% endblock %}
+
+{% block content %}
+<span class="sr-only">Phase 0 foundation preserved</span>
+
+<section class="workspace-hero page-entrance">
+  <div>
+    <span class="role-badge">{{ user.get_role_display|default:_("Mas'ul xodim") }}</span>
+    <h1>{% trans "Salom" %}, {{ user.first_name|default:user.username }}</h1>
+    <p>{% trans "Bugungi xalqaro tadbirlar dasturi, topshiriqlar va tezkor boshqaruv amallari." %}</p>
+  </div>
+  <a class="primary-button" href="{% url 'events:wizard' %}">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <span>{% trans "Yangi tadbir rejalash" %}</span>
+  </a>
+</section>
+
+<section class="workspace-metrics" aria-label="{% trans 'Key indicators' %}">
+  <article class="metric-node">
+    <div>
+      <span>{% trans "Yaqin tadbirlar" %}</span>
+      <strong>{{ upcoming_count }}</strong>
+    </div>
+    <div class="metric-node-icon" style="color: var(--brand-cobalt); background: rgba(23, 107, 255, 0.1);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    </div>
+  </article>
+
+  <article class="metric-node">
+    <div>
+      <span>{% trans "Harakat talab etiladi" %}</span>
+      <strong style="color: var(--coral-critical);">{{ needs_action_count }}</strong>
+    </div>
+    <div class="metric-node-icon" style="color: var(--coral-critical); background: var(--coral-bg);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+  </article>
+
+  {% if user.role == 'management_responsible' or user.is_superuser or user.role == 'super_admin' %}
+    <article class="metric-node">
+      <div>
+        <span>{% trans "Tasdiq kutilmoqda" %}</span>
+        <strong style="color: var(--warm-amber-dark);">{{ pending_approval_count }}</strong>
+      </div>
+      <div class="metric-node-icon" style="color: var(--warm-amber-dark); background: var(--warm-amber-bg);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+    </article>
+  {% elif user.role == 'content_manager' %}
+    <article class="metric-node">
+      <div>
+        <span>{% trans "Nashr tayyorlash" %}</span>
+        <strong>{{ content_pending_count }}</strong>
+      </div>
+      <div class="metric-node-icon" style="color: var(--brand-violet); background: rgba(121, 87, 255, 0.1);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </div>
+    </article>
+  {% elif user.role == 'reception_operator' %}
+    <article class="metric-node">
+      <div>
+        <span>{% trans "Ro'yxatga olish" %}</span>
+        <strong style="color: var(--live-emerald-dark);">{{ checkin_today_count }}</strong>
+      </div>
+      <div class="metric-node-icon" style="color: var(--live-emerald); background: var(--live-emerald-bg);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+      </div>
+    </article>
+  {% endif %}
+
+  <article class="metric-node">
+    <div>
+      <span>{% trans "Yangi xabarlar" %}</span>
+      <strong>{{ notification_count }}</strong>
+    </div>
+    <div class="metric-node-icon" style="color: var(--brand-azure); background: rgba(23, 107, 255, 0.1);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+  </article>
+</section>
+
+<div class="workspace-grid">
+  <section class="workspace-panel">
+    <header class="panel-header">
+      <div>
+        <p class="public-kicker">{% trans "Operatsion oqim" %}</p>
+        <h2>{% trans "Yaqinlashayotgan tadbirlar" %}</h2>
+      </div>
+      <a class="secondary-button compact-btn" href="{% url 'events:list' %}">
+        <span>{% trans "Barchasi" %}</span>
+        <span>→</span>
+      </a>
+    </header>
+
+    <div class="workspace-event-list">
+      {% for event in upcoming %}
+        <a href="{% url 'events:detail' event.pk %}">
+          <time>
+            <span>{{ event.planned_date|date:"d M" }}</span>
+            <small>{{ event.start_time|time:"H:i" }}</small>
+          </time>
+          <div>
+            <strong>{{ event.title }}</strong>
+            <small>{{ event.venue.localized_name }} · <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span></small>
+          </div>
+        </a>
+      {% empty %}
+        <div class="empty-state-card" style="padding: var(--space-6); border: 0;">
+          <h3>{% trans "Sizning jadvalingiz bo'sh" %}</h3>
+          <p>{% trans "Sizga biriktirilgan va yaqinlashayotgan tadbirlar bu yerda avtomatik aks etadi." %}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <aside class="workspace-panel workspace-shortcuts">
+    <header class="panel-header">
+      <div>
+        <p class="public-kicker">{% trans "Boshqaruv" %}</p>
+        <h2>{% trans "Tezkor amallar" %}</h2>
+      </div>
+    </header>
+
+    <a href="{% url 'calendar' %}">
+      <span>{% trans "Ichki operatsion taqvim" %}</span>
+      <span>→</span>
+    </a>
+    <a href="{% url 'notifications:telegram-settings' %}">
+      <span>{% trans "Telegram bildirishnomalari" %}</span>
+      <span>→</span>
+    </a>
+    <a href="{% url 'profile' %}">
+      <span>{% trans "Profil va til sozlamalari" %}</span>
+      <span>→</span>
+    </a>
+    <a href="{% url 'public-dashboard' %}">
+      <span>{% trans "Ochiq jonli markaz" %}</span>
+      <span>↗</span>
+    </a>
+  </aside>
+</div>
+{% endblock %}

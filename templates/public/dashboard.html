@@ -1,17 +1,97 @@
-{% extends "public/base.html" %}{% load i18n static %}
-{% block title %}{% trans "Live events dashboard" %} · IEMS{% endblock %}
+{% extends "public/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Operatsion Markaz" %} - IEMS{% endblock %}
+
 {% block content %}
-<section class="public-hero" data-dashboard data-endpoint="{% url 'public-dashboard-api' %}"><div class="hero-orbits" aria-hidden="true"><i></i><i></i><i></i></div><div class="hero-copy"><p class="public-kicker"><span></span>{% trans "Live institutional schedule" %}</p><h1>{% trans "International events, clearly coordinated." %}</h1><p>{% trans "A public, real-time overview of today's programme, active venues and upcoming international events." %}</p></div><div class="hero-live-panel"><span class="live-caption"><i></i>{% trans "System online" %}</span><div class="public-clock" aria-label="{% trans 'Current time in Tashkent' %}"><strong data-clock>--:--</strong><span data-date>Asia/Tashkent</span></div><small>{% trans "Tashkent operational time" %}</small></div></section>
-<section class="public-metrics" aria-label="{% trans 'Today at a glance' %}">
-  <article class="metric-blue"><i>{% include "admin/includes/iems_icon.html" with name="calendar" %}</i><span>{% trans "Today" %}</span><strong data-metric="today">{{ metrics.today }}</strong><small>{% trans "events" %}</small></article>
-  <article class="metric-cyan"><i>{% include "admin/includes/iems_icon.html" with name="pulse" %}</i><span>{% trans "In progress" %}</span><strong data-metric="in_progress">{{ metrics.in_progress }}</strong><small>{% trans "right now" %}</small></article>
-  <article class="metric-orange"><i>{% include "admin/includes/iems_icon.html" with name="event" %}</i><span>{% trans "Starting soon" %}</span><strong data-metric="starting_soon">{{ metrics.starting_soon }}</strong><small>{% trans "within one hour" %}</small></article>
-  <article class="metric-green"><i>{% include "admin/includes/iems_icon.html" with name="venue" %}</i><span>{% trans "Available venues" %}</span><strong data-metric="available_venues">{{ metrics.available_venues }}</strong><small>{% trans "right now" %}</small></article>
-  <article class="metric-magenta"><i>{% include "admin/includes/iems_icon.html" with name="venue" %}</i><span>{% trans "Occupied venues" %}</span><strong data-metric="occupied_venues">{{ metrics.occupied_venues }}</strong><small>{% trans "right now" %}</small></article>
-</section>
-<section class="public-section-head"><div><p class="public-kicker">{% trans "Live operations" %}</p><h2>{% trans "Venue status" %}</h2></div><a href="{% url 'public-live-venues' %}">{% trans "View all venues" %} →</a></section>
-<section class="live-venue-grid" data-venue-grid aria-live="polite">{% for venue in venues %}{% include "public/_venue_card.html" %}{% empty %}<div class="public-empty"><strong>{% trans "No active venues" %}</strong><p>{% trans "Venue status will appear when active venues are configured." %}</p></div>{% endfor %}</section>
-<section class="calendar-preview" aria-label="{% trans 'Seven-day calendar preview' %}"><header><div><p class="public-kicker">{% trans "Calendar preview" %}</p><h2>{% trans "Next seven days" %}</h2></div><a href="{% url 'public-calendar' %}">{% trans "Open interactive calendar" %} →</a></header><div>{% for day in calendar_days %}<a href="{% url 'public-calendar' %}?date={{ day.date }}"{% if forloop.first %} class="is-today"{% endif %}><time datetime="{{ day.date }}"><span>{{ day.weekday }}</span><strong>{{ day.day }}</strong></time><span>{{ day.count }} {% trans "events" %}</span>{% if day.next_title %}<small>{{ day.next_title }}</small>{% else %}<small>{% trans "No events planned" %}</small>{% endif %}</a>{% endfor %}</div></section>
-<div class="public-dashboard-grid"><section class="public-panel"><header><div><p class="public-kicker">{% trans "Today" %}</p><h2>{% trans "Programme timeline" %}</h2></div><a href="{% url 'public-calendar' %}">{% trans "Open calendar" %}</a></header><div class="timeline-list" data-today-events>{% for event in today_events %}{% include "public/_event_row.html" %}{% empty %}<div class="public-empty"><strong>{% trans "No public events today" %}</strong><p>{% trans "The next published programme will appear here." %}</p></div>{% endfor %}</div></section><aside class="public-panel public-upcoming"><header><div><p class="public-kicker">{% trans "Next seven days" %}</p><h2>{% trans "Upcoming" %}</h2></div></header><div data-upcoming-events>{% for event in upcoming_events %}{% include "public/_event_row.html" %}{% empty %}<div class="public-empty compact"><p>{% trans "No upcoming public events." %}</p></div>{% endfor %}</div></aside></div>
-<p class="refresh-state" data-refresh-state aria-live="polite"><span data-refresh-message data-ok="{% trans 'Live data refreshes automatically.' %}" data-error="{% trans 'Could not refresh data.' %}">{% trans "Live data refreshes automatically." %}</span> <button type="button" data-refresh-retry hidden>{% trans "Try again" %}</button></p>
-{% endblock %}{% block extra_js %}<script src="{% static 'js/public-dashboard.js' %}" defer></script>{% endblock %}
+<div class="public-dashboard" data-dashboard data-endpoint="{% url 'public-dashboard-api' %}">
+
+  <!-- TOP COMMAND STRIP (Operations Summary Rail) -->
+  <section class="ops-rail animate-stagger-2">
+    <div class="ops-rail__item">
+      <div class="ops-rail__label">{% trans "Bugun" %}</div>
+      <div class="ops-rail__value" data-metric="today_total">{{ today_total|default:"0" }}</div>
+    </div>
+    <div class="ops-rail__item">
+      <div class="ops-rail__label">{% trans "Jonli Hozir" %}</div>
+      <div class="ops-rail__value ops-rail__value--accent">
+        <span class="chip chip--active" style="padding:0; background:transparent;"></span>
+        <span data-metric="live_count">{{ live_count|default:"0" }}</span>
+      </div>
+    </div>
+    <div class="ops-rail__item">
+      <div class="ops-rail__label">{% trans "Erkin Zallar" %}</div>
+      <div class="ops-rail__value ops-rail__value--success" data-metric="free_venues">
+        {{ free_venues|default:"4" }}
+      </div>
+    </div>
+    <div class="ops-rail__item">
+      <div class="ops-rail__label">{% trans "Keyingi Tadbir" %}</div>
+      <div class="ops-rail__value" style="font-size:var(--text-heading); font-family:var(--font-mono);">
+        {% if next_event %}
+          <div data-countdown data-next-start="{{ next_event.start_time|date:'c' }}">
+            <span data-countdown-h>00</span>:<span data-countdown-m>00</span>:<span data-countdown-s>00</span>
+          </div>
+        {% else %}
+          --:--:--
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN OPERATIONAL CANVAS (65/35) -->
+  <div class="layout-grid animate-stagger-3">
+    
+    <!-- LEFT: Today's Event Flow -->
+    <section class="timeline-board">
+      <div class="timeline-header">
+        <h2 class="timeline-title">{% trans "Xronologik Oqim" %}</h2>
+        <a href="{% url 'public-calendar' %}" class="btn btn--ghost">{% trans "To'liq taqvim" %} →</a>
+      </div>
+      
+      <div class="timeline-scale">
+        <span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span>
+        <span>13:00</span><span>14:00</span><span>15:00</span><span>16:00</span><span>17:00</span><span>18:00</span>
+        <div class="timeline-marker" data-now-marker></div>
+      </div>
+      
+      <div class="timeline-tracks" data-timeline-tracks>
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- RIGHT: Venue Pulse -->
+    <section class="venue-pulse-list">
+      <div class="timeline-header" style="margin-bottom:var(--space-3);">
+        <h2 class="timeline-title">{% trans "Zallar Faolligi" %}</h2>
+      </div>
+      
+      {% for v in venues %}
+        <div class="venue-node" data-venue-code="{{ v.code }}">
+          <div class="venue-node__header">
+            <h3 class="venue-node__title">{{ v.code }}</h3>
+            {% if v.status == 'OCCUPIED' %}
+              <span class="chip chip--active">{% trans "Band" %}</span>
+            {% elif v.status == 'UPCOMING' %}
+              <span class="chip chip--upcoming">{% trans "Kutilmoqda" %}</span>
+            {% else %}
+              <span class="chip chip--free">{% trans "Erkin" %}</span>
+            {% endif %}
+          </div>
+          
+          <div class="venue-node__name">{{ v.name }}</div>
+          
+          <div class="venue-rail">
+            <div class="venue-rail__fill {% if v.status == 'OCCUPIED' %}venue-rail__fill--active{% else %}venue-rail__fill--free{% endif %}" style="width: {% if v.status == 'OCCUPIED' %}100%{% else %}0%{% endif %};"></div>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/public-dashboard.js' %}"></script>
+{% endblock %}

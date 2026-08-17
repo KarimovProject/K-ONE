@@ -1,96 +1,392 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}{{ page_title }} · IEMS{% endblock %}
 
 {% block extra_css %}
 <style>
-  .leadership { color: #e8f0fa; background: #07172f; min-height: calc(100vh - 4rem); padding: 1.5rem; }
-  .leadership a { color: #55d9f2; }
-  .leadership-head, .section-head, .venue-head, .attendance-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-  .leadership-head { margin-bottom:1.5rem; }
-  .leadership h1 { margin:0; font-size:1.75rem; }
-  .leadership h2 { margin:0; font-size:1.15rem; }
-  .muted { color:#9aabc1; }
-  .live-clock { font-variant-numeric:tabular-nums; color:#55d9f2; font-weight:700; }
-  .kpis { display:grid; grid-template-columns:repeat(5,minmax(8rem,1fr)); gap:.75rem; margin-bottom:1.5rem; }
-  .kpi { padding:1rem; border:1px solid #243c5e; border-radius:.75rem; background:#102847; }
-  .kpi strong { display:block; margin-top:.45rem; font-size:1.9rem; color:#f5f8fc; }
-  .venue-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.75rem; margin:1rem 0 1.5rem; }
-  .venue-card, .panel { border:1px solid #243c5e; border-radius:.85rem; background:#102847; }
-  .leadership .venue-card { display:block; padding:1rem; min-height:11rem; min-width:0; }
-  .leadership .venue-head strong { min-width:0; overflow-wrap:anywhere; }
-  .leadership .venue-head .status { flex:0 0 auto; }
-  .status { padding:.25rem .55rem; border-radius:999px; font-size:.72rem; font-weight:800; }
-  .status.AVAILABLE { color:#55e29b; background:#0d4938; }
-  .status.OCCUPIED { color:#ff8c85; background:#55272d; }
-  .status.UPCOMING { color:#ffd166; background:#53431e; }
-  .event-title { margin:1.1rem 0 .35rem; font-weight:750; }
-  .content-grid { display:grid; grid-template-columns:minmax(0,3fr) minmax(18rem,2fr); gap:1rem; }
-  .panel { padding:1rem; margin-bottom:1rem; overflow:auto; }
-  .timeline { list-style:none; padding:0; margin:1rem 0 0; }
-  .timeline li { display:grid; grid-template-columns:6rem 1fr auto; gap:1rem; padding:.8rem 0; border-top:1px solid #243c5e; }
-  .timeline li.current { background:#12385d; padding:.8rem; border-radius:.6rem; }
-  .timeline li.past { opacity:.65; }
-  .priority { color:#ff9a91; font-weight:750; }
-  table { width:100%; border-collapse:collapse; margin-top:.75rem; }
-  th,td { padding:.65rem; border-top:1px solid #243c5e; text-align:left; white-space:nowrap; }
-  th { color:#9aabc1; font-size:.78rem; }
-  .attendance-bar { height:.5rem; border-radius:999px; background:#243c5e; overflow:hidden; margin:.8rem 0; }
-  .attendance-bar span { display:block; height:100%; background:#22c7a9; }
-  @media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.venue-grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}
-  @media(max-width:600px){.leadership{padding:1rem}.leadership-head{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:repeat(2,1fr)}.venue-grid{grid-template-columns:1fr}.timeline li{grid-template-columns:1fr}.kpi strong{font-size:1.55rem}}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .leadership {
+    color: var(--text-inverse);
+    background: radial-gradient(circle at 15% 15%, #13335A 0%, var(--midnight-navy) 65%, var(--deep-navy) 100%);
+    min-height: calc(100vh - 4.75rem);
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+  }
+  .leadership a {
+    color: var(--scientific-cyan);
+    font-weight: var(--font-weight-semibold);
+  }
+  .leadership-head, .section-head, .venue-head, .attendance-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .leadership-head {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .leadership h1 {
+    margin: 0;
+    font-size: var(--font-size-page-title);
+    font-weight: var(--font-weight-extrabold);
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
+  }
+  .leadership h2 {
+    margin: 0;
+    font-size: var(--font-size-section-title);
+    font-weight: var(--font-weight-bold);
+    color: #FFFFFF;
+  }
+  .leadership .muted {
+    color: #CBD5E1;
+    font-size: var(--font-size-body);
+  }
+  .live-clock {
+    font-variant-numeric: tabular-nums;
+    color: var(--scientific-cyan);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--font-size-lg);
+    text-shadow: 0 0 16px rgba(22, 199, 232, 0.35);
+  }
+  .leadership-kpis {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(9rem, 1fr));
+    gap: var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+  .leadership-kpi {
+    padding: var(--space-6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-xl);
+    background: var(--dark-glass-surface);
+    backdrop-filter: blur(16px);
+    transition: all var(--motion-fast) var(--ease-standard);
+  }
+  .leadership-kpi:hover {
+    transform: translateY(-3px);
+    border-color: rgba(22, 199, 232, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+  .leadership-kpi span {
+    font-size: var(--font-size-small);
+    color: #CBD5E1;
+    font-weight: var(--font-weight-semibold);
+  }
+  .leadership-kpi strong {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-extrabold);
+    color: #FFFFFF;
+    line-height: 1;
+  }
+  .leadership-venue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-5);
+    margin: var(--space-4) 0 var(--space-8);
+  }
+  .leadership-venue-card, .leadership-panel {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-xl);
+    background: var(--dark-glass-surface);
+    backdrop-filter: blur(16px);
+  }
+  .leadership-venue-card {
+    display: block;
+    padding: var(--space-6);
+    min-height: 12rem;
+    min-width: 0;
+    transition: all var(--motion-fast) var(--ease-standard);
+  }
+  .leadership-venue-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(40, 123, 255, 0.35);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+  .leadership-venue-card .venue-head strong {
+    font-size: var(--font-size-card-title);
+    color: #FFFFFF;
+  }
+  .leadership-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-bold);
+  }
+  .leadership-status.AVAILABLE { color: #FFFFFF; background: var(--emerald-700); }
+  .leadership-status.OCCUPIED { color: #FFFFFF; background: var(--crimson-700); }
+  .leadership-status.UPCOMING { color: #FFFFFF; background: var(--amber-700); }
+  .leadership .event-title {
+    margin: var(--space-4) 0 var(--space-2);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-body);
+    color: #FFFFFF;
+  }
+  .leadership-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(20rem, 2fr);
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+  .leadership-panel {
+    padding: var(--space-6) var(--space-8);
+    margin-bottom: var(--space-6);
+    overflow: auto;
+  }
+  .leadership-timeline {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-4) 0 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .leadership-timeline li {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-body);
+  }
+  .leadership-timeline li.current {
+    background: rgba(22, 93, 255, 0.2);
+    border-color: rgba(40, 123, 255, 0.4);
+    box-shadow: inset 3px 0 0 var(--scientific-cyan);
+  }
+  .leadership-timeline li.past {
+    opacity: 0.6;
+  }
+  .leadership-priority {
+    color: var(--coral);
+    font-weight: var(--font-weight-bold);
+  }
+  .leadership table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--space-4);
+  }
+  .leadership th, .leadership td {
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+    white-space: nowrap;
+    font-size: var(--font-size-table);
+  }
+  .leadership th {
+    color: #CBD5E1;
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+  .leadership-attendance-bar {
+    height: 0.75rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    margin: var(--space-4) 0;
+  }
+  .leadership-attendance-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--royal-blue), var(--scientific-cyan));
+    border-radius: var(--radius-full);
+  }
+  @media (max-width: 75rem) {
+    .leadership-kpis { grid-template-columns: repeat(3, 1fr); }
+    .leadership-venue-grid { grid-template-columns: repeat(2, 1fr); }
+    .leadership-content-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 42rem) {
+    .leadership { padding: var(--space-5); }
+    .leadership-head { align-items: flex-start; flex-direction: column; }
+    .leadership-kpis { grid-template-columns: repeat(2, 1fr); }
+    .leadership-venue-grid { grid-template-columns: 1fr; }
+    .leadership-timeline li { grid-template-columns: 1fr; }
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 <main class="leadership" data-testid="leadership-dashboard-container">
   <header class="leadership-head">
-    <div><h1>{% trans "Leadership Dashboard" %}</h1><p class="muted">{% trans "Live operational overview" %}</p></div>
-    <div><a href="{% url 'calendar' %}">{% trans "Open calendar" %}</a> · <span class="live-clock" id="leadership-clock">{{ reference_dt }}</span></div>
+    <div>
+      <p class="eyebrow" style="color: var(--scientific-cyan);">{% trans "Executive Intelligence" %}</p>
+      <h1>{% trans "Leadership Dashboard" %}</h1>
+      <p class="muted">{% trans "Real-time institutional oversight and executive resource visibility." %}</p>
+    </div>
+    <div>
+      <a href="{% url 'calendar' %}">{% trans "Open interactive calendar" %} →</a> · <span class="live-clock" id="leadership-clock">{{ reference_dt }}</span>
+    </div>
   </header>
 
-  <section class="kpis" aria-label="{% trans 'Key indicators' %}">
-    <div class="kpi"><span>{% trans "Today's Events" %}</span><strong id="kpi-today-events">{{ today_events_count }}</strong></div>
-    <div class="kpi"><span>{% trans "In Progress" %}</span><strong id="kpi-in-progress">{{ in_progress_count }}</strong></div>
-    <div class="kpi"><span>{% trans "Available Venues" %}</span><strong id="kpi-available-venues">{{ available_venues_count }}</strong></div>
-    <div class="kpi"><span>{% trans "Occupied Venues" %}</span><strong id="kpi-occupied-venues">{{ occupied_venues_count }}</strong></div>
-    <div class="kpi"><span>{% trans "Today's Check-ins" %}</span><strong id="kpi-today-checkins">{{ today_checkins_count }}</strong></div>
+  <section class="leadership-kpis" aria-label="{% trans 'Key indicators' %}">
+    <div class="leadership-kpi"><span>{% trans "Today's Events" %}</span><strong id="kpi-today-events">{{ today_events_count }}</strong></div>
+    <div class="leadership-kpi"><span>{% trans "In Progress" %}</span><strong id="kpi-in-progress">{{ in_progress_count }}</strong></div>
+    <div class="leadership-kpi"><span>{% trans "Available Venues" %}</span><strong id="kpi-available-venues">{{ available_venues_count }}</strong></div>
+    <div class="leadership-kpi"><span>{% trans "Occupied Venues" %}</span><strong id="kpi-occupied-venues">{{ occupied_venues_count }}</strong></div>
+    <div class="leadership-kpi"><span>{% trans "Today's Check-ins" %}</span><strong id="kpi-today-checkins">{{ today_checkins_count }}</strong></div>
   </section>
 
   <section aria-labelledby="live-venues-title">
-    <div class="section-head"><h2 id="live-venues-title">{% trans "Live Venue Status" %}</h2><span class="muted">{% trans "Refreshes every 20 seconds" %}</span></div>
-    <div class="venue-grid" data-testid="live-venue-cards-grid">
+    <div class="section-head">
+      <h2 id="live-venues-title">{% trans "Live Venue Status" %}</h2>
+      <span class="muted">{% trans "Refreshes automatically every 20 seconds" %}</span>
+    </div>
+    <div class="leadership-venue-grid" data-testid="live-venue-cards-grid">
       {% for item in venues %}
-      <article class="venue-card" data-venue="{{ item.venue_id }}">
-        <div class="venue-head"><strong>{{ item.venue_name }}</strong><span class="status {{ item.current_status }}">{{ item.status_label }}</span></div>
-        {% if item.current_status == 'OCCUPIED' %}<div class="event-title">{{ item.current_event_title }}</div><div>{{ item.current_event_start_time }}–{{ item.current_event_end_time }}</div><small class="muted">{% blocktrans with minutes=item.minutes_remaining %}{{ minutes }} minutes remaining{% endblocktrans %}</small>
-        {% elif item.current_status == 'UPCOMING' %}<div class="event-title">{{ item.next_event_title }}</div><div>{{ item.next_event_start_time }}</div><small class="muted">{% blocktrans with minutes=item.minutes_until_start %}Starts in {{ minutes }} minutes{% endblocktrans %}</small>
-        {% else %}<div class="event-title muted">{% trans "No event in progress" %}</div>{% if item.free_until %}<small>{% blocktrans with time=item.free_until %}Free until {{ time }}{% endblocktrans %}</small>{% endif %}{% endif %}
+      <article class="leadership-venue-card" data-venue="{{ item.venue_id }}">
+        <div class="venue-head">
+          <strong>{{ item.venue_name }}</strong>
+          <span class="leadership-status {{ item.current_status }}">{{ item.status_label }}</span>
+        </div>
+        {% if item.current_status == 'OCCUPIED' %}
+          <div class="event-title">{{ item.current_event_title }}</div>
+          <div>{{ item.current_event_start_time }}–{{ item.current_event_end_time }}</div>
+          <small class="muted">{% blocktrans with minutes=item.minutes_remaining %}{{ minutes }} minutes remaining{% endblocktrans %}</small>
+        {% elif item.current_status == 'UPCOMING' %}
+          <div class="event-title">{{ item.next_event_title }}</div>
+          <div>{{ item.next_event_start_time }}</div>
+          <small class="muted">{% blocktrans with minutes=item.minutes_until_start %}Starts in {{ minutes }} minutes{% endblocktrans %}</small>
+        {% else %}
+          <div class="event-title muted">{% trans "No event in progress" %}</div>
+          {% if item.free_until %}<small class="muted">{% blocktrans with time=item.free_until %}Free until {{ time }}{% endblocktrans %}</small>{% endif %}
+        {% endif %}
       </article>
       {% endfor %}
     </div>
   </section>
 
-  <div class="content-grid">
-    <section class="panel" data-testid="today-timeline-panel"><div class="section-head"><h2>{% trans "Today's Timeline" %}</h2><span class="muted">{{ today_date }}</span></div>
-      <ol class="timeline">{% for item in today_timeline %}<li class="{% if item.is_ongoing %}current{% elif item.is_past %}past{% endif %}"><strong>{{ item.start_time }}–{{ item.end_time }}</strong><div><strong>{{ item.title }}</strong><br><small class="muted">{{ item.venue_name }} · {{ item.event_type_name }}</small></div><div><span>{{ item.status_display }}</span>{% if item.priority != 'normal' %}<br><span class="priority">{{ item.priority }}</span>{% endif %}</div></li>{% empty %}<li>{% trans "No events today" %}</li>{% endfor %}</ol>
+  <div class="leadership-content-grid">
+    <section class="leadership-panel" data-testid="today-timeline-panel">
+      <div class="section-head">
+        <h2>{% trans "Today's Timeline" %}</h2>
+        <span class="muted">{{ today_date }}</span>
+      </div>
+      <ol class="leadership-timeline">
+        {% for item in today_timeline %}
+        <li class="{% if item.is_ongoing %}current{% elif item.is_past %}past{% endif %}">
+          <strong>{{ item.start_time }}–{{ item.end_time }}</strong>
+          <div>
+            <strong style="color: #FFFFFF;">{{ item.title }}</strong><br>
+            <small class="muted">{{ item.venue_name }} · {{ item.event_type_name }}</small>
+          </div>
+          <div>
+            <span class="leadership-status {{ item.status }}">{{ item.status_display }}</span>
+            {% if item.priority != 'normal' %}
+              <br><span class="leadership-priority">{{ item.priority|upper }}</span>
+            {% endif %}
+          </div>
+        </li>
+        {% empty %}
+        <li class="muted">{% trans "No events today" %}</li>
+        {% endfor %}
+      </ol>
     </section>
 
     <aside>
-      <section class="panel"><h2>{% trans "Attendance Summary" %}</h2><div class="attendance-row"><span>{% trans "Expected" %}</span><strong>{{ today_expected_attendees }}</strong></div><div class="attendance-row"><span>{% trans "Checked in" %}</span><strong>{{ today_checkins_count }}</strong></div><div class="attendance-bar" aria-label="{{ attendance_rate }}%"><span style="width:{{ attendance_rate }}%"></span></div><strong>{{ attendance_rate }}%</strong></section>
-      <section class="panel"><h2>{% trans "Emergency / High Priority" %}</h2><ul>{% for item in priority_events %}<li class="priority">{{ item.planned_date }} {{ item.start_time }} · {{ item.title }}</li>{% empty %}<li>{% trans "No high-priority events" %}</li>{% endfor %}</ul></section>
+      <section class="leadership-panel">
+        <h2>{% trans "Attendance Summary" %}</h2>
+        <div class="attendance-row" style="margin-top: var(--space-4);">
+          <span class="muted">{% trans "Expected" %}</span>
+          <strong style="font-size: var(--font-size-xl);">{{ today_expected_attendees }}</strong>
+        </div>
+        <div class="attendance-row" style="margin-top: var(--space-2);">
+          <span class="muted">{% trans "Checked in" %}</span>
+          <strong style="font-size: var(--font-size-xl); color: var(--emerald);">{{ today_checkins_count }}</strong>
+        </div>
+        <div class="leadership-attendance-bar" aria-label="{{ attendance_rate }}%">
+          <span style="width:{{ attendance_rate }}%"></span>
+        </div>
+        <strong style="font-size: var(--font-size-2xl); color: var(--scientific-cyan);">{{ attendance_rate }}%</strong>
+      </section>
+
+      <section class="leadership-panel">
+        <h2>{% trans "Emergency / High Priority" %}</h2>
+        <ul style="list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: var(--space-2);">
+          {% for item in priority_events %}
+            <li class="leadership-priority" style="padding: var(--space-2) 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+              {{ item.planned_date }} {{ item.start_time }} · {{ item.title }}
+            </li>
+          {% empty %}
+            <li class="muted">{% trans "No high-priority events" %}</li>
+          {% endfor %}
+        </ul>
+      </section>
     </aside>
   </div>
 
-  <section class="panel" data-testid="upcoming-schedule-panel"><div class="section-head"><h2>{% trans "Upcoming Events" %}</h2><span class="muted">{% trans "Next 7 days" %}</span></div><table><thead><tr><th>{% trans "Date" %}</th><th>{% trans "Time" %}</th><th>{% trans "Event" %}</th><th>{% trans "Type" %}</th><th>{% trans "Venue" %}</th><th>{% trans "Organizer" %}</th><th>{% trans "Status" %}</th><th>{% trans "Expected" %}</th></tr></thead><tbody>{% for item in upcoming_events %}<tr><td>{{ item.planned_date }}<br><small>{{ item.weekday }}</small></td><td>{{ item.start_time }}</td><td>{{ item.title }}</td><td>{{ item.event_type_name }}</td><td>{{ item.venue_name }}</td><td>{{ item.organizers|default:"—" }}</td><td>{{ item.status_display }}</td><td>{{ item.expected_attendees }}</td></tr>{% empty %}<tr><td colspan="8">{% trans "No upcoming events" %}</td></tr>{% endfor %}</tbody></table></section>
+  <section class="leadership-panel" data-testid="upcoming-schedule-panel">
+    <div class="section-head">
+      <h2>{% trans "Upcoming Events" %}</h2>
+      <span class="muted">{% trans "Next 7 days" %}</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Time" %}</th>
+          <th>{% trans "Event" %}</th>
+          <th>{% trans "Type" %}</th>
+          <th>{% trans "Venue" %}</th>
+          <th>{% trans "Organizer" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>{% trans "Expected" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in upcoming_events %}
+        <tr>
+          <td>{{ item.planned_date }}<br><small class="muted">{{ item.weekday }}</small></td>
+          <td>{{ item.start_time }}</td>
+          <td><strong style="color: #FFFFFF;">{{ item.title }}</strong></td>
+          <td>{{ item.event_type_name }}</td>
+          <td>{{ item.venue_name }}</td>
+          <td>{{ item.organizers|default:"—" }}</td>
+          <td><span class="leadership-status {{ item.status }}">{{ item.status_display }}</span></td>
+          <td>{{ item.expected_attendees }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="muted" style="text-align: center; padding: var(--space-6);">{% trans "No upcoming events" %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
 </main>
 {% endblock %}
 
-{% block extra_js %}<script>
-const clock=document.getElementById('leadership-clock');
-function updateLeadershipClock(){clock.textContent=new Intl.DateTimeFormat(document.documentElement.lang||'uz',{dateStyle:'medium',timeStyle:'medium'}).format(new Date())}setInterval(updateLeadershipClock,1000);updateLeadershipClock();
-async function refreshLeadership(){const response=await fetch('{% url "api-leadership-summary" %}');if(!response.ok)return;const data=await response.json();for(const [id,key] of Object.entries({'kpi-today-events':'today_events_count','kpi-in-progress':'in_progress_count','kpi-available-venues':'available_venues_count','kpi-occupied-venues':'occupied_venues_count','kpi-today-checkins':'today_checkins_count'})){document.getElementById(id).textContent=data[key]}}
-setInterval(refreshLeadership,20000);
-</script>{% endblock %}
+{% block extra_js %}
+<script>
+const clock = document.getElementById('leadership-clock');
+function updateLeadershipClock() {
+  clock.textContent = new Intl.DateTimeFormat(document.documentElement.lang || 'uz', {
+    dateStyle: 'medium',
+    timeStyle: 'medium'
+  }).format(new Date());
+}
+setInterval(updateLeadershipClock, 1000);
+updateLeadershipClock();
+
+async function refreshLeadership() {
+  const response = await fetch('{% url "api-leadership-summary" %}');
+  if (!response.ok) return;
+  const data = await response.json();
+  for (const [id, key] of Object.entries({
+    'kpi-today-events': 'today_events_count',
+    'kpi-in-progress': 'in_progress_count',
+    'kpi-available-venues': 'available_venues_count',
+    'kpi-occupied-venues': 'occupied_venues_count',
+    'kpi-today-checkins': 'today_checkins_count'
+  })) {
+    document.getElementById(id).textContent = data[key];
+  }
+}
+setInterval(refreshLeadership, 20000);
+</script>
+{% endblock %}
