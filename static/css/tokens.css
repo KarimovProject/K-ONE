@@ -1,47 +1,112 @@
+/* ==========================================================================
+   IEMS DESIGN TOKENS (Phase 18)
+   Global variables across all applications. No domain scoping.
+   ========================================================================== */
+
 :root {
-  --navy-950: #051124;
-  --navy-900: #07172f;
-  --navy-800: #0d2446;
-  --ink-900: #10213a;
-  --ink-700: #40506a;
-  --ink-500: #718096;
-  --surface: #ffffff;
-  --surface-soft: #f4f7fb;
-  --line: #e4eaf2;
-  --blue: #2563eb;
-  --cyan: #06b6d4;
-  --teal: #0d9488;
-  --emerald: #10b981;
-  --amber: #f59e0b;
-  --coral: #f97360;
-  --purple: #8b5cf6;
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --radius-sm: 0.625rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05), 0 6px 18px rgb(15 23 42 / 0.04);
-  --shadow-lg: 0 24px 60px rgb(5 17 36 / 0.16);
-  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.375rem;
-  --text-2xl: clamp(1.75rem, 3vw, 2.35rem);
-  --sidebar-width: 16.75rem;
-  --topbar-height: 5rem;
-  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --duration-fast: 140ms;
-  --duration-base: 220ms;
-  --motion-fast: 140ms;
-  --motion-normal: 220ms;
-  --motion-slow: 420ms;
-  --content-max: 90rem;
+  /* --------------------------------------------------------------------------
+     1. COLOR SYSTEM (Bright Premium Institutional)
+     -------------------------------------------------------------------------- */
+  
+  /* Core Surfaces */
+  --color-surface-base: #FAFCFF;       /* Warm premium white / pale blue tint */
+  --color-surface-panel: #F3F7FC;      /* Soft pearl for contrasting zones */
+  --color-surface-elevated: #FFFFFF;   /* Standard elevated card/module */
+  --color-surface-glass: rgba(250, 252, 255, 0.7); /* Frosted */
+  
+  /* Navigation / Dark Accent (Restricted use) */
+  --color-nav-base: #061426;           /* Deep institutional blue for sidebar */
+  --color-nav-hover: #0A1F3B;
+  --color-nav-active: #0E2A52;
+  --color-nav-text: #E2E8F0;
+  
+  /* Accent Colors (Restrained but visible) */
+  --color-brand-cobalt: #0B57D0;       /* Electric cobalt blue */
+  --color-brand-cobalt-light: #4285F4;
+  --color-brand-cobalt-subtle: rgba(11, 87, 208, 0.08);
+  
+  --color-brand-cyan: #00BBD3;         /* Medical cyan */
+  --color-brand-cyan-subtle: rgba(0, 187, 211, 0.08);
+  
+  --color-status-free: #10B981;        /* Emerald */
+  --color-status-free-bg: #E6F8F3;
+  --color-status-active: var(--color-brand-cobalt);
+  --color-status-active-bg: var(--color-brand-cobalt-subtle);
+  --color-status-upcoming: #F59E0B;    /* Warm amber */
+  --color-status-upcoming-bg: #FEF3C7;
+  --color-status-special: #8B5CF6;     /* Violet */
+  --color-status-special-bg: #EDE9FE;
+  --color-status-critical: #EF4444;    /* Crimson */
+  
+  /* Typography Colors */
+  --color-text-title: #061426;         /* Very dark navy */
+  --color-text-main: #1E293B;          /* Slate dark */
+  --color-text-secondary: #475569;     /* Slate medium */
+  --color-text-muted: #64748B;         /* Slate light */
+  --color-text-inverse: #FFFFFF;
+  
+  /* Borders & Dividers */
+  --color-border-subtle: #E2E8F0;      /* 1px translucent feel */
+  --color-border-default: #CBD5E1;
+  --color-border-focus: var(--color-brand-cobalt);
+  --color-grid-line: rgba(11, 87, 208, 0.03); /* Extremely subtle scientific grid */
+
+  /* --------------------------------------------------------------------------
+     2. TYPOGRAPHY SYSTEM
+     -------------------------------------------------------------------------- */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* Strong Hierarchy */
+  --text-title-xl: clamp(2rem, 3vw, 2.625rem); /* 32-42px Operational title */
+  --text-title: clamp(1.375rem, 2vw, 1.75rem); /* 22-28px Major section */
+  --text-heading: 1.125rem;                    /* 18-20px Card/module heading */
+  --text-body-lg: 1rem;                        /* 16px */
+  --text-body: 0.9375rem;                      /* 15px */
+  --text-meta: 0.8125rem;                      /* 13px Operational metadata */
+  --text-micro: 0.6875rem;                     /* 11px Small tags */
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* --------------------------------------------------------------------------
+     3. ELEVATION & SHADOWS (Controlled Depth)
+     -------------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(6, 20, 38, 0.04), 0 1px 3px rgba(6, 20, 38, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(6, 20, 38, 0.05), 0 2px 4px -1px rgba(6, 20, 38, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(6, 20, 38, 0.05), 0 4px 6px -2px rgba(6, 20, 38, 0.02);
+  --shadow-glow-cobalt: 0 0 12px rgba(11, 87, 208, 0.2);
+  --shadow-glow-emerald: 0 0 12px rgba(16, 185, 129, 0.2);
+
+  /* --------------------------------------------------------------------------
+     4. GEOMETRY
+     -------------------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 9999px;
+
+  /* --------------------------------------------------------------------------
+     5. SPACING (8pt grid)
+     -------------------------------------------------------------------------- */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-8: 3rem;     /* 48px */
+  --space-12: 4.5rem;  /* 72px */
+
+  /* --------------------------------------------------------------------------
+     6. Z-INDEX
+     -------------------------------------------------------------------------- */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-overlay: 1000;
+  --z-modal: 2000;
 }

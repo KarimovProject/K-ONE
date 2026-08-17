@@ -1,0 +1,224 @@
+/* ==========================================================================
+   IEMS PUBLIC CALENDAR (Phase 18)
+   Scoped strictly to .public-calendar
+   ========================================================================== */
+
+.public-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 1800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   1. TOP COMMAND BAR
+   -------------------------------------------------------------------------- */
+.calendar-command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface-elevated);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-4);
+}
+
+.calendar-command-bar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.calendar-command-bar__center {
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-title);
+}
+.calendar-command-bar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* --------------------------------------------------------------------------
+   2. FILTER BAR (Compact)
+   -------------------------------------------------------------------------- */
+.calendar-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface-glass);
+  padding: var(--space-3);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  margin-bottom: var(--space-4);
+}
+.calendar-filters .input-control,
+.calendar-filters .select-control {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   3. MONTH GRID
+   -------------------------------------------------------------------------- */
+.calendar-month {
+  background: var(--color-surface-elevated);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-month__header {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  background: var(--color-surface-panel);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.calendar-month__weekday {
+  padding: var(--space-3);
+  text-align: center;
+  font-size: var(--text-meta);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calendar-month__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: minmax(140px, auto);
+  background: var(--color-border-subtle); /* Grid lines */
+  gap: 1px; /* 1px borders between cells */
+}
+
+/* Day Cells */
+.calendar-day {
+  background: var(--color-surface-elevated);
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--duration-micro) var(--ease-out);
+}
+.calendar-day--weekend {
+  background: var(--color-surface-base);
+}
+.calendar-day--outside {
+  background: var(--color-surface-panel);
+  opacity: 0.6;
+}
+.calendar-day--today {
+  background: rgba(11, 87, 208, 0.03);
+}
+
+.calendar-day__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  padding: 0 var(--space-1);
+}
+.calendar-day__number {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.calendar-day--today .calendar-day__number {
+  background: var(--color-brand-cobalt);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-glow-cobalt);
+}
+
+/* Event Capsules in Calendar */
+.calendar-events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.cal-capsule {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-left: 3px solid transparent;
+  transition: transform var(--duration-micro) var(--ease-out), box-shadow var(--duration-micro) var(--ease-out);
+}
+.cal-capsule:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cal-capsule--cobalt {
+  background: var(--color-surface-base);
+  color: var(--color-text-main);
+  border-left-color: var(--color-brand-cobalt);
+}
+.cal-capsule--emerald {
+  background: var(--color-status-free-bg);
+  color: var(--color-text-main);
+  border-left-color: var(--color-status-free);
+}
+.cal-capsule--amber {
+  background: var(--color-status-upcoming-bg);
+  color: var(--color-text-main);
+  border-left-color: var(--color-status-upcoming);
+}
+.cal-capsule__time {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.cal-more {
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-muted);
+  text-align: left;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+.cal-more:hover {
+  color: var(--color-brand-cobalt);
+}
+
+/* --------------------------------------------------------------------------
+   4. EVENT INSPECTOR DRAWER (Placeholder for JS injection)
+   -------------------------------------------------------------------------- */
+.calendar-inspector {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 400px;
+  background: var(--color-surface-elevated);
+  box-shadow: -10px 0 30px rgba(6, 20, 38, 0.1);
+  z-index: var(--z-modal);
+  transform: translateX(100%);
+  transition: transform var(--duration-modal) var(--ease-spring);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+}
+.calendar-inspector.is-open {
+  transform: translateX(0);
+}

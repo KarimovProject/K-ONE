@@ -1,0 +1,143 @@
+/* ==========================================================================
+   IEMS WORKSPACE DASHBOARD (Phase 18)
+   Scoped strictly to .workspace-dashboard
+   ========================================================================== */
+
+.workspace-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   1. COMMAND HEADER & KPI RAIL
+   -------------------------------------------------------------------------- */
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-4);
+}
+.workspace-header__greeting {
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-title);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-1) 0;
+}
+.workspace-header__meta {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+/* Integrated KPI Rail */
+.workspace-kpi-rail {
+  display: flex;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.workspace-kpi {
+  flex: 1;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  transition: background var(--duration-micro) var(--ease-out);
+}
+.workspace-kpi:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 1px;
+  background: var(--color-border-subtle);
+}
+.workspace-kpi:hover {
+  background: var(--color-surface-panel);
+}
+.workspace-kpi__value {
+  font-size: var(--text-title-xl);
+  font-weight: var(--weight-black);
+  color: var(--color-text-title);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+.workspace-kpi__label {
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Accent modifiers */
+.workspace-kpi--cobalt .workspace-kpi__value { color: var(--color-brand-cobalt); }
+.workspace-kpi--amber .workspace-kpi__value { color: var(--color-status-upcoming); }
+.workspace-kpi--emerald .workspace-kpi__value { color: var(--color-status-free); }
+
+/* --------------------------------------------------------------------------
+   2. MAIN LAYOUT (65/35)
+   -------------------------------------------------------------------------- */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Workspace Sections */
+.workspace-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.workspace-section__title {
+  font-size: var(--text-heading);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-title);
+  margin: 0;
+}
+
+/* Lists and Items */
+.workspace-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.workspace-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-micro) var(--ease-out);
+}
+.workspace-item:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-border-default);
+}
+.workspace-item__main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.workspace-item__title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+}
+.workspace-item__meta {
+  font-size: var(--text-meta);
+  color: var(--color-text-secondary);
+}

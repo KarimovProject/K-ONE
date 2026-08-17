@@ -4,12 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07172f">
+  <meta name="theme-color" content="#165DFF">
   <title>{% block title %}IEMS{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'css/motion.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}">
+  <link rel="stylesheet" href="{% static 'css/workspace.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
-  <link rel="stylesheet" href="{% static 'css/phase11c.css' %}">
-  <link rel="stylesheet" href="{% static 'css/phase11d.css' %}">
   {% block extra_css %}{% endblock %}
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>
@@ -23,7 +24,9 @@
         <main id="main-content" class="page-content" tabindex="-1">
           {% if messages %}
             <div class="message-stack" aria-live="polite">
-              {% for message in messages %}<div class="app-message {{ message.tags }}">{{ message }}</div>{% endfor %}
+              {% for message in messages %}
+                <div class="app-message {{ message.tags }}">{{ message }}</div>
+              {% endfor %}
             </div>
           {% endif %}
           {% block content %}{% endblock %}

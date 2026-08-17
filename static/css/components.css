@@ -1,0 +1,216 @@
+/* ==========================================================================
+   IEMS COMPONENTS (Phase 18)
+   Reusable primitives across all apps. No domain scoping.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. BUTTONS
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  padding: 0 var(--space-4);
+  height: 36px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-micro) var(--ease-out);
+  text-decoration: none;
+  white-space: nowrap;
+  outline: none;
+  box-sizing: border-box;
+}
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-brand-cobalt-subtle);
+}
+
+.btn--primary {
+  background: var(--color-brand-cobalt);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+.btn--primary:hover {
+  background: var(--color-brand-cobalt-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-cobalt);
+}
+
+.btn--secondary {
+  background: var(--color-surface-elevated);
+  color: var(--color-text-main);
+  border-color: var(--color-border-default);
+  box-shadow: var(--shadow-sm);
+}
+.btn--secondary:hover {
+  background: var(--color-surface-panel);
+  border-color: var(--color-border-subtle);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+.btn--ghost:hover {
+  background: var(--color-surface-panel);
+  color: var(--color-text-main);
+}
+
+.btn--glass {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.btn--glass:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--color-border-default);
+}
+
+/* --------------------------------------------------------------------------
+   2. FORMS & INPUTS (Premium Controls)
+   -------------------------------------------------------------------------- */
+.input-control {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-text-main);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-3);
+  height: 40px;
+  outline: none;
+  transition: all var(--duration-micro) var(--ease-out);
+  width: 100%;
+  box-sizing: border-box;
+}
+.input-control:focus {
+  border-color: var(--color-brand-cobalt);
+  box-shadow: 0 0 0 3px var(--color-brand-cobalt-subtle);
+}
+
+.select-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* --------------------------------------------------------------------------
+   3. STATUS CHIPS
+   -------------------------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.chip--active {
+  background: var(--color-status-active-bg);
+  color: var(--color-status-active);
+}
+.chip--active::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-status-active);
+  animation: pulse-cobalt 2s infinite;
+}
+
+.chip--free {
+  background: var(--color-status-free-bg);
+  color: var(--color-status-free);
+}
+.chip--free::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-status-free);
+  box-shadow: var(--shadow-glow-emerald);
+}
+
+.chip--upcoming {
+  background: var(--color-status-upcoming-bg);
+  color: var(--color-status-upcoming);
+}
+
+.chip--special {
+  background: var(--color-status-special-bg);
+  color: var(--color-status-special);
+}
+
+/* --------------------------------------------------------------------------
+   4. CARDS & SURFACES
+   -------------------------------------------------------------------------- */
+.card {
+  background: var(--color-surface-elevated);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+  transition: transform var(--duration-component) var(--ease-out),
+              box-shadow var(--duration-component) var(--ease-out),
+              border-color var(--duration-component) var(--ease-out);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-default);
+}
+
+.glass-surface {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Segmented Control for Calendar/Views */
+.segmented-control {
+  display: inline-flex;
+  background: var(--color-surface-panel);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-subtle);
+}
+.segmented-control__btn {
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--duration-micro) var(--ease-out);
+}
+.segmented-control__btn:hover {
+  color: var(--color-text-main);
+}
+.segmented-control__btn.is-active {
+  background: var(--color-surface-elevated);
+  color: var(--color-text-main);
+  box-shadow: var(--shadow-sm);
+  font-weight: var(--weight-bold);
+}
