@@ -11,7 +11,7 @@
   </div>
   {% if can_create %}
     <div class="page-actions">
-      <a class="primary-button" href="{% url 'events:wizard' %}">
+      <a class="btn-create-event" href="{% url 'events:wizard' %}">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         {% trans "Plan New Event" %}
       </a>
@@ -19,39 +19,40 @@
   {% endif %}
 </div>
 
-<div class="filter-bar">
-  <form class="filter-form" method="get" action="">
-    <div class="search-input-wrap">
-      <input class="search-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
+<div class="calendar-toolbar-row" style="margin-top: var(--space-4);">
+  <form class="calendar-filters premium-filters" method="get" action="">
+    <div class="filter-group filter-group--search">
+      <svg class="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input class="filter-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
     </div>
 
-    <select name="status" aria-label="{% trans 'Filter by status' %}">
+    <div class="filter-divider"></div>
+    <select class="filter-select" name="status" aria-label="{% trans 'Filter by status' %}">
       <option value="all">{% trans "All Statuses" %}</option>
       {% for code, label in statuses %}
         <option value="{{ code }}"{% if status_filter == code %} selected{% endif %}>{{ label }}</option>
       {% endfor %}
     </select>
 
-    <select name="venue" aria-label="{% trans 'Filter by venue' %}">
+    <div class="filter-divider"></div>
+    <select class="filter-select" name="venue" aria-label="{% trans 'Filter by venue' %}">
       <option value="">{% trans "All Venues" %}</option>
       {% for v in venues %}
         <option value="{{ v.id }}"{% if selected_venue == v.id|stringformat:"s" %} selected{% endif %}>{{ v.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <select name="type" aria-label="{% trans 'Filter by event type' %}">
+    <div class="filter-divider"></div>
+    <select class="filter-select" name="type" aria-label="{% trans 'Filter by event type' %}">
       <option value="">{% trans "All Types" %}</option>
       {% for t in event_types %}
         <option value="{{ t.id }}"{% if selected_type == t.id|stringformat:"s" %} selected{% endif %}>{{ t.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <input type="date" name="start_date" value="{{ start_date }}" aria-label="{% trans 'Start date' %}">
-    <input type="date" name="end_date" value="{{ end_date }}" aria-label="{% trans 'End date' %}">
-
-    <button class="secondary-button compact" type="submit">{% trans "Filter" %}</button>
+    <button class="primary-button compact" style="margin-left: var(--space-3);" type="submit">{% trans "Filter" %}</button>
     {% if search_query or status_filter != 'all' or selected_venue or selected_type or start_date or end_date %}
-      <a class="text-button" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
+      <a class="filter-clear" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
     {% endif %}
   </form>
 </div>

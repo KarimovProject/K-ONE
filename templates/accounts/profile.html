@@ -4,14 +4,15 @@
 {% block title %}{% trans "Profile" %} · K-ONE{% endblock %}
 
 {% block content %}
-<div class="page-heading">
-  <div>
-    <span class="eyebrow">{% trans "Account control" %}</span>
-    <h1>{% trans "Profile and preferences" %}</h1>
-    <p>{% trans "Manage your identity and interface language. Access role changes require an administrator." %}</p>
+<div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">{% trans "Account control" %}</span>
+      <h1>{% trans "Profile and preferences" %}</h1>
+      <p>{% trans "Manage your identity and interface language. Access role changes require an administrator." %}</p>
+    </div>
+    <span class="status-badge active">{{ user|localized_role }}</span>
   </div>
-  <span class="status-badge active">{{ user|localized_role }}</span>
-</div>
 
 <div class="profile-layout">
   <!-- Panel A: Profile Details & Form -->
@@ -115,5 +116,6 @@
       </dl>
     </div>
   </aside>
+</div>
 </div>
 {% endblock %}
