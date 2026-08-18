@@ -5,32 +5,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#061426">
-  <meta name="description" content="IEMS — International Event Management System. Real-time conference management, venue monitoring, and scientific session coordination.">
-  <title>{% block title %}IEMS{% endblock %}</title>
+  <meta name="description" content="K-ONE — Barcha tadbirlar yagona tizimda. Real-time conference management, venue monitoring, and scientific session coordination.">
+  <title>{% block title %}K-ONE{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-  <link rel="stylesheet" href="{% static 'css/motion.css' %}">
-  <link rel="stylesheet" href="{% static 'css/components.css' %}">
-  <link rel="stylesheet" href="{% static 'css/public.css' %}">
-  <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=19.5">
+  <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=19.5">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=19.5">
+  <link rel="stylesheet" href="{% static 'css/public.css' %}?v=19.5">
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}?v=19.5">
   {% block extra_css %}{% endblock %}
 </head>
 <body class="public-shell">
   <div class="public-atmosphere"></div>
   <a class="skip-link" href="#main-content">{% trans "Skip to content" %}</a>
-  
+
   <header class="public-header animate-entrance">
-    <a class="public-header__brand" href="{% url 'public-dashboard' %}">
-      {% include "partials/institutional_lockup.html" %}
+    <a class="public-header__brand" href="{% url 'public-dashboard' %}" aria-label="K-ONE Asosiy">
+      <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE Logo" class="brand-logo-public">
     </a>
-    
+
     <div class="public-header__center animate-stagger-1">
-      <div class="public-header__clock">
-        <span data-clock-weekday></span>
-        <div data-clock>--:--</div>
-      </div>
+      <nav class="public-main-nav premium-segmented-nav" aria-label="{% trans 'Main' %}">
+        <a href="{% url 'public-dashboard' %}" class="nav-btn {% if request.resolver_match.url_name == 'public-dashboard' %}active{% endif %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+          Dashboard
+        </a>
+        <a href="{% url 'public-calendar' %}" class="nav-btn {% if request.resolver_match.url_name == 'public-calendar' %}active{% endif %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Calendar
+        </a>
+        <a href="{% url 'public-live-venues' %}" class="nav-btn {% if request.resolver_match.url_name == 'public-live-venues' %}active{% endif %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Live
+        </a>
+        <div class="nav-indicator"></div>
+      </nav>
     </div>
 
     <div class="public-header__actions">
@@ -41,7 +52,7 @@
           <button name="language" value="{{ code }}" type="submit" class="btn btn--ghost" style="padding: 0 8px; font-size: 11px;" {% if code == CURRENT_LANGUAGE %} aria-current="true" style="color:var(--color-brand-cobalt); font-weight:700;"{% endif %}>{{ code|upper }}</button>
         {% endfor %}
       </form>
-      
+
       {% if user.is_authenticated %}
         <a class="btn btn--glass animate-stagger-3" href="{% url 'dashboard' %}">{% trans "Ish maydoni" %}</a>
       {% else %}
@@ -56,7 +67,7 @@
 
   <footer class="public-footer">
     <div class="public-footer__inner">
-      <span>IEMS · {% trans "International Event Management System" %}</span>
+      <span>K-ONE · {% trans "Barcha tadbirlar yagona tizimda" %}</span>
       <span>{% trans "Official international events information" %}</span>
     </div>
   </footer>

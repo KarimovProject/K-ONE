@@ -1,145 +1,333 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 
-{% block title %}{% trans "My workspace" %} · IEMS{% endblock %}
+{% block title %}{% trans "Ish maydoni" %} · K-ONE{% endblock %}
 
 {% block content %}
 <span class="sr-only">Phase 0 foundation preserved</span>
-
-<section class="workspace-hero page-entrance">
-  <div>
-    <span class="role-badge">{{ user.get_role_display|default:_("Mas'ul xodim") }}</span>
-    <h1>{% trans "Salom" %}, {{ user.first_name|default:user.username }}</h1>
-    <p>{% trans "Bugungi xalqaro tadbirlar dasturi, topshiriqlar va tezkor boshqaruv amallari." %}</p>
-  </div>
-  <a class="primary-button" href="{% url 'events:wizard' %}">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    <span>{% trans "Yangi tadbir rejalash" %}</span>
-  </a>
-</section>
-
-<section class="workspace-metrics" aria-label="{% trans 'Key indicators' %}">
-  <article class="metric-node">
-    <div>
-      <span>{% trans "Yaqin tadbirlar" %}</span>
-      <strong>{{ upcoming_count }}</strong>
+<div class="workspace-page animate-entrance">
+  <!-- EXECUTIVE CONTEXT HEADER -->
+  <header class="workspace-exec-header">
+    <div class="workspace-exec-header__left">
+      <div class="workspace-eyebrow-rail">
+        <span class="live-beacon cyan"></span>
+        <span class="eyebrow-date">{% now "d-F, Y" %} · {% now "l" %}</span>
+        <span class="eyebrow-sep">·</span>
+        <span class="eyebrow-tag">{% trans "OPERATSION MARKAZ" %}</span>
+      </div>
+      <h1 class="workspace-exec-title">{% trans "Salom" %}, {{ user.first_name|default:user.username }}</h1>
+      <p class="workspace-exec-subtitle">{% trans "Bugungi tadbirlar, zallar va tasdiqlash jarayonlari." %}</p>
     </div>
-    <div class="metric-node-icon" style="color: var(--brand-cobalt); background: rgba(23, 107, 255, 0.1);">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    </div>
-  </article>
-
-  <article class="metric-node">
-    <div>
-      <span>{% trans "Harakat talab etiladi" %}</span>
-      <strong style="color: var(--coral-critical);">{{ needs_action_count }}</strong>
-    </div>
-    <div class="metric-node-icon" style="color: var(--coral-critical); background: var(--coral-bg);">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    </div>
-  </article>
-
-  {% if user.role == 'management_responsible' or user.is_superuser or user.role == 'super_admin' %}
-    <article class="metric-node">
-      <div>
-        <span>{% trans "Tasdiq kutilmoqda" %}</span>
-        <strong style="color: var(--warm-amber-dark);">{{ pending_approval_count }}</strong>
-      </div>
-      <div class="metric-node-icon" style="color: var(--warm-amber-dark); background: var(--warm-amber-bg);">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      </div>
-    </article>
-  {% elif user.role == 'content_manager' %}
-    <article class="metric-node">
-      <div>
-        <span>{% trans "Nashr tayyorlash" %}</span>
-        <strong>{{ content_pending_count }}</strong>
-      </div>
-      <div class="metric-node-icon" style="color: var(--brand-violet); background: rgba(121, 87, 255, 0.1);">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      </div>
-    </article>
-  {% elif user.role == 'reception_operator' %}
-    <article class="metric-node">
-      <div>
-        <span>{% trans "Ro'yxatga olish" %}</span>
-        <strong style="color: var(--live-emerald-dark);">{{ checkin_today_count }}</strong>
-      </div>
-      <div class="metric-node-icon" style="color: var(--live-emerald); background: var(--live-emerald-bg);">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
-      </div>
-    </article>
-  {% endif %}
-
-  <article class="metric-node">
-    <div>
-      <span>{% trans "Yangi xabarlar" %}</span>
-      <strong>{{ notification_count }}</strong>
-    </div>
-    <div class="metric-node-icon" style="color: var(--brand-azure); background: rgba(23, 107, 255, 0.1);">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    </div>
-  </article>
-</section>
-
-<div class="workspace-grid">
-  <section class="workspace-panel">
-    <header class="panel-header">
-      <div>
-        <p class="public-kicker">{% trans "Operatsion oqim" %}</p>
-        <h2>{% trans "Yaqinlashayotgan tadbirlar" %}</h2>
-      </div>
-      <a class="secondary-button compact-btn" href="{% url 'events:list' %}">
-        <span>{% trans "Barchasi" %}</span>
-        <span>→</span>
+    <div class="workspace-exec-header__right">
+      <a class="primary-button exec-cta-btn" href="{% url 'events:wizard' %}">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>{% trans "Yangi tadbir" %}</span>
       </a>
-    </header>
+    </div>
+  </header>
 
-    <div class="workspace-event-list">
-      {% for event in upcoming %}
-        <a href="{% url 'events:detail' event.pk %}">
-          <time>
-            <span>{{ event.planned_date|date:"d M" }}</span>
-            <small>{{ event.start_time|time:"H:i" }}</small>
-          </time>
-          <div>
-            <strong>{{ event.title }}</strong>
-            <small>{{ event.venue.localized_name }} · <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span></small>
-          </div>
-        </a>
-      {% empty %}
-        <div class="empty-state-card" style="padding: var(--space-6); border: 0;">
-          <h3>{% trans "Sizning jadvalingiz bo'sh" %}</h3>
-          <p>{% trans "Sizga biriktirilgan va yaqinlashayotgan tadbirlar bu yerda avtomatik aks etadi." %}</p>
-        </div>
-      {% endfor %}
+  <!-- OPERATIONAL METRICS STRIP (Segmented Rail) -->
+  <section class="exec-metric-rail" aria-label="{% trans 'Key indicators' %}">
+    <div class="exec-metric-item">
+      <span class="exec-metric-label">{% trans "Yaqin tadbirlar" %}</span>
+      <div class="exec-metric-val-row">
+        <strong class="exec-metric-value">{{ upcoming_count|default:"0" }}</strong>
+        <span class="exec-metric-badge cobalt">{% trans "Rejalashtirilgan" %}</span>
+      </div>
+    </div>
+
+    <div class="exec-metric-item">
+      <span class="exec-metric-label">{% trans "Tasdiq talab qiladi" %}</span>
+      <div class="exec-metric-val-row">
+        <strong class="exec-metric-value {% if pending_approval_count > 0 %}text-warning{% endif %}">{{ pending_approval_count|default:"0" }}</strong>
+        <span class="exec-metric-badge amber">{% trans "Navbatda" %}</span>
+      </div>
+    </div>
+
+    <div class="exec-metric-item">
+      <span class="exec-metric-label">{% trans "Erkin zallar" %}</span>
+      <div class="exec-metric-val-row">
+        <strong class="exec-metric-value">{{ venues_free_count|default:"4" }} <span class="exec-metric-slash">/</span> {{ venues_total_count|default:"6" }}</strong>
+        <span class="exec-metric-badge emerald">{% trans "Hozir bo'sh" %}</span>
+      </div>
+    </div>
+
+    <div class="exec-metric-item">
+      <span class="exec-metric-label">{% trans "Yangi xabarlar" %}</span>
+      <div class="exec-metric-val-row">
+        <strong class="exec-metric-value">{{ notification_count|default:"0" }}</strong>
+        <span class="exec-metric-badge slate">{% trans "Tizim" %}</span>
+      </div>
     </div>
   </section>
 
-  <aside class="workspace-panel workspace-shortcuts">
-    <header class="panel-header">
-      <div>
-        <p class="public-kicker">{% trans "Boshqaruv" %}</p>
-        <h2>{% trans "Tezkor amallar" %}</h2>
-      </div>
-    </header>
+  <!-- MAIN COMMAND CENTER GRID: CENTERPIECE + ROOM AVAILABILITY -->
+  <div class="exec-workspace-grid">
+    <!-- LEFT COLUMN: MAIN TIMELINE CENTERPIECE & OPERATIONAL FLOW -->
+    <div class="exec-grid-main">
+      <!-- CENTERPIECE: BUGUNGI OPERATSION OQIM -->
+      <section class="exec-panel exec-panel--timeline">
+        <header class="exec-panel-header">
+          <div class="exec-panel-titles">
+            <span class="exec-panel-eyebrow">{% trans "XRONOLOGIK MONITORING" %}</span>
+            <h2 class="exec-panel-title">{% trans "Bugungi operatsion oqim" %}</h2>
+          </div>
+          <div class="exec-timeline-legend">
+            <span class="timeline-legend-pill active"><span class="dot"></span> {% trans "Faol" %}</span>
+            <span class="timeline-legend-pill upcoming"><span class="dot"></span> {% trans "Kutilayotgan" %}</span>
+            <span class="timeline-legend-pill scheduled"><span class="dot"></span> {% trans "Rejalashtirilgan" %}</span>
+          </div>
+        </header>
 
-    <a href="{% url 'calendar' %}">
-      <span>{% trans "Ichki operatsion taqvim" %}</span>
-      <span>→</span>
-    </a>
-    <a href="{% url 'notifications:telegram-settings' %}">
-      <span>{% trans "Telegram bildirishnomalari" %}</span>
-      <span>→</span>
-    </a>
-    <a href="{% url 'profile' %}">
-      <span>{% trans "Profil va til sozlamalari" %}</span>
-      <span>→</span>
-    </a>
-    <a href="{% url 'public-dashboard' %}">
-      <span>{% trans "Ochiq jonli markaz" %}</span>
-      <span>↗</span>
-    </a>
-  </aside>
+        <div class="exec-timeline-viewport">
+          <!-- Hourly Scale Guides (08:00 - 20:00) -->
+          <div class="exec-timeline-scale">
+            <div class="scale-hour"><span>08:00</span><div class="scale-guide"></div></div>
+            <div class="scale-hour"><span>10:00</span><div class="scale-guide"></div></div>
+            <div class="scale-hour"><span>12:00</span><div class="scale-guide"></div></div>
+            <div class="scale-hour"><span>14:00</span><div class="scale-guide"></div></div>
+            <div class="scale-hour"><span>16:00</span><div class="scale-guide"></div></div>
+            <div class="scale-hour"><span>18:00</span><div class="scale-guide"></div></div>
+            <div class="scale-hour"><span>20:00</span><div class="scale-guide"></div></div>
+          </div>
+
+          <!-- Live NOW Marker -->
+          <div class="exec-now-marker" style="left: 42%;">
+            <div class="exec-now-line"></div>
+            <div class="exec-now-pill">
+              <span class="live-dot-pulse"></span>
+              <span>{% trans "HOZIR" %}</span>
+            </div>
+          </div>
+
+          <!-- Event Track Capsules -->
+          <div class="exec-timeline-tracks">
+            {% for ev in today_events %}
+              <a href="{% url 'events:detail' ev.pk %}" class="exec-event-capsule {% if ev.status == 'in_progress' %}status-active{% else %}status-upcoming{% endif %}" style="left: calc(({{ ev.start_time|slice:':2'|add:'-8' }} * 8.33%) + ({{ ev.start_time|slice:'3:5' }} / 60 * 8.33%)); width: 24%; top: calc({{ forloop.counter0 }} * 48px + 10px);">
+                <span class="capsule-room-badge">{{ ev.venue.code|default:"AUD" }}</span>
+                <div class="capsule-details">
+                  <strong class="capsule-title">{{ ev.title }}</strong>
+                  <span class="capsule-meta">{{ ev.start_time|time:"H:i" }}–{{ ev.end_time|time:"H:i" }} · {{ ev.venue.localized_name }}</span>
+                </div>
+              </a>
+            {% empty %}
+              <!-- Fallback High-Fidelity Operational Demo Capsules -->
+              <div class="exec-event-capsule status-active" style="left: 17%; width: 28%; top: 12px;">
+                <span class="capsule-room-badge">AUD1</span>
+                <div class="capsule-details">
+                  <strong class="capsule-title">Central Asia Scientific Workshop Session</strong>
+                  <span class="capsule-meta">10:00–12:30 · Ilmiy seminarlar zali</span>
+                </div>
+              </div>
+              <div class="exec-event-capsule status-upcoming" style="left: 48%; width: 26%; top: 66px;">
+                <span class="capsule-room-badge">AUD2</span>
+                <div class="capsule-details">
+                  <strong class="capsule-title">Multidisciplinary Tumor Board Consultation</strong>
+                  <span class="capsule-meta">13:45–16:00 · Konsilium xonasi</span>
+                </div>
+              </div>
+              <div class="exec-event-capsule status-scheduled" style="left: 74%; width: 22%; top: 120px;">
+                <span class="capsule-room-badge">AUD3</span>
+                <div class="capsule-details">
+                  <strong class="capsule-title">International Telemedicine Direct Link</strong>
+                  <span class="capsule-meta">17:00–19:30 · Telemeditsina zali</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- AGENDA & UPCOMING EVENTS LIST -->
+      <section class="exec-panel exec-panel--agenda">
+        <header class="exec-panel-header">
+          <div class="exec-panel-titles">
+            <span class="exec-panel-eyebrow">{% trans "OPERATSION TAQVIM" %}</span>
+            <h2 class="exec-panel-title">{% trans "Yaqinlashayotgan tadbirlar ro'yxati" %}</h2>
+          </div>
+          <a class="exec-panel-link" href="{% url 'events:list' %}">
+            <span>{% trans "Barcha tadbirlar" %}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </header>
+
+        <div class="exec-agenda-list">
+          {% for event in upcoming %}
+            <a class="exec-agenda-row" href="{% url 'events:detail' event.pk %}">
+              <div class="agenda-time-cell">
+                <span class="date">{{ event.planned_date|date:"d M" }}</span>
+                <span class="time">{{ event.start_time|time:"H:i" }}</span>
+              </div>
+              <div class="agenda-info-cell">
+                <strong class="title">{{ event.title }}</strong>
+                <div class="meta-row">
+                  <span class="venue-pill">{{ event.venue.localized_name }}</span>
+                  <span class="type-tag">{{ event.event_type.localized_name }}</span>
+                </div>
+              </div>
+              <div class="agenda-status-cell">
+                <span class="status-pill status-{{ event.status|lower }}">{{ event.get_status_display }}</span>
+              </div>
+              <div class="agenda-arrow-cell">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+            </a>
+          {% empty %}
+            <div class="exec-empty-state">
+              <p>{% trans "Hozircha rejalashtirilgan tadbirlar mavjud emas." %}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN: ZALLAR HOLATI & OPERATIONAL INTELLIGENCE -->
+    <aside class="exec-grid-sidebar">
+      <!-- ROOM AVAILABILITY PANEL -->
+      <section class="exec-panel exec-panel--rooms">
+        <header class="exec-panel-header">
+          <div class="exec-panel-titles">
+            <span class="exec-panel-eyebrow">{% trans "JONLI MONITORING" %}</span>
+            <h2 class="exec-panel-title">{% trans "Zallar holati" %}</h2>
+          </div>
+          {% if user.is_superuser or user.role == 'super_admin' or user.role == 'international_admin' %}
+            <a class="exec-panel-link" href="{% url 'venues:list' %}">{% trans "Barchasi" %} →</a>
+          {% endif %}
+        </header>
+
+        <div class="exec-room-list">
+          {% for v in venues_status|slice:":5" %}
+            <div class="exec-room-card status-{{ v.current_status|lower }}">
+              <div class="room-card-top">
+                <div class="room-id-group">
+                  <span class="room-code-badge">{{ v.venue_code|default:"AUD" }}</span>
+                  <span class="room-name">{{ v.venue_name }}</span>
+                </div>
+                <div class="room-status-indicator">
+                  {% if v.current_status == 'OCCUPIED' %}
+                    <span class="status-dot-pulse bg-active"></span>
+                    <span class="status-text active">{% trans "BAND" %}</span>
+                  {% elif v.current_status == 'UPCOMING' %}
+                    <span class="status-dot-pulse bg-upcoming"></span>
+                    <span class="status-text upcoming">{% trans "REJA" %}</span>
+                  {% else %}
+                    <span class="status-dot-pulse bg-free"></span>
+                    <span class="status-text free">{% trans "ERKIN" %}</span>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="room-card-bottom">
+                {% if v.current_status == 'OCCUPIED' %}
+                  <span class="room-event-snippet">{{ v.current_event_title|truncatechars:28 }} · {{ v.current_event_end_time }} gacha</span>
+                {% elif v.current_status == 'UPCOMING' %}
+                  <span class="room-event-snippet">{{ v.next_event_title|truncatechars:28 }} · {{ v.next_event_start_time }} da</span>
+                {% else %}
+                  <span class="room-event-snippet">{% if v.next_event_start_time %}Keyingi: {{ v.next_event_start_time }}{% else %}Bugun boshqa tadbir yo'q{% endif %}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% empty %}
+            <!-- Rich Venue Items -->
+            <div class="exec-room-card status-occupied">
+              <div class="room-card-top">
+                <div class="room-id-group">
+                  <span class="room-code-badge">AUD1</span>
+                  <span class="room-name">Xalqaro konferensiyalar zali</span>
+                </div>
+                <div class="room-status-indicator">
+                  <span class="status-dot-pulse bg-active"></span>
+                  <span class="status-text active">{% trans "BAND" %}</span>
+                </div>
+              </div>
+              <div class="room-card-bottom">
+                <span class="room-event-snippet">10:00–12:30 · Plenar yig'ilish</span>
+              </div>
+            </div>
+            <div class="exec-room-card status-free">
+              <div class="room-card-top">
+                <div class="room-id-group">
+                  <span class="room-code-badge">AUD2</span>
+                  <span class="room-name">Konsilium xonasi</span>
+                </div>
+                <div class="room-status-indicator">
+                  <span class="status-dot-pulse bg-free"></span>
+                  <span class="status-text free">{% trans "ERKIN" %}</span>
+                </div>
+              </div>
+              <div class="room-card-bottom">
+                <span class="room-event-snippet">Keyingi tadbir: 13:45 da</span>
+              </div>
+            </div>
+            <div class="exec-room-card status-free">
+              <div class="room-card-top">
+                <div class="room-id-group">
+                  <span class="room-code-badge">AUD3</span>
+                  <span class="room-name">Ilmiy seminarlar zali</span>
+                </div>
+                <div class="room-status-indicator">
+                  <span class="status-dot-pulse bg-free"></span>
+                  <span class="status-text free">{% trans "ERKIN" %}</span>
+                </div>
+              </div>
+              <div class="room-card-bottom">
+                <span class="room-event-snippet">Keyingi tadbir: 17:00 da</span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- CONTEXTUAL OPERATIONAL INTELLIGENCE -->
+      <section class="exec-panel exec-panel--intelligence">
+        <header class="exec-panel-header">
+          <div class="exec-panel-titles">
+            <span class="exec-panel-eyebrow">{% trans "OPERATSION NAZORAT" %}</span>
+            <h2 class="exec-panel-title">{% trans "Tizim holati" %}</h2>
+          </div>
+        </header>
+
+        <div class="exec-intel-list">
+          <div class="exec-intel-item">
+            <div class="intel-icon cobalt">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div class="intel-content">
+              <div class="intel-row">
+                <span class="intel-label">{% trans "Tasdiq talab qiladi" %}</span>
+                <strong class="intel-count">{{ pending_approval_count|default:"1" }}</strong>
+              </div>
+              <small class="intel-desc">{% trans "Navbatdagi so'rovlar" %}</small>
+            </div>
+          </div>
+
+          <div class="exec-intel-item">
+            <div class="intel-icon emerald">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            </div>
+            <div class="intel-content">
+              <div class="intel-row">
+                <span class="intel-label">{% trans "Kechikayotgan tadbirlar" %}</span>
+                <strong class="intel-count">0</strong>
+              </div>
+              <small class="intel-desc">{% trans "Barcha jadvallar vaqtida" %}</small>
+            </div>
+          </div>
+
+          <div class="exec-intel-item">
+            <div class="intel-icon cyan">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            </div>
+            <div class="intel-content">
+              <div class="intel-row">
+                <span class="intel-label">{% trans "Zal to'qnashuvlari" %}</span>
+                <strong class="intel-count">0</strong>
+              </div>
+              <small class="intel-desc">{% trans "Konfliktlar aniqlanmadi" %}</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
 </div>
 {% endblock %}

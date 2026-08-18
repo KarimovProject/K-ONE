@@ -1,29 +1,12 @@
 /* ==========================================================================
-   IEMS MOTION SYSTEM
-   Animation primitives only. No phase prefixes.
+   K-ONE MOTION SYSTEM — Phase 23 · Tasteful Micro-Interactions
    ========================================================================== */
 
-:root {
-  /* Premium Durations */
-  --duration-micro: 160ms;       /* Hover, focus, small states */
-  --duration-fast: 220ms;        /* Month transitions */
-  --duration-component: 280ms;   /* Card expands, standard transitions */
-  --duration-modal: 450ms;       /* Drawers, modals, page entrance */
-
-  /* Premium Easing Curves */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* Smooth Apple-like decelerate */
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* Smooth accelerate & decelerate */
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Subtle pop/bounce */
-  --ease-linear: linear;
-}
-
 /* --------------------------------------------------------------------------
-   1. GLOBAL REDUCED MOTION
+   1. REDUCED MOTION RESPECT
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -34,47 +17,103 @@
 /* --------------------------------------------------------------------------
    2. KEYFRAMES
    -------------------------------------------------------------------------- */
-
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
-/* Venue/Status Pulses (Subtle, colored) */
-@keyframes pulse-emerald {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-@keyframes pulse-cobalt {
-  0% { box-shadow: 0 0 0 0 rgba(11, 87, 208, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(11, 87, 208, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(11, 87, 208, 0); }
+/* Status Breathing — Emerald (free/active) */
+@keyframes status-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50%      { transform: scale(0.85); opacity: 0.6; box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
 }
 
-/* Current Time Marker (Soft breathing glow) */
-@keyframes time-glow {
-  0% { opacity: 0.5; box-shadow: 0 0 4px rgba(11, 87, 208, 0.2); }
-  50% { opacity: 1; box-shadow: 0 0 12px rgba(11, 87, 208, 0.6); }
-  100% { opacity: 0.5; box-shadow: 0 0 4px rgba(11, 87, 208, 0.2); }
+/* Status Pulse — Sky (in-progress) */
+@keyframes status-pulse-sky {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+  50%      { transform: scale(0.85); opacity: 0.6; box-shadow: 0 0 0 5px rgba(14, 165, 233, 0); }
+}
+
+/* Status Pulse — Amber (upcoming) */
+@keyframes status-pulse-amber {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+  50%      { transform: scale(0.85); opacity: 0.6; box-shadow: 0 0 0 5px rgba(245, 158, 11, 0); }
+}
+
+/* NOW Marker Pulse */
+@keyframes now-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* Page Entrance */
+@keyframes pageEntrance {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* --------------------------------------------------------------------------
    3. UTILITY CLASSES
    -------------------------------------------------------------------------- */
-
 .animate-entrance {
-  animation: fade-in-up var(--duration-modal) var(--ease-out) both;
+  animation: fade-in-up var(--duration-page, 400ms) var(--ease-out) both;
 }
 
-.animate-stagger-1 { animation-delay: 50ms; }
-.animate-stagger-2 { animation-delay: 100ms; }
-.animate-stagger-3 { animation-delay: 150ms; }
-.animate-stagger-4 { animation-delay: 200ms; }
-.animate-stagger-5 { animation-delay: 250ms; }
+.animate-stagger-1 { animation-delay: 40ms; }
+.animate-stagger-2 { animation-delay: 80ms; }
+.animate-stagger-3 { animation-delay: 120ms; }
+.animate-stagger-4 { animation-delay: 160ms; }
+.animate-stagger-5 { animation-delay: 200ms; }
+
+/* Status Breathing Dots */
+.status-breathe-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-breathe-dot.bg-free {
+  background: var(--color-success, #10B981);
+  animation: status-breathe 2.4s infinite ease-in-out;
+}
+
+.status-breathe-dot.bg-active {
+  background: var(--color-sky, #0EA5E9);
+  animation: status-pulse-sky 2s infinite ease-in-out;
+}
+
+.status-breathe-dot.bg-upcoming {
+  background: var(--color-warning, #F59E0B);
+  animation: status-pulse-amber 2.2s infinite ease-in-out;
+}
+
+/* NOW Marker Dot */
+.marker-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-text-inverse, #FFFFFF);
+  display: inline-block;
+  animation: now-pulse 1.6s infinite ease-in-out;
+}
+
+/* Status Dot (static — for legacy compat) */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}

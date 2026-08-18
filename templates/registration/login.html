@@ -1,31 +1,64 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% block title %}{% trans "Sign in" %} · IEMS{% endblock %}
+{% load i18n static %}
+
+{% block title %}K-ONE — Kirish{% endblock %}
+
 {% block unauthenticated_content %}
 <section class="auth-brand-panel" aria-hidden="true">
-  <div class="auth-orbit orbit-one"></div><div class="auth-orbit orbit-two"></div>
-  <div class="auth-brand-copy">
-    <span class="brand-mark large">I</span>
-    <p class="eyebrow">International Events Management System</p>
-    <h1>{% trans "One calm place for every international event." %}</h1>
-    <p>{% trans "A secure operational foundation for the International Department." %}</p>
+  <div class="auth-brand-art-box">
+    <img src="{% static 'img/k-one/k-one-login-hero-art.png' %}" alt="K-ONE Brand Hero" class="auth-hero-art-img">
+  </div>
+  <div class="sr-only">
+    <h1>K-ONE — Barcha tadbirlar yagona tizimda</h1>
+    <p>Xalqaro tadbirlar, zallar faoliyati va boshqaruv jarayonlarini bitta professional makonda birlashtiruvchi platforma.</p>
   </div>
 </section>
+
 <section class="auth-form-panel">
   <form class="login-card" method="post" novalidate>
     {% csrf_token %}
-    <div class="login-heading"><span class="eyebrow">IEMS</span><h2>{% trans "Welcome back" %}</h2><p>{% trans "Sign in with your assigned account." %}</p></div>
-    {% if form.non_field_errors %}<div class="form-alert" role="alert">{{ form.non_field_errors }}</div>{% endif %}
-    <label for="{{ form.username.id_for_label }}">{% trans "Username" %}</label>
-    {{ form.username }}
-    {% if form.username.errors %}<div class="field-error" id="username-error">{{ form.username.errors }}</div>{% endif %}
-    <label for="{{ form.password.id_for_label }}">{% trans "Password" %}</label>
-    {{ form.password }}
-    {% if form.password.errors %}<div class="field-error" id="password-error">{{ form.password.errors }}</div>{% endif %}
+    <div class="login-heading">
+      <div class="logo-container-mobile">
+        <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE Logo" class="brand-logo-mobile">
+      </div>
+      <h2>Xush kelibsiz</h2>
+      <p>K-ONE boshqaruv tizimiga kiring</p>
+    </div>
+
+    {% if form.non_field_errors %}
+      <div class="form-alert" role="alert">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{% trans "Login yoki parol noto‘g‘ri. Qayta tekshirib kiriting." %}</span>
+      </div>
+    {% endif %}
+
+    <div class="form-group">
+      <label for="{{ form.username.id_for_label }}">Foydalanuvchi nomi</label>
+      <div class="input-wrapper">
+        <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <input type="text" name="username" id="{{ form.username.id_for_label }}" class="premium-input" placeholder="Foydalanuvchi nomi" required {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+      </div>
+      {% if form.username.errors %}
+        <div class="field-error" id="username-error">{{ form.username.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.password.id_for_label }}">Parol</label>
+      <div class="input-wrapper">
+        <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <input type="password" name="password" id="{{ form.password.id_for_label }}" class="premium-input" placeholder="Parol" required>
+      </div>
+      {% if form.password.errors %}
+        <div class="field-error" id="password-error">{{ form.password.errors }}</div>
+      {% endif %}
+    </div>
+
     {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
-    <button class="primary-button" type="submit">{% trans "Sign in" %}</button>
-    <p class="security-note"><span aria-hidden="true">●</span>{% trans "Access is limited to authorized staff." %}</p>
+
+    <button class="primary-button premium-btn" type="submit">Kirish</button>
+
+    <p class="security-note"><span aria-hidden="true">●</span> Tizimga kirish faqat ruxsat etilgan xodimlar uchun.</p>
   </form>
 </section>
 {% endblock %}
-

@@ -35,33 +35,38 @@
   </div>
 </div>
 
-<div class="filter-bar publication-filters">
-  <form method="get" class="filter-form">
-    <div class="search-input-wrap">
-      <input class="search-input" name="q" value="{{ request.GET.q }}" placeholder="{% trans 'Search event or headline...' %}" aria-label="{% trans 'Search' %}">
+<div class="command-filter-bar">
+  <form method="get" class="command-filter-form" style="display: flex; gap: var(--space-3); align-items: center; width: 100%;">
+    <div class="command-search-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="command-search-input" name="q" value="{{ request.GET.q }}" placeholder="{% trans 'Qidirish...' %}" aria-label="{% trans 'Search' %}">
     </div>
-    <select name="platform" aria-label="{% trans 'Platform' %}">
-      <option value="">{% trans "All platforms" %}</option>
-      {% for value, label in platforms %}
-        <option value="{{ value }}"{% if request.GET.platform == value %} selected{% endif %}>{{ label }}</option>
-      {% endfor %}
-    </select>
-    <select name="language" aria-label="{% trans 'Language' %}">
-      <option value="">{% trans "All languages" %}</option>
-      {% for value, label in languages %}
-        <option value="{{ value }}"{% if request.GET.language == value %} selected{% endif %}>{{ label }}</option>
-      {% endfor %}
-    </select>
-    <select name="status" aria-label="{% trans 'Status' %}">
-      <option value="">{% trans "All statuses" %}</option>
-      {% for value, label in statuses %}
-        <option value="{{ value }}"{% if request.GET.status == value %} selected{% endif %}>{{ label }}</option>
-      {% endfor %}
-    </select>
-    <button class="secondary-button compact" type="submit">{% trans "Filter" %}</button>
-    {% if request.GET.q or request.GET.platform or request.GET.language or request.GET.status %}
-      <a class="text-button" href="{% url 'publications:list' %}">{% trans "Reset" %}</a>
-    {% endif %}
+    <div class="command-filter-actions">
+      <select class="command-select" name="platform" aria-label="{% trans 'Platform' %}">
+        <option value="">{% trans "Platforma" %}</option>
+        {% for value, label in platforms %}
+          <option value="{{ value }}"{% if request.GET.platform == value %} selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <select class="command-select" name="language" aria-label="{% trans 'Language' %}">
+        <option value="">{% trans "Til" %}</option>
+        {% for value, label in languages %}
+          <option value="{{ value }}"{% if request.GET.language == value %} selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <select class="command-select" name="status" aria-label="{% trans 'Status' %}">
+        <option value="">{% trans "Holat" %}</option>
+        {% for value, label in statuses %}
+          <option value="{{ value }}"{% if request.GET.status == value %} selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button class="primary-button compact command-btn" type="submit">{% trans "Filtrlash" %}</button>
+      {% if request.GET.q or request.GET.platform or request.GET.language or request.GET.status %}
+        <div class="active-filters">
+          <a class="text-button compact clear-link" href="{% url 'publications:list' %}">{% trans "Tozalash" %}</a>
+        </div>
+      {% endif %}
+    </div>
   </form>
 </div>
 
@@ -96,7 +101,11 @@
             </td>
             <td>{{ item.scheduled_for|date:"d.m.Y H:i"|default:"—" }}</td>
             <td style="text-align: right;">
-              <a class="secondary-button compact" href="{% url 'publications:detail' pk=item.pk %}">{% trans "Preview" %}</a>
+              <div class="table-actions" style="display: flex; gap: 4px; justify-content: flex-end;">
+                <a class="btn-ghost btn-icon compact" href="{% url 'publications:detail' pk=item.pk %}" title="{% trans 'Preview' %}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </a>
+              </div>
             </td>
           </tr>
         {% empty %}

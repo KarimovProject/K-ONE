@@ -1,24 +1,23 @@
-{% load i18n %}
+{% load i18n static %}
 <aside class="sidebar" id="primary-navigation" aria-label="{% trans 'Primary navigation' %}">
-  <a class="brand" href="{% url 'dashboard' %}">
-    <span class="brand-mark" aria-hidden="true">I</span>
-    <span class="brand-copy">
-      <strong>IEMS</strong>
-      <small>{% trans "International Events" %}</small>
-    </span>
-  </a>
+  <div class="sidebar-header">
+    <a class="sidebar-brand" href="{% url 'dashboard' %}">
+      <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE" class="sidebar-logo">
+      <span class="sidebar-slogan">{% trans "Barcha tadbirlar yagona tizimda" %}</span>
+    </a>
+  </div>
 
-  <nav class="nav-list">
+  <nav class="nav-list sidebar-nav">
     <span class="nav-section">{% trans "Ish maydoni" %}</span>
-    <a class="nav-item{% if nav_key == 'workspace' %} is-active{% endif %}" href="{% url 'dashboard' %}">
-      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="dashboard" %}</span>
+    <a class="nav-item sidebar-nav-item{% if nav_key == 'workspace' %} is-active{% endif %}" href="{% url 'dashboard' %}" {% if nav_key == 'workspace' %}aria-current="page"{% endif %}>
+      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="home" %}</span>
       <span>{% trans "Bosh sahifa" %}</span>
     </a>
-    <a class="nav-item{% if nav_key == 'events' %} is-active{% endif %}" href="{% url 'events:list' %}">
-      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="event" %}</span>
+    <a class="nav-item sidebar-nav-item{% if nav_key == 'events' %} is-active{% endif %}" href="{% url 'events:list' %}" {% if nav_key == 'events' %}aria-current="page"{% endif %}>
+      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar-days" %}</span>
       <span>{% trans "Tadbirlar" %}</span>
     </a>
-    <a class="nav-item{% if nav_key == 'calendar' %} is-active{% endif %}" href="{% url 'calendar' %}">
+    <a class="nav-item sidebar-nav-item{% if nav_key == 'calendar' %} is-active{% endif %}" href="{% url 'calendar' %}" {% if nav_key == 'calendar' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar" %}</span>
       <span>{% trans "Taqvim" %}</span>
     </a>
@@ -26,36 +25,36 @@
     {% if user.is_superuser or user.role == 'super_admin' or user.role == 'management_responsible' or user.role == 'international_admin' %}
       <span class="nav-section">{% trans "Operatsiya" %}</span>
       {% if user.is_superuser or user.role == 'super_admin' or user.role == 'management_responsible' %}
-        <a class="nav-item{% if nav_key == 'approvals' %} is-active{% endif %}" href="{% url 'events:approval-list' %}">
-          <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="check" %}</span>
+        <a class="nav-item sidebar-nav-item{% if nav_key == 'approvals' %} is-active{% endif %}" href="{% url 'events:approval-list' %}" {% if nav_key == 'approvals' %}aria-current="page"{% endif %}>
+          <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="check-circle" %}</span>
           <span>{% trans "Tasdiqlash" %}</span>
         </a>
       {% endif %}
-      <a class="nav-item{% if nav_key == 'displaced' %} is-active{% endif %}" href="{% url 'events:displaced-list' %}">
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'displaced' %} is-active{% endif %}" href="{% url 'events:displaced-list' %}" {% if nav_key == 'displaced' %}aria-current="page"{% endif %}>
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="move" %}</span>
-        <span>{% trans "Ko‘chirilganlar" %}</span>
+        <span>{% trans "Ko'chirilganlar" %}</span>
       </a>
     {% endif %}
 
     {% if user.is_superuser or user.role == 'super_admin' or user.role == 'international_admin' %}
-      <span class="nav-section">{% trans "Asosiy ma'lumotlar" %}</span>
-      <a class="nav-item{% if nav_key == 'venues' %} is-active{% endif %}" href="{% url 'venues:list' %}">
+      <span class="nav-section">{% trans "Ma'lumotnomalar" %}</span>
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'venues' %} is-active{% endif %}" href="{% url 'venues:list' %}" {% if nav_key == 'venues' %}aria-current="page"{% endif %}>
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="venue" %}</span>
         <span>{% trans "Zallar" %}</span>
       </a>
-      <a class="nav-item{% if nav_key == 'event_types' %} is-active{% endif %}" href="{% url 'event-types:list' %}">
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'event_types' %} is-active{% endif %}" href="{% url 'event-types:list' %}" {% if nav_key == 'event_types' %}aria-current="page"{% endif %}>
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="tag" %}</span>
         <span>{% trans "Tadbir turlari" %}</span>
       </a>
-      <a class="nav-item{% if nav_key == 'organizations' %} is-active{% endif %}" href="{% url 'organizations:list' %}">
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'organizations' %} is-active{% endif %}" href="{% url 'organizations:list' %}" {% if nav_key == 'organizations' %}aria-current="page"{% endif %}>
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="organization" %}</span>
         <span>{% trans "Tashkilotlar" %}</span>
       </a>
-      <a class="nav-item{% if nav_key == 'sponsors' %} is-active{% endif %}" href="{% url 'sponsors:list' %}">
-        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="organization" %}</span>
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'sponsors' %} is-active{% endif %}" href="{% url 'sponsors:list' %}" {% if nav_key == 'sponsors' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="heart-handshake" %}</span>
         <span>{% trans "Homiylar" %}</span>
       </a>
-      <a class="nav-item{% if nav_key == 'speakers' %} is-active{% endif %}" href="{% url 'events:speaker-list' %}">
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'speakers' %} is-active{% endif %}" href="{% url 'events:speaker-list' %}" {% if nav_key == 'speakers' %}aria-current="page"{% endif %}>
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="speaker" %}</span>
         <span>{% trans "Ma'ruzachilar" %}</span>
       </a>
@@ -63,7 +62,7 @@
 
     {% if user.is_superuser or user.role == 'super_admin' or user.role == 'content_manager' %}
       <span class="nav-section">{% trans "Aloqa" %}</span>
-      <a class="nav-item{% if nav_key == 'publications' %} is-active{% endif %}" href="{% url 'publications:list' %}">
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'publications' %} is-active{% endif %}" href="{% url 'publications:list' %}" {% if nav_key == 'publications' %}aria-current="page"{% endif %}>
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="publication" %}</span>
         <span>{% trans "Nashrlar" %}</span>
       </a>
@@ -71,32 +70,32 @@
 
     <span class="nav-section">{% trans "Tahlil" %}</span>
     {% if user.is_superuser or user.role == 'super_admin' or user.role == 'international_admin' or user.role == 'leadership_viewer' or user.role == 'management_responsible' %}
-      <a class="nav-item{% if nav_key == 'leadership' %} is-active{% endif %}" href="{% url 'leadership-dashboard' %}">
-        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="report" %}</span>
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'leadership' %} is-active{% endif %}" href="{% url 'leadership-dashboard' %}" {% if nav_key == 'leadership' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="shield-check" %}</span>
         <span>{% trans "Rahbariyat paneli" %}</span>
       </a>
     {% endif %}
-    <a class="nav-item{% if nav_key == 'reports' %} is-active{% endif %}" href="{% url 'reporting:dashboard' %}">
+    <a class="nav-item sidebar-nav-item{% if nav_key == 'reports' %} is-active{% endif %}" href="{% url 'reporting:dashboard' %}" {% if nav_key == 'reports' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="report" %}</span>
       <span>{% trans "Hisobotlar" %}</span>
     </a>
 
-    <span class="nav-section">{% trans "Personal" %}</span>
-    <a class="nav-item{% if nav_key == 'telegram' %} is-active{% endif %}" href="{% url 'notifications:telegram-settings' %}">
+    <span class="nav-section">{% trans "Shaxsiy" %}</span>
+    <a class="nav-item sidebar-nav-item{% if nav_key == 'telegram' %} is-active{% endif %}" href="{% url 'notifications:telegram-settings' %}" {% if nav_key == 'telegram' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="send" %}</span>
       <span>Telegram</span>
     </a>
-    <a class="nav-item{% if nav_key == 'profile' %} is-active{% endif %}" href="{% url 'profile' %}">
+    <a class="nav-item sidebar-nav-item{% if nav_key == 'profile' %} is-active{% endif %}" href="{% url 'profile' %}" {% if nav_key == 'profile' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="user" %}</span>
       <span>{% trans "Profil" %}</span>
     </a>
   </nav>
 
-  <div class="sidebar-status">
-    <span class="status-dot"></span>
-    <span>
+  <div class="sidebar-status sidebar-footer">
+    <span class="status-dot status-breathe-dot bg-free"></span>
+    <div class="sidebar-status-copy">
       <strong>{% trans "Tizim faol" %}</strong>
       <small>{% trans "Operatsion holatda" %}</small>
-    </span>
+    </div>
   </div>
 </aside>

@@ -1,3 +1,119 @@
-{% extends "base.html" %}{% load i18n account_ui %}
-{% block title %}{% trans "Profile" %} · IEMS{% endblock %}
-{% block content %}<section class="page-heading"><div><p class="eyebrow">{% trans "Account control" %}</p><h1>{% trans "Profile and preferences" %}</h1><p>{% trans "Manage your identity and interface language. Access role changes require an administrator." %}</p></div><span class="phase-badge">{{ user|localized_role }}</span></section><div class="profile-layout"><form method="post" class="data-form profile-form">{% csrf_token %}<div class="profile-identity"><span class="profile-avatar">{{ user.username|slice:':1'|upper }}</span><div><strong>{{ user.get_full_name|default:user.username }}</strong><small>@{{ user.username }}</small></div></div><div class="form-grid">{% for field in form %}<div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}</div>{% endfor %}</div><div class="form-actions"><button class="primary-button compact" type="submit">{% trans "Save profile" %}</button></div></form><aside class="profile-summary"><section><p class="eyebrow">{% trans "Access" %}</p><h2>{% trans "Role" %}</h2><strong>{{ user|localized_role }}</strong><p>{% trans "Role and permissions are managed centrally." %}</p></section><section><p class="eyebrow">{% trans "Activity" %}</p><dl><div><dt>{% trans "Assigned events" %}</dt><dd>{{ assigned_count }}</dd></div><div><dt>{% trans "Management events" %}</dt><dd>{{ management_count }}</dd></div><div><dt>Telegram</dt><dd>{% if telegram_connected %}{% trans "Connected" %}{% else %}{% trans "Not connected" %}{% endif %}</dd></div></dl></section></aside></div>{% endblock %}
+{% extends "base.html" %}
+{% load i18n account_ui %}
+
+{% block title %}{% trans "Profile" %} · K-ONE{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+  <div>
+    <span class="eyebrow">{% trans "Account control" %}</span>
+    <h1>{% trans "Profile and preferences" %}</h1>
+    <p>{% trans "Manage your identity and interface language. Access role changes require an administrator." %}</p>
+  </div>
+  <span class="status-badge active">{{ user|localized_role }}</span>
+</div>
+
+<div class="profile-layout">
+  <!-- Panel A: Profile Details & Form -->
+  <div class="profile-form-panel">
+    <div class="profile-identity">
+      <div class="profile-avatar">{{ user.username|slice:':1'|upper }}</div>
+      <div>
+        <h2 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--color-text-title);">{{ user.get_full_name|default:user.username }}</h2>
+        <span style="font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted);">@{{ user.username }}</span>
+      </div>
+    </div>
+
+    <form method="post" class="data-form" novalidate>
+      {% csrf_token %}
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+          <input type="text" name="first_name" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value|default:'' }}" class="form-control">
+          {% for error in form.first_name.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="form-field">
+          <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+          <input type="text" name="last_name" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value|default:'' }}" class="form-control">
+          {% for error in form.last_name.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="form-field" style="grid-column: 1 / -1;">
+          <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          <input type="email" name="email" id="{{ form.email.id_for_label }}" value="{{ form.email.value|default:'' }}" class="form-control">
+          {% for error in form.email.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="form-field" style="grid-column: 1 / -1;">
+          <label for="{{ form.preferred_language.id_for_label }}">{{ form.preferred_language.label }}</label>
+          <select name="preferred_language" id="{{ form.preferred_language.id_for_label }}" class="form-control select-control">
+            {% for val, name in form.preferred_language.field.choices %}
+              <option value="{{ val }}"{% if form.preferred_language.value == val %} selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
+          {% for error in form.preferred_language.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="primary-button" type="submit">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          {% trans "Save profile" %}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right Panels: Role & Activity -->
+  <aside class="profile-summary">
+    <!-- Panel B: Role & Access -->
+    <div class="profile-card">
+      <span class="eyebrow">{% trans "Access" %}</span>
+      <h2>{% trans "Role & Permissions" %}</h2>
+      <div style="margin-bottom: var(--space-3);">
+        <span class="status-badge active">{{ user|localized_role }}</span>
+      </div>
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 var(--space-3); line-height: 1.4;">
+        {% trans "Role and permissions are managed centrally by system administrators." %}
+      </p>
+      <div style="display: flex; flex-direction: column; gap: var(--space-2); font-size: 12px; color: var(--color-text-muted);">
+        <div>• {% trans "Staff Status" %}: <strong>{% if user.is_staff %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</strong></div>
+        <div>• {% trans "Superuser" %}: <strong>{% if user.is_superuser %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</strong></div>
+      </div>
+    </div>
+
+    <!-- Panel C: Activity Summary -->
+    <div class="profile-card">
+      <span class="eyebrow">{% trans "Activity" %}</span>
+      <h2>{% trans "Operational Activity" %}</h2>
+      <dl class="activity-dl">
+        <div>
+          <dt>{% trans "Assigned events" %}</dt>
+          <dd>{{ assigned_count }}</dd>
+        </div>
+        <div>
+          <dt>{% trans "Management events" %}</dt>
+          <dd>{{ management_count }}</dd>
+        </div>
+        <div>
+          <dt>Telegram</dt>
+          <dd>
+            {% if telegram_connected %}
+              <span class="status-badge active">{% trans "Connected" %}</span>
+            {% else %}
+              <span class="status-badge draft">{% trans "Not connected" %}</span>
+            {% endif %}
+          </dd>
+        </div>
+        {% if user.last_login %}
+          <div>
+            <dt>{% trans "Last login" %}</dt>
+            <dd style="font-family: var(--font-mono); font-size: 11px;">{{ user.last_login|date:"d.m.Y H:i" }}</dd>
+          </div>
+        {% endif %}
+      </dl>
+    </div>
+  </aside>
+</div>
+{% endblock %}

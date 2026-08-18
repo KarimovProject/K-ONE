@@ -19,3 +19,21 @@ celerybeat-schedule*
 celerybeat-*
 backups/
 restore-media/
+
+# Phase 25 generated audit files
+tests/visual_baseline/**/*.png
+docs/audit_screenshots*/**
+screenshots/
+css_forensics.json
+browser captures/
+*.html
+!templates/**/*.html
+bad_renames.txt
+list_urls.py
+kone_*.png
+test_*.png
+phase*.png
+*.html.txt
+*.patch
+*.zip
+phase25_*.txt

@@ -14,31 +14,33 @@
   </div>
 </div>
 
-<div class="filter-bar">
-  <form class="filter-form" id="calendar-filter-form">
-    <select id="filter-venue" aria-label="{% trans 'Filter by venue' %}">
-      <option value="">{% trans "All Venues" %}</option>
-      {% for v in venues %}
-        <option value="{{ v.id }}">{{ v.localized_name }}</option>
-      {% endfor %}
-    </select>
+<div class="command-filter-bar">
+  <form class="command-filter-form" id="calendar-filter-form" style="display: flex; gap: var(--space-3); align-items: center; width: 100%;">
+    <div class="command-filter-actions">
+      <select class="command-select" id="filter-venue" aria-label="{% trans 'Zal bo‘yicha' %}">
+        <option value="">{% trans "Zal" %}</option>
+        {% for v in venues %}
+          <option value="{{ v.id }}">{{ v.localized_name }}</option>
+        {% endfor %}
+      </select>
 
-    <select id="filter-type" aria-label="{% trans 'Filter by event type' %}">
-      <option value="">{% trans "All Event Types" %}</option>
-      {% for t in event_types %}
-        <option value="{{ t.id }}">{{ t.localized_name }}</option>
-      {% endfor %}
-    </select>
+      <select class="command-select" id="filter-type" aria-label="{% trans 'Tadbir turi bo‘yicha' %}">
+        <option value="">{% trans "Turi" %}</option>
+        {% for t in event_types %}
+          <option value="{{ t.id }}">{{ t.localized_name }}</option>
+        {% endfor %}
+      </select>
 
-    <select id="filter-status" aria-label="{% trans 'Filter by status' %}">
-      <option value="all">{% trans "All Statuses" %}</option>
-      {% for code, label in statuses %}
-        <option value="{{ code }}">{{ label }}</option>
-      {% endfor %}
-    </select>
+      <select class="command-select" id="filter-status" aria-label="{% trans 'Holat bo‘yicha' %}">
+        <option value="all">{% trans "Holat" %}</option>
+        {% for code, label in statuses %}
+          <option value="{{ code }}">{{ label }}</option>
+        {% endfor %}
+      </select>
 
-    <button class="secondary-button compact" type="button" id="btn-apply-filters">{% trans "Apply Filters" %}</button>
-    <button class="text-button" type="button" id="btn-reset-filters">{% trans "Reset" %}</button>
+      <button class="primary-button compact command-btn" type="button" id="btn-apply-filters">{% trans "Filtrlash" %}</button>
+      <button class="secondary-button compact command-btn" type="button" id="btn-reset-filters">{% trans "Tozalash" %}</button>
+    </div>
   </form>
 </div>
 

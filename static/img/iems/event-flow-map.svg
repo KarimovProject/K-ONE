@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Soft luminous glows -->
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="24" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-light" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Linear route gradients -->
+    <linearGradient id="route-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16BCEB" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#13C8B0" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="route-cobalt" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#145CFF" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#7659FF" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Subtle Grid Pattern -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#145CFF" stroke-width="0.5" stroke-opacity="0.05" />
+    </pattern>
+  </defs>
+
+  <!-- Base Grid -->
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Subtle World / Network Geometry (Abstract) -->
+  <g stroke="#145CFF" stroke-opacity="0.03" fill="none">
+    <circle cx="800" cy="450" r="300" stroke-width="1" />
+    <circle cx="800" cy="450" r="450" stroke-width="0.5" />
+    <circle cx="800" cy="450" r="600" stroke-width="0.2" />
+    <circle cx="1200" cy="200" r="400" stroke-width="0.5" />
+  </g>
+
+  <!-- Luminous Route Lines (Curved Event Paths) -->
+  <path class="animated-path-1" d="M -100 600 C 300 700, 500 200, 800 300 S 1200 400, 1700 100" fill="none" stroke="url(#route-cyan)" stroke-width="3" filter="url(#glow-light)" />
+
+  <path class="animated-path-2" d="M 200 1000 C 400 600, 600 500, 1000 600 S 1400 300, 1800 200" fill="none" stroke="url(#route-cobalt)" stroke-width="2" filter="url(#glow-light)" />
+
+  <path d="M 0 300 C 200 200, 600 600, 900 400 S 1300 700, 1700 600" fill="none" stroke="#7659FF" stroke-width="1.5" stroke-opacity="0.2" />
+
+  <!-- Central Connectivity Nodes -->
+  <g filter="url(#glow-heavy)">
+    <circle class="pulse-node" cx="800" cy="300" r="14" fill="#16BCEB" opacity="0.8" />
+    <circle class="pulse-node" cx="1000" cy="600" r="10" fill="#145CFF" opacity="0.6" />
+    <circle class="pulse-node" cx="480" cy="380" r="8" fill="#13C8B0" opacity="0.7" />
+    <circle class="pulse-node" cx="1320" cy="340" r="6" fill="#7659FF" opacity="0.5" />
+  </g>
+
+  <!-- Core bright centers -->
+  <circle cx="800" cy="300" r="4" fill="#FFFFFF" />
+  <circle cx="1000" cy="600" r="3" fill="#FFFFFF" />
+  <circle cx="480" cy="380" r="2.5" fill="#FFFFFF" />
+  <circle cx="1320" cy="340" r="2" fill="#FFFFFF" />
+
+  <!-- Secondary / Minor Nodes -->
+  <circle cx="200" cy="650" r="3" fill="#16BCEB" filter="url(#glow-light)" opacity="0.6" />
+  <circle cx="600" cy="700" r="2" fill="#145CFF" filter="url(#glow-light)" opacity="0.4" />
+  <circle cx="1100" cy="150" r="4" fill="#13C8B0" filter="url(#glow-light)" opacity="0.5" />
+  <circle cx="1450" cy="550" r="3" fill="#7659FF" filter="url(#glow-light)" opacity="0.7" />
+
+  <!-- Animated Elements (can be driven by CSS) -->
+  <style>
+    @keyframes movePoint {
+      0% { offset-distance: 0%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { offset-distance: 100%; opacity: 0; }
+    }
+    @keyframes nodePulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    .pulse-node {
+      animation: nodePulse 4s infinite ease-in-out;
+      transform-origin: center;
+    }
+  </style>
+</svg>

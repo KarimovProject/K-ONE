@@ -1,27 +1,34 @@
 {% load i18n %}
-<form class="filter-bar" method="get" role="search">
-  <label class="search-field">
-    <span class="sr-only">{% trans "Search" %}</span>
-    <span aria-hidden="true">⌕</span>
-    <input type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search records' %}">
-  </label>
-  <label>
-    <span class="sr-only">{% trans "Status" %}</span>
-    <select name="status">
-      <option value="all"{% if status_filter == 'all' %} selected{% endif %}>{% trans "All statuses" %}</option>
-      <option value="active"{% if status_filter == 'active' %} selected{% endif %}>{% trans "Active" %}</option>
-      <option value="inactive"{% if status_filter == 'inactive' %} selected{% endif %}>{% trans "Inactive" %}</option>
-    </select>
-  </label>
-  {% if organization_types %}
-    <label>
-      <span class="sr-only">{% trans "Organization type" %}</span>
-      <select name="type">
-        <option value="all">{% trans "All organization types" %}</option>
-        {% for value, label in organization_types %}<option value="{{ value }}"{% if type_filter == value %} selected{% endif %}>{{ label }}</option>{% endfor %}
+<div class="command-filter-bar">
+  <form class="command-filter-form" method="get" role="search">
+    <div class="command-search-wrap">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="command-search-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Qidirish...' %}" aria-label="{% trans 'Search records' %}">
+    </div>
+
+    <div class="command-filter-actions">
+      <select class="command-select" name="status" aria-label="{% trans 'Status' %}">
+        <option value="all"{% if status_filter == 'all' %} selected{% endif %}>{% trans "Barcha holatlar" %}</option>
+        <option value="active"{% if status_filter == 'active' %} selected{% endif %}>{% trans "Faol" %}</option>
+        <option value="inactive"{% if status_filter == 'inactive' %} selected{% endif %}>{% trans "Nofaol" %}</option>
       </select>
-    </label>
-  {% endif %}
-  <button class="secondary-button" type="submit">{% trans "Apply" %}</button>
-  {% if search_query or status_filter != 'all' or type_filter != 'all' %}<a class="quiet-link" href=".">{% trans "Clear" %}</a>{% endif %}
-</form>
+
+      {% if organization_types %}
+        <select class="command-select" name="type" aria-label="{% trans 'Organization type' %}">
+          <option value="all">{% trans "Barcha turlar" %}</option>
+          {% for value, label in organization_types %}<option value="{{ value }}"{% if type_filter == value %} selected{% endif %}>{{ label }}</option>{% endfor %}
+        </select>
+      {% endif %}
+
+      <button class="primary-button compact command-btn" type="submit">{% trans "Filtrlash" %}</button>
+
+      {% if search_query or status_filter and status_filter != 'all' or type_filter and type_filter != 'all' %}
+        <div class="active-filters">
+          {% if status_filter and status_filter != 'all' %}<span class="filter-chip">{% trans "Holat filtri faol" %}</span>{% endif %}
+          {% if type_filter and type_filter != 'all' %}<span class="filter-chip">{% trans "Tur filtri faol" %}</span>{% endif %}
+          <a class="text-button compact clear-link" href="?">{% trans "Tozalash" %}</a>
+        </div>
+      {% endif %}
+    </div>
+  </form>
+</div>

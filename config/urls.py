@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 from apps.accounts.views import ProfileView
 from apps.attendance.views import PublicCheckinView
@@ -28,6 +29,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("dashboard/", PublicDashboardView.as_view(), name="public-dashboard"),
     path("dashboard/calendar/", PublicCalendarView.as_view(), name="public-calendar"),
+    path("venues/", RedirectView.as_view(pattern_name="venues:list", permanent=False)),
     path("venues/live/", PublicLiveVenuesView.as_view(), name="public-live-venues"),
     path("api/public/dashboard/", PublicDashboardAPIView.as_view(), name="public-dashboard-api"),
     path("api/public/calendar/", PublicCalendarAPIView.as_view(), name="public-calendar-api"),
@@ -35,7 +37,9 @@ urlpatterns = [
     path("workspace/", dashboard, name="dashboard"),
     path("profile/", ProfileView.as_view(), name="profile"),
     path("accounts/login/", ThrottledLoginView.as_view(), name="login"),
+    path("login/", RedirectView.as_view(pattern_name="login", permanent=False)),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("logout/", RedirectView.as_view(pattern_name="logout", permanent=False)),
     path("i18n/", include("django.conf.urls.i18n")),
     path("health/", health.application_health, name="application-health"),
     path("health/database/", health.database_health, name="database-health"),

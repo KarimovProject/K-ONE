@@ -1,2 +1,63 @@
 {% load i18n account_ui %}
-<header class="topbar"><button class="icon-button menu-button" type="button" data-sidebar-open aria-controls="primary-navigation" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">{% trans "Open navigation" %}</span></button><div class="topbar-context"><span class="eyebrow">{% trans "International Department" %}</span><strong>{% trans "Coordinated events workspace" %}</strong></div><div class="topbar-actions"><form class="language-switch" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Language' %}">{% csrf_token %}<input name="next" type="hidden" value="{{ request.get_full_path }}">{% get_current_language as CURRENT_LANGUAGE %}{% for code, name in LANGUAGES %}<button name="language" value="{{ code }}" type="submit"{% if code == CURRENT_LANGUAGE %} class="is-current" aria-current="true"{% endif %}>{{ code|upper }}</button>{% endfor %}</form><a class="icon-button notification-button" href="{% url 'notifications:list' %}" aria-label="{% trans 'Notifications' %}"><span>●</span></a><div class="user-block"><span class="avatar">{{ user.get_username|slice:':1'|upper }}</span><a class="user-copy" href="{% url 'profile' %}"><strong>{{ user.get_full_name|default:user.get_username }}</strong><small>{{ user|localized_role }}</small></a><form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="text-button" type="submit">{% trans "Sign out" %}</button></form></div>{% if user.is_staff or user.is_superuser %}<a class="admin-link" href="{% url 'admin:index' %}">{% trans "Admin" %}</a>{% endif %}<a class="public-view-link" href="{% url 'public-dashboard' %}">{% trans "Public view" %} ↗</a></div></header>
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="icon-button menu-button" type="button" data-sidebar-open aria-controls="primary-navigation" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      <span class="sr-only">{% trans "Open navigation" %}</span>
+    </button>
+    <div class="topbar-context">
+      <span class="eyebrow">{% trans "Xalqaro bo'lim" %}</span>
+      <strong>{% trans "Boshqaruv markazi" %}</strong>
+    </div>
+  </div>
+
+  <div class="topbar-actions">
+    <a class="public-view-link pill-link" href="{% url 'public-dashboard' %}" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+      <span>{% trans "Ochiq tizim" %}</span>
+    </a>
+
+    <form class="language-switch" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Language' %}">
+      {% csrf_token %}
+      <input name="next" type="hidden" value="{{ request.get_full_path }}">
+      {% get_current_language as CURRENT_LANGUAGE %}
+      {% for code, name in LANGUAGES %}
+        <button name="language" value="{{ code }}" type="submit"{% if code == CURRENT_LANGUAGE %} class="is-current" aria-current="true"{% endif %}>{{ code|upper }}</button>
+      {% endfor %}
+    </form>
+
+    <a class="icon-button notification-button" href="{% url 'notifications:list' %}" aria-label="{% trans 'Notifications' %}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+    </a>
+
+    <details class="user-dropdown-menu">
+      <summary class="user-block">
+        <span class="avatar">{{ user.get_username|slice:':1'|upper }}</span>
+        <div class="user-copy">
+          <strong>{{ user.get_full_name|default:user.get_username }}</strong>
+          <small>{{ user|localized_role }}</small>
+        </div>
+      </summary>
+      <div class="dropdown-content" role="menu">
+        <a href="{% url 'profile' %}" role="menuitem">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          {% trans "Profil" %}
+        </a>
+        {% if user.is_staff or user.is_superuser %}
+          <a href="{% url 'admin:index' %}" role="menuitem">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            {% trans "Admin Panel" %}
+          </a>
+        {% endif %}
+        <div class="dropdown-divider"></div>
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="logout-btn" role="menuitem">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            {% trans "Chiqish" %}
+          </button>
+        </form>
+      </div>
+    </details>
+  </div>
+</header>

@@ -3,13 +3,16 @@
 {% block title %}{% trans "Speakers Directory" %} · IEMS{% endblock %}
 
 {% block content %}
-<div class="page-header flex-between">
+<div class="page-heading">
   <div>
+    <span class="eyebrow">K-ONE / {% trans "Master Data" %}</span>
     <h1 class="page-title">{% trans "Speakers Directory" %}</h1>
-    <p class="page-subtitle">{% trans "Manage keynote speakers, presenters, and experts." %}</p>
+    <p class="page-description">{% trans "Manage keynote speakers, presenters, and experts." %}</p>
   </div>
   <div>
-    <a class="primary-button" href="{% url 'events:speaker-create' %}" data-testid="add-speaker-btn">➕ {% trans "Add New Speaker" %}</a>
+    <a class="primary-button" href="{% url 'events:speaker-create' %}" data-testid="add-speaker-btn">
+      <span aria-hidden="true">+</span> {% trans "New Speaker" %}
+    </a>
   </div>
 </div>
 
@@ -23,7 +26,7 @@
           <th>{% trans "Organization" %}</th>
           <th>{% trans "Country" %}</th>
           <th>{% trans "Status" %}</th>
-          <th>{% trans "Actions" %}</th>
+          <th style="text-align: right;">{% trans "Actions" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -40,8 +43,12 @@
                 <span class="status-badge draft">Hidden</span>
               {% endif %}
             </td>
-            <td>
-              <a class="secondary-button compact" href="{% url 'events:speaker-edit' pk=speaker.pk %}" data-testid="edit-speaker-btn-{{ speaker.pk }}">✏️ Edit</a>
+            <td style="text-align: right;">
+              <div class="table-actions" style="display: flex; gap: 4px; justify-content: flex-end;">
+                <a class="btn-ghost btn-icon compact" href="{% url 'events:speaker-edit' pk=speaker.pk %}" data-testid="edit-speaker-btn-{{ speaker.pk }}" title="{% trans 'Edit' %}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </a>
+              </div>
             </td>
           </tr>
         {% endfor %}

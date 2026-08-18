@@ -17,6 +17,6 @@ def test_authenticated_user_can_access_dashboard_shell(client, user):
     response = client.get(reverse("dashboard"))
 
     assert response.status_code == 200
-    assert b"IEMS" in response.content
+    assert b"K-ONE" in response.content
     assert b"Phase 0" in response.content
 
