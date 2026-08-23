@@ -1,0 +1,227 @@
+[
+  {
+    "filename": "Rooms_menu_open_1920.png",
+    "requested_url": "/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Rooms_390.png",
+    "requested_url": "/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Event_Types_menu_open_1920.png",
+    "requested_url": "/master-data/event-types/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Event_Types_390.png",
+    "requested_url": "/master-data/event-types/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Organizations_menu_open_1920.png",
+    "requested_url": "/master-data/organizations/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Organizations_390.png",
+    "requested_url": "/master-data/organizations/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Sponsors_menu_open_1920.png",
+    "requested_url": "/master-data/sponsors/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Sponsors_390.png",
+    "requested_url": "/master-data/sponsors/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Speakers_menu_open_1920.png",
+    "requested_url": "/events/speakers/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Speakers_390.png",
+    "requested_url": "/events/speakers/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Events_menu_open_1920.png",
+    "requested_url": "/events/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Events_1920.png",
+    "requested_url": "/events/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Events_390.png",
+    "requested_url": "/events/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Leadership_UZ_1920.png",
+    "requested_url": "/leadership/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  },
+  {
+    "filename": "Leadership_UZ_390.png",
+    "requested_url": "/leadership/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "horizontal_overflow": false,
+    "mobile_action_errors": [],
+    "cta_errors": [],
+    "dropdown_errors": [],
+    "passed": true
+  }
+]

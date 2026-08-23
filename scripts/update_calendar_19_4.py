@@ -1,0 +1,149 @@
+import os
+
+CALENDAR_HTML = """{% extends "public/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Taqvim" %} — K-ONE{% endblock %}
+
+{% block content %}
+<div class="public-calendar animate-entrance" data-calendar data-endpoint="{% url 'public-calendar-api' %}">
+
+  <div class="calendar-header-intro">
+    <div style="font-size:var(--text-micro); font-weight:var(--weight-bold); color:var(--color-brand-cyan); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:var(--space-1); display:flex; align-items:center; gap:6px;">
+      <span class="live-beacon cyan"></span>
+      {% trans "REJALASHTIRILGAN DASTUR" %}
+    </div>
+    <h1 style="font-size:var(--text-title-xl); font-weight:var(--weight-black); color:var(--color-text-title); margin:0 0 var(--space-4) 0; letter-spacing:-0.03em;">
+      {% trans "Xalqaro tadbirlar taqvimi" %}
+    </h1>
+  </div>
+
+  <!-- TOP COMMAND BAR -->
+  <div class="calendar-command-bar">
+    <div class="calendar-command-bar__left">
+      <button type="button" class="btn btn--secondary btn-cal-nav" data-prev aria-label="{% trans 'Oldingi' %}">←</button>
+      <button type="button" class="btn btn--secondary btn-cal-today" data-today>{% trans "Bugun" %}</button>
+      <button type="button" class="btn btn--secondary btn-cal-nav" data-next aria-label="{% trans 'Keyingi' %}">→</button>
+    </div>
+
+    <div class="calendar-command-bar__center" data-calendar-title>Avgust 2026</div>
+
+    <div class="calendar-command-bar__right">
+      <div class="segmented-control" role="tablist">
+        <button type="button" class="segmented-control__btn is-active" data-view="month" aria-selected="true">{% trans "Oy" %}</button>
+        <button type="button" class="segmented-control__btn" data-view="week">{% trans "Hafta" %}</button>
+        <button type="button" class="segmented-control__btn" data-view="day">{% trans "Kun" %}</button>
+        <button type="button" class="segmented-control__btn" data-view="list">{% trans "Ro'yxat" %}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNIFIED FILTER TOOLBAR & CTA -->
+  <div class="calendar-toolbar-row">
+    <div class="calendar-filters premium-filters">
+      <div class="filter-group filter-group--search">
+        <div class="filter-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        <input type="search" data-filter="search" class="input-control filter-input" placeholder="{% trans 'Tadbirni qidirish...' %}">
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group">
+        <select data-filter="venue" class="input-control select-control filter-select">
+          <option value="">{% trans "Barcha Zallar" %}</option>
+          {% for v in venues %}
+            <option value="{{ v.code }}">{{ v.code }} - {{ v.localized_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group">
+        <select data-filter="type" class="input-control select-control filter-select">
+          <option value="">{% trans "Barcha Turlar" %}</option>
+          {% for event_type in event_types %}
+            <option value="{{ event_type.code }}">{{ event_type.localized_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="button" class="btn btn--ghost filter-clear" data-clear-filters>{% trans "Tozalash" %}</button>
+    </div>
+
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}" class="btn btn--primary btn-create-event">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        {% trans "Tadbir yaratish" %}
+      </a>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn--primary btn-create-event">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        {% trans "Tadbir yaratish" %}
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="filter-chips" data-filter-chips aria-live="polite"></div>
+
+  <!-- MONTH GRID / STAGE (JS target) -->
+  <div class="calendar-stage calendar-month premium-grid animate-stagger-3" data-calendar-stage aria-live="polite">
+    <div class="calendar-loading">
+      <span></span><span></span><span></span>
+      <p>{% trans "Yuklanmoqda..." %}</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Calendar Inspector Drawer (Drawer Logic using original tags) -->
+<div class="calendar-inspector premium-inspector" id="calendar-inspector" data-event-dialog aria-labelledby="inspector-title" aria-modal="true" role="dialog">
+  <div class="inspector-backdrop" data-dialog-close></div>
+  <div class="inspector-panel">
+    <div class="inspector-header">
+      <h2 class="inspector-title" id="inspector-title" data-dialog-title></h2>
+      <button type="button" class="btn btn--ghost" data-dialog-close aria-label="{% trans 'Yopish' %}">✕</button>
+    </div>
+
+    <div class="chip" data-dialog-status style="margin-bottom: var(--space-4); display:inline-flex;"></div>
+
+    <div class="inspector-meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">{% trans "Vaqt" %}</span>
+        <span class="meta-value" data-dialog-time></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">{% trans "Zal" %}</span>
+        <span class="meta-value" data-dialog-venue></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">{% trans "Turi" %}</span>
+        <span class="meta-value" data-dialog-type></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">{% trans "Mas'ul" %}</span>
+        <span class="meta-value" data-dialog-responsible></span>
+      </div>
+    </div>
+
+    <div class="inspector-body">
+      <p class="inspector-desc" data-dialog-description></p>
+    </div>
+
+    <div class="inspector-footer">
+      <a class="btn btn--primary" style="width:100%; justify-content:center;" data-dialog-link href="#">{% trans "Tadbir sahifasiga o'tish" %} →</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/public-calendar.js' %}"></script>
+{% endblock %}
+"""
+
+with open('templates/public/calendar.html', 'w', encoding='utf-8') as f:
+    f.write(CALENDAR_HTML)
+print("Calendar template updated.")

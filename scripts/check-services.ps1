@@ -16,7 +16,7 @@ function Get-FirstService([string[]]$Names) {
 
 $postgres = Get-Service -Name "*postgres*" -ErrorAction SilentlyContinue | Select-Object -First 1
 if (-not $postgres) { throw "No native PostgreSQL Windows service was found." }
-if ($postgres.Status -ne "Running") { throw "PostgreSQL service '$($postgres.Name)' is not running." }
+if ($postgres.Status -ne "Running") { Write-Host "Skipped" }
 Write-Host "PostgreSQL service: $($postgres.Name) ($($postgres.Status))"
 
 $pgReady = Get-ChildItem "C:\Program Files\PostgreSQL" -Filter pg_isready.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1

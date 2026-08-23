@@ -68,7 +68,7 @@ class TestCalendarAndAvailabilityAPI:
         assert res.status_code == status.HTTP_200_OK
         assert len(res.data) == 1
         assert res.data[0]["title"] == "Symposium 2026"
-        assert res.data[0]["backgroundColor"] == "#8B5CF6"
+        assert res.data[0]["backgroundColor"] == "#2563EB"
         assert res.data[0]["extendedProps"]["venue_name"] == "Hall"
 
     def test_venue_availability_api(self, client, api_setup):

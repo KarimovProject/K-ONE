@@ -43,5 +43,34 @@
     </main>
   {% endif %}
   {% block extra_js %}{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.addEventListener('click', function(e) {
+    // Close all dropdowns
+    var allDropdowns = document.querySelectorAll('.premium-dropdown-menu');
+
+    // Find closest toggle
+    var toggle = e.target.closest('.dropdown-toggle');
+
+    if (toggle) {
+      e.preventDefault();
+      e.stopPropagation();
+      var wrapper = toggle.closest('.dropdown-wrapper');
+      var menu = wrapper.querySelector('.premium-dropdown-menu');
+      var isHidden = menu.hasAttribute('hidden');
+
+      allDropdowns.forEach(d => d.setAttribute('hidden', 'hidden'));
+
+      if (isHidden) {
+        menu.removeAttribute('hidden');
+      }
+    } else {
+      allDropdowns.forEach(d => d.setAttribute('hidden', 'hidden'));
+    }
+  });
+});
+</script>
 </body>
+
 </html>

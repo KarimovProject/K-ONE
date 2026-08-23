@@ -60,10 +60,10 @@
           <option value="{{ value }}"{% if request.GET.status == value %} selected{% endif %}>{{ label }}</option>
         {% endfor %}
       </select>
-      <button class="primary-button compact command-btn" type="submit">{% trans "Filtrlash" %}</button>
+      <button class="btn-primary compact command-btn" type="submit">{% trans "Filtrlash" %}</button>
       {% if request.GET.q or request.GET.platform or request.GET.language or request.GET.status %}
         <div class="active-filters">
-          <a class="text-button compact clear-link" href="{% url 'publications:list' %}">{% trans "Tozalash" %}</a>
+          <a class="btn-ghost compact clear-link" href="{% url 'publications:list' %}">{% trans "Tozalash" %}</a>
         </div>
       {% endif %}
     </div>
@@ -80,43 +80,54 @@
           <th>{% trans "Language" %}</th>
           <th>{% trans "Status" %}</th>
           <th>{% trans "Schedule" %}</th>
-          <th style="text-align: right;">{% trans "Actions" %}</th>
+          <th style="text-align: right;" class="desktop-only">{% trans "Actions" %}</th>
         </tr>
       </thead>
+      {% if publications %}
       <tbody>
         {% for item in publications %}
           <tr>
-            <td>
-              <a class="table-title-link" href="{% url 'publications:detail' pk=item.pk %}"><strong>{{ item.headline }}</strong></a>
-              <small style="display: block; color: var(--text-muted);">{{ item.event.title }}</small>
-            </td>
-            <td>
-              <span class="tag">{{ item.get_platform_display }}</span>
-            </td>
-            <td>
-              <span class="phase-badge">{{ item.language|upper }}</span>
-            </td>
-            <td>
-              <span class="status-badge {{ item.status }}">{{ item.get_status_display }}</span>
-            </td>
-            <td>{{ item.scheduled_for|date:"d.m.Y H:i"|default:"—" }}</td>
-            <td style="text-align: right;">
-              <div class="table-actions" style="display: flex; gap: 4px; justify-content: flex-end;">
-                <a class="btn-ghost btn-icon compact" href="{% url 'publications:detail' pk=item.pk %}" title="{% trans 'Preview' %}">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                </a>
+            <td data-label="{% trans 'Announcement' %}">
+              <div class="record-title">
+                <a class="table-title-link" href="{% url 'publications:detail' pk=item.pk %}"><strong>{{ item.headline }}</strong></a>
+                <small style="display: block; color: var(--color-text-muted);">{{ item.event.title }}</small>
               </div>
             </td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td colspan="6" style="padding: var(--space-8); text-align: center; color: var(--text-muted);">
-              {% trans "No publications yet. Open an eligible event to create one." %}
+            <td data-label="{% trans 'Platform' %}">
+              <span class="tag">{{ item.get_platform_display }}</span>
             </td>
+            <td data-label="{% trans 'Language' %}">
+              <span class="phase-badge">{{ item.language|upper }}</span>
+            </td>
+            <td data-label="{% trans 'Status' %}">
+              <span class="status-badge {{ item.status }}">{{ item.get_status_display }}</span>
+            </td>
+            <td data-label="{% trans 'Schedule' %}">{{ item.scheduled_for|date:"d.m.Y H:i"|default:"—" }}</td>
+            <td class="actions-cell">
+  <div class="dropdown-wrapper desktop-only" style="display: inline-block; text-align: left;">
+    <button type="button" class="btn-ghost btn-icon compact dropdown-toggle" aria-label="{% trans 'Actions' %}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </button>
+    <div class="premium-dropdown-menu" hidden>
+      <a href="{% url 'publications:detail' pk=item.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
+    </div>
+  </div>
+  <div class="mobile-actions-row mobile-only">
+    <a href="{% url 'publications:detail' pk=item.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
+  </div>
+</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+  {% else %}
+  </table></div>
+  <div class="empty-list">
+    <span aria-hidden="true">ICH</span>
+    <h2>{% trans "No publications found" %}</h2>
+    <p>{% trans "No publications yet. Open an eligible event to create one." %}</p>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

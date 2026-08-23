@@ -50,7 +50,7 @@
     }
     .brand-title {
       font-size: 1.25rem;
-      font-weight: 800;
+      font-weight: 700;
       background: linear-gradient(90deg, #38bdf8, #818cf8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -117,7 +117,7 @@
 
     .event-title {
       font-size: 1.75rem;
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.25;
       margin-bottom: 1rem;
       color: #ffffff;
@@ -199,7 +199,7 @@
     }
     .section-title {
       font-size: 1.2rem;
-      font-weight: 800;
+      font-weight: 700;
       margin-bottom: 1.25rem;
       color: #fff;
       display: flex;
@@ -208,15 +208,52 @@
     }
 
     /* Agenda Timeline */
-    .timeline { display: flex; flex-direction: column; gap: 1rem; }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 104px;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 0;
+    }
     .timeline-item {
       display: grid;
       grid-template-columns: 90px 1fr;
-      gap: 1rem;
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.03);
+      gap: 1.5rem;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-left: 3px solid var(--primary-cyan);
       border-radius: 0 12px 12px 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .timeline-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: calc(90px + 0.75rem - 4px);
+      top: 24px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary-cyan);
+      border: 2px solid var(--card-bg);
+      z-index: 2;
     }
     .time-slot { font-size: 0.85rem; font-weight: 700; color: var(--primary-cyan); }
     .item-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
@@ -256,10 +293,10 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #fff;
     }
-    .speaker-name { font-size: 1rem; font-weight: 800; color: #fff; }
+    .speaker-name { font-size: 1rem; font-weight: 700; color: #fff; }
     .speaker-title { font-size: 0.8rem; color: var(--primary-cyan); font-weight: 600; }
     .speaker-org { font-size: 0.78rem; color: var(--text-muted); }
 
@@ -288,7 +325,9 @@
 
     @media (max-width: 600px) {
       .event-title { font-size: 1.4rem; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .timeline::before { left: 16px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; padding-left: 40px; }
+      .timeline-item::before { left: 12px; top: 20px; }
     }
 
     /* Phase 5 Attendance Card & Modal */
@@ -315,7 +354,7 @@
     }
     .attendance-title {
       font-size: 1.15rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #ffffff;
       margin-bottom: 0.75rem;
     }
@@ -329,7 +368,7 @@
       padding: 0.95rem 1.5rem;
       border-radius: 14px;
       font-size: 1.1rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #ffffff;
       background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%);
       border: none;
@@ -403,7 +442,7 @@
     }
     .modal-title {
       font-size: 1.25rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #ffffff;
       margin-bottom: 0.5rem;
     }

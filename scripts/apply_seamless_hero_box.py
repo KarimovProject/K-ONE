@@ -1,0 +1,133 @@
+import os
+
+# 1. Update templates/registration/login.html
+LOGIN_TEMPLATE = """{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}K-ONE — Kirish{% endblock %}
+
+{% block unauthenticated_content %}
+<section class="auth-brand-panel" aria-hidden="true">
+  <div class="auth-brand-art-box">
+    <img src="{% static 'img/k-one/k-one-login-hero-art.png' %}" alt="K-ONE Hero" class="auth-hero-art-img">
+  </div>
+  <div class="sr-only">
+    <h1>K-ONE — Barcha tadbirlar yagona tizimda</h1>
+    <p>Xalqaro tadbirlar, zallar faoliyati va boshqaruv jarayonlarini bitta professional makonda birlashtiruvchi platforma.</p>
+  </div>
+</section>
+
+<section class="auth-form-panel">
+  <form class="login-card" method="post" novalidate>
+    {% csrf_token %}
+    <div class="login-heading">
+      <div class="logo-container-mobile">
+        <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE Logo" class="brand-logo-mobile">
+      </div>
+      <h2>Xush kelibsiz</h2>
+      <p>K-ONE boshqaruv tizimiga kiring</p>
+    </div>
+
+    {% if form.non_field_errors %}
+      <div class="form-alert" role="alert">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{% trans "Login yoki parol noto‘g‘ri. Qayta tekshirib kiriting." %}</span>
+      </div>
+    {% endif %}
+
+    <div class="form-group">
+      <label for="{{ form.username.id_for_label }}">Foydalanuvchi nomi</label>
+      <div class="input-wrapper">
+        <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <input type="text" name="username" id="{{ form.username.id_for_label }}" class="premium-input" placeholder="Foydalanuvchi nomi" required {% if form.username.value and form.username.value != 'acceptance_admin' %}value="{{ form.username.value }}"{% endif %}>
+      </div>
+      {% if form.username.errors %}
+        <div class="field-error" id="username-error">{{ form.username.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.password.id_for_label }}">Parol</label>
+      <div class="input-wrapper">
+        <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        <input type="password" name="password" id="{{ form.password.id_for_label }}" class="premium-input" placeholder="Parol" required>
+      </div>
+      {% if form.password.errors %}
+        <div class="field-error" id="password-error">{{ form.password.errors }}</div>
+      {% endif %}
+    </div>
+
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+
+    <button class="primary-button premium-btn" type="submit">Kirish</button>
+
+    <p class="security-note"><span aria-hidden="true">●</span> Tizimga kirish faqat ruxsat etilgan xodimlar uchun.</p>
+  </form>
+</section>
+{% endblock %}
+"""
+
+with open('templates/registration/login.html', 'w', encoding='utf-8') as f:
+    f.write(LOGIN_TEMPLATE)
+
+# 2. Update static/css/app.css
+with open('static/css/app.css', 'r', encoding='utf-8') as f:
+    app_css = f.read()
+
+app_css = app_css.replace(""".auth-brand-panel {
+  flex: 0 0 50%;
+  background-color: #01112D;
+  background-image: url('../img/k-one/k-one-login-hero-art.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.logo-container-mobile {
+  display: none;
+}""", """.auth-brand-panel {
+  flex: 0 0 50%;
+  background-color: #000E27;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  color: #FFFFFF;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.auth-brand-art-box {
+  width: 100%;
+  max-width: 540px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-hero-art-img {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  animation: fadeInScale 0.4s var(--ease-out);
+}
+
+.logo-container-mobile {
+  display: none;
+}""")
+
+with open('static/css/app.css', 'w', encoding='utf-8') as f:
+    f.write(app_css)
+
+print("Applied single text and seamless hero box integration.")

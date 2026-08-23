@@ -11,7 +11,7 @@
       <span class="live-beacon cyan"></span>
       {% trans "REJALASHTIRILGAN DASTUR" %}
     </div>
-    <h1 style="font-size:var(--text-title-xl); font-weight:var(--weight-black); color:var(--color-text-title); margin:0 0 var(--space-4) 0; letter-spacing:-0.03em;">
+    <h1 style="font-size:var(--text-title-xl); font-weight:var(--weight-bold); color:var(--color-text-title); margin:0 0 var(--space-4) 0; letter-spacing:-0.03em;">
       {% trans "Xalqaro tadbirlar taqvimi" %}
     </h1>
   </div>
@@ -19,19 +19,33 @@
   <!-- TOP COMMAND BAR -->
   <div class="calendar-command-bar">
     <div class="calendar-command-bar__left">
-      <button type="button" class="btn btn--secondary btn-cal-nav" data-prev aria-label="{% trans 'Oldingi' %}">←</button>
-      <button type="button" class="btn btn--secondary btn-cal-today" data-today>{% trans "Bugun" %}</button>
-      <button type="button" class="btn btn--secondary btn-cal-nav" data-next aria-label="{% trans 'Keyingi' %}">→</button>
+      <div class="command-left" style="display: flex; gap: 8px;">
+        <button type="button" class="btn-neutral icon-only compact" data-prev aria-label="{% trans 'Oldingi' %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="btn-neutral compact" data-today>{% trans "Bugun" %}</button>
+        <button type="button" class="btn-neutral icon-only compact" data-next aria-label="{% trans 'Keyingi' %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
     </div>
 
     <div class="calendar-command-bar__center" data-calendar-title>Avgust 2026</div>
 
     <div class="calendar-command-bar__right">
-      <div class="segmented-control" role="tablist">
-        <button type="button" class="segmented-control__btn is-active" data-view="month" aria-selected="true">{% trans "Oy" %}</button>
-        <button type="button" class="segmented-control__btn" data-view="week">{% trans "Hafta" %}</button>
-        <button type="button" class="segmented-control__btn" data-view="day">{% trans "Kun" %}</button>
-        <button type="button" class="segmented-control__btn" data-view="list">{% trans "Ro'yxat" %}</button>
+      <div class="command-right" role="tablist" style="display: flex; gap: 4px; background: var(--color-surface-2); padding: 4px; border-radius: var(--radius-md);">
+        <button type="button" class="btn-ghost compact active" data-view="month" aria-selected="true" style="font-size: 13px;">
+          {% trans "Oy" %}
+        </button>
+        <button type="button" class="btn-ghost compact" data-view="week" style="font-size: 13px;">
+          {% trans "Hafta" %}
+        </button>
+        <button type="button" class="btn-ghost compact" data-view="day" style="font-size: 13px;">
+          {% trans "Kun" %}
+        </button>
+        <button type="button" class="btn-ghost compact" data-view="list" style="font-size: 13px;">
+          {% trans "Ro'yxat" %}
+        </button>
       </div>
     </div>
   </div>
@@ -68,7 +82,7 @@
         </select>
       </div>
 
-      <button type="button" class="btn btn--ghost filter-clear" data-clear-filters>{% trans "Tozalash" %}</button>
+      <button type="button" class="btn-ghost compact filter-clear" data-clear-filters>{% trans "Tozalash" %}</button>
     </div>
 
     {% if user.is_authenticated %}

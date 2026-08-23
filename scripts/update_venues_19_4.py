@@ -1,0 +1,266 @@
+import os
+
+VENUES_HTML = """{% extends "public/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Live venues" %} — K-ONE{% endblock %}
+
+{% block extra_css %}
+<style>
+  .venues-command-center {
+    background: transparent;
+    padding: clamp(0.5rem, 1.5vw, 1rem) 0;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+  }
+  .venues-head {
+    position: relative;
+    z-index: 2;
+    margin-bottom: var(--space-5);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+  .venues-head h1 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 900;
+    color: var(--color-text-title, #071A33);
+    margin: 4px 0 0 0;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+  .venues-head p {
+    color: var(--color-text-secondary, #475569);
+    font-size: 15px;
+    margin: 6px 0 0 0;
+  }
+  .venues-legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    background: #FFFFFF;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-sm);
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+  }
+  .venues-command-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+  .venues-command-grid .live-venue-card {
+    background: #FFFFFF;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 15rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.22s var(--ease-out);
+  }
+  .venues-command-grid .live-venue-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(22, 188, 235, 0.4);
+    box-shadow: var(--shadow-md);
+  }
+  .venues-command-grid .live-venue-card.status-occupied {
+    border-left: 4px solid var(--color-brand-cobalt);
+  }
+  .venues-command-grid .live-venue-card.status-upcoming {
+    border-left: 4px solid var(--color-status-upcoming);
+  }
+  .venues-command-grid .live-venue-card.status-available {
+    border-left: 4px solid var(--color-status-free);
+  }
+  .venues-command-grid .live-venue-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+  .venue-identity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .venues-command-grid .venue-monogram {
+    padding: 3px 8px;
+    background: rgba(20, 92, 255, 0.08);
+    border: 1px solid rgba(20, 92, 255, 0.2);
+    border-radius: 6px;
+    color: var(--color-brand-cobalt);
+    font-size: 13px;
+    font-weight: 800;
+    font-family: var(--font-mono);
+  }
+  .venue-capacity-tag {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+  .venues-command-grid .live-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .venues-command-grid .status-available .live-status { color: var(--color-status-free); background: var(--color-status-free-bg); }
+  .venues-command-grid .status-occupied .live-status { color: var(--color-status-active); background: var(--color-status-active-bg); }
+  .venues-command-grid .status-upcoming .live-status { color: var(--color-status-upcoming); background: var(--color-status-upcoming-bg); }
+
+  .venues-command-grid .venue-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-text-title);
+    margin: 0 0 var(--space-2);
+    letter-spacing: -0.01em;
+  }
+  .venues-command-grid .venue-current {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: var(--space-2);
+    line-height: 1.35;
+  }
+  .venues-command-grid .venue-current.is-free {
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  .venues-command-grid .venue-countdown {
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: var(--space-1) 0;
+    font-weight: 700;
+  }
+  .venues-command-grid .venue-progress {
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: #EEF2F6;
+    overflow: hidden;
+    margin: var(--space-2) 0;
+  }
+  .venues-command-grid .venue-progress i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-brand-cobalt), var(--color-brand-cyan));
+    border-radius: var(--radius-pill);
+  }
+  .venues-command-grid .venue-progress.is-upcoming i {
+    background: var(--color-status-upcoming);
+  }
+  .venues-command-grid .venue-next {
+    margin-top: var(--space-3);
+    padding: 10px 14px;
+    background: #FAFBFD;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+  }
+  .venues-command-grid .venue-next .next-label {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .venues-command-grid .venue-next .next-title {
+    display: block;
+    color: var(--color-text-title);
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .venues-command-grid footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--color-border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-text-muted);
+    font-size: 12px;
+  }
+  .footer-left strong {
+    color: var(--color-text-main);
+  }
+  .footer-count {
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background: #FAFBFD;
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 800;
+    border: 1px solid var(--color-border-subtle);
+  }
+  @media (max-width: 54rem) {
+    .venues-command-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="venues-command-center animate-entrance">
+  <header class="venues-head">
+    <div>
+      <p class="dashboard-hero__eyebrow">
+        <span class="live-beacon cyan"></span>
+        {% trans "OPERATSION KO'RINISH" %}
+      </p>
+      <h1>{% trans "Jonli zallar holati" %}</h1>
+      <p>{% trans "Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va navbatdagi dasturlari." %}</p>
+    </div>
+
+    <div class="venues-legend">
+      <span class="legend-item"><span class="status-breathe-dot bg-free"></span> {% trans "Erkin" %}</span>
+      <span class="legend-item"><span class="status-breathe-dot bg-active"></span> {% trans "Faol tadbir" %}</span>
+      <span class="legend-item"><span class="status-breathe-dot bg-upcoming"></span> {% trans "Tez orada" %}</span>
+    </div>
+  </header>
+
+  <main class="venues-command-grid" data-venue-grid data-endpoint="{% url 'public-venues-api' %}">
+    {% for venue in venues %}
+      {% include "public/_venue_card.html" %}
+    {% empty %}
+      <div class="empty-state-card" style="grid-column: 1 / -1; background: #FFFFFF; color: var(--color-text-muted); padding: var(--space-8); text-align: center; border-radius: 16px; border: 1px solid var(--color-border-subtle);">
+        <strong>{% trans "Hozirda faol zallar mavjud emas" %}</strong>
+      </div>
+    {% endfor %}
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/public-dashboard.js' %}" defer></script>
+{% endblock %}
+"""
+
+with open('templates/public/venues.html', 'w', encoding='utf-8') as f:
+    f.write(VENUES_HTML)
+print("Updated venues.html")

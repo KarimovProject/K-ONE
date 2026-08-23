@@ -10,8 +10,8 @@
     <p class="page-description">{% trans "Manage keynote speakers, presenters, and experts." %}</p>
   </div>
   <div>
-    <a class="primary-button" href="{% url 'events:speaker-create' %}" data-testid="add-speaker-btn">
-      <span aria-hidden="true">+</span> {% trans "New Speaker" %}
+    <a class="btn-primary" href="{% url 'events:speaker-create' %}" data-testid="add-speaker-btn">
+      {% trans "New Speaker" %}
     </a>
   </div>
 </div>
@@ -26,36 +26,53 @@
           <th>{% trans "Organization" %}</th>
           <th>{% trans "Country" %}</th>
           <th>{% trans "Status" %}</th>
-          <th style="text-align: right;">{% trans "Actions" %}</th>
+          <th style="text-align: right;" class="desktop-only">{% trans "Actions" %}</th>
         </tr>
       </thead>
       <tbody>
         {% for speaker in speakers %}
           <tr data-testid="speaker-row-{{ speaker.pk }}">
-            <td style="font-weight: bold;">{{ speaker.full_name }}</td>
-            <td>{{ speaker.title|default:"—" }}</td>
-            <td>{{ speaker.organization|default:"—" }}</td>
-            <td>{{ speaker.country|default:"—" }}</td>
-            <td>
-              {% if speaker.public_profile_enabled %}
-                <span class="status-badge approved">Public</span>
-              {% else %}
-                <span class="status-badge draft">Hidden</span>
-              {% endif %}
-            </td>
-            <td style="text-align: right;">
-              <div class="table-actions" style="display: flex; gap: 4px; justify-content: flex-end;">
-                <a class="btn-ghost btn-icon compact" href="{% url 'events:speaker-edit' pk=speaker.pk %}" data-testid="edit-speaker-btn-{{ speaker.pk }}" title="{% trans 'Edit' %}">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                </a>
+            <td data-label="{% trans 'Full Name' %}">
+              <div class="record-title">
+                <strong>{{ speaker.full_name }}</strong>
+                {% if speaker.organization %}<small class="muted">{{ speaker.organization }}</small>{% endif %}
               </div>
             </td>
+            <td data-label="{% trans 'Title / Position' %}">{{ speaker.title|default:"—" }}</td>
+            <td data-label="{% trans 'Organization' %}">{{ speaker.organization|default:"—" }}</td>
+            <td data-label="{% trans 'Country' %}">{{ speaker.country|default:"—" }}</td>
+            <td data-label="{% trans 'Status' %}">
+              {% if speaker.public_profile_enabled %}
+                <span class="status-badge status-active">{% trans "Public" %}</span>
+              {% else %}
+                <span class="status-badge is-inactive">{% trans "Hidden" %}</span>
+              {% endif %}
+            </td>
+            <td class="actions-cell">
+  <div class="dropdown-wrapper desktop-only" style="display: inline-block; text-align: left;">
+    <button type="button" class="btn-ghost btn-icon compact dropdown-toggle" aria-label="{% trans 'Actions' %}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </button>
+    <div class="premium-dropdown-menu" hidden>
+      <a href="{% url 'events:speaker-edit' pk=speaker.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+    </div>
+  </div>
+  <div class="mobile-actions-row mobile-only">
+    <a href="{% url 'events:speaker-edit' pk=speaker.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+  </div>
+</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   {% else %}
-    <div class="app-message info">{% trans "No speakers found in directory." %}</div>
+  <div class="empty-state">
+    <div class="empty-state-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    </div>
+    <h3>{% trans "No speakers found in directory." %}</h3>
+    <p>{% trans "Adjust the filters or create the first speaker record." %}</p>
+  </div>
   {% endif %}
 </div>
 {% endblock %}

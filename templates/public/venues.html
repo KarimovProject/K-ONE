@@ -23,9 +23,10 @@
     gap: var(--space-4);
   }
   .venues-head h1 {
+    font-family: var(--font-display);
     font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 900;
-    color: var(--color-text-title, #071A33);
+    font-weight: 700;
+    color: var(--color-ink, #0A1128);
     margin: 4px 0 0 0;
     letter-spacing: -0.03em;
     line-height: 1.15;
@@ -67,8 +68,8 @@
     padding: 20px 24px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 15rem;
+    justify-content: flex-start;
+    gap: 12px;
     box-shadow: var(--shadow-sm);
     transition: all 0.22s var(--ease-out);
   }
@@ -104,7 +105,7 @@
     border-radius: 6px;
     color: var(--color-brand-cobalt);
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 700;
     font-family: var(--font-mono);
   }
   .venue-capacity-tag {
@@ -119,7 +120,7 @@
     padding: 3px 10px;
     border-radius: var(--radius-pill);
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -127,10 +128,33 @@
   .venues-command-grid .status-occupied .live-status { color: var(--color-status-active); background: var(--color-status-active-bg); }
   .venues-command-grid .status-upcoming .live-status { color: var(--color-status-upcoming); background: var(--color-status-upcoming-bg); }
 
+  /* Animated pulse for active state */
+  .venues-command-grid .status-occupied .live-status::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-status-active);
+    animation: k-pulse-active 2s infinite;
+  }
+
+  @keyframes k-pulse-active {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .venues-command-grid .status-occupied .live-status::before {
+      animation: none;
+    }
+  }
+
   .venues-command-grid .venue-title {
+    font-family: var(--font-sans);
     font-size: 1.15rem;
-    font-weight: 800;
-    color: var(--color-text-title);
+    font-weight: 700;
+    color: var(--color-ink);
     margin: 0 0 var(--space-2);
     letter-spacing: -0.01em;
   }
@@ -181,7 +205,7 @@
     display: block;
     color: var(--color-text-muted);
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -214,7 +238,7 @@
     background: #FAFBFD;
     color: var(--color-text-secondary);
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 700;
     border: 1px solid var(--color-border-subtle);
   }
   @media (max-width: 54rem) {

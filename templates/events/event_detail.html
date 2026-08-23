@@ -2,289 +2,313 @@
 {% load i18n %}
 {% block title %}{{ event.title }} · K-ONE{% endblock %}
 {% block content %}
-<div class="detail-header">
-  <div>
-    <div class="detail-tags">
-      <span class="type-pill" style="--pill-color: {{ event.event_type.color }};">{{ event.event_type.localized_name }}</span>
-      <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span>
-      <span class="priority-badge {{ event.priority }}">{{ event.get_priority_display }}</span>
+<div class="page-header" style="flex-wrap: wrap; gap: 16px; align-items: flex-start;">
+  <div style="flex: 1; min-width: 0;">
+    <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+      <span class="type-pill" style="border-left: 3px solid {{ event.event_type.color|default:'#165DFF' }}; background: var(--color-surface-2); padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600;">{{ event.event_type.localized_name }}</span>
+      <span class="status-badge {{ event.status }}" style="padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600;">{{ event.get_status_display }}</span>
+      <span class="priority-badge {{ event.priority }}" style="padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 600;">{{ event.get_priority_display }}</span>
     </div>
-    <h1 class="detail-title">{{ event.title }}</h1>
-    {% if event.description %}<p class="detail-subtitle">{{ event.description }}</p>{% endif %}
+    <h1 class="page-title" style="font-size: 24px; margin-bottom: 8px; line-height: 1.2;">{{ event.title }}</h1>
+    {% if event.description %}<p class="page-description" style="font-size: 14px; max-width: 800px;">{{ event.description }}</p>{% endif %}
   </div>
-  <div class="detail-actions">
-    <a class="secondary-link" href="{% url 'events:list' %}">← {% trans "Back to Events" %}</a>
+  <div class="page-actions event-detail-actions">
+    <a class="btn-ghost" href="{% url 'events:list' %}">← {% trans "Back to Events" %}</a>
 
     {% if can_submit %}
       <form method="post" action="{% url 'events:submit' pk=event.pk %}" style="display:inline;">
         {% csrf_token %}
-        <button type="submit" class="primary-button compact" data-testid="submit-approval-btn">{% trans "Submit for Approval" %}</button>
+        <button type="submit" class="btn-primary" data-testid="submit-approval-btn">{% trans "Submit for Approval" %}</button>
       </form>
     {% endif %}
 
     {% if can_approve %}
       <form method="post" action="{% url 'events:approve' pk=event.pk %}" style="display:inline;">
         {% csrf_token %}
-        <button type="submit" class="success-button compact" data-testid="approve-event-btn">{% trans "Approve Event" %}</button>
+        <button type="submit" class="btn-success" style="background: var(--color-success); color: white;" data-testid="approve-event-btn">{% trans "Approve Event" %}</button>
       </form>
     {% endif %}
 
     {% if can_reject %}
-      <a class="danger-button compact" href="{% url 'events:reject' pk=event.pk %}" data-testid="reject-event-btn">{% trans "Reject Event" %}</a>
+      <a class="btn-danger" href="{% url 'events:reject' pk=event.pk %}" data-testid="reject-event-btn">{% trans "Reject Event" %}</a>
     {% endif %}
 
     {% if can_resubmit %}
       <form method="post" action="{% url 'events:resubmit' pk=event.pk %}" style="display:inline;">
         {% csrf_token %}
-        <button type="submit" class="primary-button compact" data-testid="resubmit-event-btn">{% trans "Resubmit Event" %}</button>
+        <button type="submit" class="btn-primary" data-testid="resubmit-event-btn">{% trans "Resubmit Event" %}</button>
       </form>
     {% endif %}
 
     {% if can_reschedule %}
-      <a class="primary-button compact outline" href="{% url 'events:reschedule' pk=event.pk %}" data-testid="reschedule-event-btn">{% trans "Reschedule" %}</a>
+      <a class="btn-neutral" href="{% url 'events:reschedule' pk=event.pk %}" data-testid="reschedule-event-btn">{% trans "Reschedule" %}</a>
     {% endif %}
 
     {% if can_postpone %}
-      <a class="warning-button compact" href="{% url 'events:postpone' pk=event.pk %}" data-testid="postpone-event-btn">{% trans "Postpone" %}</a>
+      <a class="btn-neutral" style="color: var(--color-warning);" href="{% url 'events:postpone' pk=event.pk %}" data-testid="postpone-event-btn">{% trans "Postpone" %}</a>
     {% endif %}
 
     {% if can_override %}
-      <a class="danger-button compact outline" href="{% url 'events:emergency-override' pk=event.pk %}" data-testid="emergency-override-btn">🚨 {% trans "Emergency Override" %}</a>
+      <a class="btn-danger" href="{% url 'events:emergency-override' pk=event.pk %}" data-testid="emergency-override-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> {% trans "Emergency Override" %}</a>
     {% endif %}
 
-    <a class="primary-button compact outline" href="{% url 'events:attendance' pk=event.pk %}" data-testid="event-attendance-btn">📊 {% trans "Attendance" %} ({{ event.attendances.count }})</a>
-    {% if can_manage_reminders %}
-      <a class="primary-button compact outline" href="{% url 'notifications:event-reminders' pk=event.pk %}" data-testid="telegram-reminders-link">{% trans "Telegram reminders" %}</a>
-    {% endif %}
-    {% if can_create_publication %}<a class="primary-button compact" href="{% url 'publications:create' event_pk=event.pk %}" data-testid="create-publication-link">{% trans "Create announcement" %}</a>{% endif %}
     {% if can_edit %}
-      <a class="primary-button compact outline" href="{% url 'events:program' pk=event.pk %}" data-testid="edit-program-btn">📋 {% trans "Program & Public Page" %}</a>
-      <a class="primary-button compact" href="{% url 'events:edit' pk=event.pk %}">{% trans "Edit Event" %}</a>
+      <a class="btn-neutral" href="{% url 'events:program' pk=event.pk %}" data-testid="edit-program-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> {% trans "Program" %}</a>
+      <a class="btn-neutral" href="{% url 'events:attendance' pk=event.pk %}" data-testid="event-attendance-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> {% trans "Attendance" %} ({{ event.attendances.count }})</a>
+      <a class="btn-primary" href="{% url 'events:edit' pk=event.pk %}">{% trans "Edit Event" %}</a>
     {% endif %}
 
     {% if can_cancel %}
-      <a class="danger-button compact" href="{% url 'events:cancel' pk=event.pk %}">{% trans "Cancel Event" %}</a>
+      <a class="btn-danger" href="{% url 'events:cancel' pk=event.pk %}">{% trans "Cancel Event" %}</a>
     {% endif %}
   </div>
 </div>
 
 {% if event.status == "displaced" %}
-  <div class="app-message alert" role="alert">
-    🚨 <strong>{% trans "DISPLACED BY EMERGENCY" %}:</strong> {% trans "This event was displaced by an emergency override event" %}
+  <div class="app-message alert" role="alert" style="background: #FEF2F2; border-left: 4px solid #EF4444; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <div style="color: #991B1B;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>{% trans "DISPLACED BY EMERGENCY" %}:</strong> {% trans "This event was displaced by an emergency override event" %}
     {% if event.displaced_by_event %}
-      <a href="{% url 'events:detail' pk=event.displaced_by_event.pk %}"><strong>“{{ event.displaced_by_event.title }}”</strong></a>.
-    {% endif %}
+      <a href="{% url 'events:detail' pk=event.displaced_by_event.pk %}" style="color: #991B1B; text-decoration: underline;"><strong>“{{ event.displaced_by_event.title }}”</strong></a>.
+    {% endif %}</div>
     {% if can_reschedule %}
-      <div style="margin-top: 8px;">
-        <a class="primary-button compact" href="{% url 'events:reschedule' pk=event.pk %}">{% trans "Reschedule Now" %}</a>
+      <div style="margin-top: 12px;">
+        <a class="btn-primary compact" href="{% url 'events:reschedule' pk=event.pk %}">{% trans "Reschedule Now" %}</a>
       </div>
     {% endif %}
   </div>
 {% endif %}
 
 {% if event.status == "rejected" and event.rejection_reason %}
-  <div class="app-message error" role="alert">
-    ❌ <strong>{% trans "REJECTION RATIONALE" %}:</strong> {{ event.rejection_reason }}
+  <div class="app-message error" role="alert" style="background: #FEF2F2; border-left: 4px solid #EF4444; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <div style="color: #991B1B;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> <strong>{% trans "REJECTION RATIONALE" %}:</strong> {{ event.rejection_reason }}</div>
   </div>
 {% endif %}
 
 {% if event.emergency_justification %}
-  <div class="app-message info" role="alert">
-    🚨 <strong>{% trans "EMERGENCY OVERRIDE RATIONALE" %}:</strong> {{ event.emergency_justification }}
+  <div class="app-message info" role="alert" style="background: #EFF6FF; border-left: 4px solid #3B82F6; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <div style="color: #1E40AF;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>{% trans "EMERGENCY OVERRIDE RATIONALE" %}:</strong> {{ event.emergency_justification }}</div>
   </div>
 {% endif %}
 
 {% if event.is_over_capacity %}
-  <div class="app-message warning" role="alert">
-    ⚠️ <strong>{% trans "Capacity Warning" %}:</strong> {% trans "Expected attendees" %} ({{ event.expected_attendees }}) {% trans "exceeds venue capacity" %} ({{ event.venue.capacity }}).
+  <div class="app-message warning" role="alert" style="background: #FFFBEB; border-left: 4px solid #F59E0B; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+    <div style="color: #92400E;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> <strong>{% trans "Capacity Warning" %}:</strong> {% trans "Expected attendees" %} ({{ event.expected_attendees }}) {% trans "exceeds venue capacity" %} ({{ event.venue.capacity }}).</div>
   </div>
 {% endif %}
 
 <div class="detail-grid">
-  <div class="detail-main">
-    <section class="detail-card" data-testid="detail-program-card">
-      <div class="flex-between" style="margin-bottom: 1rem;">
-        <h2>{% trans "Program & Public Page" %}</h2>
+  <!-- Main Column -->
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);" card-accent-cobalt card-accent-cyan card-accent-emerald card-accent-violet card-accent-blue card-accent-sky card-accent-amber card-accent-teal card-accent-slate>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0;">{% trans "Program & Public Page" %}</h2>
         {% if can_edit %}
-          <a class="secondary-button compact" href="{% url 'events:program' pk=event.pk %}" data-testid="card-edit-program-btn">⚙️ {% trans "Configure Program" %}</a>
+          <a class="btn-edit compact" href="{% url 'events:program' pk=event.pk %}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> {% trans "Configure Program" %}</a>
         {% endif %}
       </div>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">{% trans "Program Mode" %}</span>
-          <span class="info-value">
+      <div class="card-grid">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Program Mode" %}</div>
+          <div style="font-size: 14px; color: var(--color-text-title); font-weight: 500;">
             {% if event.program_source == 'pdf' %}
-              📄 {% trans "PDF Document" %} {% if event.program_pdf %}({% trans "Uploaded" %}){% else %}({% trans "Missing" %}){% endif %}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> {% trans "PDF Document" %} {% if event.program_pdf %}({% trans "Uploaded" %}){% else %}({% trans "Missing" %}){% endif %}
             {% else %}
-              ⏱️ {% trans "Manual Agenda" %} ({{ event.program_items.count }} {% trans "Sessions" %})
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {% trans "Manual Agenda" %} ({{ event.program_items.count }} {% trans "Sessions" %})
             {% endif %}
-          </span>
+          </div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Public Accessibility" %}</span>
-          <span class="info-value">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Public Accessibility" %}</div>
+          <div>
             {% if event.is_publicly_accessible %}
-              <span class="status-badge approved">🟢 {% trans "Publicly Accessible" %}</span>
+              <span class="status-badge approved" style="font-size: 12px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background-color:var(--color-success);margin-right:4px;"></span> {% trans "Publicly Accessible" %}</span>
             {% else %}
-              <span class="status-badge draft">🔴 {% trans "Private / Unpublished" %}</span>
+              <span class="status-badge draft" style="font-size: 12px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background-color:var(--color-danger);margin-right:4px;"></span> {% trans "Private" %}</span>
             {% endif %}
-          </span>
+          </div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Public Page Link" %}</span>
-          <span class="info-value">
-            <a href="{% url 'public-event-page' public_token=event.public_token %}" target="_blank" data-testid="public-page-link">
-              🌐 {% trans "Open Public Event Page" %}
-            </a>
-          </span>
+      </div>
+      <div class="action-row" style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="{% url 'public-event-page' public_token=event.public_token %}" target="_blank" class="btn-neutral" style="flex: 1; min-width: 200px; justify-content: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> {% trans "Open Public Event Page" %}
+        </a>
+        <a href="{% url 'events:print-qr' pk=event.pk %}" target="_blank" class="btn-neutral" style="flex: 1; min-width: 200px; justify-content: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> {% trans "Print Poster (A4/A5)" %}
+        </a>
+      </div>
+    </section>
+
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0 0 20px 0;">{% trans "Schedule & Timing" %}</h2>
+      <div class="card-grid">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Date & Weekday" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 600;">{{ event.planned_date|date:"d.m.Y" }} <span style="font-weight: 400; color: var(--color-text-muted);">({{ event.weekday_name }})</span></div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Printable QR Poster" %}</span>
-          <span class="info-value">
-            <a href="{% url 'events:print-qr' pk=event.pk %}" target="_blank" data-testid="print-qr-link">
-              🖨️ {% trans "Print Poster (A4/A5)" %}
-            </a>
-          </span>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Time Interval" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 600; font-family: var(--font-mono);">{{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</div>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Duration" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 500;">{{ event.duration_minutes }} {% trans "minutes" %}</div>
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Expected Attendees" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 500;">{{ event.expected_attendees }} {% trans "persons" %}</div>
         </div>
       </div>
     </section>
 
-    <section class="detail-card">
-      <h2>{% trans "Schedule & Timing" %}</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">{% trans "Date & Weekday" %}</span>
-          <span class="info-value"><strong>{{ event.planned_date|date:"d.m.Y" }}</strong> ({{ event.weekday_name }})</span>
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0 0 20px 0;">{% trans "Venue Details" %}</h2>
+      <div class="card-grid">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Venue Name" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 600;">{{ event.venue.localized_name }} <span style="font-weight: 400; color: var(--color-text-muted);">({{ event.venue.code }})</span></div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Time Interval" %}</span>
-          <span class="info-value">{{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</span>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Capacity" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 500;">{{ event.venue.capacity }} {% trans "seats" %}</div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Duration" %}</span>
-          <span class="info-value">{{ event.duration_minutes }} {% trans "minutes" %}</span>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Location" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 500;">{{ event.venue.location|default:"—" }}</div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Expected Attendees" %}</span>
-          <span class="info-value">{{ event.expected_attendees }} {% trans "persons" %}</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="detail-card">
-      <h2>{% trans "Venue Details" %}</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">{% trans "Venue Name" %}</span>
-          <span class="info-value"><strong>{{ event.venue.localized_name }}</strong> ({{ event.venue.code }})</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Capacity" %}</span>
-          <span class="info-value">{{ event.venue.capacity }} {% trans "seats" %}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Location" %}</span>
-          <span class="info-value">{{ event.venue.location|default:"—" }}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Working Hours" %}</span>
-          <span class="info-value">{{ event.venue.working_start|time:"H:i" }} – {{ event.venue.working_end|time:"H:i" }}</span>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Working Hours" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 500; font-family: var(--font-mono);">{{ event.venue.working_start|time:"H:i" }} – {{ event.venue.working_end|time:"H:i" }}</div>
         </div>
       </div>
     </section>
 
-    <section class="detail-card">
-      <h2>{% trans "Partners & Sponsors" %}</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">{% trans "Organizing Organizations" %}</span>
-          <div class="info-value">
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0 0 20px 0;">{% trans "Partners & Sponsors" %}</h2>
+      <div class="card-grid">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">{% trans "Organizing Organizations" %}</div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             {% for org in event.organizing_organizations.all %}
-              <span class="tag">{{ org.name }}</span>
+              <span style="background: var(--color-surface-3); padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 500;">{{ org.name }}</span>
             {% empty %}
-              <span>—</span>
+              <span style="color: var(--color-text-muted);">—</span>
             {% endfor %}
           </div>
         </div>
-        <div class="info-item">
-          <span class="info-label">{% trans "Sponsors" %}</span>
-          <div class="info-value">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">{% trans "Sponsors" %}</div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             {% for sp in event.sponsors.all %}
-              <span class="tag sponsor-tag">{{ sp.name }}</span>
+              <span style="background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">{{ sp.name }}</span>
             {% empty %}
-              <span>—</span>
+              <span style="color: var(--color-text-muted);">—</span>
             {% endfor %}
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="detail-card">
-      <h2>{% trans "Audit History & Workflow Log" %}</h2>
-      <div class="audit-log-list">
-        {% for log in audit_logs %}
-          <div class="audit-log-item">
-            <span class="audit-action">{{ log.get_action_display }}</span>
-            <span class="audit-actor">{% if log.actor %}{{ log.actor.get_full_name|default:log.actor.username }}{% else %}System{% endif %}</span>
-            <span class="audit-time">{{ log.timestamp|date:"d.m.Y H:i" }}</span>
-          </div>
-        {% empty %}
-          <p class="text-muted">{% trans "No audit records found." %}</p>
-        {% endfor %}
       </div>
     </section>
   </div>
 
-  <div class="detail-sidebar">
-    <section class="detail-card">
-      <h2>{% trans "Responsible Staff" %}</h2>
-      <div class="person-block">
-        <span class="person-label">{% trans "Responsible Employee" %}</span>
-        <strong>{% if event.responsible_employee %}{{ event.responsible_employee.get_full_name|default:event.responsible_employee.username }}{% else %}—{% endif %}</strong>
-        {% if event.responsible_employee %}<small class="text-muted block">{{ event.responsible_employee.email }}</small>{% endif %}
-      </div>
-      <div class="person-block">
-        <span class="person-label">{% trans "Management Responsible" %}</span>
-        <strong>{% if event.management_responsible %}{{ event.management_responsible.get_full_name|default:event.management_responsible.username }}{% else %}—{% endif %}</strong>
-        {% if event.management_responsible %}<small class="text-muted block">{{ event.management_responsible.email }}</small>{% endif %}
+  <!-- Sidebar Column -->
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0 0 20px 0;">{% trans "Responsible Staff" %}</h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Responsible Employee" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 600;">{% if event.responsible_employee %}{{ event.responsible_employee.get_full_name|default:event.responsible_employee.username }}{% else %}—{% endif %}</div>
+          {% if event.responsible_employee %}<div style="font-size: 13px; color: var(--color-text-muted);">{{ event.responsible_employee.email }}</div>{% endif %}
+        </div>
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0;">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{% trans "Management Responsible" %}</div>
+          <div style="font-size: 15px; color: var(--color-text-title); font-weight: 600;">{% if event.management_responsible %}{{ event.management_responsible.get_full_name|default:event.management_responsible.username }}{% else %}—{% endif %}</div>
+          {% if event.management_responsible %}<div style="font-size: 13px; color: var(--color-text-muted);">{{ event.management_responsible.email }}</div>{% endif %}
+        </div>
       </div>
     </section>
 
-    <section class="detail-card">
-      <h2>{% trans "Online Links" %}</h2>
-      <div class="link-item">
-        <span class="info-label">{% trans "Zoom / Meeting Link" %}</span>
-        {% if event.zoom_url %}
-          <a class="external-link" href="{{ event.zoom_url }}" target="_blank" rel="noopener">{{ event.zoom_url }}</a>
-        {% else %}
-          <span class="text-muted">—</span>
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0 0 20px 0;">{% trans "Online Links" %}</h2>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">{% trans "Zoom / Meeting Link" %}</div>
+          {% if event.zoom_url %}
+            <a class="btn-neutral compact" href="{{ event.zoom_url }}" target="_blank" rel="noopener" style="width: 100%; justify-content: center;">🎥 {% trans "Join Meeting" %}</a>
+          {% else %}
+            <div style="font-size: 14px; color: var(--color-text-muted);">—</div>
+          {% endif %}
+        </div>
+        <div>
+          <div style="font-size: 12px; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">{% trans "Registration Link" %}</div>
+          {% if event.registration_url %}
+            <a class="btn-neutral compact" href="{{ event.registration_url }}" target="_blank" rel="noopener" style="width: 100%; justify-content: center;">🔗 {% trans "Register Here" %}</a>
+          {% else %}
+            <div style="font-size: 14px; color: var(--color-text-muted);">—</div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0;">{% trans "Telegram Reminders" %}</h2>
+        {% if event.reminders_enabled %}<span class="status-badge approved" style="font-size: 11px;">{% trans "Enabled" %}</span>{% else %}<span class="status-badge draft" style="font-size: 11px;">{% trans "Disabled" %}</span>{% endif %}
+      </div>
+      <div style="font-size: 13px; color: var(--color-text-muted); font-weight: 500; font-family: var(--font-mono); margin-bottom: 16px; background: var(--color-surface-2); padding: 8px 12px; border-radius: 8px; text-align: center;">
+        7d · 3d · 1d · 3h · 30m
+      </div>
+      {% if can_manage_reminders %}
+        <a class="btn-neutral compact" href="{% url 'notifications:event-reminders' pk=event.pk %}" style="width: 100%; justify-content: center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg> {% trans "Configure Reminders" %}</a>
+      {% endif %}
+    </section>
+
+    <section class="detail-card break-anywhere" style="background: white; border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--color-text-title); margin: 0;">{% trans "Publications" %}</h2>
+        {% if can_create_publication %}
+          <a class="btn-neutral compact" href="{% url 'publications:create' event_pk=event.pk %}">+ {% trans "New" %}</a>
         {% endif %}
       </div>
-      <div class="link-item">
-        <span class="info-label">{% trans "Registration Link" %}</span>
-        {% if event.registration_url %}
-          <a class="external-link" href="{{ event.registration_url }}" target="_blank" rel="noopener">{{ event.registration_url }}</a>
-        {% else %}
-          <span class="text-muted">—</span>
-        {% endif %}
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        {% for item in event.publications.all %}
+          <div style="display: flex; justify-content: space-between; align-items: center; background: var(--color-surface-2); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="status-badge {{ item.status }}" style="font-size: 11px;">{{ item.get_status_display }}</span>
+              <span style="font-size: 13px; font-weight: 500; color: var(--color-text-title);">{{ item.get_platform_display }} ({{ item.language|upper }})</span>
+            </div>
+            <a class="btn-ghost compact" href="{% url 'publications:detail' pk=item.pk %}">{% trans "Preview" %}</a>
+          </div>
+        {% empty %}
+          <div style="font-size: 14px; color: var(--color-text-muted); text-align: center; padding: 16px 0;">{% trans "No publications yet." %}</div>
+        {% endfor %}
       </div>
     </section>
 
-    <section class="detail-card" data-testid="telegram-reminder-summary">
-      <div class="flex-between"><h2>{% trans "Telegram reminders" %}</h2>{% if event.reminders_enabled %}<span class="status-badge approved">{% trans "Enabled" %}</span>{% else %}<span class="status-badge draft">{% trans "Disabled" %}</span>{% endif %}</div>
-      <p class="text-muted">7d · 3d · 1d · 3h · 30m</p>
-      {% if can_manage_reminders %}<a href="{% url 'notifications:event-reminders' pk=event.pk %}">{% trans "Configure reminders and view delivery status" %}</a>{% endif %}
-    </section>
-    <section class="detail-card" data-testid="publication-history"><div class="flex-between"><h2>{% trans "Publications" %}</h2>{% if can_create_publication %}<a href="{% url 'publications:create' event_pk=event.pk %}">{% trans "New announcement" %}</a>{% endif %}</div>{% for item in event.publications.all %}<p><span class="status-badge {{ item.status }}">{{ item.get_status_display }}</span> {{ item.get_platform_display }} · {{ item.language|upper }} · <a href="{% url 'publications:detail' pk=item.pk %}">{% trans "Preview" %}</a></p>{% empty %}<p class="text-muted">{% trans "No publications yet." %}</p>{% endfor %}</section>
-
-    <section class="detail-card metadata-card">
-      <h2>{% trans "Audit Metadata" %}</h2>
-      <small class="text-muted block">{% trans "Created by" %}: {% if event.created_by %}{{ event.created_by.get_full_name|default:event.created_by.username }}{% else %}System{% endif %}</small>
-      <small class="text-muted block">{% trans "Submitted at" %}: {{ event.submitted_at|date:"d.m.Y H:i"|default:"—" }}</small>
-      <small class="text-muted block">{% trans "Reviewed at" %}: {{ event.reviewed_at|date:"d.m.Y H:i"|default:"—" }}</small>
-      <small class="text-muted block">{% trans "Reviewed by" %}: {% if event.reviewed_by %}{{ event.reviewed_by.get_full_name|default:event.reviewed_by.username }}{% else %}—{% endif %}</small>
-      <small class="text-muted block">{% trans "Created at" %}: {{ event.created_at|date:"d.m.Y H:i" }}</small>
-      <small class="text-muted block">{% trans "Updated at" %}: {{ event.updated_at|date:"d.m.Y H:i" }}</small>
+    <section class="detail-card" style="background: var(--color-surface-2); border-radius: 16px; padding: 20px;">
+      <h2 style="font-size: 14px; font-weight: 700; color: var(--color-text-title); margin: 0 0 16px 0; text-transform: uppercase; letter-spacing: 0.05em;">{% trans "Audit Metadata" %}</h2>
+      <div class="card-grid audit-grid" style="gap: 12px;">
+        <div>
+          <div style="font-size: 11px; color: var(--color-text-muted); text-transform: uppercase;">{% trans "Created by" %}</div>
+          <div style="font-size: 13px; color: var(--color-text-title); font-weight: 500;">{% if event.created_by %}{{ event.created_by.get_full_name|default:event.created_by.username }}{% else %}System{% endif %}</div>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: var(--color-text-muted); text-transform: uppercase;">{% trans "Created at" %}</div>
+          <div style="font-size: 13px; color: var(--color-text-title); font-weight: 500;">{{ event.created_at|date:"d.m.Y H:i" }}</div>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: var(--color-text-muted); text-transform: uppercase;">{% trans "Reviewed by" %}</div>
+          <div style="font-size: 13px; color: var(--color-text-title); font-weight: 500;">{% if event.reviewed_by %}{{ event.reviewed_by.get_full_name|default:event.reviewed_by.username }}{% else %}—{% endif %}</div>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: var(--color-text-muted); text-transform: uppercase;">{% trans "Reviewed at" %}</div>
+          <div style="font-size: 13px; color: var(--color-text-title); font-weight: 500;">{{ event.reviewed_at|date:"d.m.Y H:i"|default:"—" }}</div>
+        </div>
+        <div style="grid-column: span 2;">
+          <div style="font-size: 11px; color: var(--color-text-muted); text-transform: uppercase;">{% trans "Updated at" %}</div>
+          <div style="font-size: 13px; color: var(--color-text-title); font-weight: 500;">{{ event.updated_at|date:"d.m.Y H:i" }}</div>
+        </div>
+      </div>
     </section>
   </div>
 </div>

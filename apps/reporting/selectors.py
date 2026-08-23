@@ -103,11 +103,33 @@ def get_workspace_data(user: User) -> dict:
     else:
         relevant = base.filter(Q(responsible_employee=user) | Q(created_by=user))
     upcoming = list(relevant[:8])
+    today_events = list(
+        base.filter(
+            planned_date=today,
+            status__in=(
+                Event.Status.APPROVED,
+                Event.Status.PLANNED,
+                Event.Status.SCHEDULED,
+                Event.Status.ONGOING,
+                Event.Status.COMPLETED,
+            ),
+        )[:10]
+    )
+
     from apps.publications.models import Publication
+    from apps.venues.services.live_status import all_venues_live_status
+
+    venues_status = all_venues_live_status()
+    venues_free_count = sum(1 for v in venues_status if v.get("current_status") == "FREE")
+    venues_total_count = len(venues_status)
 
     return {
         "upcoming": upcoming,
         "upcoming_count": relevant.count(),
+        "today_events": today_events,
+        "venues_status": venues_status,
+        "venues_free_count": venues_free_count,
+        "venues_total_count": venues_total_count,
         "needs_action_count": relevant.filter(
             status__in=(Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.DISPLACED)
         ).count(),

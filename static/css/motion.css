@@ -5,6 +5,15 @@
 /* --------------------------------------------------------------------------
    1. REDUCED MOTION RESPECT
    -------------------------------------------------------------------------- */
+:root {
+  --duration-micro:     140ms;
+  --duration-fast:      140ms;
+  --duration-normal:    200ms;
+  --duration-component: 260ms;
+  --duration-panel:     260ms;
+  --duration-page:      400ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

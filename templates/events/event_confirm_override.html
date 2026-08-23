@@ -32,8 +32,8 @@
       </div>
 
       <div class="form-actions align-right">
-        <a class="secondary-button" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
-        <button class="danger-button" type="submit" data-testid="confirm-override-btn">🚨 {% trans "Execute Emergency Override" %}</button>
+        <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
+        <button class="btn-danger" type="submit" data-testid="confirm-override-btn">🚨 {% trans "Execute Emergency Override" %}</button>
       </div>
     </form>
   </div>

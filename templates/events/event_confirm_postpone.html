@@ -21,8 +21,8 @@
       </div>
 
       <div class="form-actions align-right">
-        <a class="secondary-button" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
-        <button class="warning-button" type="submit">{% trans "Confirm Postpone" %}</button>
+        <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
+        <button class="btn-edit" type="submit">{% trans "Confirm Postpone" %}</button>
       </div>
     </form>
   </div>

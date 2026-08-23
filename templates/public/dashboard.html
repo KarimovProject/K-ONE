@@ -85,9 +85,9 @@
               --:--
             {% endif %}
           </span>
-          <span class="kpi-unit">
+          <span class="kpi-unit" {% if upcoming_events %}title="{{ upcoming_events.0.venue_code }} · {{ upcoming_events.0.title }}"{% endif %}>
             {% if upcoming_events %}
-              {{ upcoming_events.0.venue_code }} · {{ upcoming_events.0.title|truncatechars:18 }}
+              {{ upcoming_events.0.venue_code }} · <span style="display:inline-block; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom;">{{ upcoming_events.0.title }}</span>
             {% else %}
               Rejalashtirilmagan
             {% endif %}
@@ -140,7 +140,7 @@
         <!-- Event Tracks -->
         <div class="timeline-tracks" data-timeline-tracks>
           {% for ev in today_events %}
-            <div class="event-capsule {% if ev.status == 'in_progress' %}status-active{% else %}status-upcoming{% endif %}" style="left: calc(({{ ev.start_time|slice:':2'|add:'-8' }} * 10%) + ({{ ev.start_time|slice:'3:5' }} / 60 * 10%)); width: 22%; top: calc({{ forloop.counter0 }} * 48px + 8px);">
+            <div class="event-capsule {% if ev.status == 'in_progress' %}status-active{% else %}status-upcoming{% endif %} cat-{% if 'Konferensiya' in ev.type_name %}conference{% elif 'Kengash' in ev.type_name %}council{% elif 'Trening' in ev.type_name %}training{% elif 'Seminar' in ev.type_name %}workshop{% else %}default{% endif %}" style="left: calc(({{ ev.start_time|slice:':2'|add:'-8' }} * 10%) + ({{ ev.start_time|slice:'3:5' }} / 60 * 10%)); width: 22%; top: calc({{ forloop.counter0 }} * 48px + 8px);">
               <div class="event-capsule-badge">{{ ev.venue_code|default:"AUD1" }}</div>
               <div class="event-capsule-content">
                 <span class="event-title">{{ ev.title }}</span>
@@ -149,21 +149,21 @@
             </div>
           {% empty %}
             <!-- Rich Operational Demo Capsules if no server events for today -->
-            <div class="event-capsule status-active" style="left: 18%; width: 26%; top: 10px;">
+            <div class="event-capsule status-active cat-conference" style="left: 18%; width: 26%; top: 10px;">
               <div class="event-capsule-badge">AUD1</div>
               <div class="event-capsule-content">
                 <span class="event-title">Xalqaro ilmiy-amaliy simpozium</span>
                 <span class="event-meta">09:45–12:30 · Plenar sessiya</span>
               </div>
             </div>
-            <div class="event-capsule status-upcoming" style="left: 50%; width: 22%; top: 58px;">
+            <div class="event-capsule status-upcoming cat-council" style="left: 50%; width: 22%; top: 58px;">
               <div class="event-capsule-badge">AUD2</div>
               <div class="event-capsule-content">
                 <span class="event-title">Vazirlik muvofiqlashtirish kengashi</span>
                 <span class="event-meta">13:00–15:15 · Kichik zal</span>
               </div>
             </div>
-            <div class="event-capsule status-scheduled" style="left: 72%; width: 20%; top: 106px;">
+            <div class="event-capsule status-scheduled cat-workshop" style="left: 72%; width: 20%; top: 106px;">
               <div class="event-capsule-badge">AUD3</div>
               <div class="event-capsule-content">
                 <span class="event-title">IT startaplar taqdimoti</span>
@@ -212,13 +212,13 @@
 
               {% if v.status == 'OCCUPIED' and v.current_title %}
                 <div class="venue-active-desc">
-                  <span class="venue-desc-title">{{ v.current_title|truncatechars:26 }}</span>
+                  <span class="venue-desc-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 100%;">{{ v.current_title }}</span>
                   {% if v.ends_at %}<span class="venue-desc-time">{{ v.ends_at|time:"H:i" }} gacha</span>{% endif %}
                 </div>
               {% elif v.next_title %}
                 <div class="venue-next-desc">
                   <span class="next-label">Navbatdagi:</span>
-                  <span class="next-title">{{ v.next_title|truncatechars:22 }} ({{ v.next_start|time:"H:i"|default:v.next_start }})</span>
+                  <span class="next-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 100%;">{{ v.next_title }} ({{ v.next_start|time:"H:i"|default:v.next_start }})</span>
                 </div>
               {% else %}
                 <div class="venue-free-desc">

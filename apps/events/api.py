@@ -210,14 +210,32 @@ class CalendarEventsAPIView(APIView):
                 e.responsible_employee.get_full_name() or e.responsible_employee.username
             )
 
+            status_colors = {
+                "draft": "#64748B",
+                "pending_approval": "#F59E0B",
+                "submitted": "#F59E0B",
+                "under_review": "#F59E0B",
+                "approved": "#0EA5E9",
+                "rejected": "#E11D48",
+                "planned": "#2563EB",
+                "scheduled": "#2563EB",
+                "ongoing": "#10B981",
+                "completed": "#475569",
+                "postponed": "#F59E0B",
+                "displaced": "#E11D48",
+                "cancelled": "#E11D48",
+                "emergency": "#E11D48",
+            }
+            color = status_colors.get(e.status, "#2563EB")
+
             calendar_payload.append(
                 {
                     "id": str(e.pk),
                     "title": e.title,
                     "start": start_iso,
                     "end": end_iso,
-                    "backgroundColor": e.event_type.color,
-                    "borderColor": e.event_type.color,
+                    "backgroundColor": color,
+                    "borderColor": color,
                     "textColor": "#ffffff",
                     "extendedProps": {
                         "venue_name": e.venue.localized_name,

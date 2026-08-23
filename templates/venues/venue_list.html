@@ -7,13 +7,60 @@
   <div class="data-toolbar"><span><strong>{{ total_count }}</strong> {% trans "records" %}</span>{% include "master_data/filters.html" %}</div>
   {% if venues %}
   <div class="table-scroll"><table class="data-table">
-    <thead><tr><th>{% trans "Venue" %}</th><th>{% trans "Location" %}</th><th>{% trans "Capacity" %}</th><th>{% trans "Working hours" %}</th><th>{% trans "Status" %}</th><th style="text-align: right;">{% trans "Actions" %}</th></tr></thead>
-    <tbody>{% for venue in venues %}<tr>
-      <td><a class="record-title" href="{% url 'venues:detail' venue.pk %}"><span class="record-code">{{ venue.code }}</span><span><strong>{{ venue.localized_name }}</strong><small>{{ venue.name_en }}</small></span></a></td>
-      <td>{{ venue.location|default:"—" }}</td><td>{{ venue.capacity }}</td><td>{{ venue.working_start|time:"H:i" }}–{{ venue.working_end|time:"H:i" }}</td>
-      <td><span class="status-badge{% if not venue.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{% if venue.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</span></td>
-      <td style="text-align: right;"><div class="table-actions" style="display: flex; gap: 4px; justify-content: flex-end;"><a class="btn-ghost btn-icon compact" href="{% url 'venues:detail' venue.pk %}" title="{% trans "View" %}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>{% if can_manage %}<a class="btn-ghost btn-icon compact" href="{% url 'venues:edit' venue.pk %}" title="{% trans "Edit" %}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>{% endif %}</div></td>
-    </tr>{% endfor %}</tbody>
+    <thead>
+      <tr>
+        <th>{% trans "Venue" %}</th>
+        <th>{% trans "Location" %}</th>
+        <th>{% trans "Capacity" %}</th>
+        <th>{% trans "Working hours" %}</th>
+        <th>{% trans "Status" %}</th>
+        <th style="text-align: right;" class="desktop-only">{% trans "Actions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for venue in venues %}
+      <tr>
+        <td data-label="{% trans 'Venue' %}">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 11px; font-weight: 700; color: var(--color-text-muted);">{{ venue.code }}</span>
+            <a class="record-title" href="{% url 'venues:detail' venue.pk %}">
+              <div>
+                <strong>{{ venue.localized_name }}</strong>
+                <small class="muted">{{ venue.name_en }}</small>
+              </div>
+            </a>
+          </div>
+        </td>
+        <td data-label="{% trans 'Location' %}">{{ venue.location|default:"—" }}</td>
+        <td data-label="{% trans 'Capacity' %}">{{ venue.capacity }}</td>
+        <td data-label="{% trans 'Working hours' %}">{{ venue.working_start|time:"H:i" }}–{{ venue.working_end|time:"H:i" }}</td>
+        <td data-label="{% trans 'Status' %}">
+          <span class="status-badge {% if venue.is_active %}status-active{% else %}is-inactive{% endif %}">
+            {% if venue.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}
+          </span>
+        </td>
+        <td class="actions-cell">
+  <div class="dropdown-wrapper desktop-only" style="display: inline-block; text-align: left;">
+    <button type="button" class="btn-ghost btn-icon compact dropdown-toggle" aria-label="{% trans 'Actions' %}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </button>
+    <div class="premium-dropdown-menu" hidden>
+      <a href="{% url 'venues:detail' venue.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
+      {% if can_manage %}
+      <a href="{% url 'venues:edit' venue.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="mobile-actions-row mobile-only">
+    <a href="{% url 'venues:detail' venue.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
+    {% if can_manage %}
+    <a href="{% url 'venues:edit' venue.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+    {% endif %}
+  </div>
+</td>
+      </tr>
+      {% endfor %}
+    </tbody>
   </table></div>
   {% include "master_data/pagination.html" %}
   {% else %}<div class="empty-list"><span aria-hidden="true">ICH</span><h2>{% trans "No venues found" %}</h2><p>{% trans "Adjust the filters or create the first venue record." %}</p></div>{% endif %}

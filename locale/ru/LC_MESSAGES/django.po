@@ -294,13 +294,13 @@ msgid "Adjust the filters or create the first organization record."
 msgstr "Измените фильтры или создайте первую организацию."
 
 msgid "Adjust the filters or create the first sponsor record."
-msgstr "Измените фильтры или создайте первого спонсора."
+msgstr "Измените фильтры или добавьте первого спонсора."
 
 msgid "Adjust the filters or create the first venue record."
 msgstr "Измените фильтры или создайте первое помещение."
 
 msgid "Adjust the filters or seed the default event types."
-msgstr "Измените фильтры или загрузите стандартные типы мероприятий."
+msgstr "Настройте фильтры или создайте стандартные типы."
 
 msgid "Approvals"
 msgstr "Согласования"
@@ -687,7 +687,7 @@ msgid "Time"
 msgstr "Время"
 
 msgid "Event"
-msgstr "Мероприятие"
+msgstr "Событие"
 
 msgid "Organizer"
 msgstr "Организатор"
@@ -1853,3 +1853,340 @@ msgstr ""
 
 msgid "Republic Oncology Center"
 msgstr "Республиканский онкологический центр"
+
+msgid "Program Mode"
+msgstr "Program Mode"
+
+msgid "Public Accessibility"
+msgstr "Public Accessibility"
+
+msgid "Manual Agenda"
+msgstr "Manual Agenda"
+
+msgid "Private"
+msgstr "Private"
+
+msgid "Open Public Event Page"
+msgstr "Open Public Event Page"
+
+msgid "Print Poster (A4/A5)"
+msgstr "Print Poster (A4/A5)"
+
+msgid "Schedule & Timing"
+msgstr "Schedule & Timing"
+
+msgid "Time Interval"
+msgstr "Time Interval"
+
+msgid "Duration"
+msgstr "Duration"
+
+msgid "Venue Name"
+msgstr "Venue Name"
+
+msgid "Organizing Organizations"
+msgstr "Organizing Organizations"
+
+msgid "Zoom / Meeting Link"
+msgstr "Zoom / Meeting Link"
+
+msgid "Registration Link"
+msgstr "Registration Link"
+
+msgid "Telegram Reminders"
+msgstr "Telegram Reminders"
+
+msgid "Configure Reminders"
+msgstr "Configure Reminders"
+
+msgid "New"
+msgstr "New"
+
+msgid "No data."
+msgstr "No data."
+
+msgid "Program & Public Page"
+msgstr "Program & Public Page"
+
+msgid "Venue Details"
+msgstr "Venue Details"
+
+msgid "Partners & Sponsors"
+msgstr "Partners & Sponsors"
+
+msgid "Responsible Staff"
+msgstr "Responsible Staff"
+
+msgid "Responsible Employee"
+msgstr "Responsible Employee"
+
+msgid "Management Responsible"
+msgstr "Management Responsible"
+
+msgid "Online Links"
+msgstr "Online Links"
+
+msgid "Join Meeting"
+msgstr "Join Meeting"
+
+msgid "Register Here"
+msgstr "Register Here"
+
+msgid "Audit Metadata"
+msgstr "Audit Metadata"
+
+msgid "Working Hours"
+msgstr "Working Hours"
+
+msgid "Back to Events"
+msgstr "Back to Events"
+
+msgid "Speakers Directory"
+msgstr "Спикеры"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Управляйте основными докладчиками, ведущими и экспертами."
+
+msgid "New Speaker"
+msgstr "Новый спикер"
+
+msgid "No speakers found in directory."
+msgstr "Спикеры не найдены."
+
+msgid "Full Name"
+msgstr "ФИО"
+
+msgid "Title / Position"
+msgstr "Должность"
+
+msgid "Public"
+msgstr "Открытый"
+
+msgid "Hidden"
+msgstr "Скрытый"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Измените фильтры или добавьте первого спикера."
+
+msgid "Speakers Directory"
+msgstr "Спикеры"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Управляйте основными докладчиками, ведущими и экспертами."
+
+msgid "New Speaker"
+msgstr "Новый спикер"
+
+msgid "No speakers found in directory."
+msgstr "Спикеры не найдены."
+
+msgid "Full Name"
+msgstr "ФИО"
+
+msgid "Title / Position"
+msgstr "Должность"
+
+msgid "Organization"
+msgstr "Организация"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Public"
+msgstr "Открытый"
+
+msgid "Hidden"
+msgstr "Скрытый"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Измените фильтры или добавьте первого спикера."
+
+msgid "No event types found"
+msgstr "Типы мероприятий не найдены"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Настройте фильтры или создайте стандартные типы."
+
+msgid "No sponsors found"
+msgstr "Спонсоры не найдены"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Измените фильтры или добавьте первого спонсора."
+
+msgid "Speakers Directory"
+msgstr "Спикеры"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Управление спикерами, докладчиками и экспертами."
+
+msgid "New Speaker"
+msgstr "Добавить спикера"
+
+msgid "No speakers found in directory."
+msgstr "Спикеры не найдены в каталоге."
+
+msgid "Full Name"
+msgstr "Полное имя"
+
+msgid "Title / Position"
+msgstr "Должность / Звание"
+
+msgid "Organization"
+msgstr "Организация"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Public"
+msgstr "Публичный"
+
+msgid "Hidden"
+msgstr "Скрытый"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Настройте фильтры или создайте первую запись спикера."
+
+msgid "Master Data"
+msgstr "СПРАВОЧНИКИ"
+
+msgid "Executive Intelligence"
+msgstr "Сводка для руководства"
+
+msgid "Leadership Dashboard"
+msgstr "Панель руководства"
+
+msgid "Real-time institutional oversight and executive resource visibility."
+msgstr "Мониторинг учреждения и обзор ресурсов в реальном времени."
+
+msgid "Open interactive calendar"
+msgstr "Открыть интерактивный календарь"
+
+msgid "Today's Events"
+msgstr "События сегодня"
+
+msgid "In Progress"
+msgstr "В процессе"
+
+msgid "Available Venues"
+msgstr "Свободные залы"
+
+msgid "Occupied Venues"
+msgstr "Занятые залы"
+
+msgid "Today's Check-ins"
+msgstr "Регистрации сегодня"
+
+msgid "Live Venue Status"
+msgstr "Статус залов (Live)"
+
+msgid "Refreshes automatically every 20 seconds"
+msgstr "Автоматически обновляется каждые 20 секунд"
+
+msgid "No event in progress"
+msgstr "В данный момент событий нет"
+
+msgid "Today's Timeline"
+msgstr "Расписание на сегодня"
+
+msgid "No events today"
+msgstr "Сегодня событий нет"
+
+msgid "Attendance Summary"
+msgstr "Сводка посещаемости"
+
+msgid "Expected"
+msgstr "Ожидается"
+
+msgid "Checked in"
+msgstr "Зарегистрировано"
+
+msgid "Emergency / High Priority"
+msgstr "Срочные / Высокий приоритет"
+
+msgid "No high-priority events"
+msgstr "Нет срочных событий"
+
+msgid "Upcoming Events"
+msgstr "Предстоящие события"
+
+msgid "Next 7 days"
+msgstr "Следующие 7 дней"
+
+msgid "No upcoming events"
+msgstr "Нет предстоящих событий"
+
+msgid "No event types found"
+msgstr "Типы мероприятий не найдены"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Настройте фильтры или создайте стандартные типы."
+
+msgid "No sponsors found"
+msgstr "Спонсоры не найдены"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Измените фильтры или добавьте первого спонсора."
+
+msgid "EXECUTIVE INTELLIGENCE"
+msgstr "РУКОВОДЯЩИЙ КОНТРОЛЬ"
+
+msgid "Leadership Dashboard"
+msgstr "Панель руководства"
+
+# Login page translations (Phase 27.19)
+msgid "Kirish"
+msgstr "Войти"
+
+msgid "Xush kelibsiz"
+msgstr "Добро пожаловать"
+
+msgid "K-ONE boshqaruv tizimiga kiring"
+msgstr "Войдите в систему управления K-ONE"
+
+msgid "Foydalanuvchi nomi"
+msgstr "Имя пользователя"
+
+msgid "Parol"
+msgstr "Пароль"
+
+msgid "Parolni ko'rsatish"
+msgstr "Показать пароль"
+
+msgid "Parolni yashirish"
+msgstr "Скрыть пароль"
+
+msgid "Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+msgstr "Неверное имя пользователя или пароль. Проверьте данные и попробуйте снова."
+
+msgid "Tizimga kirish faqat ruxsat etilgan xodimlar uchun."
+msgstr "Вход в систему только для уполномоченных сотрудников."
+
+msgid "Barcha tadbirlar yagona tizimda"
+msgstr "Все мероприятия в единой системе"
+
+msgid "Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona professional platformada boshqaring."
+msgstr "Управляйте мероприятиями, конференц-залами и процессами на единой профессиональной платформе."
+
+msgid "Xavfsiz kirish"
+msgstr "Безопасный вход"
+
+msgid "Real vaqt monitoringi"
+msgstr "Мониторинг в реальном времени"
+
+msgid "Markazlashgan boshqaruv"
+msgstr "Централизованное управление"
+
+msgid "Mavzuni o'zgartirish"
+msgstr "Сменить тему"

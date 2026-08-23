@@ -1,64 +1,128 @@
 {% extends "base.html" %}
 {% load i18n static %}
+{% get_current_language as CURRENT_LANGUAGE %}
 
-{% block title %}K-ONE — Kirish{% endblock %}
+{% block title %}K-ONE — {% trans "Kirish" %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}?v=27.19">
+{% endblock %}
 
 {% block unauthenticated_content %}
 <section class="auth-brand-panel" aria-hidden="true">
-  <div class="auth-brand-art-box">
-    <img src="{% static 'img/k-one/k-one-login-hero-art.png' %}" alt="K-ONE Brand Hero" class="auth-hero-art-img">
-  </div>
-  <div class="sr-only">
-    <h1>K-ONE — Barcha tadbirlar yagona tizimda</h1>
-    <p>Xalqaro tadbirlar, zallar faoliyati va boshqaruv jarayonlarini bitta professional makonda birlashtiruvchi platforma.</p>
+  <div class="auth-brand-inner">
+    <div class="auth-brand-logo-wrap">
+      <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE" class="auth-brand-logo" width="230" height="230">
+    </div>
+    <p class="auth-brand-tagline">{% trans "Barcha tadbirlar yagona tizimda" %}</p>
+    <p class="auth-brand-desc">{% trans "Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona professional platformada boshqaring." %}</p>
+    <div class="auth-brand-trust">
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> {% trans "Xavfsiz kirish" %}</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> {% trans "Real vaqt monitoringi" %}</span>
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> {% trans "Markazlashgan boshqaruv" %}</span>
+    </div>
   </div>
 </section>
 
 <section class="auth-form-panel">
-  <form class="login-card" method="post" novalidate>
-    {% csrf_token %}
-    <div class="login-heading">
-      <div class="logo-container-mobile">
-        <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE Logo" class="brand-logo-mobile">
-      </div>
-      <h2>Xush kelibsiz</h2>
-      <p>K-ONE boshqaruv tizimiga kiring</p>
+  <div class="auth-form-inner">
+    <div class="auth-toolbar">
+      <form class="auth-lang-switch" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Language' %}">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        {% for code, name in LANGUAGES %}
+          <button name="language" value="{{ code }}" type="submit"{% if code == CURRENT_LANGUAGE %} class="is-active" aria-current="true"{% endif %}>{{ code|upper }}</button>
+        {% endfor %}
+      </form>
+      <button type="button" class="auth-theme-toggle" id="auth-theme-toggle" aria-label="{% trans 'Mavzuni o\'zgartirish' %}" data-theme-toggle>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
     </div>
 
-    {% if form.non_field_errors %}
-      <div class="form-alert" role="alert">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span>{% trans "Login yoki parol noto‘g‘ri. Qayta tekshirib kiriting." %}</span>
-      </div>
-    {% endif %}
+    <form class="auth-form" method="post" novalidate>
+      {% csrf_token %}
 
-    <div class="form-group">
-      <label for="{{ form.username.id_for_label }}">Foydalanuvchi nomi</label>
-      <div class="input-wrapper">
-        <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        <input type="text" name="username" id="{{ form.username.id_for_label }}" class="premium-input" placeholder="Foydalanuvchi nomi" required {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+      <div class="auth-form-header">
+        <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE" class="auth-form-logo" width="60" height="60">
+        <h1 class="auth-form-title">{% trans "Xush kelibsiz" %}</h1>
+        <p class="auth-form-subtitle">{% trans "K-ONE boshqaruv tizimiga kiring" %}</p>
       </div>
-      {% if form.username.errors %}
-        <div class="field-error" id="username-error">{{ form.username.errors }}</div>
+
+      {% if form.non_field_errors %}
+      <div class="auth-error-alert" role="alert">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>{% trans "Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring." %}</span>
+      </div>
       {% endif %}
-    </div>
 
-    <div class="form-group">
-      <label for="{{ form.password.id_for_label }}">Parol</label>
-      <div class="input-wrapper">
-        <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        <input type="password" name="password" id="{{ form.password.id_for_label }}" class="premium-input" placeholder="Parol" required>
+      <div class="auth-field">
+        <label for="{{ form.username.id_for_label }}">{% trans "Foydalanuvchi nomi" %}</label>
+        <div class="auth-input-wrap">
+          <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input type="text" name="username" id="{{ form.username.id_for_label }}" class="auth-input" placeholder="{% trans 'Foydalanuvchi nomi' %}" autocomplete="username" required {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+        </div>
       </div>
-      {% if form.password.errors %}
-        <div class="field-error" id="password-error">{{ form.password.errors }}</div>
-      {% endif %}
-    </div>
 
-    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <div class="auth-field">
+        <label for="{{ form.password.id_for_label }}">{% trans "Parol" %}</label>
+        <div class="auth-input-wrap">
+          <svg class="auth-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" name="password" id="{{ form.password.id_for_label }}" class="auth-input" placeholder="{% trans 'Parol' %}" autocomplete="current-password" required>
+          <button type="button" class="auth-password-toggle" data-password-toggle aria-label="{% trans 'Parolni ko\'rsatish' %}">
+            <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
 
-    <button class="primary-button premium-btn" type="submit">Kirish</button>
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
 
-    <p class="security-note"><span aria-hidden="true">●</span> Tizimga kirish faqat ruxsat etilgan xodimlar uchun.</p>
-  </form>
+      <button class="auth-submit-btn" type="submit">
+        {% trans "Kirish" %}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+
+      <p class="auth-security-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        {% trans "Tizimga kirish faqat ruxsat etilgan xodimlar uchun." %}
+      </p>
+    </form>
+  </div>
 </section>
+
+<script>
+(function() {
+  var root = document.documentElement;
+  var stored = null;
+  try { stored = localStorage.getItem('kone-theme'); } catch(e) {}
+  var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var initial = stored || (systemDark ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    /* Theme toggle */
+    var themeBtn = document.getElementById('auth-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function() {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('kone-theme', next); } catch(e) {}
+      });
+    }
+
+    /* Password toggle */
+    var pwField = document.getElementById('id_password');
+    var pwToggle = document.querySelector('[data-password-toggle]');
+    if (pwField && pwToggle) {
+      pwToggle.addEventListener('click', function() {
+        var show = pwField.type === 'password';
+        pwField.type = show ? 'text' : 'password';
+        pwToggle.setAttribute('aria-label', show ? 'Parolni yashirish' : "Parolni ko\u2019rsatish");
+        pwToggle.classList.toggle('is-visible', show);
+      });
+    }
+  });
+})();
+</script>
 {% endblock %}

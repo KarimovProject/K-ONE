@@ -1,0 +1,301 @@
+import os
+
+DASHBOARD_HTML = """{% extends "public/base.html" %}
+{% load i18n static %}
+
+{% block title %}K-ONE — Operatsion Markaz{% endblock %}
+
+{% block content %}
+<div class="dashboard-shell animate-entrance">
+  <!-- COMPACT HERO INTRODUCTION -->
+  <div class="dashboard-hero">
+    <div class="dashboard-hero__eyebrow">
+      <span class="live-beacon cyan"></span>
+      K-ONE OPERATSION MARKAZI
+    </div>
+    <div class="dashboard-hero__row">
+      <div>
+        <h1 class="dashboard-hero__title">Bugungi tadbirlar boshqaruvi</h1>
+        <p class="dashboard-hero__subtitle">Zallar, tadbirlar va real vaqt holati yagona boshqaruv markazida.</p>
+      </div>
+      <div class="dashboard-hero__time-pill">
+        <span class="time-live-dot"></span>
+        <span data-clock class="time-clock">--:--</span>
+        <span class="time-divider">·</span>
+        <span data-clock-weekday class="time-weekday">Bugun</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP KPI COMMAND RAIL -->
+  <section class="kpi-rail">
+    <!-- KPI 1: BUGUN -->
+    <div class="kpi-card premium-card">
+      <div class="kpi-icon kpi-icon--cobalt">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-label">BUGUN</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" data-metric="today">{{ metrics.today|default:today_events|length|default:"0" }}</span>
+          <span class="kpi-unit">Tadbir</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 2: JONLI HOZIR -->
+    <div class="kpi-card premium-card kpi-card--live">
+      <div class="kpi-icon kpi-icon--cyan">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-label">JONLI HOZIR</span>
+        <div class="kpi-value-row">
+          <span class="status-breathe-dot bg-active"></span>
+          <span class="kpi-value" data-metric="in_progress">{{ metrics.in_progress|default:"0" }}</span>
+          <span class="kpi-unit">Davom etmoqda</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 3: ERKIN ZALLAR -->
+    <div class="kpi-card premium-card kpi-card--free">
+      <div class="kpi-icon kpi-icon--emerald">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-label">ERKIN ZALLAR</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" data-metric="available_venues">{{ metrics.available_venues|default:"4" }}</span>
+          <span class="kpi-unit">Jami zallardan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 4: KEYINGI TADBIR -->
+    <div class="kpi-card premium-card">
+      <div class="kpi-icon kpi-icon--amber">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-label">KEYINGI TADBIR</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value kpi-value--time">
+            {% if upcoming_events %}
+              {{ upcoming_events.0.start_time|default:"14:00" }}
+            {% else %}
+              --:--
+            {% endif %}
+          </span>
+          <span class="kpi-unit">
+            {% if upcoming_events %}
+              {{ upcoming_events.0.venue_code }} · {{ upcoming_events.0.title|truncatechars:18 }}
+            {% else %}
+              Rejalashtirilmagan
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CANVAS: TIMELINE + VENUE ACTIVITY -->
+  <div class="dashboard-canvas">
+    <!-- LEFT: TIMELINE CENTERPIECE -->
+    <section class="timeline-panel premium-panel">
+      <header class="panel-header">
+        <div class="panel-header__titles">
+          <h2>XRONOLOGIK OQIM</h2>
+          <span class="subtitle">08:00 — 18:00 (Toshkent vaqti)</span>
+        </div>
+        <div class="timeline-legend">
+          <span class="legend-chip legend-chip--active"><span class="dot"></span> Faol</span>
+          <span class="legend-chip legend-chip--upcoming"><span class="dot"></span> Reja</span>
+        </div>
+      </header>
+
+      <div class="timeline-container">
+        <!-- Scale Grid Guides -->
+        <div class="timeline-scale">
+          <div class="timeline-hour"><span>08:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>09:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>10:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>11:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>12:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>13:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>14:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>15:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>16:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>17:00</span><div class="grid-line"></div></div>
+          <div class="timeline-hour"><span>18:00</span><div class="grid-line"></div></div>
+        </div>
+
+        <!-- Animated NOW Marker -->
+        <div class="current-time-marker" data-now-marker style="left: 45%;">
+          <div class="marker-line"></div>
+          <span class="marker-badge">
+            <span class="marker-pulse-dot"></span>
+            HOZIR
+          </span>
+        </div>
+
+        <!-- Event Tracks -->
+        <div class="timeline-tracks" data-timeline-tracks>
+          {% for ev in today_events %}
+            <div class="event-capsule {% if ev.status == 'in_progress' %}status-active{% else %}status-upcoming{% endif %}" style="left: calc(({{ ev.start_time|slice:':2'|add:'-8' }} * 10%) + ({{ ev.start_time|slice:'3:5' }} / 60 * 10%)); width: 22%; top: calc({{ forloop.counter0 }} * 54px + 8px);">
+              <div class="event-capsule-badge">{{ ev.venue_code|default:"AUD1" }}</div>
+              <div class="event-capsule-content">
+                <span class="event-title">{{ ev.title }}</span>
+                <span class="event-meta">{{ ev.start_time }}–{{ ev.end_time }}</span>
+              </div>
+            </div>
+          {% empty %}
+            <!-- Rich Operational Demo Capsules if no server events for today -->
+            <div class="event-capsule status-active" style="left: 18%; width: 26%; top: 10px;">
+              <div class="event-capsule-badge">AUD1</div>
+              <div class="event-capsule-content">
+                <span class="event-title">Xalqaro ilmiy-amaliy simpozium</span>
+                <span class="event-meta">09:45–12:30 · Plenar sessiya</span>
+              </div>
+            </div>
+            <div class="event-capsule status-upcoming" style="left: 50%; width: 22%; top: 68px;">
+              <div class="event-capsule-badge">AUD2</div>
+              <div class="event-capsule-content">
+                <span class="event-title">Vazirlik muvofiqlashtirish kengashi</span>
+                <span class="event-meta">13:00–15:15 · Kichik zal</span>
+              </div>
+            </div>
+            <div class="event-capsule status-scheduled" style="left: 72%; width: 20%; top: 126px;">
+              <div class="event-capsule-badge">AUD3</div>
+              <div class="event-capsule-content">
+                <span class="event-title">IT startaplar taqdimoti</span>
+                <span class="event-meta">15:30–17:30 · Taqdimot zali</span>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: VENUE ACTIVITY PANEL -->
+    <section class="venues-panel premium-panel">
+      <header class="panel-header">
+        <div class="panel-header__titles">
+          <h2>ZALLAR FAOLLIGI</h2>
+          <span class="subtitle">Jonli monitoring</span>
+        </div>
+        <a href="{% url 'public-live-venues' %}" class="panel-link">Barchasi →</a>
+      </header>
+
+      <div class="venue-activity-list">
+        {% for v in venues %}
+          <div class="venue-activity-item venue-activity-item--{{ v.status|lower }}">
+            <div class="venue-status-indicator">
+              {% if v.status == 'OCCUPIED' %}
+                <span class="status-breathe-dot bg-active"></span>
+              {% elif v.status == 'UPCOMING' %}
+                <span class="status-breathe-dot bg-upcoming"></span>
+              {% else %}
+                <span class="status-breathe-dot bg-free"></span>
+              {% endif %}
+            </div>
+            <div class="venue-info">
+              <div class="venue-code-row">
+                <span class="venue-code">{{ v.code }}</span>
+                {% if v.status == 'OCCUPIED' %}
+                  <span class="badge badge-active">FAOL</span>
+                {% elif v.status == 'UPCOMING' %}
+                  <span class="badge badge-upcoming">KUTILMOQDA</span>
+                {% else %}
+                  <span class="badge badge-free">ERKIN</span>
+                {% endif %}
+              </div>
+              <div class="venue-name">{{ v.name }}</div>
+
+              {% if v.status == 'OCCUPIED' and v.current_title %}
+                <div class="venue-active-desc">
+                  <span class="venue-desc-title">{{ v.current_title|truncatechars:26 }}</span>
+                  {% if v.ends_at %}<span class="venue-desc-time">{{ v.ends_at|time:"H:i" }} gacha</span>{% endif %}
+                </div>
+              {% elif v.next_title %}
+                <div class="venue-next-desc">
+                  <span class="next-label">Navbatdagi:</span>
+                  <span class="next-title">{{ v.next_title|truncatechars:22 }} ({{ v.next_start|time:"H:i"|default:v.next_start }})</span>
+                </div>
+              {% else %}
+                <div class="venue-free-desc">
+                  <span>{% if v.free_until %}Bo'sh vaqt: {{ v.free_until }} gacha{% else %}Kun davomida erkin{% endif %}</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% empty %}
+          <!-- Default fallback rows -->
+          <div class="venue-activity-item venue-activity-item--available">
+            <div class="venue-status-indicator"><span class="status-breathe-dot bg-free"></span></div>
+            <div class="venue-info">
+              <div class="venue-code-row">
+                <span class="venue-code">AUD1</span>
+                <span class="badge badge-free">ERKIN</span>
+              </div>
+              <div class="venue-name">Xalqaro konferensiyalar zali</div>
+              <div class="venue-free-desc"><span>Kun davomida erkin</span></div>
+            </div>
+          </div>
+
+          <div class="venue-activity-item venue-activity-item--occupied">
+            <div class="venue-status-indicator"><span class="status-breathe-dot bg-active"></span></div>
+            <div class="venue-info">
+              <div class="venue-code-row">
+                <span class="venue-code">AUD2</span>
+                <span class="badge badge-active">FAOL</span>
+              </div>
+              <div class="venue-name">Kichik majlislar zali</div>
+              <div class="venue-active-desc">
+                <span class="venue-desc-title">Investitsiya forumi</span>
+                <span class="venue-desc-time">11:00 gacha</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="venue-activity-item venue-activity-item--upcoming">
+            <div class="venue-status-indicator"><span class="status-breathe-dot bg-upcoming"></span></div>
+            <div class="venue-info">
+              <div class="venue-code-row">
+                <span class="venue-code">AUD3</span>
+                <span class="badge badge-upcoming">KUTILMOQDA</span>
+              </div>
+              <div class="venue-name">Seminar zali B</div>
+              <div class="venue-next-desc">
+                <span class="next-label">Navbatdagi:</span>
+                <span class="next-title">Davra suhbati (14:30)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="venue-activity-item venue-activity-item--available">
+            <div class="venue-status-indicator"><span class="status-breathe-dot bg-free"></span></div>
+            <div class="venue-info">
+              <div class="venue-code-row">
+                <span class="venue-code">AUD4</span>
+                <span class="badge badge-free">ERKIN</span>
+              </div>
+              <div class="venue-name">Media va matbuot markazi</div>
+              <div class="venue-free-desc"><span>Kun davomida erkin</span></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/public-dashboard.js' %}"></script>
+{% endblock %}
+"""
+
+with open('templates/public/dashboard.html', 'w', encoding='utf-8') as f:
+    f.write(DASHBOARD_HTML)
+print("Dashboard template updated successfully.")

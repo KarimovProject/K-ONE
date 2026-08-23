@@ -217,7 +217,7 @@ msgid "Notes"
 msgstr "Izohlar"
 
 msgid "Country"
-msgstr "Mamlakat"
+msgstr "Davlat"
 
 msgid "City"
 msgstr "Shahar"
@@ -292,13 +292,13 @@ msgid "Adjust the filters or create the first organization record."
 msgstr "Filtrlarni o‘zgartiring yoki birinchi tashkilotni yarating."
 
 msgid "Adjust the filters or create the first sponsor record."
-msgstr "Filtrlarni o‘zgartiring yoki birinchi homiyni yarating."
+msgstr "Filtrlarni o'zgartiring yoki birinchi homiyni qo'shing."
 
 msgid "Adjust the filters or create the first venue record."
 msgstr "Filtrlarni o‘zgartiring yoki birinchi xonani yarating."
 
 msgid "Adjust the filters or seed the default event types."
-msgstr "Filtrlarni o‘zgartiring yoki standart tadbir turlarini yuklang."
+msgstr "Filtrlarni moslashtiring yoki standart turlarni urug'lang."
 
 msgid "Approvals"
 msgstr "Tasdiqlar"
@@ -631,7 +631,7 @@ msgid "Today's Check-ins"
 msgstr "Bugungi kirishlar"
 
 msgid "Live Venue Status"
-msgstr "Xonalarning jonli holati"
+msgstr "Jonli zallar holati"
 
 msgid "Refreshes every 20 seconds"
 msgstr "Har 20 soniyada yangilanadi"
@@ -664,7 +664,7 @@ msgid "Expected"
 msgstr "Kutilgan"
 
 msgid "Checked in"
-msgstr "Ro‘yxatdan o‘tgan"
+msgstr "Qatnashganlar"
 
 msgid "Emergency / High Priority"
 msgstr "Favqulodda va ustuvor"
@@ -769,7 +769,7 @@ msgid "Anonymous"
 msgstr "Anonim"
 
 msgid "Identified"
-msgstr "Aniqlangan"
+msgstr "Identifikatsiyalangan"
 
 msgid "Staff Manual Check-in"
 msgstr "Qo‘lda qayd etish"
@@ -778,7 +778,7 @@ msgid "Export CSV"
 msgstr "CSV ga yuklash"
 
 msgid "Leadership Dashboard"
-msgstr "Rahbariat Boshqaruv Paneli"
+msgstr "Rahbariyat paneli"
 
 msgid ""
 "Real-time executive overview of active events, venue occupancy & attendance "
@@ -806,7 +806,7 @@ msgid "Today's Check-ins"
 msgstr "Bugungi Tashriflar"
 
 msgid "Live Venue Status"
-msgstr "Zallarning Jonli Holati"
+msgstr "Jonli zallar holati"
 
 msgid "BO‘SH"
 msgstr "BO‘SH"
@@ -884,7 +884,7 @@ msgid "Published"
 msgstr "Nashr qilingan"
 
 msgid "Failed"
-msgstr "Xatolik"
+msgstr "Muvaffaqiyatsiz"
 
 msgid "Publication history"
 msgstr "Nashrlar tarixi"
@@ -987,12 +987,10 @@ msgid "Reporting & analytics"
 msgstr "Hisobot va tahlil"
 
 msgid "Bounded operational and leadership insight from verified IEMS records."
-msgstr ""
-"Tasdiqlangan IEMS yozuvlari asosidagi chegaralangan operatsion va rahbariyat"
-" tahlili."
+msgstr "Tasdiqlangan K-ONE ma'lumotlari asosidagi operatsion tahlil."
 
 msgid "Apply filters"
-msgstr "Filtrlarni qo‘llash"
+msgstr "Filtrlash"
 
 msgid "Total Events"
 msgstr "Jami tadbirlar"
@@ -1004,7 +1002,7 @@ msgid "Venue utilization"
 msgstr "Zallardan foydalanish"
 
 msgid "Reminder success"
-msgstr "Eslatmalar muvaffaqiyati"
+msgstr "Eslatmalar yetkazilishi"
 
 msgid "Event trend"
 msgstr "Tadbirlar dinamikasi"
@@ -1019,19 +1017,19 @@ msgid "Attendance"
 msgstr "Davomat"
 
 msgid "Staff manual"
-msgstr "Xodim tomonidan"
+msgstr "Xodim qo‘lda"
 
 msgid "Approval performance"
 msgstr "Tasdiqlash samaradorligi"
 
 msgid "Average hours"
-msgstr "O‘rtacha soat"
+msgstr "O‘rtacha vaqt (soat)"
 
 msgid "Median hours"
-msgstr "Median soat"
+msgstr "Mediana vaqt (soat)"
 
 msgid "Publication status"
-msgstr "Nashr holati"
+msgstr "Nashrlar holati"
 
 msgid "Retries"
 msgstr "Qayta urinishlar"
@@ -1043,7 +1041,7 @@ msgid "Sent"
 msgstr "Yuborilgan"
 
 msgid "Connected recipients"
-msgstr "Ulangan oluvchilar"
+msgstr "Ulangan qabul qiluvchilar"
 
 msgid "This Week"
 msgstr "Shu hafta"
@@ -1113,7 +1111,7 @@ msgid "Organization activity"
 msgstr "Tashkilotlar faolligi"
 
 msgid "Assigned workload"
-msgstr "Taqsimlangan ish hajmi"
+msgstr "Xodimlar bandligi"
 
 msgid "Event Scheduling"
 msgstr "Tadbirlarni rejalashtirish"
@@ -1158,13 +1156,13 @@ msgid "Expected attendees"
 msgstr "Kutilayotgan ishtirokchilar"
 
 msgid "Attendance rate"
-msgstr "Qatnashish ko‘rsatkichi"
+msgstr "Davomat darajasi"
 
 msgid "Event trend data"
-msgstr "Tadbirlar dinamikasi ma’lumotlari"
+msgstr "Tadbir dinamikasi ma'lumotlari"
 
 msgid "Public QR"
-msgstr "Ommaviy QR"
+msgstr "Ochiq QR"
 
 msgid "Submitted"
 msgstr "Yuborilgan"
@@ -1833,7 +1831,7 @@ msgid "Search events"
 msgstr "Tadbirlarni qidirish"
 
 msgid "Reset"
-msgstr "Tiklash"
+msgstr "Tozalash"
 
 msgid "Responsible person"
 msgstr "Mas’ul shaxs"
@@ -1847,3 +1845,431 @@ msgstr ""
 
 msgid "Republic Oncology Center"
 msgstr "Respublika onkologiya markazi"
+
+msgid "Event Approvals Queue"
+msgstr "Tasdiqlash navbati"
+
+msgid "Event Calendar"
+msgstr "Taqvim"
+
+msgid "Speakers Directory"
+msgstr "Ma'ruzachilar"
+
+msgid "Add New Speaker"
+msgstr "+ Yangi ma'ruzachi"
+
+msgid "All Event Types"
+msgstr "Barcha tadbir turlari"
+
+msgid "Apply Filters"
+msgstr "Filtrlash"
+
+msgid "Registered capacity"
+msgstr "Qayd etilgan sig‘im"
+
+msgid "Active hall ratio"
+msgstr "Faol zallar ulushi"
+
+msgid "Delivery performance"
+msgstr "Yetkazish samaradorligi"
+
+msgid "Analytics & Reporting"
+msgstr "Tahlil va hisobotlar"
+
+msgid ""
+"Bounded operational and leadership insight from verified K-ONE records."
+msgstr "Tasdiqlangan K-ONE ma'lumotlari asosidagi operatsion tahlil."
+
+msgid "Rejected"
+msgstr "Rad etilgan"
+
+msgid "Pending"
+msgstr "Kutilmoqda"
+
+msgid "Manage Program & Public Page"
+msgstr "Dastur va ochiq sahifa boshqaruvi"
+
+msgid "IEMS TV Wallboard"
+msgstr "K-ONE TV Wallboard"
+
+msgid "Role & Permissions"
+msgstr "Rol va ruxsatlar"
+
+msgid "Operational Activity"
+msgstr "Operatsion faollik"
+
+msgid "Role and permissions are managed centrally by system administrators."
+msgstr ""
+"Rollar va ruxsatlar tizim ma'murlari tomonidan markazlashgan holda "
+"boshqariladi."
+
+msgid "Staff Status"
+msgstr "Xodim maqomi"
+
+msgid "Superuser"
+msgstr "Superfoydalanuvchi"
+
+msgid ""
+"Manage your identity and interface language. Access role changes require an "
+"administrator."
+msgstr ""
+"Shaxsiy ma'lumot va interfeys tilini boshqaring. Rolni faqat administrator "
+"o'zgartiradi."
+
+msgid "First name"
+msgstr "Ism"
+
+msgid "Last name"
+msgstr "Familiya"
+
+msgid "OPERATSION MARKAZ"
+msgstr "OPERATSION MARKAZ"
+
+msgid "XRONOLOGIK MONITORING"
+msgstr "XRONOLOGIK MONITORING"
+
+msgid "Bugungi operatsion oqim"
+msgstr "Bugungi operatsion oqim"
+
+msgid "Kutilayotgan"
+msgstr "Kutilayotgan"
+
+msgid "HOZIR"
+msgstr "HOZIR"
+
+msgid "JONLI MONITORING"
+msgstr "JONLI MONITORING"
+
+msgid "Zallar holati"
+msgstr "Zallar holati"
+
+msgid "OPERATSION NAZORAT"
+msgstr "OPERATSION NAZORAT"
+
+msgid "Tizim holati"
+msgstr "Tizim holati"
+
+msgid "Navbatdagi so'rovlar"
+msgstr "Navbatdagi so'rovlar"
+
+msgid "Kechikayotgan tadbirlar"
+msgstr "Kechikayotgan tadbirlar"
+
+msgid "Barcha jadvallar vaqtida"
+msgstr "Barcha jadvallar vaqtida"
+
+msgid "Zal to'qnashuvlari"
+msgstr "Zal to'qnashuvlari"
+
+msgid "Konfliktlar aniqlanmadi"
+msgstr "Konfliktlar aniqlanmadi"
+
+msgid "Hozir bo'sh"
+msgstr "Hozir bo'sh"
+
+msgid "Navbatda"
+msgstr "Navbatda"
+
+msgid "Barcha tadbirlar"
+msgstr "Barcha tadbirlar"
+
+msgid "Yaqinlashayotgan tadbirlar ro'yxati"
+msgstr "Yaqinlashayotgan tadbirlar ro'yxati"
+
+msgid "Hozircha rejalashtirilgan tadbirlar mavjud emas."
+msgstr "Hozircha rejalashtirilgan tadbirlar mavjud emas."
+
+msgid ""
+"Interactive calendar overview of planned international events and venue "
+"schedules."
+msgstr ""
+"Rejalashtirilgan xalqaro tadbirlar va zallar jadvallarining interaktiv "
+"kalendar sharhi."
+
+msgid "Program & Public Page"
+msgstr "Dastur va Ommaviy Sahifa"
+
+msgid "Program Mode"
+msgstr "Dastur rejimi"
+
+msgid "Public Accessibility"
+msgstr "Ommaviy kirish"
+
+msgid "Responsible Staff"
+msgstr "Mas'ul Xodimlar"
+
+msgid "Responsible Employee"
+msgstr "Mas'ul Xodim"
+
+msgid "Management Responsible"
+msgstr "Rahbariyat Mas'uli"
+
+msgid "Online Links"
+msgstr "Onlayn Havolalar"
+
+msgid "Back to Events"
+msgstr "Tadbirlarga qaytish"
+
+msgid "Join Meeting"
+msgstr "Uchrashuvga qo'shilish"
+
+msgid "Register Here"
+msgstr "Bu yerda ro'yxatdan o'ting"
+
+msgid "Venue Details"
+msgstr "Zal Tafsilotlari"
+
+msgid "Partners & Sponsors"
+msgstr "Hamkorlar va Homiylar"
+
+msgid "Working Hours"
+msgstr "Ish Soatlari"
+
+msgid "Audit Metadata"
+msgstr "Audit Metama'lumotlari"
+
+msgid "Manual Agenda"
+msgstr "Qo‘lda boshqariladigan dastur"
+
+msgid "Private"
+msgstr "Yopiq"
+
+msgid "Open Public Event Page"
+msgstr "Ommaviy tadbir sahifasini ochish"
+
+msgid "Print Poster (A4/A5)"
+msgstr "Posterni chop etish (A4/A5)"
+
+msgid "Schedule & Timing"
+msgstr "Jadval va vaqt"
+
+msgid "Time Interval"
+msgstr "Vaqt oralig‘i"
+
+msgid "Duration"
+msgstr "Davomiyligi"
+
+msgid "Venue Name"
+msgstr "Zal nomi"
+
+msgid "Organizing Organizations"
+msgstr "Tashkilotchi tashkilotlar"
+
+msgid "Zoom / Meeting Link"
+msgstr "Zoom / uchrashuv havolasi"
+
+msgid "Registration Link"
+msgstr "Ro‘yxatdan o‘tish havolasi"
+
+msgid "Telegram Reminders"
+msgstr "Telegram eslatmalari"
+
+msgid "Configure Reminders"
+msgstr "Eslatmalarni sozlash"
+
+msgid "New"
+msgstr "Yangi"
+
+msgid "No data."
+msgstr "Ma’lumot yo‘q"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Asosiy ma'ruzachilar, taqdimotchilar va ekspertlarni boshqaring."
+
+msgid "New Speaker"
+msgstr "+ Ma'ruzachi qo'shish"
+
+msgid "No speakers found in directory."
+msgstr "Hozircha ma'ruzachilar mavjud emas."
+
+msgid "Full Name"
+msgstr "To'liq ism"
+
+msgid "Title / Position"
+msgstr "Lavozimi"
+
+msgid "Public"
+msgstr "Ochiq"
+
+msgid "Hidden"
+msgstr "Yashirin"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Filtrlarni o'zgartiring yoki birinchi ma'ruzachini qo'shing."
+
+msgid "Speakers Directory"
+msgstr "Ma'ruzachilar"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Asosiy ma'ruzachilar, taqdimotchilar va ekspertlarni boshqaring."
+
+msgid "New Speaker"
+msgstr "+ Ma'ruzachi qo'shish"
+
+msgid "No speakers found in directory."
+msgstr "Hozircha ma'ruzachilar mavjud emas."
+
+msgid "Full Name"
+msgstr "To'liq ism"
+
+msgid "Title / Position"
+msgstr "Lavozimi"
+
+msgid "Organization"
+msgstr "Tashkilot"
+
+msgid "Country"
+msgstr "Davlat"
+
+msgid "Status"
+msgstr "Holat"
+
+msgid "Actions"
+msgstr "Amallar"
+
+msgid "Public"
+msgstr "Ochiq"
+
+msgid "Hidden"
+msgstr "Yashirin"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Filtrlarni o'zgartiring yoki birinchi ma'ruzachini qo'shing."
+
+msgid "No event types found"
+msgstr "Tadbir turlari topilmadi"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Filtrlarni moslashtiring yoki standart turlarni urug'lang."
+
+msgid "No sponsors found"
+msgstr "Homiylar topilmadi"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Filtrlarni o'zgartiring yoki birinchi homiyni qo'shing."
+
+msgid "Speakers Directory"
+msgstr "Ma'ruzachilar"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Ma'ruzachilar, taqdimotchilar va mutaxassislarni boshqarish."
+
+msgid "New Speaker"
+msgstr "Ma'ruzachi qo'shish"
+
+msgid "No speakers found in directory."
+msgstr "Katalogda ma'ruzachilar topilmadi."
+
+msgid "Full Name"
+msgstr "To'liq ism"
+
+msgid "Title / Position"
+msgstr "Unvon / Lavozim"
+
+msgid "Organization"
+msgstr "Tashkilot"
+
+msgid "Country"
+msgstr "Mamlakat"
+
+msgid "Status"
+msgstr "Holati"
+
+msgid "Actions"
+msgstr "Amallar"
+
+msgid "Public"
+msgstr "Ommaviy"
+
+msgid "Hidden"
+msgstr "Yashirin"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Filtrlarni moslashtiring yoki birinchi ma'ruzachini yarating."
+
+msgid "Master Data"
+msgstr "MA'LUMOTNOMALAR"
+
+msgid "Executive Intelligence"
+msgstr "Rahbariyat ma'lumotlari"
+
+msgid "Leadership Dashboard"
+msgstr "Rahbariyat paneli"
+
+msgid "Real-time institutional oversight and executive resource visibility."
+msgstr "Muassasa ustidan real vaqt rejimida nazorat va resurslar holati."
+
+msgid "Open interactive calendar"
+msgstr "Interaktiv taqvimni ochish"
+
+msgid "Today's Events"
+msgstr "Bugungi tadbirlar"
+
+msgid "In Progress"
+msgstr "Jarayonda"
+
+msgid "Available Venues"
+msgstr "Bo'sh zallar"
+
+msgid "Occupied Venues"
+msgstr "Band zallar"
+
+msgid "Today's Check-ins"
+msgstr "Bugungi ro'yxatdan o'tganlar"
+
+msgid "Live Venue Status"
+msgstr "Zallarning jonli holati"
+
+msgid "Refreshes automatically every 20 seconds"
+msgstr "Har 20 soniyada avtomatik yangilanadi"
+
+msgid "No event in progress"
+msgstr "Jarayondagi tadbir yo'q"
+
+msgid "Today's Timeline"
+msgstr "Bugungi reja"
+
+msgid "No events today"
+msgstr "Bugun tadbirlar yo'q"
+
+msgid "Attendance Summary"
+msgstr "Davomat xulosasi"
+
+msgid "Expected"
+msgstr "Kutilayotgan"
+
+msgid "Checked in"
+msgstr "Ro'yxatdan o'tdi"
+
+msgid "Emergency / High Priority"
+msgstr "Favqulodda / Yuqori ustuvorlik"
+
+msgid "No high-priority events"
+msgstr "Yuqori ustuvorlikdagi tadbirlar yo'q"
+
+msgid "Upcoming Events"
+msgstr "Kelgusi tadbirlar"
+
+msgid "Next 7 days"
+msgstr "Kelgusi 7 kun"
+
+msgid "No upcoming events"
+msgstr "Kelgusi tadbirlar yo'q"
+
+msgid "No event types found"
+msgstr "Tadbir turlari topilmadi"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Filtrlarni moslashtiring yoki standart turlarni urug'lang."
+
+msgid "No sponsors found"
+msgstr "Homiylar topilmadi"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Filtrlarni o'zgartiring yoki birinchi homiyni qo'shing."
+
+msgid "EXECUTIVE INTELLIGENCE"
+msgstr "RAHBARIYAT NAZORATI"
+
+msgid "Leadership Dashboard"
+msgstr "Rahbariyat paneli"

@@ -150,7 +150,7 @@
                 <span class="chart-x-label">{{ row.bucket|date:"d.m" }}</span>
               </div>
             {% empty %}
-              <p class="empty-text">{% trans "No data for selected period." %}</p>
+              <div class="empty-state-mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Ma'lumot topilmadi</span></div>
             {% endfor %}
           </div>
         </div>
@@ -177,7 +177,7 @@
               </div>
             </div>
           {% empty %}
-            <p class="empty-text">{% trans "No data for selected period." %}</p>
+            <div class="empty-state-mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Ma'lumot topilmadi</span></div>
           {% endfor %}
         </div>
       </section>
@@ -192,13 +192,24 @@
           {% for row in report.events.by_status %}
             <div class="dist-item">
               <div class="dist-meta">
-                <span>{{ row.label }}</span>
+                <span>
+                  {% if row.label == "in_progress" %}Jarayonda
+                  {% elif row.label == "Ongoing" %}Jarayonda
+                  {% elif row.label == "completed" %}Yakunlangan
+                  {% elif row.label == "Completed" %}Yakunlangan
+                  {% elif row.label == "planned" %}Rejalashtirilgan
+                  {% elif row.label == "draft" %}Qoralama
+                  {% elif row.label == "Draft" %}Qoralama
+                  {% elif row.label == "cancelled" %}Bekor qilingan
+                  {% elif row.label == "Cancelled" %}Bekor qilingan
+                  {% else %}{{ row.label }}{% endif %}
+                </span>
                 <strong>{{ row.total }}</strong>
               </div>
               <div class="progress-track"><div class="progress-fill bg-cyan" style="width: {% widthratio row.total report.summary.total_events|default:1 100 %}%"></div></div>
             </div>
           {% empty %}
-            <p class="empty-text">{% trans "No data." %}</p>
+            <div class="empty-state-mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Ma'lumot topilmadi</span></div>
           {% endfor %}
         </div>
       </section>
@@ -215,7 +226,7 @@
               <div class="progress-track"><div class="progress-fill bg-cobalt" style="width: {% widthratio row.total report.summary.total_events|default:1 100 %}%"></div></div>
             </div>
           {% empty %}
-            <p class="empty-text">{% trans "No data." %}</p>
+            <div class="empty-state-mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Ma'lumot topilmadi</span></div>
           {% endfor %}
         </div>
       </section>
@@ -256,13 +267,24 @@
           {% for row in report.publications.status_rows %}
             <div class="dist-item">
               <div class="dist-meta">
-                <span>{{ row.label }}</span>
+                <span>
+                  {% if row.label == "in_progress" %}Jarayonda
+                  {% elif row.label == "Ongoing" %}Jarayonda
+                  {% elif row.label == "completed" %}Yakunlangan
+                  {% elif row.label == "Completed" %}Yakunlangan
+                  {% elif row.label == "planned" %}Rejalashtirilgan
+                  {% elif row.label == "draft" %}Qoralama
+                  {% elif row.label == "Draft" %}Qoralama
+                  {% elif row.label == "cancelled" %}Bekor qilingan
+                  {% elif row.label == "Cancelled" %}Bekor qilingan
+                  {% else %}{{ row.label }}{% endif %}
+                </span>
                 <strong>{{ row.total }}</strong>
               </div>
               <div class="progress-track"><div class="progress-fill bg-amber" style="width: {% widthratio row.total report.publications.total|default:1 100 %}%"></div></div>
             </div>
           {% empty %}
-            <p class="empty-text">{% trans "No data." %}</p>
+            <div class="empty-state-mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Ma'lumot topilmadi</span></div>
           {% endfor %}
         </div>
       </section>

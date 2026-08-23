@@ -1,242 +1,185 @@
 /* ==========================================================================
-   K-ONE DESIGN TOKENS — Phase 23 · Ultimate Premium Design System
-   A complete visual language for an executive operations platform.
+   K-ONE DESIGN TOKENS — Phase 27 · Premium Enterprise UI Rebuild
    ========================================================================== */
 
 :root {
   /* --------------------------------------------------------------------------
-     1. COLOR SYSTEM — Slate + Sky + Ink
-     5-tier surface hierarchy · Semantic status · Tinted accents
+     1. COLOR SYSTEM
      -------------------------------------------------------------------------- */
 
-  /* Canvas & Structural Surfaces (light → elevated) */
-  --color-canvas:          #F8FAFC;   /* Page background — Slate 50 */
-  --color-surface-1:       #F1F5F9;   /* Recessed panels, input bg — Slate 100 */
-  --color-surface-2:       #FFFFFF;   /* Cards, elevated panels */
-  --color-surface-3:       #FFFFFF;   /* Overlays, modals */
-  --color-surface-hover:   #F1F5F9;   /* Row/card hover */
-  --color-surface-active:  #E2E8F0;   /* Pressed state */
+  /* Core Colors */
+  --color-deep-navy: #071A33;
+  --color-navy:      #0B2D55;
+  --color-cobalt:    #2563EB;
+  --color-electric:  #0EA5E9;
+  --color-sky:       #38BDF8;
 
-  /* Navigation / Dark Shell */
-  --color-nav-base:        #0F172A;   /* Slate 900 — Primary dark surface */
-  --color-nav-surface:     rgba(255, 255, 255, 0.04);  /* Hover lift */
-  --color-nav-hover:       rgba(255, 255, 255, 0.06);
-  --color-nav-active-bg:   rgba(14, 165, 233, 0.10);   /* Active item bg */
-  --color-nav-border:      rgba(255, 255, 255, 0.06);
-  --color-nav-text:        #CBD5E1;   /* Slate 300 */
-  --color-nav-text-muted:  #64748B;   /* Slate 500 */
-  --color-nav-text-active: #F8FAFC;   /* Slate 50 */
+  /* Operational Accents */
+  --color-emerald:   #10B981;
+  --color-amber:     #F59E0B;
+  --color-violet:    #7C3AED;
+  --color-rose:      #F43F5E;
+  --color-informational: var(--color-electric);
 
-  /* Brand Palette */
-  --color-ink:             #0A1128;   /* Deep Navy — Primary dark / text-title */
-  --color-ink-light:       #17203A;   /* Deep Navy Lighter */
-  --color-sky:             #0EA5E9;   /* Sky 500 — Primary accent */
-  --color-sky-light:       #38BDF8;   /* Sky 400 */
-  --color-sky-subtle:      rgba(14, 165, 233, 0.08);
-  --color-indigo:          #6366F1;   /* Indigo 500 — Interactive / special */
-  --color-indigo-subtle:   rgba(99, 102, 241, 0.08);
-  --color-cobalt:          #2563EB;   /* Blue 600 — Links / actions */
-  --color-cobalt-subtle:   rgba(37, 99, 235, 0.08);
+  /* Surfaces */
+  --color-canvas:    #F8FAFC;
+  --color-surface-1: #F4F7FB;
+  --color-surface-2: #EEF4FA;
+  --color-surface-3: #FFFFFF;
+  --color-surface-hover: #F8FAFC;
+  --color-surface-active: #EEF4FA;
 
-  /* Semantic Status */
-  --color-success:         #10B981;   /* Emerald 500 */
-  --color-success-bg:      rgba(16, 185, 129, 0.08);
-  --color-success-border:  rgba(16, 185, 129, 0.20);
+  /* Text Colors */
+  --color-text-title:     #0F172A;
+  --color-text-primary:   #334155;
+  --color-text-secondary: #64748B;
+  --color-text-muted:     #94A3B8;
+  --color-text-inverse:   #FFFFFF;
 
-  --color-warning:         #F59E0B;   /* Amber 500 */
-  --color-warning-bg:      rgba(245, 158, 11, 0.08);
-  --color-warning-border:  rgba(245, 158, 11, 0.20);
+  /* Borders */
+  --color-border:        rgba(15, 23, 42, 0.08);
+  --color-border-subtle: rgba(15, 23, 42, 0.04);
+  --color-border-strong: rgba(15, 23, 42, 0.15);
+  --color-border-focus:  #0EA5E9;
 
-  --color-danger:          #EF4444;   /* Red 500 */
-  --color-danger-bg:       rgba(239, 68, 68, 0.06);
-  --color-danger-border:   rgba(239, 68, 68, 0.20);
+  /* Navigation / Sidebar */
+  --color-nav-base:      var(--color-deep-navy);
+  --color-nav-surface:   rgba(255, 255, 255, 0.04);
+  --color-nav-hover:     rgba(255, 255, 255, 0.08);
+  --color-nav-active-bg: var(--color-navy);
+  --color-nav-text:      #94A3B8;
+  --color-nav-text-active: #FFFFFF;
 
-  --color-info:            #0EA5E9;   /* Sky 500 */
-  --color-info-bg:         rgba(14, 165, 233, 0.06);
-  --color-info-border:     rgba(14, 165, 233, 0.20);
+  /* Legacy aliases to avoid breaking things immediately during transition */
+  --color-brand-navy: var(--color-deep-navy);
+  --color-brand-navy-light: var(--color-navy);
+  --color-brand-cobalt: var(--color-cobalt);
+  --color-brand-cyan: var(--color-electric);
+  --color-text-main: var(--color-text-primary);
+  --color-border-default: var(--color-border);
+  --color-ink: var(--color-deep-navy);
+  --color-surface-elevated: var(--color-surface-3);
 
-  --color-special:         #8B5CF6;   /* Violet 500 */
-  --color-special-bg:      rgba(139, 92, 246, 0.06);
+  --color-status-free: var(--color-emerald);
+  --color-status-active: var(--color-cobalt);
+  --color-status-upcoming: var(--color-amber);
+  --color-status-critical: var(--color-rose);
+  --color-status-special: var(--color-violet);
 
-  /* Typography Colors */
-  --color-text-title:      #0F172A;   /* Slate 900 — Headings */
-  --color-text-primary:    #1E293B;   /* Slate 800 — Body */
-  --color-text-secondary:  #475569;   /* Slate 600 — Labels */
-  --color-text-muted:      #94A3B8;   /* Slate 400 — Captions/meta */
-  --color-text-inverse:    #FFFFFF;
-  --color-text-link:       #2563EB;   /* Blue 600 */
+  --color-status-free-bg: rgba(16, 185, 129, 0.08);
+  --color-status-active-bg: rgba(37, 99, 235, 0.08);
+  --color-status-upcoming-bg: rgba(245, 158, 11, 0.08);
+  --color-status-critical-bg: rgba(244, 63, 94, 0.08);
+  --color-status-special-bg: rgba(124, 58, 237, 0.08);
 
-  /* Borders & Dividers */
-  --color-border:          rgba(15, 23, 42, 0.08);   /* Hairline border */
-  --color-border-subtle:   rgba(15, 23, 42, 0.04);
-  --color-border-strong:   rgba(15, 23, 42, 0.15);
-  --color-border-focus:    #0EA5E9;   /* Sky 500 — Focus ring */
+  --color-success: var(--color-emerald);
+  --color-warning: var(--color-amber);
+  --color-danger:  var(--color-rose);
+  --color-info:    var(--color-electric);
+
+  /* Semantic Action Tokens */
+  --action-primary: var(--color-cobalt);
+  --action-primary-hover: var(--color-navy);
+  --action-success: var(--color-emerald);
+  --action-warning: var(--color-amber);
+  --action-danger: var(--color-rose);
+  --action-info: var(--color-electric);
+  --action-telegram: #2AABEE;
+
+  /* Surface Accents */
+  --surface-accent-blue: var(--color-cobalt);
+  --surface-accent-green: var(--color-emerald);
+  --surface-accent-amber: var(--color-amber);
+  --surface-accent-red: var(--color-rose);
+  --surface-accent-violet: var(--color-violet);
+  --surface-accent-cyan: var(--color-electric);
+  --surface-accent-teal: #0D9488;
+  --surface-accent-slate: #64748B;
 
   /* --------------------------------------------------------------------------
-     2. TYPOGRAPHY — Inter (interface) + Manrope (display) + JetBrains Mono
-     Precise 8-step scale with per-size tracking
+     2. TYPOGRAPHY
      -------------------------------------------------------------------------- */
   --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
-
-  /* Type Scale */
-  --text-xs:      11.5px;
-  --text-sm:      13px;
-  --text-base:    14.5px;
-  --text-md:      16px;
-  --text-lg:      18px;
-  --text-xl:      20px;
-  --text-2xl:     24px;
-  --text-3xl:     32px;
-  --text-display: 38px;
+  --font-heading: var(--font-display);
 
   /* Font Weights */
   --weight-normal:   400;
   --weight-medium:   500;
   --weight-semibold: 600;
   --weight-bold:     700;
+  --weight-black:    700; /* No 800/900 allowed */
 
-  /* Letter Spacing (per context) */
-  --tracking-tighter: -0.025em;
+  /* Type Scale */
+  --text-micro:    11px;
+  --text-xs:       12px;
+  --text-sm:       13px;
+  --text-sm-plus:  14px;
+  --text-base:     15px;
+  --text-md:       16px;
+  --text-lg:       19px;
+  --text-xl:       22px;
+  --text-2xl:      30px;
+  --text-3xl:      34px;
+  --text-display:  40px;
+
+  /* Aliases for Typography */
+  --text-title-xl:   var(--text-3xl);
+  --text-title:      var(--text-2xl);
+  --text-heading:    var(--text-xl);
+  --text-card-title: var(--text-lg);
+  --text-body-lg:    var(--text-md);
+  --text-body:       var(--text-base);
+  --text-meta:       var(--text-sm);
+
+  /* Tracking */
   --tracking-tight:   -0.015em;
   --tracking-normal:  0em;
-  --tracking-wide:    0.04em;
   --tracking-wider:   0.08em;
-  --tracking-widest:  0.12em;
-
-  /* Line Heights */
-  --leading-none:  1;
-  --leading-tight: 1.2;
-  --leading-snug:  1.35;
-  --leading-normal:1.5;
-  --leading-relaxed:1.65;
 
   /* --------------------------------------------------------------------------
-     3. ELEVATION & DEPTH — Institutional & Subtle Shadows
+     3. ELEVATION & DEPTH
      -------------------------------------------------------------------------- */
-  --shadow-xs:  0 1px 2px rgba(10, 17, 40, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-sm:  0 1px 3px rgba(10, 17, 40, 0.05), 0 1px 2px rgba(10, 17, 40, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-md:  0 4px 6px -1px rgba(10, 17, 40, 0.06), 0 2px 4px -1px rgba(10, 17, 40, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-lg:  0 10px 15px -3px rgba(10, 17, 40, 0.08), 0 4px 6px -2px rgba(10, 17, 40, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-xl:  0 20px 25px -5px rgba(10, 17, 40, 0.10), 0 10px 10px -5px rgba(10, 17, 40, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-focus:0 0 0 3px rgba(14, 165, 233, 0.25);
-  --shadow-glow: 0 0 12px rgba(14, 165, 233, 0.15);
+  --shadow-xs:  0 1px 2px rgba(7, 26, 51, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-sm:  0 1px 3px rgba(7, 26, 51, 0.05), 0 1px 2px rgba(7, 26, 51, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-md:  0 4px 6px -1px rgba(7, 26, 51, 0.06), 0 2px 4px -1px rgba(7, 26, 51, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-focus: 0 0 0 3px rgba(14, 165, 233, 0.25);
 
   /* --------------------------------------------------------------------------
-     4. GEOMETRY — Spacing & Radius
+     4. SPACING & RADIUS
      -------------------------------------------------------------------------- */
   --radius-xs:   4px;
   --radius-sm:   6px;
   --radius-md:   8px;
   --radius-lg:   10px;
   --radius-xl:   12px;
-  --radius-pill:  9999px;
+  --radius-pill: 9999px;
 
-  --space-0:  0px;
+  --space-0: 0px;
   --space-px: 1px;
-  --space-0-5:2px;
-  --space-1:  4px;
-  --space-1-5:6px;
-  --space-2:  8px;
-  --space-2-5:10px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-5:  20px;
-  --space-6:  24px;
-  --space-8:  32px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
-  --space-16: 64px;
 
   /* --------------------------------------------------------------------------
-     5. TRANSITIONS & TIMING
+     5. MOTION
      -------------------------------------------------------------------------- */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  --duration-micro:     150ms;
-  --duration-fast:      200ms;
-  --duration-component: 280ms;
-  --duration-page:      400ms;
-
-  /* --------------------------------------------------------------------------
-     6. Z-INDEX SCALE
-     -------------------------------------------------------------------------- */
-  --z-base:     1;
-  --z-dropdown: 50;
-  --z-sticky:   100;
-  --z-drawer:   200;
-  --z-modal:    300;
-  --z-toast:    400;
-  --z-max:      999;
-
-  /* --------------------------------------------------------------------------
-     7. LAYOUT
-     -------------------------------------------------------------------------- */
-  --sidebar-width: 260px;
-  --topbar-height: 56px;
-  --content-max:   1440px;
-
-  /* --------------------------------------------------------------------------
-     LEGACY ALIASES (backward compat during migration)
-     -------------------------------------------------------------------------- */
-  --color-surface-canvas:   var(--color-canvas);
-  --color-surface-base:     var(--color-canvas);
-  --color-surface-panel:    var(--color-surface-1);
-  --color-surface-elevated: var(--color-surface-2);
-  --color-surface-glass:    rgba(255, 255, 255, 0.90);
-  --color-surface-tint-blue:    var(--color-cobalt-subtle);
-  --color-surface-tint-cyan:    var(--color-sky-subtle);
-  --color-surface-tint-emerald: var(--color-success-bg);
-  --color-surface-tint-amber:   var(--color-warning-bg);
-  --color-surface-tint-rose:    var(--color-danger-bg);
-  --color-nav-active:      var(--color-nav-active-bg);
-  --color-nav-muted:       var(--color-nav-text-muted);
-  --color-brand-navy:      var(--color-ink);
-  --color-brand-navy-light:var(--color-ink-light);
-  --color-brand-cobalt:    var(--color-cobalt);
-  --color-brand-cobalt-light:#3B82F6;
-  --color-brand-cobalt-subtle:var(--color-cobalt-subtle);
-  --color-brand-cyan:      var(--color-sky);
-  --color-brand-cyan-subtle:var(--color-sky-subtle);
-  --color-brand-turquoise: var(--color-success);
-  --color-brand-violet:    var(--color-indigo);
-  --color-brand-coral:     var(--color-danger);
-  --color-status-free:     var(--color-success);
-  --color-status-free-bg:  var(--color-success-bg);
-  --color-status-active:   var(--color-sky);
-  --color-status-active-bg:var(--color-info-bg);
-  --color-status-upcoming: var(--color-warning);
-  --color-status-upcoming-bg:var(--color-warning-bg);
-  --color-status-critical: var(--color-danger);
-  --color-status-critical-bg:var(--color-danger-bg);
-  --color-status-special:  var(--color-special);
-  --color-status-special-bg:var(--color-special-bg);
-  --color-text-main:       var(--color-text-primary);
-  --color-border-default:  var(--color-border);
-  --color-grid-line:       rgba(15, 23, 42, 0.04);
-  --font-heading:          var(--font-display);
-  --text-display-old:      var(--text-display);
-  --text-title-xl:         var(--text-3xl);
-  --text-title:            var(--text-2xl);
-  --text-heading:          var(--text-xl);
-  --text-card-title:       var(--text-lg);
-  --text-operational:      32px;
-  --text-body-lg:          var(--text-lg);
-  --text-body:             var(--text-base);
-  --text-label:            var(--text-base);
-  --text-table:            var(--text-base);
-  --text-meta:             var(--text-sm);
-  --text-micro:            var(--text-xs);
-  --letter-spacing-tight:  var(--tracking-tight);
-  --letter-spacing-eyebrow:var(--tracking-wider);
-  --weight-black:          var(--weight-extrabold);
-  --gradient-primary:      linear-gradient(135deg, #0F172A, #1E293B);
+  --duration-micro: 100ms;
+  --duration-fast: 140ms;
+  --duration-component: 180ms;
+  --duration-normal: 200ms;
+  --duration-panel: 260ms;
 }
 
-/* Base Typographic Utilities */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }

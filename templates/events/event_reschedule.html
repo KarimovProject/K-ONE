@@ -52,8 +52,8 @@
     </div>
 
     <div class="form-actions align-right">
-      <a class="secondary-button" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
-      <button class="primary-button" type="submit" data-testid="confirm-reschedule-btn">{% trans "Confirm Reschedule" %}</button>
+      <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
+      <button class="btn-primary" type="submit" data-testid="confirm-reschedule-btn">{% trans "Confirm Reschedule" %}</button>
     </div>
   </form>
 </div>

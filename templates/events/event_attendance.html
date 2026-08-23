@@ -36,7 +36,7 @@
   }
   .kpi-value {
     font-size: 1.75rem;
-    font-weight: 800;
+    font-weight: 700;
     color: #0f172a;
   }
   .kpi-sub {
@@ -114,7 +114,7 @@
     </h1>
   </div>
   <div>
-    <a class="primary-button compact" href="{% url 'events:attendance-export' pk=event.pk %}" data-testid="export-csv-btn">
+    <a class="btn-primary compact" href="{% url 'events:attendance-export' pk=event.pk %}" data-testid="export-csv-btn">
       📥 {% trans "Export CSV" %}
     </a>
   </div>
@@ -189,7 +189,7 @@
           </div>
         </div>
 
-        <button type="submit" class="primary-button compact" data-testid="save-config-btn">{% trans "Save Configuration" %}</button>
+        <button type="submit" class="btn-primary compact" data-testid="save-config-btn">{% trans "Save Configuration" %}</button>
       </form>
     </div>
 
@@ -219,7 +219,7 @@
           {{ manual_form.attendee_role }}
         </div>
 
-        <button type="submit" class="success-button compact" data-testid="manual-checkin-submit-btn">
+        <button type="submit" class="btn-success compact" data-testid="manual-checkin-submit-btn">
           ✓ {% trans "Check In Attendee" %}
         </button>
       </form>

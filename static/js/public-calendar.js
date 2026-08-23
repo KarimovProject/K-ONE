@@ -57,8 +57,8 @@
         start = add(cursor, -((cursor.getDay() + 6) % 7));
         end = add(start, 6);
       } else {
-        start = new Date(cursor);
-        end = new Date(cursor);
+        start = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+        end = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0);
       }
       return { start, end };
     };
@@ -148,6 +148,79 @@
         </div>`;
     };
 
+    // Phase 27.1 Mobile Calendar Architecture
+    const renderMobile = () => {
+        const start = add(cursor, -((cursor.getDay() + 6) % 7));
+        const days = Array.from({length: 7}, (_, i) => add(start, i));
+
+        let stripHtml = `<div class="mobile-cal-strip">`;
+        days.forEach(d => {
+            const isSelected = iso(d) === iso(cursor);
+            const isToday = iso(d) === iso(new Date());
+            const hasEvents = events.some(e => e.date === iso(d));
+            let classes = ['mobile-cal-day'];
+            if (isSelected) classes.push('is-selected');
+            if (isToday) classes.push('is-today');
+
+            stripHtml += `<div class="${classes.join(' ')}" data-select-date="${iso(d)}">
+                <span class="mobile-cal-day-name">${text.days[(d.getDay()+6)%7].substring(0, 2)}</span>
+                <span class="mobile-cal-day-num">${d.getDate()}</span>
+                ${hasEvents ? '<span class="mobile-cal-dot"></span>' : ''}
+            </div>`;
+        });
+        stripHtml += `</div>`;
+
+        const dayEvents = events.filter(e => e.date === iso(cursor));
+        let agendaHtml = `<div class="mobile-cal-agenda">`;
+
+        const dateString = `${cursor.getDate()} ${text.months[cursor.getMonth()]}, ${text.days[(cursor.getDay()+6)%7]}`;
+        agendaHtml += `<div class="mobile-cal-agenda-header">
+            <h3>${dateString}</h3>
+            <span>${dayEvents.length} ta tadbir</span>
+        </div>`;
+
+        if (dayEvents.length === 0) {
+            agendaHtml += `<div class="mobile-cal-empty">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <p>Bu kunda tadbirlar yo'q</p>
+            </div>`;
+        } else {
+            agendaHtml += `<div class="mobile-cal-events">`;
+            dayEvents.forEach((e, index) => {
+                let colorClass = 'cobalt';
+                const typeCode = (e.event_type_code || '').toLowerCase();
+                if (typeCode.includes('conf') || typeCode.includes('konf') || typeCode.includes('forum')) colorClass = 'cobalt';
+                else if (typeCode.includes('meet') || typeCode.includes('majlis')) colorClass = 'cyan';
+                else if (typeCode.includes('sem') || typeCode.includes('train')) colorClass = 'emerald';
+                else if (typeCode.includes('spec') || typeCode.includes('rasmiy')) colorClass = 'violet';
+
+                if (e.status === 'in_progress' || e.status === 'ONGOING') colorClass = 'emerald';
+                else if (e.status === 'upcoming' || e.status === 'SCHEDULED') colorClass = 'cobalt';
+
+                const venueCode = e.venue_code || (e.venue ? e.venue.substring(0, 4) : 'AUD');
+                const timeStr = e.start_time ? e.start_time.substring(0, 5) : '';
+                const endTimeStr = e.end_time ? e.end_time.substring(0, 5) : '';
+
+                agendaHtml += `
+                <div class="mobile-event-card border-${colorClass}" data-event-index="${events.indexOf(e)}">
+                    <div class="mobile-event-time">
+                        <strong>${timeStr}</strong>
+                        ${endTimeStr ? `<span>${endTimeStr}</span>` : ''}
+                    </div>
+                    <div class="mobile-event-body">
+                        <div class="mobile-event-room"><span class="dot bg-${colorClass}"></span> ${venueCode}</div>
+                        <h4 class="mobile-event-title">${esc(e.title)}</h4>
+                        <div class="mobile-event-meta">${esc(e.event_type || '')}</div>
+                    </div>
+                </div>`;
+            });
+            agendaHtml += `</div>`;
+        }
+        agendaHtml += `</div>`;
+
+        return `<div class="mobile-calendar-wrapper fade-in-up">${stripHtml}${agendaHtml}</div>`;
+    };
+
     const render = () => {
       const {start, end} = range();
 
@@ -155,10 +228,14 @@
       else if (view === "week") title.textContent = `${label(start)} – ${label(end)}`;
       else title.textContent = label(cursor);
 
-      stage.innerHTML = view === "month" ? renderMonth(start, end) : view === "week" ? renderWeek(start) : view === "day" ? renderDay() : renderList();
+      if (window.innerWidth <= 767) {
+          stage.innerHTML = renderMobile();
+      } else {
+          stage.innerHTML = view === "month" ? renderMonth(start, end) : view === "week" ? renderWeek(start) : view === "day" ? renderDay() : renderList();
+      }
 
-      root.querySelectorAll(".segmented-control__btn").forEach(b => {
-          b.classList.toggle('is-active', b.dataset.view === view);
+      root.querySelectorAll(".premium-segment-btn").forEach(b => {
+          b.classList.toggle('active', b.dataset.view === view);
       });
 
       history.replaceState(null, "", `${location.pathname}?date=${iso(cursor)}&view=${view}`);
@@ -193,6 +270,13 @@
       if (e.target.closest("[data-prev]")) move(-1);
       if (e.target.closest("[data-next]")) move(1);
       if (e.target.closest("[data-today]")) { cursor = new Date(); load(); }
+
+      const dayBtn = e.target.closest("[data-select-date]");
+      if (dayBtn) {
+          cursor = new Date(dayBtn.dataset.selectDate);
+          render();
+          return;
+      }
 
       const card = e.target.closest("[data-event-index]");
       if (card) openDrawer(events[Number(card.dataset.eventIndex)]);

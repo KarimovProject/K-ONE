@@ -6,13 +6,45 @@
 <section class="data-surface">
   <div class="data-toolbar"><span><strong>{{ total_count }}</strong> {% trans "records" %}</span>{% include "master_data/filters.html" %}</div>
   {% if sponsors %}<div class="table-scroll"><table class="data-table">
-    <thead><tr><th>{% trans "Sponsor" %}</th><th>{% trans "Contact person" %}</th><th>{% trans "Email" %}</th><th>{% trans "Phone" %}</th><th>{% trans "Status" %}</th><th style="text-align: right;">{% trans "Actions" %}</th></tr></thead>
+    <thead><tr><th>{% trans "Sponsor" %}</th><th>{% trans "Contact person" %}</th><th>{% trans "Email" %}</th><th>{% trans "Phone" %}</th><th>{% trans "Status" %}</th><th style="text-align: right;" class="desktop-only">{% trans "Actions" %}</th></tr></thead>
     <tbody>{% for sponsor in sponsors %}<tr>
-      <td><a class="record-title" href="{% url 'sponsors:detail' sponsor.pk %}">{% if sponsor.logo %}<img class="record-logo" src="{{ sponsor.logo.url }}" alt="">{% else %}<span class="record-logo fallback">{{ sponsor.name|slice:':1'|upper }}</span>{% endif %}<span><strong>{{ sponsor.name }}</strong><small>{{ sponsor.website|default:"—" }}</small></span></a></td>
-      <td>{{ sponsor.contact_person|default:"—" }}</td><td>{{ sponsor.email|default:"—" }}</td><td>{{ sponsor.phone|default:"—" }}</td>
-      <td><span class="status-badge{% if not sponsor.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{{ sponsor.is_active|yesno:_('Active,Inactive') }}</span></td>
-      <td style="text-align: right;"><div class="table-actions" style="display: flex; gap: 4px; justify-content: flex-end;"><a class="btn-ghost btn-icon compact" href="{% url 'sponsors:detail' sponsor.pk %}" title="{% trans "View" %}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>{% if can_manage %}<a class="btn-ghost btn-icon compact" href="{% url 'sponsors:edit' sponsor.pk %}" title="{% trans "Edit" %}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></a>{% endif %}</div></td>
+      <td data-label="{% trans 'Sponsor' %}"><a class="record-title" href="{% url 'sponsors:detail' sponsor.pk %}">{% if sponsor.logo %}<img class="record-logo" src="{{ sponsor.logo.url }}" alt="">{% else %}<div style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--color-surface-2); color: var(--color-text-muted); border: 1px solid var(--color-border); flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg></div>{% endif %}<div><strong>{{ sponsor.name }}</strong><small class="muted">{{ sponsor.website|default:"—" }}</small></div></a></td>
+      <td data-label="{% trans 'Contact person' %}">{{ sponsor.contact_person|default:"—" }}</td>
+      <td data-label="{% trans 'Email' %}">{{ sponsor.email|default:"—" }}</td>
+      <td data-label="{% trans 'Phone' %}">{{ sponsor.phone|default:"—" }}</td>
+      <td data-label="{% trans 'Status' %}">
+        <span class="status-badge {% if sponsor.is_active %}status-active{% else %}is-inactive{% endif %}">
+          {{ sponsor.is_active|yesno:_('Active,Inactive') }}
+        </span>
+      </td>
+      <td class="actions-cell">
+  <div class="dropdown-wrapper desktop-only" style="display: inline-block; text-align: left;">
+    <button type="button" class="btn-ghost btn-icon compact dropdown-toggle" aria-label="{% trans 'Actions' %}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </button>
+    <div class="premium-dropdown-menu" hidden>
+      <a href="{% url 'sponsors:detail' sponsor.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
+      {% if can_manage %}
+      <a href="{% url 'sponsors:edit' sponsor.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="mobile-actions-row mobile-only">
+    <a href="{% url 'sponsors:detail' sponsor.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
+    {% if can_manage %}
+    <a href="{% url 'sponsors:edit' sponsor.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+    {% endif %}
+  </div>
+</td>
     </tr>{% endfor %}</tbody></table></div>{% include "master_data/pagination.html" %}
-  {% else %}<div class="empty-list"><span aria-hidden="true">S</span><h2>{% trans "No sponsors found" %}</h2><p>{% trans "Adjust the filters or create the first sponsor record." %}</p></div>{% endif %}
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    </div>
+    <h3>{% trans "No sponsors found" %}</h3>
+    <p>{% trans "Adjust the filters or create the first sponsor record." %}</p>
+  </div>
+  {% endif %}
 </section>
 {% endblock %}

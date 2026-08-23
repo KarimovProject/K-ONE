@@ -9,8 +9,8 @@
     <p class="page-subtitle">{{ event.title }} ({{ event.planned_date|date:"d E Y" }})</p>
   </div>
   <div class="flex-gap">
-    <a class="secondary-button" href="{% url 'events:detail' pk=event.pk %}">← {% trans "Back to Event" %}</a>
-    <a class="primary-button" href="{% url 'public-event-page' public_token=event.public_token %}" target="_blank" data-testid="preview-public-page-btn">
+    <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">← {% trans "Back to Event" %}</a>
+    <a class="btn-primary" href="{% url 'public-event-page' public_token=event.public_token %}" target="_blank" data-testid="preview-public-page-btn">
       🌐 {% trans "Preview Public Page" %}
     </a>
   </div>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="form-actions align-right">
-          <button type="submit" class="primary-button" data-testid="save-program-mode-btn">{% trans "Save Program Settings" %}</button>
+          <button type="submit" class="btn-primary" data-testid="save-program-mode-btn">{% trans "Save Program Settings" %}</button>
         </div>
       </form>
     </div>
@@ -84,7 +84,7 @@
           {{ pdf_form.program_pdf }}
         </div>
         <div class="form-actions flex-between">
-          <button type="submit" class="primary-button" data-testid="upload-pdf-btn">
+          <button type="submit" class="btn-primary" data-testid="upload-pdf-btn">
             {% if event.program_pdf %}🔄 {% trans "Replace PDF" %}{% else %}📤 {% trans "Upload PDF" %}{% endif %}
           </button>
       </form>
@@ -93,7 +93,7 @@
         <form method="post" action="{% url 'events:program' pk=event.pk %}" style="display:inline;">
           {% csrf_token %}
           <input type="hidden" name="action" value="remove_pdf">
-          <button type="submit" class="danger-button compact" data-testid="remove-pdf-btn">🗑️ {% trans "Delete PDF" %}</button>
+          <button type="submit" class="btn-danger compact" data-testid="remove-pdf-btn">🗑️ {% trans "Delete PDF" %}</button>
         </form>
       {% endif %}
         </div>
@@ -130,7 +130,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="action" value="delete_item">
                     <input type="hidden" name="item_id" value="{{ item.pk }}">
-                    <button type="submit" class="danger-button compact" data-testid="delete-item-btn-{{ item.pk }}">🗑️</button>
+                    <button type="submit" class="btn-danger compact" data-testid="delete-item-btn-{{ item.pk }}">🗑️</button>
                   </form>
                 </td>
               </tr>
@@ -173,7 +173,7 @@
           {{ item_form.description }}
         </div>
         <div class="form-actions align-right">
-          <button type="submit" class="primary-button" data-testid="add-agenda-item-btn">➕ {% trans "Add Agenda Session" %}</button>
+          <button type="submit" class="btn-primary" data-testid="add-agenda-item-btn">➕ {% trans "Add Agenda Session" %}</button>
         </div>
       </form>
     </div>
@@ -200,7 +200,7 @@
         <label class="form-label">{% trans "Public Event URL" %}</label>
         <div style="display: flex; gap: 0.5rem;">
           <input type="text" readonly class="form-control" value="{{ public_url }}" id="publicUrlInput" data-testid="public-url-input">
-          <button type="button" class="secondary-button" onclick="navigator.clipboard.writeText('{{ public_url }}')">📋</button>
+          <button type="button" class="btn-neutral" onclick="navigator.clipboard.writeText('{{ public_url }}')">📋</button>
         </div>
       </div>
 
@@ -209,7 +209,7 @@
           {% csrf_token %}
           <input type="hidden" name="action" value="toggle_public">
           <input type="hidden" name="is_public_enabled" value="{% if event.is_public_enabled %}false{% else %}true{% endif %}">
-          <button type="submit" class="secondary-button compact" data-testid="toggle-public-btn">
+          <button type="submit" class="btn-neutral compact" data-testid="toggle-public-btn">
             {% if event.is_public_enabled %}🔒 {% trans "Disable Public Access" %}{% else %}🔓 {% trans "Enable Public Access" %}{% endif %}
           </button>
         </form>
@@ -217,7 +217,7 @@
         <form method="post" action="{% url 'events:program' pk=event.pk %}">
           {% csrf_token %}
           <input type="hidden" name="action" value="rotate_token">
-          <button type="submit" class="warning-button compact" data-testid="rotate-token-btn" onclick="return confirm('Rotate public URL token? Old printed QRs will stop working!');">
+          <button type="submit" class="btn-edit compact" data-testid="rotate-token-btn" onclick="return confirm('Rotate public URL token? Old printed QRs will stop working!');">
             🔄 {% trans "Rotate Token" %}
           </button>
         </form>
@@ -239,10 +239,10 @@
       </p>
 
       <div class="flex-gap" style="justify-content: center;">
-        <a class="primary-button" href="{% url 'events:print-qr' pk=event.pk %}" target="_blank" data-testid="print-qr-btn">
+        <a class="btn-primary" href="{% url 'events:print-qr' pk=event.pk %}" target="_blank" data-testid="print-qr-btn">
           🖨️ {% trans "Print Poster QR (A4/A5)" %}
         </a>
-        <a class="secondary-button" href="{% url 'events:qr-png' pk=event.pk %}" download="event_{{ event.pk }}_qr.png" data-testid="download-qr-btn">
+        <a class="btn-neutral" href="{% url 'events:qr-png' pk=event.pk %}" download="event_{{ event.pk }}_qr.png" data-testid="download-qr-btn">
           ⬇️ {% trans "Download PNG" %}
         </a>
       </div>

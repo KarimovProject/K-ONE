@@ -1,0 +1,524 @@
+[
+  {
+    "filename": "Rooms_1920.png",
+    "requested_url": "/master-data/venues/",
+    "final_url": "http://127.0.0.1:8001/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Xonalar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Rooms_menu_open_1920.png",
+    "requested_url": "/master-data/venues/",
+    "final_url": "http://127.0.0.1:8001/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Xonalar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Rooms_1366.png",
+    "requested_url": "/master-data/venues/",
+    "final_url": "http://127.0.0.1:8001/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1366,
+      768
+    ],
+    "expected_heading": "extracted_h1: Xonalar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Rooms_768.png",
+    "requested_url": "/master-data/venues/",
+    "final_url": "http://127.0.0.1:8001/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      768,
+      1024
+    ],
+    "expected_heading": "extracted_h1: Xonalar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Rooms_390.png",
+    "requested_url": "/master-data/venues/",
+    "final_url": "http://127.0.0.1:8001/master-data/venues/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "expected_heading": "extracted_h1: Xonalar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Event_Types_1920.png",
+    "requested_url": "/master-data/event-types/",
+    "final_url": "http://127.0.0.1:8001/master-data/event-types/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Tadbir turlari",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Event_Types_menu_open_1920.png",
+    "requested_url": "/master-data/event-types/",
+    "final_url": "http://127.0.0.1:8001/master-data/event-types/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Tadbir turlari",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Event_Types_768.png",
+    "requested_url": "/master-data/event-types/",
+    "final_url": "http://127.0.0.1:8001/master-data/event-types/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      768,
+      1024
+    ],
+    "expected_heading": "extracted_h1: Tadbir turlari",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Event_Types_390.png",
+    "requested_url": "/master-data/event-types/",
+    "final_url": "http://127.0.0.1:8001/master-data/event-types/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "expected_heading": "extracted_h1: Tadbir turlari",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Organizations_1920.png",
+    "requested_url": "/master-data/organizations/",
+    "final_url": "http://127.0.0.1:8001/master-data/organizations/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Tashkilotlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Organizations_menu_open_1920.png",
+    "requested_url": "/master-data/organizations/",
+    "final_url": "http://127.0.0.1:8001/master-data/organizations/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Tashkilotlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Organizations_1440.png",
+    "requested_url": "/master-data/organizations/",
+    "final_url": "http://127.0.0.1:8001/master-data/organizations/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1440,
+      900
+    ],
+    "expected_heading": "extracted_h1: Tashkilotlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Sponsors_1920.png",
+    "requested_url": "/master-data/sponsors/",
+    "final_url": "http://127.0.0.1:8001/master-data/sponsors/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Homiylar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Sponsors_menu_open_1920.png",
+    "requested_url": "/master-data/sponsors/",
+    "final_url": "http://127.0.0.1:8001/master-data/sponsors/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Homiylar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Sponsors_390.png",
+    "requested_url": "/master-data/sponsors/",
+    "final_url": "http://127.0.0.1:8001/master-data/sponsors/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "expected_heading": "extracted_h1: Homiylar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Speakers_1920.png",
+    "requested_url": "/events/speakers/",
+    "final_url": "http://127.0.0.1:8001/events/speakers/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Ma'ruzachilar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Speakers_menu_open_1920.png",
+    "requested_url": "/events/speakers/",
+    "final_url": "http://127.0.0.1:8001/events/speakers/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Ma'ruzachilar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Speakers_390.png",
+    "requested_url": "/events/speakers/",
+    "final_url": "http://127.0.0.1:8001/events/speakers/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "expected_heading": "extracted_h1: Ma'ruzachilar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Events_1920.png",
+    "requested_url": "/events/",
+    "final_url": "http://127.0.0.1:8001/events/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Rejalashtirilgan tadbirlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Events_menu_open_1920.png",
+    "requested_url": "/events/",
+    "final_url": "http://127.0.0.1:8001/events/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Rejalashtirilgan tadbirlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Publications_1920.png",
+    "requested_url": "/publications/",
+    "final_url": "http://127.0.0.1:8001/publications/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Nashrlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Approvals_1920.png",
+    "requested_url": "/events/approvals/",
+    "final_url": "http://127.0.0.1:8001/events/approvals/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Tasdiqlash navbati",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Approvals_menu_open_1920.png",
+    "requested_url": "/events/approvals/",
+    "final_url": "http://127.0.0.1:8001/events/approvals/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Tasdiqlash navbati",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Transfers_1920.png",
+    "requested_url": "/events/displaced/",
+    "final_url": "http://127.0.0.1:8001/events/displaced/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Ko\u2018chirilgan tadbirlar",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Leadership_UZ_1920.png",
+    "requested_url": "/leadership/",
+    "final_url": "http://127.0.0.1:8001/leadership/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Rahbariyat paneli",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Leadership_UZ_390.png",
+    "requested_url": "/leadership/",
+    "final_url": "http://127.0.0.1:8001/leadership/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      390,
+      844
+    ],
+    "expected_heading": "extracted_h1: Rahbariyat paneli",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Leadership_RU_1920.png",
+    "requested_url": "/leadership/",
+    "final_url": "http://127.0.0.1:8001/leadership/",
+    "http_status": 200,
+    "language": "ru",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Rahbariyat paneli",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Leadership_EN_1920.png",
+    "requested_url": "/leadership/",
+    "final_url": "http://127.0.0.1:8001/leadership/",
+    "http_status": 200,
+    "language": "en",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Rahbariyat paneli",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  },
+  {
+    "filename": "Reports_1920.png",
+    "requested_url": "/reports/",
+    "final_url": "http://127.0.0.1:8001/reports/",
+    "http_status": 200,
+    "language": "uz",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "expected_heading": "extracted_h1: Hisobotlar va tahlil",
+    "heading_found": true,
+    "active_nav_found": true,
+    "django_404_detected": false,
+    "login_detected": false,
+    "horizontal_overflow": false,
+    "premium_dropdown_found": true
+  }
+]

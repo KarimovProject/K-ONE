@@ -873,3 +873,326 @@ msgstr ""
 
 msgid "Republic Oncology Center"
 msgstr "Republic Oncology Center"
+
+msgid "Program Mode"
+msgstr "Program Mode"
+
+msgid "Public Accessibility"
+msgstr "Public Accessibility"
+
+msgid "Manual Agenda"
+msgstr "Manual Agenda"
+
+msgid "Private"
+msgstr "Private"
+
+msgid "Open Public Event Page"
+msgstr "Open Public Event Page"
+
+msgid "Print Poster (A4/A5)"
+msgstr "Print Poster (A4/A5)"
+
+msgid "Schedule & Timing"
+msgstr "Schedule & Timing"
+
+msgid "Time Interval"
+msgstr "Time Interval"
+
+msgid "Duration"
+msgstr "Duration"
+
+msgid "Venue Name"
+msgstr "Venue Name"
+
+msgid "Capacity"
+msgstr "Capacity"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Organizing Organizations"
+msgstr "Organizing Organizations"
+
+msgid "Zoom / Meeting Link"
+msgstr "Zoom / Meeting Link"
+
+msgid "Registration Link"
+msgstr "Registration Link"
+
+msgid "Telegram Reminders"
+msgstr "Telegram Reminders"
+
+msgid "Configure Reminders"
+msgstr "Configure Reminders"
+
+msgid "Publications"
+msgstr "Publications"
+
+msgid "New"
+msgstr "New"
+
+msgid "No data."
+msgstr "No data."
+
+msgid "Program & Public Page"
+msgstr "Program & Public Page"
+
+msgid "Venue Details"
+msgstr "Venue Details"
+
+msgid "Partners & Sponsors"
+msgstr "Partners & Sponsors"
+
+msgid "Responsible Staff"
+msgstr "Responsible Staff"
+
+msgid "Responsible Employee"
+msgstr "Responsible Employee"
+
+msgid "Management Responsible"
+msgstr "Management Responsible"
+
+msgid "Online Links"
+msgstr "Online Links"
+
+msgid "Join Meeting"
+msgstr "Join Meeting"
+
+msgid "Register Here"
+msgstr "Register Here"
+
+msgid "Audit Metadata"
+msgstr "Audit Metadata"
+
+msgid "Working Hours"
+msgstr "Working Hours"
+
+msgid "Back to Events"
+msgstr "Back to Events"
+
+msgid "Sponsors"
+msgstr "Sponsors"
+
+msgid "Speakers Directory"
+msgstr "Speakers Directory"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Manage keynote speakers, presenters, and experts."
+
+msgid "New Speaker"
+msgstr "New Speaker"
+
+msgid "No speakers found in directory."
+msgstr "No speakers found in directory."
+
+msgid "Full Name"
+msgstr "Full Name"
+
+msgid "Title / Position"
+msgstr "Title / Position"
+
+msgid "Country"
+msgstr "Country"
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Hidden"
+msgstr "Hidden"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Adjust the filters or create the first speaker record."
+
+msgid "No event types found"
+msgstr "No event types found"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Adjust the filters or seed the default event types."
+
+msgid "No sponsors found"
+msgstr "No sponsors found"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Adjust the filters or create the first sponsor record."
+
+
+msgid "Speakers Directory"
+msgstr "Speakers Directory"
+
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Manage keynote speakers, presenters, and experts."
+
+
+msgid "New Speaker"
+msgstr "New Speaker"
+
+
+msgid "No speakers found in directory."
+msgstr "No speakers found in directory."
+
+
+msgid "Full Name"
+msgstr "Full Name"
+
+
+msgid "Title / Position"
+msgstr "Title / Position"
+
+
+msgid "Organization"
+msgstr "Organization"
+
+
+msgid "Country"
+msgstr "Country"
+
+
+msgid "Status"
+msgstr "Status"
+
+
+msgid "Actions"
+msgstr "Actions"
+
+
+msgid "Public"
+msgstr "Public"
+
+
+msgid "Hidden"
+msgstr "Hidden"
+
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Adjust the filters or create the first speaker record."
+
+
+msgid "No event types found"
+msgstr "No event types found"
+
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Adjust the filters or seed the default event types."
+
+
+msgid "No sponsors found"
+msgstr "No sponsors found"
+
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Adjust the filters or create the first sponsor record."
+
+
+msgid "Speakers Directory"
+msgstr "Speakers Directory"
+
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Manage keynote speakers, presenters, and experts."
+
+
+msgid "New Speaker"
+msgstr "New Speaker"
+
+
+msgid "No speakers found in directory."
+msgstr "No speakers found in directory."
+
+
+msgid "Full Name"
+msgstr "Full Name"
+
+
+msgid "Title / Position"
+msgstr "Title / Position"
+
+
+msgid "Organization"
+msgstr "Organization"
+
+
+msgid "Country"
+msgstr "Country"
+
+
+msgid "Status"
+msgstr "Status"
+
+
+msgid "Actions"
+msgstr "Actions"
+
+
+msgid "Public"
+msgstr "Public"
+
+
+msgid "Hidden"
+msgstr "Hidden"
+
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Adjust the filters or create the first speaker record."
+
+
+msgid "No event types found"
+msgstr "No event types found"
+
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Adjust the filters or seed the default event types."
+
+
+msgid "No sponsors found"
+msgstr "No sponsors found"
+
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Adjust the filters or create the first sponsor record."
+
+# Login page translations (Phase 27.19)
+msgid "Kirish"
+msgstr "Sign in"
+
+msgid "Xush kelibsiz"
+msgstr "Welcome back"
+
+msgid "K-ONE boshqaruv tizimiga kiring"
+msgstr "Sign in to K-ONE management system"
+
+msgid "Foydalanuvchi nomi"
+msgstr "Username"
+
+msgid "Parol"
+msgstr "Password"
+
+msgid "Parolni ko'rsatish"
+msgstr "Show password"
+
+msgid "Parolni yashirish"
+msgstr "Hide password"
+
+msgid "Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+msgstr "Incorrect username or password. Please check your credentials and try again."
+
+msgid "Tizimga kirish faqat ruxsat etilgan xodimlar uchun."
+msgstr "System access is restricted to authorized personnel only."
+
+msgid "Barcha tadbirlar yagona tizimda"
+msgstr "All events in a unified system"
+
+msgid "Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona professional platformada boshqaring."
+msgstr "Manage events, conference halls and administrative processes on a single professional platform."
+
+msgid "Xavfsiz kirish"
+msgstr "Secure access"
+
+msgid "Real vaqt monitoringi"
+msgstr "Real-time monitoring"
+
+msgid "Markazlashgan boshqaruv"
+msgstr "Centralized management"
+
+msgid "Mavzuni o'zgartirish"
+msgstr "Toggle theme"
