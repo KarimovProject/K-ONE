@@ -33,7 +33,14 @@ def find_conflicting_events(
         planned_date=planned_date,
         start_time__lt=end_time,
         end_time__gt=start_time,
-    ).exclude(status=Event.Status.CANCELLED)
+    ).exclude(
+        status__in=[
+            Event.Status.CANCELLED,
+            Event.Status.REJECTED,
+            Event.Status.DISPLACED,
+            Event.Status.POSTPONED,
+        ]
+    )
 
     if exclude_event_id:
         queryset = queryset.exclude(pk=exclude_event_id)
@@ -195,6 +202,9 @@ def validate_and_lock_event_reservation(
     """
     Executes in atomic transaction with row locks to prevent double-booking.
     """
+    if end_time <= start_time:
+        raise ValidationError(_("End time must be later than start time."))
+
     with transaction.atomic():
         # Lock the venue row to prevent simultaneous reservations
         locked_venue = Venue.objects.select_for_update().get(pk=venue.pk)
@@ -220,14 +230,6 @@ def validate_and_lock_event_reservation(
                 exclude_event_id=exclude_event_id,
             )
             if conflicts.exists():
-                conflict = conflicts.first()
                 raise ValidationError(
-                    _(
-                        "Venue reservation conflict: Occupied by “%(title)s” (%(start)s – %(end)s)."
-                    )
-                    % {
-                        "title": conflict.title,
-                        "start": conflict.start_time.strftime("%H:%M"),
-                        "end": conflict.end_time.strftime("%H:%M"),
-                    }
+                    _("Tanlangan vaqtda ushbu zal band. Boshqa vaqt yoki zalni tanlang.")
                 )
