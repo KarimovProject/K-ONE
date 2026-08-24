@@ -9,4 +9,3 @@ def test_database_connection_executes_query():
         result = cursor.fetchone()
 
     assert result == (1,)
-

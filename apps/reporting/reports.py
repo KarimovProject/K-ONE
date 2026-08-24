@@ -11,6 +11,8 @@ def report_context(query, user):
     events = filtered_events(form.cleaned_data, start, end, user)
     previous_start, previous_end = previous_range(start, end)
     previous_events = filtered_events(form.cleaned_data, previous_start, previous_end, user)
-    return form, events, build_report(
-        events, start, end, form.cleaned_data, previous_events=previous_events
+    return (
+        form,
+        events,
+        build_report(events, start, end, form.cleaned_data, previous_events=previous_events),
     )

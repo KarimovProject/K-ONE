@@ -19,4 +19,3 @@ def test_authenticated_user_can_access_dashboard_shell(client, user):
     assert response.status_code == 200
     assert b"K-ONE" in response.content
     assert b"Phase 0" in response.content
-

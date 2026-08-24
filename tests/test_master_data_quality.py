@@ -157,30 +157,39 @@ def test_admin_can_update_and_delete_each_master_data_resource(client, master_da
         venue_update,
     )
     assert venue_response.status_code == 302
-    assert client.post(
-        reverse("event-types:edit", kwargs={"pk": event_type.pk}),
-        {
-            "code": "conference",
-            "name_uz": "Konferensiya",
-            "name_ru": "Конференция",
-            "name_en": "Updated conference",
-            "color": "#2563EB",
-            "sort_order": 0,
-            "is_active": True,
-        },
-    ).status_code == 302
-    assert client.post(
-        reverse("organizations:edit", kwargs={"pk": organization.pk}),
-        {
-            "name": "Updated organization",
-            "organization_type": Organization.Type.LOCAL,
-            "is_active": True,
-        },
-    ).status_code == 302
-    assert client.post(
-        reverse("sponsors:edit", kwargs={"pk": sponsor.pk}),
-        {"name": "Updated sponsor", "is_active": True},
-    ).status_code == 302
+    assert (
+        client.post(
+            reverse("event-types:edit", kwargs={"pk": event_type.pk}),
+            {
+                "code": "conference",
+                "name_uz": "Konferensiya",
+                "name_ru": "Конференция",
+                "name_en": "Updated conference",
+                "color": "#2563EB",
+                "sort_order": 0,
+                "is_active": True,
+            },
+        ).status_code
+        == 302
+    )
+    assert (
+        client.post(
+            reverse("organizations:edit", kwargs={"pk": organization.pk}),
+            {
+                "name": "Updated organization",
+                "organization_type": Organization.Type.LOCAL,
+                "is_active": True,
+            },
+        ).status_code
+        == 302
+    )
+    assert (
+        client.post(
+            reverse("sponsors:edit", kwargs={"pk": sponsor.pk}),
+            {"name": "Updated sponsor", "is_active": True},
+        ).status_code
+        == 302
+    )
 
     venue.refresh_from_db()
     event_type.refresh_from_db()

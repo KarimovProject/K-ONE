@@ -27,9 +27,7 @@ pytestmark = pytest.mark.django_db
 @pytest.fixture
 def p10_public_event():
     users = get_user_model()
-    user = users.objects.create_user(
-        "p10-public-owner", role=users.Role.INTERNATIONAL_ADMIN
-    )
+    user = users.objects.create_user("p10-public-owner", role=users.Role.INTERNATIONAL_ADMIN)
     venue = Venue.objects.create(
         code="P10-PUBLIC",
         name_uz="Public",
@@ -95,9 +93,7 @@ def test_successful_login_resets_throttle_bucket(client):
     users.objects.create_user("p10-login", password="Phase10-Login-Safe!")
     cache.clear()
     for _ in range(5):
-        response = client.post(
-            "/accounts/login/", {"username": "p10-login", "password": "wrong"}
-        )
+        response = client.post("/accounts/login/", {"username": "p10-login", "password": "wrong"})
         assert response.status_code == 200
     response = client.post(
         "/accounts/login/",
@@ -106,14 +102,10 @@ def test_successful_login_resets_throttle_bucket(client):
     assert response.status_code == 302
     client.logout()
     for _ in range(10):
-        response = client.post(
-            "/accounts/login/", {"username": "p10-login", "password": "wrong"}
-        )
+        response = client.post("/accounts/login/", {"username": "p10-login", "password": "wrong"})
         assert response.status_code == 200
     assert (
-        client.post(
-            "/accounts/login/", {"username": "p10-login", "password": "wrong"}
-        ).status_code
+        client.post("/accounts/login/", {"username": "p10-login", "password": "wrong"}).status_code
         == 429
     )
 

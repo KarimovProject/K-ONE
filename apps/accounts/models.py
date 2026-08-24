@@ -28,4 +28,3 @@ class User(AbstractUser):
         from apps.accounts.rbac import user_has_capability
 
         return user_has_capability(self, capability)
-

@@ -140,9 +140,7 @@ class PublicCheckinView(View):
             "count": count,
         }
 
-        status_code = (
-            200 if result["success"] or result.get("already_checked_in") else 400
-        )
+        status_code = 200 if result["success"] or result.get("already_checked_in") else 400
         response = JsonResponse(response_data, status=status_code)
 
         # Set browser token cookie if newly generated or missing

@@ -16,6 +16,7 @@ class Capability(StrEnum):
     MANAGE_EVENTS = "manage_events"
     CREATE_OWN_EVENTS = "create_own_events"
     APPROVE_EVENTS = "approve_events"
+    OVERRIDE_EVENTS = "override_events"
     VIEW_LEADERSHIP_DASHBOARD = "view_leadership_dashboard"
     MANAGE_CONTENT = "manage_content"
     MANAGE_ATTENDANCE = "manage_attendance"
@@ -29,6 +30,7 @@ ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
         {
             Capability.MANAGE_EVENTS,
             Capability.CREATE_OWN_EVENTS,
+            Capability.OVERRIDE_EVENTS,
             Capability.VIEW_LEADERSHIP_DASHBOARD,
             Capability.VIEW_MASTER_DATA,
             Capability.MANAGE_MASTER_DATA,
@@ -47,9 +49,7 @@ ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
     User.Role.LEADERSHIP_VIEWER: frozenset(
         {Capability.VIEW_LEADERSHIP_DASHBOARD, Capability.VIEW_MASTER_DATA}
     ),
-    User.Role.CONTENT_MANAGER: frozenset(
-        {Capability.MANAGE_CONTENT, Capability.VIEW_MASTER_DATA}
-    ),
+    User.Role.CONTENT_MANAGER: frozenset({Capability.MANAGE_CONTENT, Capability.VIEW_MASTER_DATA}),
     User.Role.RECEPTION_OPERATOR: frozenset(
         {Capability.MANAGE_ATTENDANCE, Capability.VIEW_MASTER_DATA}
     ),

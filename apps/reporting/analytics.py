@@ -93,14 +93,10 @@ def event_analytics(events):
         row["label"] = str(status_labels.get(row["status"], row["status"]))
     language = (get_language() or "uz").split("-")[0]
     type_field = (
-        f"event_type__name_{language}"
-        if language in {"uz", "ru", "en"}
-        else "event_type__name_uz"
+        f"event_type__name_{language}" if language in {"uz", "ru", "en"} else "event_type__name_uz"
     )
     by_type_values = list(
-        events.values(type_field)
-        .annotate(total=Count("id"))
-        .order_by(type_field)
+        events.values(type_field).annotate(total=Count("id")).order_by(type_field)
     )
     by_type = [{"label": row[type_field], "total": row["total"]} for row in by_type_values]
     by_priority = list(events.values("priority").annotate(total=Count("id")).order_by("priority"))

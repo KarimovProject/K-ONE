@@ -143,9 +143,7 @@ def check_venue_availability(
 
     if conflicts.exists():
         first_conflict = conflicts.first()
-        message = _(
-            "Occupied by “%(title)s” (%(start)s – %(end)s)."
-        ) % {
+        message = _("Occupied by “%(title)s” (%(start)s – %(end)s).") % {
             "title": first_conflict.title,
             "start": first_conflict.start_time.strftime("%H:%M"),
             "end": first_conflict.end_time.strftime("%H:%M"),
@@ -219,7 +217,6 @@ def validate_and_lock_event_reservation(
                     )
                     % {"attendees": expected_attendees, "capacity": locked_venue.capacity}
                 )
-
 
             # Conflict check
             conflicts = find_conflicting_events(

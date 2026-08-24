@@ -206,9 +206,7 @@ class CalendarEventsAPIView(APIView):
         for e in events:
             start_iso = f"{e.planned_date.isoformat()}T{e.start_time.strftime('%H:%M:%S')}"
             end_iso = f"{e.planned_date.isoformat()}T{e.end_time.strftime('%H:%M:%S')}"
-            resp_name = (
-                e.responsible_employee.get_full_name() or e.responsible_employee.username
-            )
+            resp_name = e.responsible_employee.get_full_name() or e.responsible_employee.username
 
             status_colors = {
                 "draft": "#64748B",
@@ -317,12 +315,9 @@ class EventSubmitAPIView(APIView):
 
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = (
-            request.user == event.responsible_employee or request.user == event.created_by
-        )
+        is_owner = request.user == event.responsible_employee or request.user == event.created_by
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
@@ -393,12 +388,9 @@ class EventResubmitAPIView(APIView):
 
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = (
-            request.user == event.responsible_employee or request.user == event.created_by
-        )
+        is_owner = request.user == event.responsible_employee or request.user == event.created_by
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
@@ -417,12 +409,9 @@ class EventPostponeAPIView(APIView):
 
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = (
-            request.user == event.responsible_employee or request.user == event.created_by
-        )
+        is_owner = request.user == event.responsible_employee or request.user == event.created_by
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
@@ -442,12 +431,9 @@ class EventRescheduleAPIView(APIView):
 
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = (
-            request.user == event.responsible_employee or request.user == event.created_by
-        )
+        is_owner = request.user == event.responsible_employee or request.user == event.created_by
         is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS)
-            or request.user.is_superuser
+            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
         )
         if not (is_owner or is_admin):
             return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
@@ -498,9 +484,9 @@ class EventEmergencyOverrideAPIView(APIView):
 
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_authorized = (
-            request.user.is_superuser
-            or request.user.role in (User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN)
+        is_authorized = request.user.is_superuser or request.user.role in (
+            User.Role.SUPER_ADMIN,
+            User.Role.INTERNATIONAL_ADMIN,
         )
         if not is_authorized:
             return Response(

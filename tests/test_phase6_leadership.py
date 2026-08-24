@@ -174,10 +174,13 @@ class TestVenueLiveStatusEngine:
             status=Event.Status.APPROVED,
         )
         assert venue_live_status(venue_ich, reference)["current_status"] == "OCCUPIED"
-        assert venue_live_status(
-            venue_ich,
-            reference + timedelta(hours=1),
-        )["current_status"] == "AVAILABLE"
+        assert (
+            venue_live_status(
+                venue_ich,
+                reference + timedelta(hours=1),
+            )["current_status"]
+            == "AVAILABLE"
+        )
 
     def test_upcoming_next_event_and_venue_isolation(
         self, venue_ich, venue_ssh, event_type, super_admin
@@ -313,6 +316,7 @@ class TestDisplayTokenAndAPI:
 
         url = reverse("api-display-venues", kwargs={"token": token_obj.token})
         from django.test import Client
+
         client = Client()
 
         resp = client.get(url)
@@ -324,6 +328,7 @@ class TestDisplayTokenAndAPI:
     def test_invalid_display_token_blocked(self, db):
         url = reverse("api-display-venues", kwargs={"token": "invalid_fake_token_999"})
         from django.test import Client
+
         client = Client()
 
         resp = client.get(url)
@@ -337,6 +342,7 @@ class TestDisplayTokenAndAPI:
         )
         url = reverse("api-display-venues", kwargs={"token": token_obj.token})
         from django.test import Client
+
         client = Client()
 
         resp = client.get(url)
@@ -350,12 +356,14 @@ class TestDisplayTokenAndAPI:
 
         client = Client()
         assert old_token != new_token
-        assert client.get(
-            reverse("api-display-venues", kwargs={"token": old_token})
-        ).status_code == 403
-        assert client.get(
-            reverse("api-display-venues", kwargs={"token": new_token})
-        ).status_code == 200
+        assert (
+            client.get(reverse("api-display-venues", kwargs={"token": old_token})).status_code
+            == 403
+        )
+        assert (
+            client.get(reverse("api-display-venues", kwargs={"token": new_token})).status_code
+            == 200
+        )
         assert AuditEventLog.objects.filter(
             action=AuditEventLog.Action.DISPLAY_TOKEN_ROTATED,
             target_id=str(token_obj.pk),
@@ -369,9 +377,7 @@ class TestDisplayTokenAndAPI:
         first.set_enabled(False)
         first.set_enabled(True)
         actions = set(
-            AuditEventLog.objects.filter(target_id=str(first.pk)).values_list(
-                "action", flat=True
-            )
+            AuditEventLog.objects.filter(target_id=str(first.pk)).values_list("action", flat=True)
         )
         assert {
             AuditEventLog.Action.DISPLAY_TOKEN_CREATED,
@@ -440,7 +446,8 @@ class TestLeadershipRBAC:
 
     def test_wallboard_page_requires_valid_token(self, client, db):
         token = DisplayToken.objects.create(name="Lobby")
-        assert client.get(
-            reverse("tv-wallboard-token", kwargs={"token": token.token})
-        ).status_code == 200
+        assert (
+            client.get(reverse("tv-wallboard-token", kwargs={"token": token.token})).status_code
+            == 200
+        )
         assert client.get(reverse("tv-wallboard")).status_code == 403

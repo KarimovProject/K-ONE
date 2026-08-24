@@ -196,15 +196,11 @@ def test_previous_period_preserves_filters_and_own_event_scope(report_data):
         "status": Event.Status.APPROVED,
         "expected_attendees": 10,
     }
-    Event.objects.create(
-        title="P9 Previous Own", responsible_employee=responsible, **values
-    )
+    Event.objects.create(title="P9 Previous Own", responsible_employee=responsible, **values)
     other = get_user_model().objects.create_user(
         "p9_previous_other", role=get_user_model().Role.RESPONSIBLE_EMPLOYEE
     )
-    Event.objects.create(
-        title="P9 Previous Other", responsible_employee=other, **values
-    )
+    Event.objects.create(title="P9 Previous Other", responsible_employee=other, **values)
     query = {
         "period": "custom",
         "start_date": report_data["start"],

@@ -45,9 +45,7 @@ class EventStep1Form(forms.Form):
     title = forms.CharField(
         label=_("Event Title"),
         max_length=255,
-        widget=forms.TextInput(
-            attrs={"placeholder": _("e.g., International Oncology Conference")}
-        ),
+        widget=forms.TextInput(attrs={"placeholder": _("e.g., International Oncology Conference")}),
     )
     event_type = forms.ModelChoiceField(
         label=_("Event Type"),

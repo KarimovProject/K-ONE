@@ -13,4 +13,3 @@ def test_supported_locales_and_default_timezone():
 def test_locale_can_be_activated():
     with translation.override("ru"):
         assert translation.get_language() == "ru"
-

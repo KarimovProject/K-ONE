@@ -6,9 +6,7 @@ from apps.accounts.models import User
 
 @admin.register(User)
 class IEMSUserAdmin(UserAdmin):
-    fieldsets = UserAdmin.fieldsets + (
-        ("IEMS access", {"fields": ("role", "preferred_language")}),
-    )
+    fieldsets = UserAdmin.fieldsets + (("IEMS access", {"fields": ("role", "preferred_language")}),)
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("IEMS access", {"fields": ("role", "preferred_language")}),
     )

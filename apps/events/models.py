@@ -14,6 +14,7 @@ from config.validators import validate_image_upload, validate_pdf_upload
 def generate_public_token() -> str:
     return secrets.token_urlsafe(16)
 
+
 WEEKDAY_NAMES = {
     "uz": (
         "Dushanba",
@@ -207,9 +208,7 @@ class Event(models.Model):
         verbose_name=_("reviewed by"),
     )
     rejection_reason = models.TextField(_("rejection reason"), blank=True, default="")
-    emergency_justification = models.TextField(
-        _("emergency justification"), blank=True, default=""
-    )
+    emergency_justification = models.TextField(_("emergency justification"), blank=True, default="")
     displaced_by_event = models.ForeignKey(
         "self",
         on_delete=models.SET_NULL,
@@ -280,7 +279,6 @@ class Event(models.Model):
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
-
 
     class Meta:
         ordering = ("-planned_date", "start_time", "title")

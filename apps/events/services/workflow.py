@@ -8,7 +8,10 @@ from django.utils.translation import gettext_lazy as _
 from apps.accounts.models import User
 from apps.audit.services import log_audit_event
 from apps.events.models import Event
-from apps.events.services.conflicts import validate_and_lock_event_reservation
+from apps.events.services.conflicts import (
+    find_conflicting_events,
+    validate_and_lock_event_reservation,
+)
 from apps.notifications.models import Notification
 from apps.notifications.services import send_notification
 from apps.notifications.telegram.services import schedule_event_notification
@@ -46,6 +49,18 @@ def submit_event_for_approval(event: Event, actor: User) -> Event:
 def approve_event(event: Event, actor: User, notes: str = "") -> Event:
     if event.status != Event.Status.PENDING_APPROVAL:
         raise ValidationError(_("Only events pending approval can be approved."))
+
+    conflicts = find_conflicting_events(
+        venue=event.venue,
+        planned_date=event.planned_date,
+        start_time=event.start_time,
+        end_time=event.end_time,
+        exclude_event_id=str(event.pk),
+    )
+    if conflicts.exists():
+        raise ValidationError(
+            _("Event conflicts with existing reservations. Requires priority override.")
+        )
 
     event.status = Event.Status.APPROVED
     event.reviewed_at = timezone.now()
@@ -257,4 +272,96 @@ def reschedule_event(
             )
 
     schedule_event_notification(event, "rescheduled")
+    return event
+
+
+def override_event(event: Event, actor: User, reason: str) -> Event:
+    clean_reason = (reason or "").strip()
+    if not clean_reason:
+        raise ValidationError(_("An override reason is mandatory."))
+
+    if event.status != Event.Status.PENDING_APPROVAL:
+        raise ValidationError(_("Only events pending approval can override others."))
+
+    with transaction.atomic():
+        conflicts = find_conflicting_events(
+            venue=event.venue,
+            planned_date=event.planned_date,
+            start_time=event.start_time,
+            end_time=event.end_time,
+            exclude_event_id=str(event.pk),
+        ).select_for_update()
+
+        if not conflicts.exists():
+            raise ValidationError(_("No conflicting events to override."))
+
+        # Displace conflicts
+        for conflict in conflicts:
+            conflict.status = Event.Status.DISPLACED
+            conflict.displaced_by_event = event
+            conflict.updated_by = actor
+            conflict.notes = (
+                conflict.notes + f"\n\nDisplaced Note ({actor.username}): {clean_reason}"
+            ).strip()
+            conflict.save(
+                update_fields=["status", "displaced_by_event", "updated_by", "notes", "updated_at"]
+            )
+
+            log_audit_event(
+                "event.displaced",
+                actor=actor,
+                target=conflict,
+                payload={"displaced_by": str(event.pk), "reason": clean_reason},
+            )
+
+            # Notify owner of displaced event
+            if conflict.responsible_employee:
+                send_notification(
+                    recipient=conflict.responsible_employee,
+                    title=_("Event Displaced"),
+                    message=_(
+                        "Your event '%(title)s' was displaced by a higher priority event. Reason: %(reason)s"
+                    )
+                    % {"title": conflict.title, "reason": clean_reason},
+                    severity=Notification.Severity.WARNING,
+                    target_url=f"/events/{conflict.pk}/",
+                )
+
+        # Now approve this event
+        event.status = Event.Status.APPROVED
+        event.reviewed_at = timezone.now()
+        event.reviewed_by = actor
+        event.notes = (
+            event.notes + f"\n\nOverride Note ({actor.username}): {clean_reason}"
+        ).strip()
+        event.updated_by = actor
+        event.save(
+            update_fields=[
+                "status",
+                "reviewed_at",
+                "reviewed_by",
+                "notes",
+                "updated_by",
+                "updated_at",
+            ]
+        )
+
+        log_audit_event(
+            "event.approved_override", actor=actor, target=event, payload={"reason": clean_reason}
+        )
+
+        if event.responsible_employee:
+            send_notification(
+                recipient=event.responsible_employee,
+                title=_("Event Approved (Override)"),
+                message=_(
+                    "Your event '%(title)s' has been approved via priority override by %(reviewer)s."
+                )
+                % {"title": event.title, "reviewer": actor.get_full_name() or actor.username},
+                severity=Notification.Severity.INFO,
+                target_url=f"/events/{event.pk}/",
+            )
+
+        schedule_event_notification(event, "approved")
+
     return event

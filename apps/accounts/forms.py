@@ -14,4 +14,3 @@ class ProfileForm(forms.ModelForm):
             "email": _("Email"),
             "preferred_language": _("Preferred language"),
         }
-

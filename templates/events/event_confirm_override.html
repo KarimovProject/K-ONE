@@ -1,39 +1,37 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load i18n %}
-{% block title %}{% trans "Emergency Conflict Override" %} · K-ONE{% endblock %}
+{% block title %}{% trans "Priority Override" %} · K-ONE{% endblock %}
 {% block content %}
 <div class="confirm-container">
-  <div class="confirm-card warning-card">
-    <div class="confirm-icon danger">🚨</div>
-    <h1>{% trans "Emergency Conflict Override" %}</h1>
+  <div class="confirm-card">
+    <div class="confirm-icon danger">⚠️</div>
+    <h1>{% trans "Priority Override" %}</h1>
     <p class="confirm-text">
-      {% blocktrans with title=event.title %}Executing an emergency conflict override for <strong>{{ title }}</strong> will displace any conflicting lower-priority events at this venue.{% endblocktrans %}
+      {% blocktrans with title=event.title %}You are about to approve <strong>{{ title }}</strong> via priority override.{% endblocktrans %}
     </p>
 
-    {% if conflicting_events %}
-      <div class="app-message alert" role="alert">
-        ⚠️ <strong>{% trans "Conflicting Events to be Displaced" %}:</strong>
-        <ul>
-          {% for conf in conflicting_events %}
-            <li><strong>{{ conf.title }}</strong> ({{ conf.planned_date|date:"d.m.Y" }} {{ conf.start_time|time:"H:i" }}–{{ conf.end_time|time:"H:i" }})</li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
+    <div style="background: var(--danger-bg); border: 1px solid var(--danger-border); padding: var(--space-3); border-radius: var(--radius-md); margin-bottom: var(--space-4); text-align: left;">
+      <h3 style="margin-top: 0; color: var(--danger-color); font-size: var(--font-size-md);">{% trans "The following event(s) will be DISPLACED:" %}</h3>
+      <ul style="margin-bottom: 0; padding-left: var(--space-4); color: var(--danger-color);">
+        {% for conflict in conflicting_events %}
+          <li><strong>{{ conflict.title }}</strong> ({{ conflict.planned_date|date:"d.m.Y" }} {{ conflict.start_time|time:"H:i" }} - {{ conflict.end_time|time:"H:i" }})</li>
+        {% endfor %}
+      </ul>
+    </div>
 
     <form method="post" class="app-form">
       {% csrf_token %}
       <div class="form-group">
-        <label for="id_justification">{% trans "Emergency Justification (Mandatory)" %}</label>
-        {{ form.justification }}
-        {% if form.justification.errors %}
-          <div class="field-error">{{ form.justification.errors.0 }}</div>
+        <label for="id_reason">{% trans "Override Reason (Mandatory)" %}</label>
+        {{ form.reason }}
+        {% if form.reason.errors %}
+          <div class="field-error">{{ form.reason.errors.0 }}</div>
         {% endif %}
       </div>
 
       <div class="form-actions align-right">
-        <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
-        <button class="btn-danger" type="submit" data-testid="confirm-override-btn">🚨 {% trans "Execute Emergency Override" %}</button>
+        <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
+        <button class="btn-danger" type="submit" data-testid="confirm-override-btn">{% trans "Confirm Override" %}</button>
       </div>
     </form>
   </div>

@@ -20,7 +20,6 @@ from django.views.generic import (
     UpdateView,
 )
 
-from apps.accounts.models import User
 from apps.accounts.rbac import Capability, CapabilityRequiredMixin, user_has_capability
 from apps.attendance.services import (
     CHECKIN_COOKIE_NAME,
@@ -200,16 +199,28 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
             or user.is_superuser
         )
         is_admin = user_has_capability(user, Capability.MANAGE_EVENTS) or user.is_superuser
-        is_override_authorized = user.is_superuser or user.role in (
-            User.Role.SUPER_ADMIN,
-            User.Role.INTERNATIONAL_ADMIN,
+        is_override_authorized = user.is_superuser or user_has_capability(
+            user, Capability.OVERRIDE_EVENTS
         )
 
         from apps.audit.models import AuditEventLog
+        from apps.events.services.conflicts import find_conflicting_events
         from apps.publications.policies import can_prepare
 
         can_edit = (is_owner or is_admin) and event.status != Event.Status.CANCELLED
         can_cancel = (is_owner or is_admin) and event.status != Event.Status.CANCELLED
+
+        conflicting_events = []
+        if event.status == Event.Status.PENDING_APPROVAL:
+            conflicts_qs = find_conflicting_events(
+                venue=event.venue,
+                planned_date=event.planned_date,
+                start_time=event.start_time,
+                end_time=event.end_time,
+                exclude_event_id=str(event.pk),
+            )
+            if conflicts_qs.exists():
+                conflicting_events = list(conflicts_qs)
 
         context.update(
             {
@@ -241,8 +252,11 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
                 ),
                 "can_override": (
                     is_override_authorized
-                    and event.status not in (Event.Status.CANCELLED, Event.Status.COMPLETED)
+                    and event.status == Event.Status.PENDING_APPROVAL
+                    and len(conflicting_events) > 0
                 ),
+                "has_conflicts": len(conflicting_events) > 0,
+                "conflicting_events": conflicting_events,
                 "can_manage_reminders": is_admin,
                 "can_create_publication": can_prepare(user, event),
                 "audit_logs": AuditEventLog.objects.filter(target_id=str(event.pk))[:15],
@@ -373,36 +387,105 @@ class EventSubmitApprovalView(LoginRequiredMixin, View):
 
 class EventApprovalListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
     required_capability = Capability.APPROVE_EVENTS
-    template_name = "events/event_list.html"
+    template_name = "events/approval_center.html"
     context_object_name = "events"
     paginate_by = 15
 
     def get_queryset(self):
-        status_filter = self.request.GET.get("status", Event.Status.PENDING_APPROVAL)
         qs = Event.objects.select_related(
             "event_type", "venue", "responsible_employee", "management_responsible"
         )
+
+        status_filter = self.request.GET.get("status", Event.Status.PENDING_APPROVAL)
+        priority_filter = self.request.GET.get("priority")
+        venue_id = self.request.GET.get("venue")
+        event_type_id = self.request.GET.get("type")
+        start_date = self.request.GET.get("start_date")
+        end_date = self.request.GET.get("end_date")
+
         if status_filter == "my_pending":
-            return qs.filter(
-                management_responsible=self.request.user,
-                status=Event.Status.PENDING_APPROVAL,
+            qs = qs.filter(
+                management_responsible=self.request.user, status=Event.Status.PENDING_APPROVAL
             )
-        if status_filter in Event.Status.values:
-            return qs.filter(status=status_filter)
-        return qs.filter(status=Event.Status.PENDING_APPROVAL)
+        elif status_filter in Event.Status.values:
+            qs = qs.filter(status=status_filter)
+        else:
+            qs = qs.filter(status=Event.Status.PENDING_APPROVAL)
+
+        if priority_filter in Event.Priority.values:
+            qs = qs.filter(priority=priority_filter)
+        if venue_id:
+            qs = qs.filter(venue_id=venue_id)
+        if event_type_id:
+            qs = qs.filter(event_type_id=event_type_id)
+        if start_date:
+            try:
+                from datetime import datetime
+
+                qs = qs.filter(planned_date__gte=datetime.strptime(start_date, "%Y-%m-%d").date())
+            except ValueError:
+                pass
+        if end_date:
+            try:
+                from datetime import datetime
+
+                qs = qs.filter(planned_date__lte=datetime.strptime(end_date, "%Y-%m-%d").date())
+            except ValueError:
+                pass
+
+        # Annotate with conflict flag
+        # We can't easily annotate conflicts purely in ORM without complex raw SQL because we check overlapping times,
+        # so we will check conflicts in the template or via python if needed. For now, we will just return qs.
+        return qs
 
     def get_context_data(self, **kwargs):
+        from apps.events.models import EventType
+        from apps.events.services.conflicts import find_conflicting_events
+        from apps.venues.models import Venue
+
         context = super().get_context_data(**kwargs)
+
+        # Calculate conflicts for pending events
+        events_with_conflicts = []
+        for event in context["events"]:
+            conflicts = []
+            if event.status == Event.Status.PENDING_APPROVAL:
+                conflicts_qs = find_conflicting_events(
+                    venue=event.venue,
+                    planned_date=event.planned_date,
+                    start_time=event.start_time,
+                    end_time=event.end_time,
+                    exclude_event_id=str(event.pk),
+                )
+                if conflicts_qs.exists():
+                    conflicts = list(conflicts_qs)
+
+            event.conflicting_events = conflicts
+            event.can_override = self.request.user.is_superuser or user_has_capability(
+                self.request.user, Capability.OVERRIDE_EVENTS
+            )
+            events_with_conflicts.append(event)
+
+        context["events"] = events_with_conflicts
+
         context.update(
             {
                 "nav_key": "approvals",
-                "page_title": _("Event Approvals Queue"),
+                "page_title": _("Approval Center"),
                 "current_status": self.request.GET.get("status", Event.Status.PENDING_APPROVAL),
+                "current_priority": self.request.GET.get("priority", ""),
+                "selected_venue": self.request.GET.get("venue", ""),
+                "selected_type": self.request.GET.get("type", ""),
+                "start_date": self.request.GET.get("start_date", ""),
+                "end_date": self.request.GET.get("end_date", ""),
                 "pending_count": Event.objects.filter(status=Event.Status.PENDING_APPROVAL).count(),
                 "my_pending_count": Event.objects.filter(
                     management_responsible=self.request.user,
                     status=Event.Status.PENDING_APPROVAL,
                 ).count(),
+                "event_types": EventType.objects.filter(is_active=True),
+                "venues": Venue.objects.filter(is_active=True, display_enabled=True),
+                "priorities": Event.Priority.choices,
             }
         )
         return context
@@ -954,6 +1037,53 @@ class SpeakerCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         messages.success(self.request, _("Speaker added successfully."))
         return super().form_valid(form)
+
+
+class EventOverrideView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
+    required_capability = Capability.OVERRIDE_EVENTS
+    template_name = "events/event_confirm_override.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        from apps.events.forms import EventRejectForm  # Reusing reject form for reason
+
+        self.form_class = EventRejectForm
+        self.event = get_object_or_404(Event, pk=kwargs["pk"])
+        if self.event.status != Event.Status.PENDING_APPROVAL:
+            messages.warning(request, _("Event is not pending approval."))
+            return redirect(reverse("events:detail", kwargs={"pk": self.event.pk}))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        from apps.events.services.conflicts import find_conflicting_events
+
+        context = super().get_context_data(**kwargs)
+        context["event"] = self.event
+        context["page_title"] = _('Override Conflict for "%(title)s"') % {"title": self.event.title}
+        context["conflicting_events"] = find_conflicting_events(
+            venue=self.event.venue,
+            planned_date=self.event.planned_date,
+            start_time=self.event.start_time,
+            end_time=self.event.end_time,
+            exclude_event_id=str(self.event.pk),
+        )
+        return context
+
+    def form_valid(self, form):
+        from apps.events.services.workflow import override_event
+
+        reason = form.cleaned_data["reason"]
+        try:
+            override_event(self.event, self.request.user, reason=reason)
+            messages.success(
+                self.request,
+                _("Event '%(title)s' approved via priority override.")
+                % {"title": self.event.title},
+            )
+        except ValidationError as exc:
+            messages.error(self.request, exc.message)
+            return self.form_invalid(form)
+
+        return redirect(reverse("events:detail", kwargs={"pk": self.event.pk}))
 
 
 class SpeakerUpdateView(LoginRequiredMixin, UpdateView):

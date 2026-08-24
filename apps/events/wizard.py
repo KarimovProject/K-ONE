@@ -273,8 +273,7 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
             "wizard_data": wizard_data,
             "availability_result": availability_result,
             "summary_data": summary_data,
-            "page_title": _("Event Planning Wizard — Step %(step)d of 5")
-            % {"step": current_step},
+            "page_title": _("Event Planning Wizard — Step %(step)d of 5") % {"step": current_step},
         }
 
     def build_summary(self, wizard_data: dict[str, Any]) -> dict[str, Any]:

@@ -51,9 +51,7 @@ class StaffManualCheckinForm(forms.Form):
         label=_("Role / Title"),
         max_length=255,
         required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": _("e.g. Senior Researcher")}
-        ),
+        widget=forms.TextInput(attrs={"placeholder": _("e.g. Senior Researcher")}),
     )
 
 

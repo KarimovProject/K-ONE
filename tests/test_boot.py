@@ -8,4 +8,3 @@ def test_django_boots_without_system_check_errors():
     assert errors == []
     assert settings.AUTH_USER_MODEL == "accounts.User"
     assert settings.TIME_ZONE == "Asia/Tashkent"
-

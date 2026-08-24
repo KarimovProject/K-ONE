@@ -48,11 +48,7 @@ def _status_from_events(
     event_list = list(events)
     today_events = [event for event in event_list if event.planned_date == today]
     current_event = next(
-        (
-            event
-            for event in today_events
-            if event.start_time <= now_time < event.end_time
-        ),
+        (event for event in today_events if event.start_time <= now_time < event.end_time),
         None,
     )
     next_event = next(
@@ -128,11 +124,15 @@ def venue_live_status(
     reference = _local_reference(reference_dt)
     events = getattr(venue, "_live_events", None)
     if events is None:
-        events = Event.objects.filter(
-            venue=venue,
-            planned_date__gte=reference.date(),
-            status__in=VALID_LIVE_STATUSES,
-        ).select_related("event_type").order_by("planned_date", "start_time")
+        events = (
+            Event.objects.filter(
+                venue=venue,
+                planned_date__gte=reference.date(),
+                status__in=VALID_LIVE_STATUSES,
+            )
+            .select_related("event_type")
+            .order_by("planned_date", "start_time")
+        )
     return _status_from_events(venue, events, reference, near_term_minutes)
 
 
@@ -141,11 +141,17 @@ def all_venues_live_status(
     near_term_minutes: int = 60,
 ) -> list[dict[str, Any]]:
     reference = _local_reference(reference_dt)
-    events = Event.objects.filter(
-        planned_date__gte=reference.date(),
-        status__in=VALID_LIVE_STATUSES,
-    ).select_related("event_type").order_by("planned_date", "start_time")
-    venues = Venue.objects.filter(is_active=True).prefetch_related(
-        Prefetch("events", queryset=events, to_attr="_live_events")
-    ).order_by("sort_order", "code")
+    events = (
+        Event.objects.filter(
+            planned_date__gte=reference.date(),
+            status__in=VALID_LIVE_STATUSES,
+        )
+        .select_related("event_type")
+        .order_by("planned_date", "start_time")
+    )
+    venues = (
+        Venue.objects.filter(is_active=True)
+        .prefetch_related(Prefetch("events", queryset=events, to_attr="_live_events"))
+        .order_by("sort_order", "code")
+    )
     return [venue_live_status(venue, reference, near_term_minutes) for venue in venues]

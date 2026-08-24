@@ -34,9 +34,7 @@ class ReportFilterForm(forms.Form):
         required=False,
         widget=forms.DateInput(attrs={"type": "date"}),
     )
-    venue = forms.ModelChoiceField(
-        Venue.objects.all(), label=_("Venue"), required=False
-    )
+    venue = forms.ModelChoiceField(Venue.objects.all(), label=_("Venue"), required=False)
     event_type = forms.ModelChoiceField(
         EventType.objects.all(), label=_("Event type"), required=False
     )
@@ -50,15 +48,11 @@ class ReportFilterForm(forms.Form):
         choices=(("", _("All priorities")), *Event.Priority.choices),
         required=False,
     )
-    responsible = forms.ModelChoiceField(
-        selectable_staff(), label=_("Responsible"), required=False
-    )
+    responsible = forms.ModelChoiceField(selectable_staff(), label=_("Responsible"), required=False)
     organization = forms.ModelChoiceField(
         Organization.objects.all(), label=_("Organization"), required=False
     )
-    sponsor = forms.ModelChoiceField(
-        Sponsor.objects.all(), label=_("Sponsor"), required=False
-    )
+    sponsor = forms.ModelChoiceField(Sponsor.objects.all(), label=_("Sponsor"), required=False)
     publication_platform = forms.ChoiceField(
         label=_("Publication platform"),
         choices=(("", _("All platforms")), *Publication.Platform.choices),

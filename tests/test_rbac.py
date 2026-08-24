@@ -23,4 +23,3 @@ def test_superuser_bypasses_capability_matrix():
     admin = user_model.objects.create_superuser(username="root", password="test-password")
 
     assert user_has_capability(admin, Capability.MANAGE_SYSTEM)
-

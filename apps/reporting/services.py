@@ -52,17 +52,20 @@ def get_leadership_dashboard_data(reference_dt: datetime | None = None) -> dict[
     week_end = today + timedelta(days=7)
     venues = all_venues_live_status(reference)
 
-    base_events = Event.objects.filter(status__in=VALID_LIVE_STATUSES).select_related(
-        "venue", "event_type", "responsible_employee"
-    ).prefetch_related("organizing_organizations")
+    base_events = (
+        Event.objects.filter(status__in=VALID_LIVE_STATUSES)
+        .select_related("venue", "event_type", "responsible_employee")
+        .prefetch_related("organizing_organizations")
+    )
     today_events = list(
         base_events.filter(planned_date=today)
         .annotate(checkins_count=Count("attendances"))
         .order_by("start_time")
     )
     upcoming_events = list(
-        base_events.filter(planned_date__gt=today, planned_date__lte=week_end)
-        .order_by("planned_date", "start_time")
+        base_events.filter(planned_date__gt=today, planned_date__lte=week_end).order_by(
+            "planned_date", "start_time"
+        )
     )
     priority_events = [
         event
@@ -80,9 +83,7 @@ def get_leadership_dashboard_data(reference_dt: datetime | None = None) -> dict[
         "today_date": today.isoformat(),
         "today_events_count": len(today_events),
         "in_progress_count": occupied,
-        "available_venues_count": sum(
-            item["current_status"] == "AVAILABLE" for item in venues
-        ),
+        "available_venues_count": sum(item["current_status"] == "AVAILABLE" for item in venues),
         "occupied_venues_count": occupied,
         "today_checkins_count": checkins,
         "today_expected_attendees": expected,
@@ -116,12 +117,15 @@ def _tv_venue_payload(item: dict[str, Any]) -> dict[str, Any]:
 def get_tv_wallboard_data(reference_dt: datetime | None = None) -> dict[str, Any]:
     reference = _reference(reference_dt)
     venue_statuses = all_venues_live_status(reference)
-    timeline_events = Event.objects.filter(
-        planned_date=reference.date(),
-        status__in=VALID_LIVE_STATUSES,
-    ).exclude(display_visibility=Event.DisplayVisibility.HIDDEN).select_related(
-        "venue"
-    ).order_by("start_time")
+    timeline_events = (
+        Event.objects.filter(
+            planned_date=reference.date(),
+            status__in=VALID_LIVE_STATUSES,
+        )
+        .exclude(display_visibility=Event.DisplayVisibility.HIDDEN)
+        .select_related("venue")
+        .order_by("start_time")
+    )
     timeline = [
         {
             "title": sanitize_event_title_for_display(event),

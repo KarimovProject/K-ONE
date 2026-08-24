@@ -108,9 +108,7 @@ def test_submit_event_flow(workflow_setup):
     assert "submitted" in notif.message.lower() or "approval" in notif.title.lower()
 
     # Check audit log
-    audit = AuditEventLog.objects.filter(
-        target_id=str(event.pk), action="event.submitted"
-    ).first()
+    audit = AuditEventLog.objects.filter(target_id=str(event.pk), action="event.submitted").first()
     assert audit is not None
     assert audit.actor == actor
 
@@ -135,9 +133,7 @@ def test_approve_event_flow(workflow_setup):
     assert "approved" in notif.title.lower()
 
     # Audit log
-    audit = AuditEventLog.objects.filter(
-        target_id=str(event.pk), action="event.approved"
-    ).first()
+    audit = AuditEventLog.objects.filter(target_id=str(event.pk), action="event.approved").first()
     assert audit is not None
 
 
@@ -160,9 +156,7 @@ def test_reject_event_with_and_without_reason(workflow_setup):
     assert event.rejection_reason == "Venue unavailable"
 
     # Audit log
-    audit = AuditEventLog.objects.filter(
-        target_id=str(event.pk), action="event.rejected"
-    ).first()
+    audit = AuditEventLog.objects.filter(target_id=str(event.pk), action="event.rejected").first()
     assert audit is not None
     assert audit.payload.get("reason") == "Venue unavailable"
 
