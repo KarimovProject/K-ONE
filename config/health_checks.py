@@ -45,4 +45,3 @@ def check_redis() -> HealthResult:
     except redis.RedisError:
         return HealthResult("redis", "error", "Redis connection unavailable")
     return HealthResult("redis", "ok", "Redis connection available")
-

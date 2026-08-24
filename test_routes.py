@@ -6,11 +6,15 @@ res = s.get(login_url)
 print(f"Login GET: {res.status_code}")
 
 csrf_token = res.cookies.get("csrftoken")
-res2 = s.post(login_url, data={
-    "username": "acceptance_admin",
-    "password": "K-ONE-admin-2026!",
-    "csrfmiddlewaretoken": csrf_token
-}, headers={"Referer": login_url})
+res2 = s.post(
+    login_url,
+    data={
+        "username": "acceptance_admin",
+        "password": "K-ONE-admin-2026!",
+        "csrfmiddlewaretoken": csrf_token,
+    },
+    headers={"Referer": login_url},
+)
 print(f"Login POST: {res2.status_code} (URL: {res2.url})")
 
 routes = [
@@ -24,7 +28,7 @@ routes = [
     "/master-data/speakers/",
     "/publications/",
     "/leadership/",
-    "/reporting/"
+    "/reporting/",
 ]
 
 for r in routes:

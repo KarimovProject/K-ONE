@@ -19,4 +19,3 @@ if settings.DEBUG:
     application = StaticFilesHandler(django_application)
 else:
     application = django_application
-

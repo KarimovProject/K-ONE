@@ -434,8 +434,9 @@ class EventApprovalListView(LoginRequiredMixin, CapabilityRequiredMixin, ListVie
                 pass
 
         # Annotate with conflict flag
-        # We can't easily annotate conflicts purely in ORM without complex raw SQL because we check overlapping times,
-        # so we will check conflicts in the template or via python if needed. For now, we will just return qs.
+        # We can't easily annotate conflicts purely in ORM
+        # without complex raw SQL (overlapping time checks).
+        # Conflicts are checked in python in get_context_data.
         return qs
 
     def get_context_data(self, **kwargs):
@@ -486,6 +487,11 @@ class EventApprovalListView(LoginRequiredMixin, CapabilityRequiredMixin, ListVie
                 "event_types": EventType.objects.filter(is_active=True),
                 "venues": Venue.objects.filter(is_active=True, display_enabled=True),
                 "priorities": Event.Priority.choices,
+                "statuses": Event.Status.choices,
+                "search_query": self.request.GET.get("q", ""),
+                "status_filter": self.request.GET.get(
+                    "status", Event.Status.PENDING_APPROVAL
+                ),
             }
         )
         return context

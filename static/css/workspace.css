@@ -2122,3 +2122,427 @@ body[data-route*="leadership"] .page-header {
 .dropdown-wrapper .action-delete, .dropdown-wrapper .action-delete svg {
     color: var(--crimson-600, #dc2626) !important;
 }
+
+/* ==========================================================================
+   Phase 28.2B — Visual Remediation
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Confirm Container / Card (Reject, Override, Postpone, Cancel)
+   -------------------------------------------------------------------------- */
+.confirm-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 60vh;
+  padding: 40px 16px;
+}
+
+.confirm-card {
+  width: 100%;
+  max-width: 780px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border, #E2E8F0);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.confirm-card h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-title, #0F172A);
+  margin: 16px 0 8px;
+  line-height: 1.3;
+}
+
+.confirm-card .confirm-text {
+  font-size: 15px;
+  color: var(--color-text-secondary, #64748B);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 600px;
+}
+
+.confirm-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: #F1F5F9;
+}
+
+.confirm-icon.danger {
+  background: #FEE2E2;
+}
+
+.confirm-icon.warning {
+  background: #FEF3C7;
+}
+
+/* Event summary inside confirm cards */
+.confirm-event-summary {
+  background: var(--color-surface-2, #F8FAFC);
+  border: 1px solid var(--color-border, #E2E8F0);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+
+.confirm-event-summary .summary-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted, #94A3B8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.confirm-event-summary .summary-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-title, #0F172A);
+}
+
+/* Warning banner inside confirm cards */
+.confirm-warning-banner {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-left: 4px solid #EF4444;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  color: #991B1B;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.confirm-warning-banner h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #991B1B;
+}
+
+.confirm-warning-banner ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.confirm-warning-banner li {
+  margin-bottom: 4px;
+}
+
+/* Form fields inside confirm cards */
+.confirm-card .form-group {
+  margin-bottom: 20px;
+}
+
+.confirm-card .form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary, #475569);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.confirm-card .form-group textarea,
+.confirm-card .form-group input[type="text"] {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border, #CBD5E1);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: var(--font-sans);
+  background: #FBFDFF;
+  color: var(--color-text-title, #0F172A);
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.confirm-card .form-group textarea:focus,
+.confirm-card .form-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-brand-cobalt, #2563EB);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.field-error {
+  color: #DC2626;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.field-error::before {
+  content: '⚠';
+  font-size: 12px;
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.form-actions.align-right {
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .confirm-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .confirm-card h1 {
+    font-size: 20px;
+  }
+
+  .confirm-event-summary {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .btn-neutral,
+  .form-actions .btn-danger {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Detail Grid (Event Detail two-column layout)
+   -------------------------------------------------------------------------- */
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .detail-grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+
+@media (max-width: 767px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Card Grid (2-col metadata inside detail cards)
+   -------------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.audit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+
+@media (max-width: 640px) {
+  .card-grid,
+  .audit-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Event Detail Actions — Overflow Menu
+   -------------------------------------------------------------------------- */
+.event-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.event-detail-actions .action-group-primary {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.event-detail-actions .action-group-secondary {
+  position: relative;
+  display: inline-block;
+}
+
+.event-detail-actions .secondary-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border, #E2E8F0);
+  background: white;
+  cursor: pointer;
+  color: var(--color-text-secondary, #64748B);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.event-detail-actions .secondary-toggle:hover {
+  background: var(--color-surface-2, #F8FAFC);
+  border-color: var(--color-brand-cobalt, #2563EB);
+  color: var(--color-brand-cobalt, #2563EB);
+}
+
+.event-detail-actions .secondary-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: white;
+  border: 1px solid var(--color-border, #E2E8F0);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  min-width: 220px;
+  z-index: 100;
+  padding: 6px;
+  display: none;
+}
+
+.event-detail-actions .secondary-menu.is-open {
+  display: block;
+}
+
+.event-detail-actions .secondary-menu a,
+.event-detail-actions .secondary-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-title, #0F172A);
+  text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.event-detail-actions .secondary-menu a:hover,
+.event-detail-actions .secondary-menu button:hover {
+  background: var(--color-surface-2, #F8FAFC);
+}
+
+.event-detail-actions .secondary-menu a svg,
+.event-detail-actions .secondary-menu button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.event-detail-actions .secondary-menu .menu-danger {
+  color: #DC2626 !important;
+}
+
+.event-detail-actions .secondary-menu .menu-warning {
+  color: #D97706 !important;
+}
+
+@media (max-width: 767px) {
+  .event-detail-actions {
+    width: 100%;
+  }
+
+  .event-detail-actions .btn-ghost,
+  .event-detail-actions .btn-primary,
+  .event-detail-actions .btn-success,
+  .event-detail-actions .btn-danger,
+  .event-detail-actions .btn-neutral {
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  .event-detail-actions .secondary-menu {
+    right: auto;
+    left: 0;
+    min-width: calc(100vw - 48px);
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   btn-edit — Amber accent button (Configure Program etc.)
+   -------------------------------------------------------------------------- */
+.btn-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background: #FDE68A;
+  transform: translateY(-1px);
+}
+
+.btn-edit svg {
+  width: 14px;
+  height: 14px;
+  color: #92400E;
+}
+
+/* --------------------------------------------------------------------------
+   btn-success — Emerald button (Approve)
+   -------------------------------------------------------------------------- */
+.btn-success {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background: #059669;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.btn-success:hover {
+  background: #047857;
+  transform: translateY(-1px);
+}

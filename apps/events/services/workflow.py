@@ -295,6 +295,20 @@ def override_event(event: Event, actor: User, reason: str) -> Event:
         if not conflicts.exists():
             raise ValidationError(_("No conflicting events to override."))
 
+        priority_weight = {
+            Event.Priority.NORMAL: 1,
+            Event.Priority.HIGH: 2,
+            Event.Priority.EMERGENCY: 3,
+        }
+        event_weight = priority_weight.get(event.priority, 0)
+
+        for conflict in conflicts:
+            if priority_weight.get(conflict.priority, 0) >= event_weight:
+                raise ValidationError(
+                    _("Cannot override event '%(title)s' which has equal or higher priority.")
+                    % {"title": conflict.title}
+                )
+
         # Displace conflicts
         for conflict in conflicts:
             conflict.status = Event.Status.DISPLACED

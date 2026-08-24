@@ -15,7 +15,7 @@ MAJOR_ROUTES = (
     ("dashboard", "dashboard.html"),
     ("events:list", "events/event_list.html"),
     ("calendar", "events/calendar.html"),
-    ("events:approval-list", "events/event_list.html"),
+    ("events:approval-list", "events/approval_center.html"),
     ("events:displaced-list", "events/event_list.html"),
     ("venues:list", "venues/venue_list.html"),
     ("event-types:list", "events/event_type_list.html"),

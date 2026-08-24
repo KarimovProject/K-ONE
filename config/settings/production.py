@@ -22,8 +22,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 X_FRAME_OPTIONS = "DENY"
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-EMAIL_BACKEND = env(
-    "EMAIL_BACKEND", default="django.core.mail.backends.dummy.EmailBackend"
-)
+EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.dummy.EmailBackend")
 LOGGING["root"] = {"handlers": ["production_console"], "level": LOG_LEVEL}  # noqa: F405
 LOGGING["loggers"]["django.request"]["handlers"] = ["production_console"]  # noqa: F405

@@ -1,20 +1,51 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% block title %}{% trans "Priority Override" %} · K-ONE{% endblock %}
 {% block content %}
 <div class="confirm-container">
   <div class="confirm-card">
-    <div class="confirm-icon danger">⚠️</div>
+    <div class="confirm-icon danger">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    </div>
     <h1>{% trans "Priority Override" %}</h1>
     <p class="confirm-text">
-      {% blocktrans with title=event.title %}You are about to approve <strong>{{ title }}</strong> via priority override.{% endblocktrans %}
+      {% blocktrans with title=event.title %}You are about to approve <strong>{{ title }}</strong> via priority override. This is a high-risk action.{% endblocktrans %}
     </p>
 
-    <div style="background: var(--danger-bg); border: 1px solid var(--danger-border); padding: var(--space-3); border-radius: var(--radius-md); margin-bottom: var(--space-4); text-align: left;">
-      <h3 style="margin-top: 0; color: var(--danger-color); font-size: var(--font-size-md);">{% trans "The following event(s) will be DISPLACED:" %}</h3>
-      <ul style="margin-bottom: 0; padding-left: var(--space-4); color: var(--danger-color);">
+    <div class="confirm-event-summary">
+      <div>
+        <div class="summary-label">{% trans "Higher-Priority Event" %}</div>
+        <div class="summary-value">{{ event.title }}</div>
+      </div>
+      <div>
+        <div class="summary-label">{% trans "Priority" %}</div>
+        <div class="summary-value">
+          <span class="status-badge" style="
+            {% if event.priority == 'emergency' %}background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA;
+            {% elif event.priority == 'high' %}background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A;
+            {% else %}background: #F1F5F9; color: #475569;{% endif %}
+          ">{{ event.get_priority_display }}</span>
+        </div>
+      </div>
+      <div>
+        <div class="summary-label">{% trans "Date & Time" %}</div>
+        <div class="summary-value">{{ event.planned_date|date:"d.m.Y" }} · {{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</div>
+      </div>
+      <div>
+        <div class="summary-label">{% trans "Venue" %}</div>
+        <div class="summary-value">{{ event.venue.localized_name }}</div>
+      </div>
+    </div>
+
+    <div class="confirm-warning-banner">
+      <h3>{% trans "The following event(s) will be DISPLACED:" %}</h3>
+      <ul>
         {% for conflict in conflicting_events %}
-          <li><strong>{{ conflict.title }}</strong> ({{ conflict.planned_date|date:"d.m.Y" }} {{ conflict.start_time|time:"H:i" }} - {{ conflict.end_time|time:"H:i" }})</li>
+          <li>
+            <strong>{{ conflict.title }}</strong>
+            ({{ conflict.planned_date|date:"d.m.Y" }} {{ conflict.start_time|time:"H:i" }} – {{ conflict.end_time|time:"H:i" }})
+            — <span style="font-weight: 600;">{{ conflict.get_priority_display }}</span> → {% trans "DISPLACED" %}
+          </li>
         {% endfor %}
       </ul>
     </div>

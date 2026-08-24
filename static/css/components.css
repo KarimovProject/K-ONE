@@ -592,11 +592,20 @@ select {
 }
 
 /* Status: Inactive */
-.status-badge.is-inactive {
+.status-badge.is-inactive, .status-badge.draft {
   background: var(--color-surface-1);
   color: var(--color-text-muted);
 }
-.status-badge.is-inactive::before { background: var(--color-text-muted); }
+.status-badge.is-inactive::before, .status-badge.draft::before { background: var(--color-text-muted); }
+
+/* Status: Displaced (critical) */
+.status-badge.displaced {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+  font-weight: 700;
+}
+.status-badge.displaced::before { background: #DC2626; }
 
 /* --------------------------------------------------------------------------
    7. DATA TABLES

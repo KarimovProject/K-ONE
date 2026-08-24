@@ -26,55 +26,90 @@
   <div class="page-actions event-detail-actions">
     <a class="btn-ghost" href="{% url 'events:list' %}">← {% trans "Back to Events" %}</a>
 
-    {% if can_submit %}
-      <form method="post" action="{% url 'events:submit' pk=event.pk %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn-primary" data-testid="submit-approval-btn">{% trans "Submit for Approval" %}</button>
-      </form>
-    {% endif %}
+    <div class="action-group-primary">
+      {% if can_submit %}
+        <form method="post" action="{% url 'events:submit' pk=event.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn-primary" data-testid="submit-approval-btn">{% trans "Submit for Approval" %}</button>
+        </form>
+      {% endif %}
 
-    {% if can_approve and not has_conflicts %}
-      <form method="post" action="{% url 'events:approve' pk=event.pk %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn-success" style="background: var(--color-success); color: white;" data-testid="approve-event-btn">{% trans "Approve Event" %}</button>
-      </form>
-    {% endif %}
+      {% if can_approve and not has_conflicts %}
+        <form method="post" action="{% url 'events:approve' pk=event.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn-success" data-testid="approve-event-btn">{% trans "Approve Event" %}</button>
+        </form>
+      {% endif %}
 
-    {% if can_override %}
-      <a class="btn-danger" href="{% url 'events:override' pk=event.pk %}" style="background: var(--color-danger); color: white;" data-testid="override-event-btn">{% trans "Override Conflict" %}</a>
-    {% endif %}
+      {% if can_override %}
+        <a class="btn-danger" href="{% url 'events:override' pk=event.pk %}" data-testid="override-event-btn">{% trans "Override Conflict" %}</a>
+      {% endif %}
 
-    {% if can_reject %}
-      <a class="btn-danger" href="{% url 'events:reject' pk=event.pk %}" data-testid="reject-event-btn">{% trans "Reject Event" %}</a>
-    {% endif %}
+      {% if can_reject %}
+        <a class="btn-danger" href="{% url 'events:reject' pk=event.pk %}" style="background: transparent; color: #DC2626; border: 1px solid #FECACA;" data-testid="reject-event-btn">{% trans "Reject Event" %}</a>
+      {% endif %}
 
-    {% if can_resubmit %}
-      <form method="post" action="{% url 'events:resubmit' pk=event.pk %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn-primary" data-testid="resubmit-event-btn">{% trans "Resubmit Event" %}</button>
-      </form>
-    {% endif %}
+      {% if can_edit %}
+        <a class="btn-primary" href="{% url 'events:edit' pk=event.pk %}">{% trans "Edit Event" %}</a>
+      {% endif %}
+    </div>
 
-    {% if can_reschedule %}
-      <a class="btn-neutral" href="{% url 'events:reschedule' pk=event.pk %}" data-testid="reschedule-event-btn">{% trans "Reschedule" %}</a>
-    {% endif %}
+    {% if can_edit or can_reschedule or can_postpone or can_cancel or can_resubmit or can_override %}
+    <div class="action-group-secondary">
+      <button type="button" class="secondary-toggle" aria-label="{% trans 'More actions' %}" onclick="this.nextElementSibling.classList.toggle('is-open')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      </button>
+      <div class="secondary-menu">
+        {% if can_edit %}
+          <a href="{% url 'events:program' pk=event.pk %}" data-testid="edit-program-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+            {% trans "Configure Program" %}
+          </a>
+          <a href="{% url 'events:attendance' pk=event.pk %}" data-testid="event-attendance-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            {% trans "Attendance" %} ({{ event.attendances.count }})
+          </a>
+        {% endif %}
 
-    {% if can_postpone %}
-      <a class="btn-neutral" style="color: var(--color-warning);" href="{% url 'events:postpone' pk=event.pk %}" data-testid="postpone-event-btn">{% trans "Postpone" %}</a>
-    {% endif %}
+        {% if can_resubmit %}
+          <form method="post" action="{% url 'events:resubmit' pk=event.pk %}" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" data-testid="resubmit-event-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              {% trans "Resubmit Event" %}
+            </button>
+          </form>
+        {% endif %}
 
-    {% if can_override %}
-      <a class="btn-danger" href="{% url 'events:emergency-override' pk=event.pk %}" data-testid="emergency-override-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> {% trans "Emergency Override" %}</a>
-    {% endif %}
+        {% if can_reschedule %}
+          <a href="{% url 'events:reschedule' pk=event.pk %}" data-testid="reschedule-event-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            {% trans "Reschedule" %}
+          </a>
+        {% endif %}
 
-    {% if can_edit %}
-      <a class="btn-neutral" href="{% url 'events:program' pk=event.pk %}" data-testid="edit-program-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> {% trans "Program" %}</a>
-      <a class="btn-neutral" href="{% url 'events:attendance' pk=event.pk %}" data-testid="event-attendance-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg> {% trans "Attendance" %} ({{ event.attendances.count }})</a>
-      <a class="btn-primary" href="{% url 'events:edit' pk=event.pk %}">{% trans "Edit Event" %}</a>
-    {% endif %}
+        {% if can_postpone %}
+          <a href="{% url 'events:postpone' pk=event.pk %}" class="menu-warning" data-testid="postpone-event-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            {% trans "Postpone" %}
+          </a>
+        {% endif %}
 
-    {% if can_cancel %}
-      <a class="btn-danger" href="{% url 'events:cancel' pk=event.pk %}">{% trans "Cancel Event" %}</a>
+        {% if can_override %}
+          <a href="{% url 'events:emergency-override' pk=event.pk %}" class="menu-danger" data-testid="emergency-override-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            {% trans "Emergency Override" %}
+          </a>
+        {% endif %}
+
+        {% if can_cancel %}
+          <a href="{% url 'events:cancel' pk=event.pk %}" class="menu-danger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            {% trans "Cancel Event" %}
+          </a>
+        {% endif %}
+      </div>
+    </div>
     {% endif %}
   </div>
 </div>

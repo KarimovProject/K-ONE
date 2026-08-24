@@ -4,11 +4,37 @@
 {% block content %}
 <div class="confirm-container">
   <div class="confirm-card">
-    <div class="confirm-icon danger">❌</div>
+    <div class="confirm-icon danger">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+    </div>
     <h1>{% trans "Reject Event" %}</h1>
     <p class="confirm-text">
-      {% blocktrans with title=event.title %}Provide a mandatory rationale for rejecting <strong>{{ title }}</strong>.{% endblocktrans %}
+      {% blocktrans with title=event.title %}You are about to reject <strong>{{ title }}</strong>. This action requires a mandatory rationale.{% endblocktrans %}
     </p>
+
+    <div class="confirm-event-summary">
+      <div>
+        <div class="summary-label">{% trans "Event" %}</div>
+        <div class="summary-value">{{ event.title }}</div>
+      </div>
+      <div>
+        <div class="summary-label">{% trans "Date" %}</div>
+        <div class="summary-value">{{ event.planned_date|date:"d.m.Y" }}</div>
+      </div>
+      <div>
+        <div class="summary-label">{% trans "Time" %}</div>
+        <div class="summary-value">{{ event.start_time|time:"H:i" }} – {{ event.end_time|time:"H:i" }}</div>
+      </div>
+      <div>
+        <div class="summary-label">{% trans "Venue" %}</div>
+        <div class="summary-value">{{ event.venue.localized_name }}</div>
+      </div>
+    </div>
+
+    <div class="confirm-warning-banner">
+      <h3>{% trans "Warning" %}</h3>
+      {% blocktrans with title=event.title %}Rejecting this event will change its status to Rejected. The responsible employee will be notified. A rationale must be provided.{% endblocktrans %}
+    </div>
 
     <form method="post" class="app-form">
       {% csrf_token %}
@@ -21,7 +47,7 @@
       </div>
 
       <div class="form-actions align-right">
-        <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Back" %}</a>
+        <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
         <button class="btn-danger" type="submit" data-testid="confirm-reject-btn">{% trans "Confirm Rejection" %}</button>
       </div>
     </form>
