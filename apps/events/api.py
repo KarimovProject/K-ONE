@@ -243,6 +243,7 @@ class CalendarEventsAPIView(APIView):
                         "priority": e.priority,
                         "responsible_name": resp_name,
                         "detail_url": f"/events/{e.pk}/",
+                        "banner_url": e.banner_image.url if e.banner_image else "",
                     },
                 }
             )

@@ -15,6 +15,11 @@ urlpatterns = [
     ),
     path("telegram/test/", views.TelegramTestView.as_view(), name="telegram-test"),
     path(
+        "telegram/channel/",
+        views.TelegramChannelSettingsView.as_view(),
+        name="telegram-channel-settings",
+    ),
+    path(
         "telegram/events/<uuid:pk>/",
         views.EventReminderSettingsView.as_view(),
         name="event-reminders",

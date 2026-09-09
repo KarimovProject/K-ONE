@@ -17,12 +17,53 @@
     let cursor = new Date();
     let view = new URLSearchParams(location.search).get("view") || "month";
 
+    // Live clock badge (date/time, real-time, Asia/Tashkent).
+    (() => {
+        const clockEl = document.querySelector("[data-clock]");
+        const weekdayEl = document.querySelector("[data-clock-weekday]");
+        if (!clockEl && !weekdayEl) return;
+        const locale = { uz: "uz-UZ", ru: "ru-RU", en: "en-GB", tr: "tr-TR" }[document.documentElement.lang] || "uz-UZ";
+        const tick = () => {
+            const now = new Date();
+            if (clockEl) {
+                clockEl.textContent = new Intl.DateTimeFormat(locale, {
+                    timeZone: "Asia/Tashkent", hour: "2-digit", minute: "2-digit", hour12: false,
+                }).format(now);
+            }
+            if (weekdayEl) {
+                weekdayEl.textContent = new Intl.DateTimeFormat(locale, {
+                    timeZone: "Asia/Tashkent", day: "numeric", month: "short", weekday: "long",
+                }).format(now);
+            }
+        };
+        tick();
+        setInterval(tick, 1000);
+    })();
+
     const text = {
       uz: {
         months: ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
         days: ["Dush","Sesh","Chor","Pay","Jum","Shan","Yak"],
         today: "Bugun", tomorrow: "Erta", now: "Hozir",
         empty: "Tadbirlar topilmadi", more: "yana", retry: "Xatolik yuz berdi", again: "Qayta urinish"
+      },
+      ru: {
+        months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
+        days: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
+        today: "Сегодня", tomorrow: "Завтра", now: "Сейчас",
+        empty: "Мероприятия не найдены", more: "ещё", retry: "Произошла ошибка", again: "Повторить"
+      },
+      en: {
+        months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        days: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+        today: "Today", tomorrow: "Tomorrow", now: "Now",
+        empty: "No events found", more: "more", retry: "Something went wrong", again: "Retry"
+      },
+      tr: {
+        months: ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
+        days: ["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],
+        today: "Bugün", tomorrow: "Yarın", now: "Şimdi",
+        empty: "Etkinlik bulunamadı", more: "daha fazla", retry: "Bir hata oluştu", again: "Tekrar dene"
       }
     }[document.documentElement.lang] || {
         months: ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
@@ -234,8 +275,11 @@
           stage.innerHTML = view === "month" ? renderMonth(start, end) : view === "week" ? renderWeek(start) : view === "day" ? renderDay() : renderList();
       }
 
-      root.querySelectorAll(".premium-segment-btn").forEach(b => {
+      root.querySelectorAll("[data-view]").forEach(b => {
           b.classList.toggle('active', b.dataset.view === view);
+          if (b.hasAttribute('aria-selected') || b.dataset.view === view) {
+              b.setAttribute('aria-selected', b.dataset.view === view);
+          }
       });
 
       history.replaceState(null, "", `${location.pathname}?date=${iso(cursor)}&view=${view}`);
@@ -300,17 +344,40 @@
       if (!drawer) return;
       drawer.querySelector("[data-dialog-title]").textContent = e.title;
 
+      const now = new Date();
+      const isLive = e.start && e.end && new Date(e.start) <= now && now < new Date(e.end);
       const statusEl = drawer.querySelector("[data-dialog-status]");
       statusEl.textContent = e.status_label || e.status;
-      statusEl.className = 'chip ' + (e.status === 'in_progress' ? 'chip--active' : 'chip--upcoming');
+      statusEl.className = 'chip ' + (isLive ? 'chip--active' : 'chip--upcoming');
 
       const startTime = (e.start_time || '').substring(0,5);
       const endTime = (e.end_time || '').substring(0,5);
       drawer.querySelector("[data-dialog-time]").textContent = `${e.date} · ${startTime}${endTime ? '–' + endTime : ''}`;
-      drawer.querySelector("[data-dialog-venue]").textContent = e.venue;
+      drawer.querySelector("[data-dialog-venue]").textContent = e.venue_full || e.venue;
       drawer.querySelector("[data-dialog-type]").textContent = e.event_type || "";
       drawer.querySelector("[data-dialog-responsible]").textContent = e.responsible || "";
       drawer.querySelector("[data-dialog-description]").textContent = e.description || "";
+
+      const bannerImg = drawer.querySelector("[data-dialog-banner]");
+      if (e.banner_url) {
+          bannerImg.src = e.banner_url;
+          bannerImg.hidden = false;
+      } else {
+          bannerImg.hidden = true;
+          bannerImg.src = '';
+      }
+
+      const programLink = drawer.querySelector("[data-dialog-program]");
+      const mainLink = drawer.querySelector("[data-dialog-link]");
+      if (e.public_url) {
+          programLink.href = e.public_url;
+          programLink.hidden = false;
+          mainLink.href = e.public_url;
+          mainLink.hidden = false;
+      } else {
+          programLink.hidden = true;
+          mainLink.hidden = true;
+      }
 
       drawer.classList.add('is-open');
     };

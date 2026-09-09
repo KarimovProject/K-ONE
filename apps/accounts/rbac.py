@@ -30,10 +30,13 @@ ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
         {
             Capability.MANAGE_EVENTS,
             Capability.CREATE_OWN_EVENTS,
+            Capability.APPROVE_EVENTS,
             Capability.OVERRIDE_EVENTS,
             Capability.VIEW_LEADERSHIP_DASHBOARD,
             Capability.VIEW_MASTER_DATA,
             Capability.MANAGE_MASTER_DATA,
+            Capability.MANAGE_CONTENT,
+            Capability.MANAGE_ATTENDANCE,
         }
     ),
     User.Role.RESPONSIBLE_EMPLOYEE: frozenset(

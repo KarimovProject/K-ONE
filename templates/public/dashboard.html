@@ -4,7 +4,7 @@
 {% block title %}K-ONE — Operatsion Markaz{% endblock %}
 
 {% block content %}
-<div class="dashboard-shell animate-entrance">
+<div class="dashboard-shell animate-entrance" data-dashboard data-endpoint="{% url 'public-dashboard-api' %}">
   <!-- COMPACT HERO INTRODUCTION -->
   <div class="dashboard-hero">
     <div class="dashboard-hero__eyebrow">
@@ -287,8 +287,33 @@
     </section>
   </div>
 </div>
+
+<div class="drawer-overlay" id="public-event-drawer-overlay" hidden>
+  <div class="drawer-panel">
+    <button class="drawer-close" type="button" id="public-drawer-close" aria-label="{% trans 'Close' %}">&times;</button>
+    <img id="public-drawer-banner" class="drawer-banner-img" src="" alt="" hidden>
+    <div class="drawer-header">
+      <span class="type-pill" id="public-drawer-type"></span>
+      <span class="status-badge" id="public-drawer-status"></span>
+      <h2 id="public-drawer-title"></h2>
+    </div>
+    <div class="drawer-body">
+      <div class="info-item">
+        <span class="info-label">{% trans "Date & Time" %}</span>
+        <span class="info-value" id="public-drawer-datetime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Venue" %}</span>
+        <span class="info-value" id="public-drawer-venue"></span>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <a class="primary-button compact" id="public-drawer-link" href="#" target="_blank">{% trans "Full Event Details →" %}</a>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/public-dashboard.js' %}"></script>
+<script src="{% static 'js/public-dashboard.js' %}?v=3"></script>
 {% endblock %}

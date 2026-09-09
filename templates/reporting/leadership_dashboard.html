@@ -378,7 +378,7 @@
       </div>
       <ol class="leadership-timeline">
         {% for item in today_timeline %}
-        <li class="{% if item.is_ongoing %}current{% elif item.is_past %}past{% endif %}">
+        <li class="js-leadership-event-popup {% if item.is_ongoing %}current{% elif item.is_past %}past{% endif %}" style="cursor: pointer;" data-event-id="{{ item.event_id }}" data-title="{{ item.title }}" data-type="{{ item.event_type_name }}" data-status="{{ item.status }}" data-status-label="{{ item.status_display }}" data-date="{{ item.planned_date }}" data-start="{{ item.start_time }}" data-end="{{ item.end_time }}" data-venue="{{ item.venue_name }}" data-responsible="{{ item.responsible_name }}" data-url="{{ item.detail_url }}" data-banner="{{ item.banner_url }}">
           <strong>{{ item.start_time }}–{{ item.end_time }}</strong>
           <div>
             <strong style="color: var(--color-text-title);">{{ item.title }}</strong><br>
@@ -449,7 +449,7 @@
       </thead>
       <tbody>
         {% for item in upcoming_events %}
-        <tr>
+        <tr class="js-leadership-event-popup" style="cursor: pointer;" data-event-id="{{ item.event_id }}" data-title="{{ item.title }}" data-type="{{ item.event_type_name }}" data-status="{{ item.status }}" data-status-label="{{ item.status_display }}" data-date="{{ item.planned_date }}" data-start="{{ item.start_time }}" data-end="{{ item.end_time }}" data-venue="{{ item.venue_name }}" data-responsible="{{ item.organizers|default:'—' }}" data-url="{{ item.detail_url }}" data-banner="{{ item.banner_url }}">
           <td>{{ item.planned_date }}<br><small class="muted">{{ item.weekday }}</small></td>
           <td>{{ item.start_time }}</td>
           <td><strong style="color: var(--color-text-title);">{{ item.title }}</strong></td>
@@ -466,6 +466,69 @@
     </table>
   </section>
 </main>
+
+<div class="drawer-overlay" id="leadership-event-drawer-overlay" hidden>
+  <div class="drawer-panel">
+    <button class="drawer-close" type="button" id="leadership-drawer-close" aria-label="{% trans 'Close' %}">&times;</button>
+    <img id="leadership-drawer-banner" class="drawer-banner-img" src="" alt="" hidden>
+    <div class="drawer-header">
+      <span class="type-pill" id="leadership-drawer-type"></span>
+      <span class="status-badge" id="leadership-drawer-status"></span>
+      <h2 id="leadership-drawer-title"></h2>
+    </div>
+    <div class="drawer-body">
+      <div class="info-item">
+        <span class="info-label">{% trans "Date & Time" %}</span>
+        <span class="info-value" id="leadership-drawer-datetime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Venue" %}</span>
+        <span class="info-value" id="leadership-drawer-venue"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Responsible Staff" %}</span>
+        <span class="info-value" id="leadership-drawer-responsible"></span>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <a class="primary-button compact" id="leadership-drawer-link" href="#">{% trans "Full Event Details →" %}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const drawer = document.getElementById('leadership-event-drawer-overlay');
+    if (!drawer) return;
+    const bannerImg = document.getElementById('leadership-drawer-banner');
+    document.querySelectorAll('.js-leadership-event-popup').forEach((el) => {
+        el.addEventListener('click', () => {
+            document.getElementById('leadership-drawer-type').textContent = el.getAttribute('data-type') || '';
+            const statusBadge = document.getElementById('leadership-drawer-status');
+            statusBadge.textContent = el.getAttribute('data-status-label') || '';
+            statusBadge.className = 'status-badge ' + (el.getAttribute('data-status') || '');
+            document.getElementById('leadership-drawer-title').textContent = el.getAttribute('data-title') || '';
+            document.getElementById('leadership-drawer-datetime').textContent =
+                (el.getAttribute('data-date') || '') + ' · ' + (el.getAttribute('data-start') || '') + '–' + (el.getAttribute('data-end') || '');
+            document.getElementById('leadership-drawer-venue').textContent = el.getAttribute('data-venue') || '';
+            document.getElementById('leadership-drawer-responsible').textContent = el.getAttribute('data-responsible') || '';
+            document.getElementById('leadership-drawer-link').href = el.getAttribute('data-url') || '#';
+            const bannerUrl = el.getAttribute('data-banner');
+            if (bannerUrl) {
+                bannerImg.src = bannerUrl;
+                bannerImg.hidden = false;
+            } else {
+                bannerImg.hidden = true;
+                bannerImg.src = '';
+            }
+            drawer.hidden = false;
+        });
+    });
+    const closeDrawer = () => { drawer.hidden = true; };
+    document.getElementById('leadership-drawer-close').addEventListener('click', closeDrawer);
+    drawer.addEventListener('click', (e) => { if (e.target === drawer) closeDrawer(); });
+});
+</script>
 {% endblock %}
 
 {% block extra_js %}

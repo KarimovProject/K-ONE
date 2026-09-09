@@ -2273,3 +2273,1814 @@ msgstr "RAHBARIYAT NAZORATI"
 
 msgid "Leadership Dashboard"
 msgstr "Rahbariyat paneli"
+
+msgid "Cannot delete %(resource)s because it is currently in use."
+msgstr ""
+"Tizimda ishlatilayotganligi sababli %(resource)s ni o'chirib bo'lmaydi."
+
+#: template:0
+msgid "Operatsion holatda"
+msgstr "Operation holatda"
+
+#: template:0
+msgid "Confirm Reschedule"
+msgstr "Qayta rejalashtirishni tasdiqlash"
+
+#: template:0
+msgid "Venue Location"
+msgstr "Joylashuv joyi"
+
+#: template:0
+msgid "Personal event reminders for responsible staff."
+msgstr "Mas&#39;ul xodimlar uchun shaxsiy tadbirlar haqida eslatmalar."
+
+#: template:0
+msgid "tadbir"
+msgstr "tadbir"
+
+#: template:0
+msgid "Upload PDF"
+msgstr "PDF yuklash"
+
+#: template:0
+msgid "Barcha holatlar"
+msgstr "Barcha xonalar"
+
+#: template:0
+msgid "Bot configured"
+msgstr "Bot sozlangan"
+
+#: template:0
+msgid "End Time"
+msgstr "Tugash vaqti"
+
+#: template:0
+msgid "Skip to main content"
+msgstr "Контентга ўтиш"
+
+#: template:0
+msgid "Bosh sahifa"
+msgstr "Bosh sahifa"
+
+#: template:0
+msgid "Tizim"
+msgstr "Tizim"
+
+#: template:0
+msgid "One or more records are protected and cannot be removed."
+msgstr ""
+"Bir yoki bir nechta yozuvlar himoyalangan va ularni olib tashlash mumkin "
+"emas."
+
+#: template:0
+msgid "Capacity Warning"
+msgstr "Sig&#39;im haqida ogohlantirish"
+
+#: template:0
+msgid "Structured Agenda Timeline"
+msgstr "Strukturaviy kun tartibi xronologiyasi"
+
+#: template:0
+msgid "Missing"
+msgstr "Mavjud bo'lmagan"
+
+#: template:0
+msgid "Authorized staff"
+msgstr "Vakolatli xodimlar"
+
+#: template:0
+msgid "Rahbariyat paneli"
+msgstr "Rahbariyat paneli"
+
+#: template:0
+msgid "Confirm Cancellation"
+msgstr "Bekor qilishni tasdiqlash"
+
+#: template:0
+msgid ""
+"Provide remote meeting URLs and review event schedule before finalizing."
+msgstr ""
+"Yakuniylashtirishdan oldin masofaviy uchrashuv URL manzillarini taqdim eting"
+" va tadbir jadvalini ko&#39;rib chiqing."
+
+#: template:0
+msgid "Suggested Alternative Venues"
+msgstr "Tavsiya etilgan muqobil joylar"
+
+#: template:0
+msgid "Kun"
+msgstr "Kun"
+
+#: template:0
+msgid "Program Footer Notes"
+msgstr "Dastur pastki qismidagi eslatmalar"
+
+#: template:0
+msgid "Tadbir turlari"
+msgstr "Tadbir turlari"
+
+#: template:0
+msgid "Reschedule"
+msgstr "Qayta rejalashtirish"
+
+#: template:0
+msgid "Save reminder policy"
+msgstr "Eslatma siyosatini saqlash"
+
+#: template:0
+msgid "Hafta"
+msgstr "Hafta"
+
+#: template:0
+msgid "Step 1: Basic Information"
+msgstr "1-qadam: Asosiy ma&#39;lumotlar"
+
+#: template:0
+msgid "Hozirda erkin — rejalashtirish mumkin"
+msgstr "Hozirda erkin — mumkin"
+
+#: template:0
+msgid "Save Program Settings"
+msgstr "Dastur sozlamalarini saqlash"
+
+#: template:0
+msgid "Ready"
+msgstr "Tayyor"
+
+#: template:0
+msgid "Reschedule Event"
+msgstr "Tadbirni qayta rejalashtirish"
+
+#: template:0
+msgid "Conflict with approved event(s)"
+msgstr "Tasdiqlangan tadbir(lar) bilan ziddiyat"
+
+#: template:0
+msgid "Check-in Closes At"
+msgstr "Ro&#39;yxatdan o&#39;tish vaqti tugaydi"
+
+#: template:0
+msgid "Join Live Zoom Meeting"
+msgstr "Jonli Zoom uchrashuviga qo&#39;shiling"
+
+#: template:0
+msgid "Xush kelibsiz"
+msgstr "Xush kelibsiz!"
+
+#: template:0
+msgid "Next Event"
+msgstr "Keyingi tadbir"
+
+#: template:0
+msgid "New Start Time"
+msgstr "Boshlanish vaqti"
+
+#: template:0
+msgid "Close"
+msgstr "Yopish"
+
+#: template:0
+msgid "Holat"
+msgstr "Xolat"
+
+#: template:0
+msgid "Collapse sidebar"
+msgstr "Yon panelni yopish"
+
+#: template:0
+msgid "International activity, managed with clarity."
+msgstr "Xalqaro faoliyat, aniqlik bilan boshqariladi."
+
+#: template:0
+msgid "Action"
+msgstr "Harakat"
+
+#: template:0
+msgid "Faol tadbir"
+msgstr "Faol tadbir"
+
+#: template:0
+msgid "1. Program Mode & Details"
+msgstr "1. Dastur rejimi va tafsilotlari"
+
+#: template:0
+msgid "Ochiq tizim"
+msgstr "Ochiq tizim"
+
+#: template:0
+msgid "Expected attendees exceeds venue capacity"
+msgstr "Kutilayotgan ishtirokchilar joy sig&#39;imidan oshib ketdi"
+
+#: template:0
+msgid "DISPLACED BY EMERGENCY"
+msgstr "FAVQULODDA VAZIYAT TOMONIDAN KO&#39;CHIRIB OLINGAN"
+
+#: template:0
+msgid "Current PDF"
+msgstr "Joriy PDF"
+
+#: template:0
+msgid "Postponement Reason (Optional)"
+msgstr "Kechiktirish sababi (ixtiyoriy)"
+
+#: template:0
+msgid "Reviewed by"
+msgstr "KO'RIB QILGAN"
+
+#: template:0
+msgid ""
+"Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona "
+"professional platformada boshqaring."
+msgstr ""
+"Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona "
+"professional platformada boshqaring."
+
+#: template:0
+msgid "Connected at"
+msgstr "Ulangan tezlik:"
+
+#: template:0
+msgid "Of expected attendees"
+msgstr "Kutilayotgan ishtirokchilardan"
+
+#: template:0
+msgid "Start Date"
+msgstr "Ishga kirishish sanasi"
+
+#: template:0
+msgid "No Telegram deliveries yet."
+msgstr "Telegram orqali yetkazib berish hali yo&#39;q."
+
+#: template:0
+msgid "More actions"
+msgstr "Amal"
+
+#: template:0
+msgid "Activity Summary"
+msgstr "Faoliyat xulosasi"
+
+#: template:0
+msgid "Edit Event"
+msgstr "Hodisani   tahrirlash"
+
+#: template:0
+msgid "Replace PDF"
+msgstr "PDF ni almashtiring"
+
+#: template:0
+msgid "REJALASHTIRILGAN DASTUR"
+msgstr "REJALASHTIRILGAN DASTUR"
+
+#: template:0
+msgid ""
+"Scan with smartphone camera to immediately open the digital event program "
+"and schedule."
+msgstr ""
+"Raqamli tadbir dasturi va jadvalini darhol ochish uchun smartfon kamerasi "
+"bilan skanerlang."
+
+#: template:0
+msgid "Tadbir yaratish"
+msgstr "Tadbir yaratish"
+
+#: template:0
+msgid "Public Access & Status"
+msgstr "Ommaviy kirish va holat"
+
+#: template:0
+msgid "Sessions"
+msgstr "& Seanslar"
+
+#: template:0
+msgid "No"
+msgstr "Yo'q"
+
+#: template:0
+msgid "Start Time"
+msgstr "Boshlanish vaqti"
+
+#: template:0
+msgid "Back to Event Details"
+msgstr "Tadbir tafsilotlariga qaytish"
+
+#: template:0
+msgid "Tadbirga kelganingizni tasdiqlang"
+msgstr "Tadbirga kelganingizni tasdiqlang"
+
+#: template:0
+msgid "New Planned Date"
+msgstr "Yangi rejalashtirilgan sana"
+
+#: template:0
+msgid "Save Changes"
+msgstr "O'zgarishlarni saqlash"
+
+#: template:0
+msgid "Open PDF Program"
+msgstr "PDF dasturini ochish"
+
+#: template:0
+msgid "Sponsors & Partners"
+msgstr "Homiylar va hamkorlar"
+
+#: template:0
+msgid "Tozalash"
+msgstr "Tozalash"
+
+#: template:0
+msgid "REJA"
+msgstr "Reja:"
+
+#: template:0
+msgid "PRIVATE / HIDDEN"
+msgstr "XUSUSIY / YASHIRIN"
+
+#: template:0
+msgid "OCCUPIED"
+msgstr "BAND BO&#39;LGAN"
+
+#: template:0
+msgid "Check-in Opens At"
+msgstr "Ro&#39;yxatdan o&#39;tish vaqti"
+
+#: template:0
+msgid "Delete selected records?"
+msgstr "Tanlangan yozuvlar o&#39;chirilsinmi?"
+
+#: template:0
+msgid "Homiylar"
+msgstr "Homiylar"
+
+#: template:0
+msgid "Permanent Printable QR Code"
+msgstr "Doimiy chop etiladigan QR kod"
+
+#: template:0
+msgid "Live real-time operational status foundation across university halls."
+msgstr ""
+"Universitet zallari bo&#39;ylab real vaqt rejimida operatsion holatni "
+"kuzatib boring."
+
+#: template:0
+msgid "Page"
+msgstr "Sahifa"
+
+#: template:0
+msgid "Open Telegram bot"
+msgstr "Telegram botini oching"
+
+#: template:0
+msgid "ERKIN"
+msgstr "ERKIN"
+
+#: template:0
+msgid "Turi"
+msgstr "Turi"
+
+#: template:0
+msgid "Dangerous action"
+msgstr "Xavfli harakat"
+
+#: template:0
+msgid "Confirm Rejection"
+msgstr "Rad etishni tasdiqlash"
+
+#: template:0
+msgid "min"
+msgstr "Avto- saqlash (daq):"
+
+#: template:0
+msgid "Print QR Code"
+msgstr "QR kodini chop eting"
+
+#: template:0
+msgid "Kirish"
+msgstr "KIRISH"
+
+#: template:0
+msgid "Upload PDF Document"
+msgstr "PDF hujjatni yuklash"
+
+#: template:0
+msgid "Email (Private - Internal Only)"
+msgstr "Elektron pochta (Maxfiy - Faqat ichki)"
+
+#: template:0
+msgid "Yuklanmoqda..."
+msgstr "Yuklanmoqda..."
+
+#: template:0
+msgid "Description / Abstract"
+msgstr "Tavsif / Abstrakt"
+
+#: template:0
+msgid "Bulk deletion"
+msgstr "Ommaviy o&#39;chirish"
+
+#: template:0
+msgid "Role / Title"
+msgstr "Rol / Unvon"
+
+#: template:0
+msgid "Select Program Mode"
+msgstr "Dastur rejimini tanlang"
+
+#: template:0
+msgid "User"
+msgstr "Profilim"
+
+#: template:0
+msgid "Faol"
+msgstr "Faol"
+
+#: template:0
+msgid "Please correct the errors below."
+msgstr "Iltimos, quyidagi xatolarni tuzating."
+
+#: template:0
+msgid "Resubmit Event"
+msgstr "Tadbirni qayta yuborish"
+
+#: template:0
+msgid "Session Title"
+msgstr "Sessiya nomi"
+
+#: template:0
+msgid "No manual agenda items added yet."
+msgstr "Qo&#39;lda tuzilgan kun tartibi bandlari hali qo&#39;shilmagan."
+
+#: template:0
+msgid "Vaqt"
+msgstr "Vaqt"
+
+#: template:0
+msgid "All Priorities"
+msgstr "Barcha ustuvorliklar"
+
+#: template:0
+msgid "Name or org provided"
+msgstr "Berilgan nom yoki tashkilot"
+
+#: template:0
+msgid "Holat bo‘yicha"
+msgstr "Holat bo&#39;yicha"
+
+#: template:0
+msgid "Barcha turlar"
+msgstr "Barcha turlar"
+
+#: template:0
+msgid "Event Agenda & Schedule"
+msgstr "Tadbir kun tartibi va jadvali"
+
+#: template:0
+msgid "Delete Event"
+msgstr "Hodisani   oʻchirish"
+
+#: template:0
+msgid "Review every selected object before continuing."
+msgstr "Davom etishdan oldin tanlangan har bir obyektni ko&#39;rib chiqing."
+
+#: template:0
+msgid "Biography / Profile"
+msgstr "Biografiya / Profil"
+
+#: template:0
+msgid "Main"
+msgstr "Asosiy"
+
+#: template:0
+msgid "Zallar"
+msgstr "Zallar"
+
+#: template:0
+msgid "Oy"
+msgstr "Oy"
+
+#: template:0
+msgid "Real vaqt monitoringi"
+msgstr "Haqiqiy vaqt monitoringi"
+
+#: template:0
+msgid "The following event(s) will be DISPLACED:"
+msgstr "Quyidagi hodisa(lar) O&#39;ZGARIB QOLADI:"
+
+#: template:0
+msgid "Your account does not have permission to remove all dependent records."
+msgstr ""
+"Hisobingiz barcha bog&#39;liq yozuvlarni o&#39;chirishga ruxsat bermagan."
+
+#: template:0
+msgid "Publicly Accessible"
+msgstr "Omma uchun ochiq"
+
+#: template:0
+msgid "PUBLICLY ACCESSIBLE"
+msgstr "Omma uchun ochiq"
+
+#: template:0
+msgid "Cancel Event"
+msgstr "Tadbirni bekor qilish"
+
+#: template:0
+msgid "Yangi tadbir"
+msgstr "Yangi tadbir"
+
+#: template:0
+msgid "MEN KELDIM"
+msgstr "MEN KELDIM"
+
+#: template:0
+msgid "This event was displaced by an emergency override event"
+msgstr "Bu hodisa favqulodda holat bekor qilish hodisasi bilan almashtirildi"
+
+#: template:0
+msgid "2. PDF Document Upload"
+msgstr "2. PDF hujjatni yuklash"
+
+#: template:0
+msgid "Add New Agenda Session"
+msgstr "Yangi kun tartibi sessiyasini qo&#39;shish"
+
+#: template:0
+msgid "Higher-Priority Event"
+msgstr "Yuqori ustuvor tadbir"
+
+#: template:0
+msgid "Conflict with existing approved events"
+msgstr "Mavjud tasdiqlangan tadbirlar bilan ziddiyat"
+
+#: template:0
+msgid "Scan to Open Event Program"
+msgstr "Ochiq tadbir dasturiga skanerlash"
+
+#: template:0
+msgid "Step 4: Organizations & Sponsors"
+msgstr "4-qadam: Tashkilotlar va homiylar"
+
+#: template:0
+msgid "Filter by priority"
+msgstr "Ustuvorlik bo&#39;yicha filtrlash"
+
+#: template:0
+msgid "Approve Event"
+msgstr "Tadbirni tasdiqlash"
+
+#: template:0
+msgid ""
+"Events, venues, communications and governance in one professional workspace."
+msgstr ""
+"Tadbirlar, joylar, kommunikatsiyalar va boshqaruv bitta professional ish "
+"maydonida."
+
+#: template:0
+msgid "Print Poster / Save PDF"
+msgstr "Posterni chop etish / PDF saqlash"
+
+#: template:0
+msgid "Platforma"
+msgstr "Platforma"
+
+#: template:0
+msgid "Currently free for bookings"
+msgstr "Hozirda buyurtmalar uchun bepul"
+
+#: template:0
+msgid "Tez orada"
+msgstr "Tez orada"
+
+#: template:0
+msgid "Integration status"
+msgstr "Integratsiya holati"
+
+#: template:0
+msgid "Oldingi"
+msgstr "Oldingi"
+
+#: template:0
+msgid "Edit Speaker"
+msgstr "Spikerni tahrirlash"
+
+#: template:0
+msgid "Personal notifications only; no public channel publishing."
+msgstr "Faqat shaxsiy bildirishnomalar; ommaviy kanallarda nashr etilmaydi."
+
+#: template:0
+msgid "Admin sign in"
+msgstr "Administrator tizimiga kirish"
+
+#: template:0
+msgid "Reviewed at"
+msgstr "Ko&#39;rib chiqilgan"
+
+#: template:0
+msgid "Secure control center"
+msgstr "Xavfsiz boshqaruv markazi"
+
+#: template:0
+msgid ""
+"Select a new date, time, or venue. The conflict engine will validate "
+"availability automatically."
+msgstr ""
+"Yangi sana, vaqt yoki joyni tanlang. Mojaro mexanizmi mavjudligini avtomatik"
+" ravishda tekshiradi."
+
+#: template:0
+msgid "Anonymous Guest"
+msgstr "Anonim mehmon"
+
+#: template:0
+msgid "Hozirda faol zallar mavjud emas"
+msgstr "Hozirda faol zallar mavjud emas"
+
+#: template:0
+msgid "Target capacity"
+msgstr "Maqsadli sig&#39;im"
+
+#: template:0
+msgid "Protected operational history"
+msgstr "Himoyalangan operatsion tarix"
+
+#: template:0
+msgid "Nofaol"
+msgstr "Nofaol"
+
+#: template:0
+msgid "Speaker"
+msgstr "Dinamik"
+
+#: template:0
+msgid "Tadbirlar"
+msgstr "Tadbirlar"
+
+#: template:0
+msgid "Current Event"
+msgstr "Joriy tadbir"
+
+#: template:0
+msgid "Download PDF"
+msgstr "PDF yuklab olish"
+
+#: template:0
+msgid "EMERGENCY OVERRIDE RATIONALE"
+msgstr "FAVQULODDA VAZIYATNI BEKOR QILISHNING ASOSI"
+
+#: template:0
+msgid "Admin Panel"
+msgstr "Administrator paneli"
+
+#: template:0
+msgid "persons"
+msgstr "Shaxslar"
+
+#: template:0
+msgid "Emergency Override"
+msgstr "Favqulodda vaziyatni bekor qilish"
+
+#: template:0
+msgid "Organization / Tashkilot"
+msgstr "Tashkilot / Tashkilot"
+
+#: template:0
+msgid "Preview Public Page"
+msgstr "Umumiy sahifani oldindan ko&#39;rish"
+
+#: template:0
+msgid "Speaker Photo"
+msgstr "Spiker fotosurati"
+
+#: template:0
+msgid "Chiqish"
+msgstr "Chiqish"
+
+#: template:0
+msgid "No permitted modules"
+msgstr "Ruxsat berilgan modullar yo&#39;q"
+
+#: template:0
+msgid ""
+"Use approved event facts and entered copy. K-ONE does not invent official "
+"wording."
+msgstr ""
+"Tasdiqlangan voqea faktlaridan va kiritilgan nusxadan foydalaning. K-ONE "
+"rasmiy so&#39;zlarni ixtiro qilmaydi."
+
+#: template:0
+msgid "Organized By"
+msgstr "Tashkil etgan"
+
+#: template:0
+msgid "Review"
+msgstr "Ko‘rish"
+
+#: template:0
+msgid "Xavfsiz kirish"
+msgstr "Xavfsiz kirish"
+
+#: template:0
+msgid "Change password"
+msgstr "Yangi parol"
+
+#: template:0
+msgid "Priority Override"
+msgstr "Ustuvorlikni bekor qilish"
+
+#: template:0
+msgid "Last successful delivery"
+msgstr "Oxirgi muvaffaqiyatli yetkazib berish"
+
+#: template:0
+msgid "Updated at"
+msgstr "Yangilandi"
+
+#: template:0
+msgid "Filtrlash"
+msgstr "Filtrlash"
+
+#: template:0
+msgid "exceeds venue capacity"
+msgstr "joy sig&#39;imidan oshib ketdi"
+
+#: template:0
+msgid "New End Time"
+msgstr "Yangi tugash vaqti"
+
+#: template:0
+msgid "Configure Program"
+msgstr "Dasturni sozlash"
+
+#: template:0
+msgid "Foydalanuvchi nomi"
+msgstr "Foydalanuvchi nomi"
+
+#: template:0
+msgid "Permission required"
+msgstr "Ruxsat talab qilinadi"
+
+#: template:0
+msgid "Confirm Postpone Event"
+msgstr "Tadbirni keyinga qoldirishni tasdiqlash"
+
+#: template:0
+msgid "Next: Responsible People →"
+msgstr "Keyingi: Mas&#39;uliyatli odamlar →"
+
+#: template:0
+msgid "Submit for Approval"
+msgstr "Tasdiqlash uchun topshiring"
+
+#: template:0
+msgid "Save as Draft"
+msgstr "Qoralama sifatida saqlang"
+
+#: template:0
+msgid "Open this private link in Telegram. It expires shortly and works once."
+msgstr ""
+"Ushbu maxfiy havolani Telegramda oching. U tez orada tugaydi va bir marta "
+"ishlaydi."
+
+#: template:0
+msgid "Taqvim"
+msgstr "Taqvim"
+
+#: template:0
+msgid "No attendance records recorded yet."
+msgstr "Hali ishtirok etish qaydnomalari qayd etilmagan."
+
+#: template:0
+msgid "Default: event end time"
+msgstr "Standart: tadbir tugash vaqti"
+
+#: template:0
+msgid "Reject Event"
+msgstr "Hodisani rad etish"
+
+#: template:0
+msgid "Yaqin tadbirlar"
+msgstr "Yaqin Tadbirlar"
+
+#: template:0
+msgid "Yangi xabarlar"
+msgstr "Yangi xabarlar"
+
+#: template:0
+msgid "PDF Document"
+msgstr "PDF hujjati"
+
+#: template:0
+msgid "Rejalashtirilgan"
+msgstr "Qayta tiklangan"
+
+#: template:0
+msgid "Filter by status"
+msgstr "Holat bo'yicha filtrlash"
+
+#: template:0
+msgid "Keyingi dastur"
+msgstr "Keyingi dastur"
+
+#: template:0
+msgid "Select event date, time interval, and available venue hall."
+msgstr "Tadbir sanasini, vaqt oralig&#39;ini va bo&#39;sh joy zalini tanlang."
+
+#: template:0
+msgid "Enable Public Profile on Event Program Pages"
+msgstr "Tadbir dasturi sahifalarida ommaviy profilni yoqish"
+
+#: template:0
+msgid "Use your K-ONE staff account."
+msgstr "K-ONE xodimlaringiz hisobingizdan foydalaning."
+
+#: template:0
+msgid "Connection"
+msgstr "Bog‘lanish"
+
+#: template:0
+msgid "Tashkilotlar"
+msgstr "Tashkilotlar"
+
+#: template:0
+msgid "Kun davomida erkin"
+msgstr "Kun davomida erkin"
+
+#: template:0
+msgid "Save Configuration"
+msgstr "Konfiguratsiyani saqlang"
+
+#: template:0
+msgid ""
+"This action will release the venue schedule slot. Operational records will "
+"retain cancellation history."
+msgstr ""
+"Bu harakat joy jadvali vaqtini bo&#39;shatadi. Operatsion yozuvlar bekor "
+"qilish tarixini saqlab qoladi."
+
+#: template:0
+msgid "Enable Public QR Check-in for this event"
+msgstr "Ushbu tadbir uchun ommaviy QR ro&#39;yxatdan o&#39;tishni yoqish"
+
+#: template:0
+msgid "Register for Event"
+msgstr "Tadbirga ro&#39;yxatdan o&#39;ting"
+
+#: template:0
+msgid "Bugun"
+msgstr "Bugun"
+
+#: template:0
+msgid "Erkin zallar"
+msgstr "Erkin zallar"
+
+#: template:0
+msgid "Disable Public Access"
+msgstr "Umumiy kirishni o&#39;chirib qo&#39;yish"
+
+#: template:0
+msgid "Linked with a short-lived one-time token, not a username."
+msgstr ""
+"Foydalanuvchi nomi bilan emas, balki qisqa muddatli bir martalik token bilan"
+" bog&#39;langan."
+
+#: template:0
+msgid "Next: Review & Submit →"
+msgstr "Keyingi: Ko&#39;rib chiqish va yuborish →"
+
+#: template:0
+msgid "Barcha tadbirlar yagona tizimda"
+msgstr "Barcha qurilmalar yagona tizimda"
+
+#: template:0
+msgid "Planned Date"
+msgstr "Rejalashtirilgan sana"
+
+#: template:0
+msgid "Status & Priority"
+msgstr "Holat va ustuvorlik"
+
+#: template:0
+msgid "Zal bo‘yicha"
+msgstr "Zal bo&#39;yicha"
+
+#: template:0
+msgid "Attendee Directory"
+msgstr "Ishtirokchilar katalogi"
+
+#: template:0
+msgid "Search by name or org..."
+msgstr "Nom yoki tashkilot bo&#39;yicha qidiruv..."
+
+#: template:0
+msgid ""
+"It is referenced by protected operational data. Remove or archive the "
+"dependency first."
+msgstr ""
+"Unga himoyalangan operatsion ma&#39;lumotlar havola qilinadi. Avval "
+"bog&#39;liqlikni olib tashlang yoki arxivlang."
+
+#: template:0
+msgid "Point your camera to view the live agenda, schedule, and speakers."
+msgstr ""
+"Jonli kun tartibi, jadval va ma&#39;ruzachilarni ko&#39;rish uchun "
+"kamerangizni yo&#39;naltiring."
+
+#: template:0
+msgid "Zal"
+msgstr "Zal"
+
+#: template:0
+msgid ""
+"This action cannot be undone. Review affected records before continuing."
+msgstr ""
+"Bu amalni bekor qilib bo&#39;lmaydi. Davom etishdan oldin ta&#39;sirlangan "
+"yozuvlarni ko&#39;rib chiqing."
+
+#: template:0
+msgid "Profil"
+msgstr "Profil"
+
+#: template:0
+msgid "Rotate Token"
+msgstr "Tokenni aylantirish"
+
+#: template:0
+msgid "No publications found"
+msgstr "Hech qanday nashr topilmadi"
+
+#: template:0
+msgid "Saqlash"
+msgstr "Saqlash"
+
+#: template:0
+msgid "minutes"
+msgstr "daqiqalar"
+
+#: template:0
+msgid "Bugungi tadbirlar, zallar va tasdiqlash jarayonlari."
+msgstr "Bugungi kunda, zallar va jarayonlari."
+
+#: template:0
+msgid "Last login"
+msgstr "Oxirgi kirish"
+
+#: template:0
+msgid "Confirm Postpone"
+msgstr "Kechiktirishni tasdiqlash"
+
+#: template:0
+msgid "Bekor qilish"
+msgstr "Bekor qilish"
+
+#: template:0
+msgid "Enable Public Access"
+msgstr "Umumiy kirishni yoqish"
+
+#: template:0
+msgid "Basic Info"
+msgstr "Asosiy ma'lumot"
+
+#: template:0
+msgid "Print Poster QR (A4/A5)"
+msgstr "Chop etish uchun QR plakat (A4/A5)"
+
+#: template:0
+msgid "Tashkilot nomi (ixtiyoriy)"
+msgstr "Tashkilot nomi (ixtiyoriy)"
+
+#: template:0
+msgid "Step 2: Date, Time & Venue"
+msgstr "2-bosqich: Sana, vaqt va joy"
+
+#: template:0
+msgid "Add Agenda Session"
+msgstr "Sessiya kun tartibini qo&#39;shish"
+
+#: template:0
+msgid "Save Speaker"
+msgstr "Karnayni saqlash"
+
+#: template:0
+msgid "F.I.Sh. (ixtiyoriy)"
+msgstr "FISh. (ixtiyoriy)"
+
+#: template:0
+msgid "Bildirishnomalar"
+msgstr "Bildirishnomalar"
+
+#: template:0
+msgid "Title"
+msgstr "Unvon"
+
+#: template:0
+msgid "Tizim faol"
+msgstr "Tizim faol"
+
+#: template:0
+msgid "Your account does not have access to records in this section."
+msgstr "Hisobingiz ushbu bo&#39;limdagi yozuvlarga kirish huquqiga ega emas."
+
+#: template:0
+msgid "Barcha Turlar"
+msgstr "Barcha Turlar"
+
+#: template:0
+msgid "Speaker Name Override (If not in directory)"
+msgstr "Spiker nomini bekor qilish (agar katalogda bo&#39;lmasa)"
+
+#: template:0
+msgid "Tugash vaqti:"
+msgstr "Tugash vaqti:"
+
+#: template:0
+msgid "Tashkilot / Organization"
+msgstr "Tashkilot / Tashkilot"
+
+#: template:0
+msgid ""
+"Attach co-organizing local/foreign organizations and supporting sponsors."
+msgstr ""
+"Mahalliy/xorijiy tashkilotlarni va qo&#39;llab-quvvatlovchi homiylarni "
+"birlashtiring."
+
+#: template:0
+msgid "Postpone"
+msgstr "Kechiktirish"
+
+#: template:0
+msgid "Postpone Event"
+msgstr "Tadbirni keyinga qoldirish"
+
+#: template:0
+msgid "Tadbirni qidirish..."
+msgstr "Tadbirni qidirish..."
+
+#: template:0
+msgid "Xalqaro tadbirlar taqvimi"
+msgstr "Xalqaro choralar taqvimi"
+
+#: template:0
+msgid "Partners"
+msgstr "Sheriklar"
+
+#: template:0
+msgid "Quick QR check-in"
+msgstr "QR kodini tezkor tekshirish"
+
+#: template:0
+msgid "Public Communications"
+msgstr "Jamoatchilik bilan aloqalar"
+
+#: template:0
+msgid "Barcha Zallar"
+msgstr "Barcha Zallar"
+
+#: template:0
+msgid "Tahlil"
+msgstr "Tahlil"
+
+#: template:0
+msgid "Tasdiq talab qiladi"
+msgstr "Tasdiq talab qiladi"
+
+#: template:0
+msgid "REJECTION RATIONALE"
+msgstr "RAD ETISHNING ASOSI"
+
+#: template:0
+msgid "Add Speaker"
+msgstr "Karnay qo&#39;shish"
+
+#: template:0
+msgid ""
+"When enabled, guests scanning the QR code can record attendance on the "
+"public page."
+msgstr ""
+"Yoqilganda, QR kodini skanerlayotgan mehmonlar ommaviy sahifada tashrif "
+"buyuruvchilar sonini qayd etishlari mumkin."
+
+#: template:0
+msgid "Uploaded"
+msgstr "Yuklandi"
+
+#: template:0
+msgid "Rejection Rationale (Mandatory)"
+msgstr "Rad etish asoslari (majburiy)"
+
+#: template:0
+msgid "Items"
+msgstr "buyumlar"
+
+#: template:0
+msgid ""
+"Manually record guest attendance for VIPs or guests unable to scan QR code."
+msgstr ""
+"VIP mehmonlar yoki QR kodini skanerlay olmaydigan mehmonlar uchun mehmonlar "
+"tashrifini qo&#39;lda yozib oling."
+
+#: template:0
+msgid "Date & Time"
+msgstr "Sana & Vaqt"
+
+#: template:0
+msgid "Recipients"
+msgstr "Qabul qiluvchilar"
+
+#: template:0
+msgid "This record cannot be deleted"
+msgstr "Bu yozuvni o&#39;chirib bo&#39;lmaydi"
+
+#: template:0
+msgid ""
+"Assign responsible employee and management oversight contact using Master "
+"Data staff selectors."
+msgstr ""
+"Master Data xodimlarini tanlash vositalaridan foydalangan holda mas&#39;ul "
+"xodim va boshqaruv nazorati bo&#39;yicha aloqa shaxsini tayinlang."
+
+#: template:0
+msgid "Date & Venue"
+msgstr "Sana va joy"
+
+#: template:0
+msgid "Tasdiqlash"
+msgstr "Tasdiqlash"
+
+#: template:0
+msgid "Close drawer"
+msgstr "Tortmani yopish"
+
+#: template:0
+msgid "Queue"
+msgstr "Navbat"
+
+#: template:0
+msgid "seats"
+msgstr "o'rindiqlar"
+
+#: template:0
+msgid "F.I.Sh. / Full Name"
+msgstr "FISh. / To&#39;liq ism"
+
+#: template:0
+msgid ""
+"View or download the official printable PDF schedule for this conference."
+msgstr ""
+"Ushbu konferensiyaning rasmiy chop etiladigan PDF jadvalini ko&#39;ring yoki"
+" yuklab oling."
+
+#: template:0
+msgid "Qidirish..."
+msgstr "Qidirish..."
+
+#: template:0
+msgid "Tadbir turi bo‘yicha"
+msgstr "Tadbir turi bo&#39;yicha"
+
+#: template:0
+msgid "Reschedule Now"
+msgstr "Hozir qayta rejalashtirish"
+
+#: template:0
+msgid "Override Conflict"
+msgstr "Nizoni bekor qilish"
+
+#: template:0
+msgid "Next: Partners & Sponsors →"
+msgstr "Keyingi: Hamkorlar va homiylar →"
+
+#: template:0
+msgid "Admin navigation"
+msgstr "Administrator navigatsiyasi"
+
+#: template:0
+msgid "Next: Date & Venue →"
+msgstr "Keyingi: Sana va joy →"
+
+#: template:0
+msgid ""
+"Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va "
+"navbatdagi dasturlari."
+msgstr ""
+"Barcha faol kongress va uchrashuvlarining zal real vaqtdagi bandligi va "
+"navbatdagi dasturlari."
+
+#: template:0
+msgid "No PDF document uploaded yet. Upload a PDF to publish in PDF mode."
+msgstr ""
+"Hali PDF hujjat yuklanmadi. PDF rejimida nashr qilish uchun PDF faylini "
+"yuklang."
+
+#: template:0
+msgid "K-ONE Control Center"
+msgstr "K-ONE boshqaruv markazi"
+
+#: template:0
+msgid "Filter by venue"
+msgstr "Zal bo'yicha filtrlash"
+
+#: template:0
+msgid "Publication Eligibility"
+msgstr "Nashr qilish huquqi"
+
+#: template:0
+msgid "Banner not generated"
+msgstr "Banner yaratilmadi"
+
+#: template:0
+msgid "registered in K-ONE"
+msgstr "K-ONE da ro&#39;yxatdan o&#39;tgan"
+
+#: template:0
+msgid ""
+"Provide the primary identity and target audience capacity for the "
+"international event."
+msgstr ""
+"Xalqaro tadbir uchun asosiy identifikatsiya va maqsadli auditoriya "
+"imkoniyatlarini taqdim eting."
+
+#: template:0
+msgid "ago"
+msgstr "oldin"
+
+#: template:0
+msgid "History"
+msgstr "Tarix"
+
+#: template:0
+msgid "Dependent records"
+msgstr "Qaram yozuvlar"
+
+#: template:0
+msgid "Created at"
+msgstr "Yaratgan"
+
+#: template:0
+msgid "Please review the highlighted fields."
+msgstr "Iltimos, belgilangan maydonlarni ko&#39;rib chiqing."
+
+#: template:0
+msgid "Delete PDF"
+msgstr "PDF-ni o&#39;chirish"
+
+#: template:0
+msgid "Date/time"
+msgstr "Sana | Vaqt"
+
+#: template:0
+msgid "Keynote Speakers & Experts"
+msgstr "Asosiy ma&#39;ruzachilar va mutaxassislar"
+
+#: template:0
+msgid "Full Event Details →"
+msgstr "Tadbir tafsilotlari"
+
+#: template:0
+msgid "AVAILABLE"
+msgstr "Mavjud"
+
+#: template:0
+msgid "Download PNG"
+msgstr "PNG yuklab olish"
+
+#: template:0
+msgid "Default: 60m before event start"
+msgstr "Standart: Tadbir boshlanishidan 60 daqiqa oldin"
+
+#: template:0
+msgid "Public Event URL"
+msgstr "Ommaviy tadbir URL manzili"
+
+#: template:0
+msgid "Conflict Status"
+msgstr "Mojaro holati"
+
+#: template:0
+msgid "Yopish"
+msgstr "Yopishcha"
+
+#: template:0
+msgid "Over Capacity"
+msgstr "Haddan tashqari sig&#39;im"
+
+#: template:0
+msgid "Markazlashgan boshqaruv"
+msgstr "Markazlashtirilgan boshqaruv"
+
+#: template:0
+msgid "Update event parameters, venue reservation, or schedule."
+msgstr "Tadbir parametrlarini, joyni band qilishni yoki jadvalni yangilang."
+
+#: template:0
+msgid "Parol"
+msgstr "Parol"
+
+#: template:0
+msgid "Sign in to Admin"
+msgstr "Administratorga kirish"
+
+#: template:0
+msgid "OPERATSION TAQVIM"
+msgstr "TAQVIM OPERATSIYASI"
+
+#: template:0
+msgid "Salom"
+msgstr "Şalom"
+
+#: template:0
+msgid "Send test message"
+msgstr "Sinov xabarini yuborish"
+
+#: template:0
+msgid "Created by"
+msgstr "Tomonidan yaratilgan :"
+
+#: template:0
+msgid "Back to event"
+msgstr "Tadbirga qaytish"
+
+#: template:0
+msgid "The username or password is incorrect."
+msgstr "Foydalanuvchi nomi yoki parol noto‘g‘ri."
+
+#: template:0
+msgid "Operatsiya"
+msgstr "Operatsiya"
+
+#: template:0
+msgid "Ish maydoni"
+msgstr "Ish maydoni"
+
+#: template:0
+msgid "Xavfsizlik va ruxsatlar"
+msgstr "Xavfsizlik va ruxsatlar"
+
+#: template:0
+msgid "3. Structured Agenda Items"
+msgstr "3. Strukturaviy kun tartibi bandlari"
+
+#: template:0
+msgid "Confirm Override"
+msgstr "Bekor qilishni tasdiqlash"
+
+#: template:0
+msgid "Reject"
+msgstr "Rad eting"
+
+#: template:0
+msgid "Override"
+msgstr "Almashtirish"
+
+#: template:0
+msgid "Speaker (Select or Override)"
+msgstr "Karnay (Tanlash yoki bekor qilish)"
+
+#: template:0
+msgid "Tadbirga keldingizmi?"
+msgstr "Tadbirga keldingizmi?"
+
+#: template:0
+msgid "Live count"
+msgstr "Jonli hisoblash"
+
+#: template:0
+msgid "Hisobotlar"
+msgstr "Hisobotlar"
+
+#: template:0
+msgid "Program Introduction / Note"
+msgstr "Dasturga kirish / eslatma"
+
+#: template:0
+msgid "Recent failures"
+msgstr "So&#39;nggi muvaffaqiyatsizliklar"
+
+#: template:0
+msgid "Upload / Replace PDF (Max 10 MB)"
+msgstr "PDF faylini yuklash / almashtirish (maksimal 10 MB)"
+
+#: template:0
+msgid "Erkin"
+msgstr "Erkin"
+
+#: template:0
+msgid "Tizimga kirish faqat ruxsat etilgan xodimlar uchun."
+msgstr "Tizimga kirish faqat ruxsat beriladi."
+
+#: template:0
+msgid "Step 5: Online Links & Final Review"
+msgstr "5-qadam: Onlayn havolalar va yakuniy ko&#39;rib chiqish"
+
+#: template:0
+msgid "Delivery status"
+msgstr "Yetkazib berish holati"
+
+#: template:0
+msgid "Full Name / F.I.Sh."
+msgstr "To&#39;liq ism / FISh."
+
+#: template:0
+msgid "Til"
+msgstr "Til"
+
+#: template:0
+msgid "Official Event Program (PDF)"
+msgstr "Rasmiy tadbir dasturi (PDF)"
+
+#: template:0
+msgid "Event Summary Review"
+msgstr "Tadbir xulosasi sharhi"
+
+#: template:0
+msgid "Save as Planned"
+msgstr "Rejalashtirilganidek saqlash"
+
+#: template:0
+msgid "Check-in Method"
+msgstr "Ro&#39;yxatdan o&#39;tish usuli"
+
+#: template:0
+msgid "Return to public dashboard"
+msgstr "Umumiy boshqaruv paneliga qaytish"
+
+#: template:0
+msgid "Filter by event type"
+msgstr "Tur bo'yicha filtrlash"
+
+#: template:0
+msgid "Yes"
+msgstr "Ha"
+
+#: template:0
+msgid "Disconnect"
+msgstr "Uzing"
+
+#: template:0
+msgid "All Methods"
+msgstr "Barcha usullar"
+
+#: template:0
+msgid ""
+"Cancelling an event releases the venue reservation and marks the record as "
+"cancelled."
+msgstr ""
+"Tadbirni bekor qilish joy bandligini bekor qiladi va yozuv bekor qilingan "
+"deb belgilanadi."
+
+#: template:0
+msgid "Nashrlar"
+msgstr "Nashrlar"
+
+#: template:0
+msgid "Attendees"
+msgstr "& Qatnashuvchilar@ info: whatsthis"
+
+#: template:0
+msgid "Back to Event"
+msgstr "Tadbirga qaytish"
+
+#: template:0
+msgid "Check In Attendee"
+msgstr "Ro&#39;yxatdan o&#39;tish ishtirokchisi"
+
+#: template:0
+msgid "Aloqa"
+msgstr "Aloqa"
+
+#: template:0
+msgid "DISPLACED"
+msgstr "KO&#39;CHIRIB OLINGAN"
+
+#: template:0
+msgid "Override Reason (Mandatory)"
+msgstr "Sababni bekor qilish (majburiy)"
+
+#: template:0
+msgid "Jonli zallar holati"
+msgstr "Jonli zallar holati"
+
+#: template:0
+msgid "Venue Directory"
+msgstr "Joylar katalogi"
+
+#: template:0
+msgid "People"
+msgstr "Xalq"
+
+#: template:0
+msgid "Step 3: Responsible Staff Selection"
+msgstr "3-qadam: Mas&#39;uliyatli xodimlarni tanlash"
+
+#: template:0
+msgid "Connect Telegram"
+msgstr "Telegramni ulang"
+
+#: template:0
+msgid "K-ONE boshqaruv tizimiga kiring"
+msgstr "K-ONE boshqaruv tizimiga kiring"
+
+#: template:0
+msgid "Shaxsiy"
+msgstr "Shaxsiy"
+
+#: template:0
+msgid "End Date"
+msgstr "Tugash sanasi"
+
+#: template:0
+msgid "Keyingi"
+msgstr "Keyingi"
+
+#: template:0
+msgid "Barchasi"
+msgstr "Barchasi"
+
+#: template:0
+msgid "Warning"
+msgstr "Diqqat!"
+
+#: template:0
+msgid "Back"
+msgstr "O'rqaga"
+
+#: template:0
+msgid "Event Check-in Configuration"
+msgstr "Tadbirni ro&#39;yxatdan o&#39;tkazish konfiguratsiyasi"
+
+msgid "Administrator sozlamalari"
+msgstr "Administrator sozlamalari"
+
+msgid ""
+"Bir martalik, tez muddatli havola orqali ulanadi — foydalanuvchi nomi talab "
+"qilinmaydi."
+msgstr ""
+"Bir martalik, tez muddatli havola orqali ulanadi — foydalanuvchi nomi talab "
+"qilinmaydi."
+
+msgid "Bo'sh vaqt:"
+msgstr "Bo'sh vaqt:"
+
+msgid "Bot sozlangan"
+msgstr "Bot sozlangan"
+
+msgid ""
+"Botni maqsadli kanal yoki guruhga administrator sifatida qo'shing, so'ng "
+"uning chat ID raqamini shu yerga kiriting."
+msgstr ""
+"Botni maqsadli kanal yoki guruhga administrator sifatida qo'shing, so'ng "
+"uning chat ID raqamini shu yerga kiriting."
+
+msgid "Bugun uchun rejalashtirilgan operatsion tadbirlar mavjud emas."
+msgstr "Bugun uchun rejalashtirilgan operatsion tadbirlar mavjud emas."
+
+msgid ""
+"Chat ID raqamini oling (masalan, @userinfobot yordamida) va yuqoridagi "
+"maydonga kiriting."
+msgstr ""
+"Chat ID raqamini oling (masalan, @userinfobot yordamida) va yuqoridagi "
+"maydonga kiriting."
+
+msgid "Check-in Ma'lumoti"
+msgstr "Check-in Ma'lumoti"
+
+msgid "Diqqat: band vaqt to'qnashuvlari aniqlandi"
+msgstr "Diqqat: band vaqt to'qnashuvlari aniqlandi"
+
+msgid "Faol emas"
+msgstr "Faol emas"
+
+msgid "Hisob ma'lumotlari"
+msgstr "Hisob ma'lumotlari"
+
+msgid "Hisob ma'lumotlari va shaxsiy sozlamalar"
+msgstr "Hisob ma'lumotlari va shaxsiy sozlamalar"
+
+msgid "Hozircha tizimda zallar mavjud emas."
+msgstr "Hozircha tizimda zallar mavjud emas."
+
+msgid "Integratsiya holati"
+msgstr "Integratsiya holati"
+
+msgid "Kanal/guruh sozlamalari"
+msgstr "Kanal/guruh sozlamalari"
+
+msgid "Ko'chirilganlar"
+msgstr "Ko'chirilganlar"
+
+msgid ""
+"Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+msgstr ""
+"Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+
+msgid "Ma'lumotlar ixtiyoriy. Anonim qatnashish ham mumkin."
+msgstr "Ma'lumotlar ixtiyoriy. Anonim qatnashish ham mumkin."
+
+msgid "Ma'lumotnomalar"
+msgstr "Ma'lumotnomalar"
+
+msgid "Ma'ruzachilar"
+msgstr "Ma'ruzachilar"
+
+msgid "Mas'ul"
+msgstr "Mas'ul"
+
+msgid "Mas'ul xodimlar uchun shaxsiy tadbir eslatmalari."
+msgstr "Mas'ul xodimlar uchun shaxsiy tadbir eslatmalari."
+
+msgid "Nashr manzili"
+msgstr "Nashr manzili"
+
+msgid "Navbat"
+msgstr "Navbat"
+
+msgid "OPERATSION KO'RINISH"
+msgstr "OPERATSION KO'RINISH"
+
+msgid "Orqaga"
+msgstr "Orqaga"
+
+msgid "Qanday sozlash kerak"
+msgstr "Qanday sozlash kerak"
+
+msgid "Ro'yxat"
+msgstr "Ro'yxat"
+
+msgid "Shaxsiy sozlamalar"
+msgstr "Shaxsiy sozlamalar"
+
+msgid "So'nggi muvaffaqiyatli yetkazish"
+msgstr "So'nggi muvaffaqiyatli yetkazish"
+
+msgid "So'nggi xatoliklar"
+msgstr "So'nggi xatoliklar"
+
+msgid ""
+"Tadbir e'lonlari avtomatik yuboriladigan Telegram kanali yoki guruhini "
+"belgilang."
+msgstr ""
+"Tadbir e'lonlari avtomatik yuboriladigan Telegram kanali yoki guruhini "
+"belgilang."
+
+msgid "Tadbir sahifasiga o'tish"
+msgstr "Tadbir sahifasiga o'tish"
+
+msgid "Telegram botni ochish"
+msgstr "Telegram botni ochish"
+
+msgid "Telegram kanal / guruh sozlamalari"
+msgstr "Telegram kanal / guruh sozlamalari"
+
+msgid "Telegram kanal sozlamalari"
+msgstr "Telegram kanal sozlamalari"
+
+msgid "Telegram sozlamalari"
+msgstr "Telegram sozlamalari"
+
+msgid "Telegram'da kanal yoki guruh yarating (agar mavjud bo'lmasa)."
+msgstr "Telegram'da kanal yoki guruh yarating (agar mavjud bo'lmasa)."
+
+msgid "Telegram'ni ulash"
+msgstr "Telegram'ni ulash"
+
+msgid "Test xabar yuborish"
+msgstr "Test xabar yuborish"
+
+msgid "Tizim botini o'sha kanal/guruhga administrator sifatida qo'shing."
+msgstr "Tizim botini o'sha kanal/guruhga administrator sifatida qo'shing."
+
+msgid "Ulangan"
+msgstr "Ulangan"
+
+msgid "Ulangan sana"
+msgstr "Ulangan sana"
+
+msgid "Ulanish"
+msgstr "Ulanish"
+
+msgid "Ulanmagan"
+msgstr "Ulanmagan"
+
+msgid ""
+"Ushbu shaxsiy havolani Telegram'da oching. U tez orada eskiradi va faqat bir"
+" marta ishlaydi."
+msgstr ""
+"Ushbu shaxsiy havolani Telegram'da oching. U tez orada eskiradi va faqat bir"
+" marta ishlaydi."
+
+msgid "Uzish"
+msgstr "Uzish"
+
+msgid "Vaqtida boshlanmagan tadbirlar bor"
+msgstr "Vaqtida boshlanmagan tadbirlar bor"
+
+msgid "Xalqaro bo'lim"
+msgstr "Xalqaro bo'lim"
+
+msgid "Yoqilgan"
+msgstr "Yoqilgan"
+
+msgid "Ha"
+msgstr "Ha"
+
+msgid "Yo'q"
+msgstr "Yo'q"
+
+msgid "Channel/group name"
+msgstr "Kanal/guruh nomi"
+
+msgid "Chat ID"
+msgstr "Chat ID"
+
+msgid "Send event publications to this channel/group"
+msgstr "Tadbir e'lonlarini shu kanal/guruhga yuborish"
+
+msgid "e.g. K-ONE Events Channel"
+msgstr "masalan, K-ONE Tadbirlar Kanali"
+
+msgid ""
+"The numeric Telegram chat ID of the channel or group (add the bot as an "
+"admin there first)."
+msgstr ""
+"Kanal yoki guruhning raqamli Telegram chat ID'si (avval botni u yerga "
+"administrator sifatida qo'shing)."
+
+msgid "Enable Telegram reminders"
+msgstr "Telegram eslatmalarini yoqish"
+
+msgid "7 days before"
+msgstr "7 kun oldin"
+
+msgid "3 days before"
+msgstr "3 kun oldin"
+
+msgid "1 day before"
+msgstr "1 kun oldin"
+
+msgid "3 hours before"
+msgstr "3 soat oldin"
+
+msgid "30 minutes before"
+msgstr "30 daqiqa oldin"
+
+msgid "Please wait before creating another link."
+msgstr "Yangi havola yaratishdan oldin kuting."
+
+msgid "Telegram integration is not configured."
+msgstr "Telegram integratsiyasi sozlanmagan."
+
+msgid "Telegram disconnected."
+msgstr "Telegram uzildi."
+
+msgid "Please wait before sending another test."
+msgstr "Yana test yuborishdan oldin kuting."
+
+msgid "Test message could not be sent."
+msgstr "Test xabarini yuborib bo'lmadi."
+
+msgid "Test message sent."
+msgstr "Test xabari yuborildi."
+
+msgid "Telegram channel settings updated."
+msgstr "Telegram kanal sozlamalari yangilandi."
+
+msgid "Telegram reminder policy updated."
+msgstr "Telegram eslatma siyosati yangilandi."
+
+msgid "Tadbir hozir boshlanmoqda"
+msgstr "Tadbir hozir boshlanmoqda"
+
+msgid "Tadbir tez orada boshlanadi"
+msgstr "Tadbir tez orada boshlanadi"
+
+msgid "Event Banner / Poster Image"
+msgstr "Tadbir banneri / afishasi"
+
+msgid ""
+"No banner image uploaded yet. Upload a poster image to use for the event and"
+" its Telegram announcement."
+msgstr ""
+"Hali banner rasmi yuklanmagan. Tadbir va uning Telegram e'loni uchun afisha "
+"rasmini yuklang."
+
+msgid "Upload / Replace Banner Image"
+msgstr "Banner rasmini yuklash / almashtirish"
+
+msgid "Replace Banner"
+msgstr "Bannerni almashtirish"
+
+msgid "Upload Banner"
+msgstr "Bannerni yuklash"
+
+msgid "Delete Banner"
+msgstr "Bannerni o'chirish"
+
+msgid "Event banner image uploaded successfully."
+msgstr "Tadbir banneri muvaffaqiyatli yuklandi."
+
+msgid "Event banner image removed."
+msgstr "Tadbir banneri o'chirildi."
+
+msgid "Invalid image file."
+msgstr "Noto'g'ri rasm fayli."
+
+msgid "Dasturni ko'rish"
+msgstr "Dasturni ko'rish"
+

@@ -71,6 +71,27 @@ def process_public_checkin(
             "new_token": new_token,
         }
 
+    from django.utils import timezone
+    from datetime import datetime
+
+    active_end_iso = request.session.get("active_event_end")
+    if active_end_iso:
+        try:
+            active_end = datetime.fromisoformat(active_end_iso)
+            if active_end > timezone.now():
+                active_event_id = request.session.get("active_event_id")
+                if str(event.pk) != active_event_id:
+                    return {
+                        "success": False,
+                        "code": "conflict",
+                        "message": str(_("Siz hozirda boshqa uchrashuvdasiz. Uning vaqti tugamaguncha yangisiga yozila olmaysiz.")),
+                        "already_checked_in": False,
+                        "token": token,
+                        "new_token": new_token,
+                    }
+        except ValueError:
+            pass
+
     try:
         with transaction.atomic():
             attendance = EventAttendance.objects.create(
@@ -99,6 +120,9 @@ def process_public_checkin(
             "token": token,
             "new_token": new_token,
         }
+
+    request.session["active_event_id"] = str(event.pk)
+    request.session["active_event_end"] = event.end_datetime.isoformat()
 
     return {
         "success": True,

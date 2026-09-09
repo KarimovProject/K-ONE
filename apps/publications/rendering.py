@@ -9,10 +9,29 @@ def public_event_url(publication: Publication) -> str:
     return f"{settings.IEMS_BASE_URL.rstrip('/')}{path}" if settings.IEMS_BASE_URL else path
 
 
+def _program_participants(event, language: str) -> str:
+    names = []
+    for item in event.program_items.select_related("speaker").order_by("sort_order", "start_time"):
+        name = item.speaker_display_name
+        if name and name not in names:
+            names.append(name)
+    if not names:
+        return ""
+    label = {"uz": "🎤 Dasturda", "ru": "🎤 В программе", "en": "🎤 Program"}
+    return f"{label.get(language, label['uz'])}: {', '.join(names)}"
+
+
 def render_caption(publication: Publication) -> str:
     event = publication.event
-    base = [
-        publication.caption.strip() or publication.short_description.strip(),
+    base = []
+    if publication.headline.strip():
+        base.append(f"💙 {publication.headline.strip()} 💙")
+        base.append("")
+    base.append(publication.caption.strip() or publication.short_description.strip())
+    participants_line = _program_participants(event, publication.language)
+    if participants_line:
+        base.append(participants_line)
+    base += [
         "",
         f"📅 {event.planned_date:%d.%m.%Y}, {event.weekday_name_for(publication.language)}",
         f"🕒 {event.start_time:%H:%M}–{event.end_time:%H:%M}",

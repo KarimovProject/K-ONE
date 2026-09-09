@@ -238,6 +238,14 @@ class Event(models.Model):
     program_intro = models.TextField(_("program intro"), blank=True, default="")
     program_notes = models.TextField(_("program notes"), blank=True, default="")
 
+    banner_image = models.ImageField(
+        _("event banner image"),
+        upload_to="event_banners/%Y/%m/",
+        null=True,
+        blank=True,
+        validators=[validate_image_upload],
+    )
+
     public_token = models.CharField(
         _("public token"),
         max_length=64,
@@ -418,13 +426,6 @@ class Event(models.Model):
                 "eligible": False,
                 "code": "not_public",
                 "reason": _("This event page is not currently published or unavailable."),
-            }
-
-        if not self.checkin_enabled:
-            return {
-                "eligible": False,
-                "code": "not_enabled",
-                "reason": _("Check-in is not enabled for this event."),
             }
 
         opens_at = self.effective_checkin_opens_at

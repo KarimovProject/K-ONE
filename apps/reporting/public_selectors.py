@@ -79,6 +79,8 @@ def serialize_public_event(event: Event) -> dict:
             if event.is_public_enabled and event.public_token
             else ""
         ),
+        "banner_url": event.banner_image.url if event.banner_image else "",
+        "venue_full": event.venue.localized_name,
     }
 
 

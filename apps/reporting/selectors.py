@@ -86,6 +86,7 @@ def get_dashboard_shell_data():
 
 def get_workspace_data(user: User) -> dict:
     today = timezone.localdate()
+    now = timezone.localtime()
     base = (
         Event.objects.select_related("venue", "event_type")
         .order_by("planned_date", "start_time")
@@ -116,12 +117,53 @@ def get_workspace_data(user: User) -> dict:
         )[:10]
     )
 
+    from apps.events.services.conflicts import find_conflicting_events
     from apps.publications.models import Publication
     from apps.venues.services.live_status import all_venues_live_status
 
     venues_status = all_venues_live_status()
-    venues_free_count = sum(1 for v in venues_status if v.get("current_status") == "FREE")
+    venues_free_count = sum(1 for v in venues_status if v.get("current_status") == "AVAILABLE")
     venues_total_count = len(venues_status)
+
+    not_started_statuses = (
+        Event.Status.DRAFT,
+        Event.Status.PENDING_APPROVAL,
+        Event.Status.APPROVED,
+        Event.Status.PLANNED,
+        Event.Status.SUBMITTED,
+        Event.Status.UNDER_REVIEW,
+        Event.Status.SCHEDULED,
+    )
+    delayed_events_count = base.filter(
+        planned_date=today,
+        start_time__lt=now.time(),
+        status__in=not_started_statuses,
+    ).count()
+
+    active_today_events = list(
+        base.filter(planned_date=today).exclude(
+            status__in=(
+                Event.Status.CANCELLED,
+                Event.Status.REJECTED,
+                Event.Status.DISPLACED,
+                Event.Status.POSTPONED,
+            )
+        )
+    )
+    conflicting_pairs = set()
+    for event in active_today_events:
+        if not event.venue_id:
+            continue
+        conflicts = find_conflicting_events(
+            venue=event.venue,
+            planned_date=event.planned_date,
+            start_time=event.start_time,
+            end_time=event.end_time,
+            exclude_event_id=event.pk,
+        )
+        for other in conflicts:
+            conflicting_pairs.add(frozenset({event.pk, other.pk}))
+    room_conflicts_count = len(conflicting_pairs)
 
     return {
         "upcoming": upcoming,
@@ -130,6 +172,8 @@ def get_workspace_data(user: User) -> dict:
         "venues_status": venues_status,
         "venues_free_count": venues_free_count,
         "venues_total_count": venues_total_count,
+        "delayed_events_count": delayed_events_count,
+        "room_conflicts_count": room_conflicts_count,
         "needs_action_count": relevant.filter(
             status__in=(Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.DISPLACED)
         ).count(),

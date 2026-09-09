@@ -9,11 +9,67 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=23.0">
-  <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=23.0">
-  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=23.0">
-  <link rel="stylesheet" href="{% static 'css/workspace.css' %}?v=23.0">
-  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=23.0">
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=29.0">
+  <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=29.0">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=29.0">
+  <link rel="stylesheet" href="{% static 'css/workspace.css' %}?v=29.0">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=29.0">
+  <style>
+    /* Sidebar Collapse Styles */
+    body.sidebar-collapsed {
+      --sidebar-width: 80px;
+    }
+    body.sidebar-collapsed .sidebar-logo {
+      display: none;
+    }
+    body.sidebar-collapsed .sidebar-slogan {
+      display: none;
+    }
+    body.sidebar-collapsed .sidebar-nav-item span:not(.nav-icon) {
+      display: none;
+    }
+    body.sidebar-collapsed .nav-section {
+      text-align: center;
+      font-size: 10px;
+      overflow: hidden;
+    }
+    body.sidebar-collapsed .sidebar-nav-item {
+      justify-content: center;
+      padding: 12px;
+    }
+    body.sidebar-collapsed .sidebar-nav-item .nav-icon {
+      margin-right: 0;
+    }
+    body.sidebar-collapsed .sidebar-header {
+      padding: 20px 0;
+      justify-content: center;
+    }
+    
+    .sidebar-toggle-btn {
+      position: absolute;
+      bottom: 20px;
+      right: -15px;
+      width: 30px;
+      height: 30px;
+      background: var(--color-surface, #fff);
+      border: 1px solid var(--color-border, #e5e7eb);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--color-text-muted, #6b7280);
+      box-shadow: var(--shadow-sm);
+      z-index: 50;
+      transition: transform 0.2s;
+    }
+    .sidebar-toggle-btn:hover {
+      color: var(--color-primary, #1D4ED8);
+    }
+    body.sidebar-collapsed .sidebar-toggle-btn svg {
+      transform: rotate(180deg);
+    }
+  </style>
   {% block extra_css %}{% endblock %}
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>

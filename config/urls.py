@@ -8,7 +8,7 @@ from django.views.generic import RedirectView
 from apps.accounts.views import ProfileView
 from apps.attendance.views import PublicCheckinView
 from apps.events.urls import event_type_patterns
-from apps.events.views import CalendarView, PublicEventPageView, VenueLiveStatusView
+from apps.events.views import CalendarView, PublicEventPageView, VenueLiveStatusView, PublicKioskView
 from apps.organizations.urls import organization_patterns, sponsor_patterns
 from apps.reporting.views import (
     LeadershipDashboardView,
@@ -26,6 +26,7 @@ from config import health
 from config.views import ThrottledLoginView
 
 urlpatterns = [
+    path("admin/audit/", include("apps.audit.urls")),
     path("admin/", admin.site.urls),
     path("dashboard/", PublicDashboardView.as_view(), name="public-dashboard"),
     path("dashboard/calendar/", PublicCalendarView.as_view(), name="public-calendar"),
@@ -51,6 +52,7 @@ urlpatterns = [
         name="public-event-checkin",
     ),
     path("event/<str:public_token>/", PublicEventPageView.as_view(), name="public-event-page"),
+    path("public-events/", PublicKioskView.as_view(), name="public-kiosk"),
     path("events/", include("apps.events.urls")),
     path("notifications/", include("apps.notifications.urls")),
     path("publications/", include("apps.publications.urls")),

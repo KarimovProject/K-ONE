@@ -20,40 +20,42 @@
 </div>
 
 <div class="calendar-toolbar-row" style="margin-top: var(--space-4);">
-  <form class="calendar-filters premium-filters" method="get" action="">
-    <div class="filter-group filter-group--search">
-      <svg class="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input class="filter-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
+  <form class="command-filter-form" method="get" action="" role="search">
+    <div class="command-search-wrap">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input class="command-search-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
     </div>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="status" aria-label="{% trans 'Filter by status' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="status" aria-label="{% trans 'Filter by status' %}">
       <option value="all">{% trans "All Statuses" %}</option>
       {% for code, label in statuses %}
         <option value="{{ code }}"{% if status_filter == code %} selected{% endif %}>{{ label }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="venue" aria-label="{% trans 'Filter by venue' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="venue" aria-label="{% trans 'Filter by venue' %}">
       <option value="">{% trans "All Venues" %}</option>
       {% for v in venues %}
         <option value="{{ v.id }}"{% if selected_venue == v.id|stringformat:"s" %} selected{% endif %}>{{ v.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="type" aria-label="{% trans 'Filter by event type' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="type" aria-label="{% trans 'Filter by event type' %}">
       <option value="">{% trans "All Types" %}</option>
       {% for t in event_types %}
         <option value="{{ t.id }}"{% if selected_type == t.id|stringformat:"s" %} selected{% endif %}>{{ t.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <button class="btn-primary compact" style="margin-left: var(--space-3);" type="submit">{% trans "Filter" %}</button>
-    {% if search_query or status_filter != 'all' or selected_venue or selected_type or start_date or end_date %}
-      <a class="filter-clear" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
-    {% endif %}
+    <div class="command-filter-actions">
+      <button class="btn-primary compact" type="submit">{% trans "Filter" %}</button>
+      {% if search_query or status_filter != 'all' or selected_venue or selected_type or start_date or end_date %}
+        <a class="filter-clear" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
+      {% endif %}
+    </div>
   </form>
 </div>
 
@@ -113,6 +115,7 @@
       <a href="{% url 'events:detail' pk=e.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
       {% if can_create %}
       <a href="{% url 'events:edit' pk=e.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+      <a href="{% url 'events:delete' pk=e.pk %}" class="action-delete" style="color: var(--color-danger);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg> {% trans "Delete" %}</a>
       {% endif %}
       {% if nav_key == 'approvals' %}
       <form method="post" action="{% url 'events:approve' pk=e.pk %}" style="margin:0;">{% csrf_token %}<button type="submit" class="action-activate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> {% trans "Approve" %}</button></form>
@@ -124,6 +127,7 @@
     <a href="{% url 'events:detail' pk=e.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
     {% if nav_key != 'approvals' and can_create and e.status != 'cancelled' %}
     <a href="{% url 'events:edit' pk=e.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+    <a href="{% url 'events:delete' pk=e.pk %}" class="action-delete" style="color: var(--color-danger);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg> {% trans "Delete" %}</a>
     {% endif %}
     {% if nav_key == 'approvals' %}
     <form method="post" action="{% url 'events:approve' pk=e.pk %}" style="margin:0; flex: 1 1 0;"><button type="submit" class="action-activate" style="width:100%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> {% trans "Approve" %}</button></form>

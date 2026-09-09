@@ -259,7 +259,7 @@ class TestQRCodeGeneration:
         url = reverse("events:print-qr", kwargs={"pk": approved_event.pk})
         response = client.get(url)
         assert response.status_code == 200
-        assert "Scan to Open Event Program" in response.content.decode("utf-8")
+        assert 'data-testid="print-scan-heading"' in response.content.decode("utf-8")
 
 
 @pytest.mark.django_db

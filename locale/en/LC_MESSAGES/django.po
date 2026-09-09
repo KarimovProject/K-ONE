@@ -1015,138 +1015,104 @@ msgstr "No sponsors found"
 msgid "Adjust the filters or create the first sponsor record."
 msgstr "Adjust the filters or create the first sponsor record."
 
-
 msgid "Speakers Directory"
 msgstr "Speakers Directory"
-
 
 msgid "Manage keynote speakers, presenters, and experts."
 msgstr "Manage keynote speakers, presenters, and experts."
 
-
 msgid "New Speaker"
 msgstr "New Speaker"
-
 
 msgid "No speakers found in directory."
 msgstr "No speakers found in directory."
 
-
 msgid "Full Name"
 msgstr "Full Name"
-
 
 msgid "Title / Position"
 msgstr "Title / Position"
 
-
 msgid "Organization"
 msgstr "Organization"
-
 
 msgid "Country"
 msgstr "Country"
 
-
 msgid "Status"
 msgstr "Status"
-
 
 msgid "Actions"
 msgstr "Actions"
 
-
 msgid "Public"
 msgstr "Public"
-
 
 msgid "Hidden"
 msgstr "Hidden"
 
-
 msgid "Adjust the filters or create the first speaker record."
 msgstr "Adjust the filters or create the first speaker record."
-
 
 msgid "No event types found"
 msgstr "No event types found"
 
-
 msgid "Adjust the filters or seed the default event types."
 msgstr "Adjust the filters or seed the default event types."
 
-
 msgid "No sponsors found"
 msgstr "No sponsors found"
-
 
 msgid "Adjust the filters or create the first sponsor record."
 msgstr "Adjust the filters or create the first sponsor record."
 
-
 msgid "Speakers Directory"
 msgstr "Speakers Directory"
-
 
 msgid "Manage keynote speakers, presenters, and experts."
 msgstr "Manage keynote speakers, presenters, and experts."
 
-
 msgid "New Speaker"
 msgstr "New Speaker"
-
 
 msgid "No speakers found in directory."
 msgstr "No speakers found in directory."
 
-
 msgid "Full Name"
 msgstr "Full Name"
-
 
 msgid "Title / Position"
 msgstr "Title / Position"
 
-
 msgid "Organization"
 msgstr "Organization"
-
 
 msgid "Country"
 msgstr "Country"
 
-
 msgid "Status"
 msgstr "Status"
-
 
 msgid "Actions"
 msgstr "Actions"
 
-
 msgid "Public"
 msgstr "Public"
-
 
 msgid "Hidden"
 msgstr "Hidden"
 
-
 msgid "Adjust the filters or create the first speaker record."
 msgstr "Adjust the filters or create the first speaker record."
-
 
 msgid "No event types found"
 msgstr "No event types found"
 
-
 msgid "Adjust the filters or seed the default event types."
 msgstr "Adjust the filters or seed the default event types."
 
-
 msgid "No sponsors found"
 msgstr "No sponsors found"
-
 
 msgid "Adjust the filters or create the first sponsor record."
 msgstr "Adjust the filters or create the first sponsor record."
@@ -1173,8 +1139,10 @@ msgstr "Show password"
 msgid "Parolni yashirish"
 msgstr "Hide password"
 
-msgid "Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
-msgstr "Incorrect username or password. Please check your credentials and try again."
+msgid ""
+"Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+msgstr ""
+"Incorrect username or password. Please check your credentials and try again."
 
 msgid "Tizimga kirish faqat ruxsat etilgan xodimlar uchun."
 msgstr "System access is restricted to authorized personnel only."
@@ -1182,8 +1150,12 @@ msgstr "System access is restricted to authorized personnel only."
 msgid "Barcha tadbirlar yagona tizimda"
 msgstr "All events in a unified system"
 
-msgid "Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona professional platformada boshqaring."
-msgstr "Manage events, conference halls and administrative processes on a single professional platform."
+msgid ""
+"Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona "
+"professional platformada boshqaring."
+msgstr ""
+"Manage events, conference halls and administrative processes on a single "
+"professional platform."
 
 msgid "Xavfsiz kirish"
 msgstr "Secure access"
@@ -1196,3 +1168,1852 @@ msgstr "Centralized management"
 
 msgid "Mavzuni o'zgartirish"
 msgstr "Toggle theme"
+
+msgid "Cannot delete %(resource)s because it is currently in use."
+msgstr "Cannot delete %(resource)s because it is currently in use."
+
+msgid "Bosh sahifa"
+msgstr "Dashboard"
+
+msgid "Tadbirlar"
+msgstr "Events"
+
+msgid "Taqvim"
+msgstr "Calendar"
+
+msgid "Tasdiqlash"
+msgstr "Approvals"
+
+msgid "Ko'chirilganlar"
+msgstr "Rescheduled"
+
+msgid "Ma'lumotnomalar"
+msgstr "Master Data"
+
+msgid "Zallar"
+msgstr "Venues"
+
+msgid "Tadbir turlari"
+msgstr "Event Types"
+
+msgid "Tashkilotlar"
+msgstr "Organizations"
+
+msgid "Homiylar"
+msgstr "Sponsors"
+
+msgid "Ma'ruzachilar"
+msgstr "Speakers"
+
+msgid "Nashrlar"
+msgstr "Publications"
+
+msgid "Rahbariyat paneli"
+msgstr "Leadership Dashboard"
+
+msgid "Hisobotlar"
+msgstr "Reports"
+
+msgid "Shaxsiy"
+msgstr "Personal"
+
+msgid "Profil"
+msgstr "Profile"
+
+msgid "Operatsiya"
+msgstr "Operations"
+
+msgid "Aloqa"
+msgstr "Communication"
+
+msgid "Tahlil"
+msgstr "Analytics"
+
+msgid "Ish maydoni"
+msgstr "Workspace"
+
+msgid "1. Program Mode & Details"
+msgstr "1. Program Mode & Details"
+
+msgid "2. PDF Document Upload"
+msgstr "2. PDF Document Upload"
+
+msgid "3. Structured Agenda Items"
+msgstr "3. Structured Agenda Items"
+
+msgid "AVAILABLE"
+msgstr "AVAILABLE"
+
+msgid "Access denied"
+msgstr "Access denied"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Activity Summary"
+msgstr "Activity Summary"
+
+msgid "Add Agenda Session"
+msgstr "Add Agenda Session"
+
+msgid "Add New Agenda Session"
+msgstr "Add New Agenda Session"
+
+msgid "Add New Speaker"
+msgstr "Add New Speaker"
+
+msgid "Add Speaker"
+msgstr "Add Speaker"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Adjust the filters or create the first venue record."
+msgstr "Adjust the filters or create the first venue record."
+
+msgid "Admin Panel"
+msgstr "Admin Panel"
+
+msgid "Admin navigation"
+msgstr "Admin navigation"
+
+msgid "Admin sign in"
+msgstr "Admin sign in"
+
+msgid "Administrator sozlamalari"
+msgstr "Administrator settings"
+
+msgid "All Methods"
+msgstr "All Methods"
+
+msgid "All Priorities"
+msgstr "All Priorities"
+
+msgid "Allowed"
+msgstr "Allowed"
+
+msgid "Announcement"
+msgstr "Announcement"
+
+msgid "Anonymous Guest"
+msgstr "Anonymous Guest"
+
+msgid "Approvals"
+msgstr "Approvals"
+
+msgid "Approve"
+msgstr "Approve"
+
+msgid "Approve Event"
+msgstr "Approve Event"
+
+msgid ""
+"Assign responsible employee and management oversight contact using Master "
+"Data staff selectors."
+msgstr ""
+"Assign responsible employee and management oversight contact using Master "
+"Data staff selectors."
+
+msgid ""
+"Attach co-organizing local/foreign organizations and supporting sponsors."
+msgstr ""
+"Attach co-organizing local/foreign organizations and supporting sponsors."
+
+msgid "Attendance"
+msgstr "Attendance"
+
+msgid "Attendance Summary"
+msgstr "Attendance Summary"
+
+msgid "Attendee Directory"
+msgstr "Attendee Directory"
+
+msgid "Attendees"
+msgstr "Attendees"
+
+msgid "Authorized staff"
+msgstr "Authorized staff"
+
+msgid "Available now"
+msgstr "Available now"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Back to Event"
+msgstr "Back to Event"
+
+msgid "Back to Event Details"
+msgstr "Back to Event Details"
+
+msgid "Back to event"
+msgstr "Back to event"
+
+msgid "Back to event types"
+msgstr "Back to event types"
+
+msgid "Back to organizations"
+msgstr "Back to organizations"
+
+msgid "Back to sponsors"
+msgstr "Back to sponsors"
+
+msgid "Back to venues"
+msgstr "Back to venues"
+
+msgid "Banner not generated"
+msgstr "Banner not generated"
+
+msgid "Barcha Turlar"
+msgstr "Barcha Turlar"
+
+msgid "Barcha Zallar"
+msgstr "All Venues"
+
+msgid ""
+"Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va "
+"navbatdagi dasturlari."
+msgstr ""
+"Real-time occupancy and upcoming schedules for all active congress and "
+"meeting venues."
+
+msgid "Barcha holatlar"
+msgstr "All Statuses"
+
+msgid "Barcha jadvallar vaqtida"
+msgstr "All schedules on time"
+
+msgid "Barcha tadbirlar"
+msgstr "All Events"
+
+msgid "Barcha turlar"
+msgstr "Barcha turlar"
+
+msgid "Barchasi"
+msgstr "Barchasi"
+
+msgid "Basic Info"
+msgstr "Basic Info"
+
+msgid "Bekor qilish"
+msgstr "Cancel"
+
+msgid "Bildirishnomalar"
+msgstr "Bildirishnomalar"
+
+msgid "Biography / Profile"
+msgstr "Biography / Profile"
+
+msgid ""
+"Bir martalik, tez muddatli havola orqali ulanadi — foydalanuvchi nomi talab "
+"qilinmaydi."
+msgstr "Linked with a short-lived one-time link — no username required."
+
+msgid "Bo'sh vaqt:"
+msgstr "Free until:"
+
+msgid "Bot sozlangan"
+msgstr "Bot configured"
+
+msgid ""
+"Botni maqsadli kanal yoki guruhga administrator sifatida qo'shing, so'ng "
+"uning chat ID raqamini shu yerga kiriting."
+msgstr ""
+"Add the bot as an administrator to the target channel or group, then enter "
+"its chat ID here."
+
+msgid "Bugun"
+msgstr "Bugun"
+
+msgid "Bugun uchun rejalashtirilgan operatsion tadbirlar mavjud emas."
+msgstr "No operational events are scheduled for today."
+
+msgid "Bugungi operatsion oqim"
+msgstr "Bugungi operatsion oqim"
+
+msgid "Bugungi tadbirlar, zallar va tasdiqlash jarayonlari."
+msgstr "Today's events, venues, and approval workflows."
+
+msgid "Bulk deletion"
+msgstr "Bulk deletion"
+
+msgid "Calendar"
+msgstr "Calendar"
+
+msgid "Cancel Event"
+msgstr "Cancel Event"
+
+msgid ""
+"Cancelling an event releases the venue reservation and marks the record as "
+"cancelled."
+msgstr ""
+"Cancelling an event releases the venue reservation and marks the record as "
+"cancelled."
+
+msgid "Capacity Warning"
+msgstr "Capacity Warning"
+
+msgid "Change password"
+msgstr "Change password"
+
+msgid ""
+"Chat ID raqamini oling (masalan, @userinfobot yordamida) va yuqoridagi "
+"maydonga kiriting."
+msgstr ""
+"Get the chat ID (e.g. via @userinfobot) and enter it in the field above."
+
+msgid "Check In Attendee"
+msgstr "Check In Attendee"
+
+msgid "Check-in Closes At"
+msgstr "Check-in Closes At"
+
+msgid "Check-in Ma'lumoti"
+msgstr "Check-in Ma'lumoti"
+
+msgid "Check-in Method"
+msgstr "Check-in Method"
+
+msgid "Check-in Opens At"
+msgstr "Check-in Opens At"
+
+msgid "Checked in"
+msgstr "Checked in"
+
+msgid "Chiqish"
+msgstr "Chiqish"
+
+msgid "City"
+msgstr "City"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Close drawer"
+msgstr "Close drawer"
+
+msgid "Close navigation"
+msgstr "Close navigation"
+
+msgid "Collapse sidebar"
+msgstr "Collapse sidebar"
+
+msgid "Color"
+msgstr "Color"
+
+msgid "Configure Program"
+msgstr "Configure Program"
+
+msgid "Confirm Cancellation"
+msgstr "Confirm Cancellation"
+
+msgid "Confirm Override"
+msgstr "Confirm Override"
+
+msgid "Confirm Postpone"
+msgstr "Confirm Postpone"
+
+msgid "Confirm Postpone Event"
+msgstr "Confirm Postpone Event"
+
+msgid "Confirm Rejection"
+msgstr "Confirm Rejection"
+
+msgid "Confirm Reschedule"
+msgstr "Confirm Reschedule"
+
+msgid "Conflict Status"
+msgstr "Conflict Status"
+
+msgid "Conflict with approved event(s)"
+msgstr "Conflict with approved event(s)"
+
+msgid "Conflict with existing approved events"
+msgstr "Conflict with existing approved events"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Contact and address"
+msgstr "Contact and address"
+
+msgid "Contact details"
+msgstr "Contact details"
+
+msgid "Contact person"
+msgstr "Contact person"
+
+msgid "Created at"
+msgstr "Created at"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "Current Event"
+msgstr "Current Event"
+
+msgid "Current PDF"
+msgstr "Current PDF"
+
+msgid "Currently free for bookings"
+msgstr "Currently free for bookings"
+
+msgid "DISPLACED"
+msgstr "DISPLACED"
+
+msgid "DISPLACED BY EMERGENCY"
+msgstr "DISPLACED BY EMERGENCY"
+
+msgid "Dangerous action"
+msgstr "Dangerous action"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Date & Time"
+msgstr "Date & Time"
+
+msgid "Date & Venue"
+msgstr "Date & Venue"
+
+msgid "Date/time"
+msgstr "Date/time"
+
+msgid "Default: 60m before event start"
+msgstr "Default: 60m before event start"
+
+msgid "Default: event end time"
+msgstr "Default: event end time"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Delete Event"
+msgstr "Delete Event"
+
+msgid "Delete PDF"
+msgstr "Delete PDF"
+
+msgid "Delete permanently"
+msgstr "Delete permanently"
+
+msgid "Delete selected records?"
+msgstr "Delete selected records?"
+
+msgid "Delivery status"
+msgstr "Delivery status"
+
+msgid "Dependent records"
+msgstr "Dependent records"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Description / Abstract"
+msgstr "Description / Abstract"
+
+msgid "Diqqat: band vaqt to'qnashuvlari aniqlandi"
+msgstr "Warning: overlapping bookings detected"
+
+msgid "Disable Public Access"
+msgstr "Disable Public Access"
+
+msgid "Disabled"
+msgstr "Disabled"
+
+msgid "Display"
+msgstr "Display"
+
+msgid "Download PDF"
+msgstr "Download PDF"
+
+msgid "Download PNG"
+msgstr "Download PNG"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "EMERGENCY OVERRIDE RATIONALE"
+msgstr "EMERGENCY OVERRIDE RATIONALE"
+
+msgid "ERKIN"
+msgstr "FREE"
+
+msgid "Edit Event"
+msgstr "Edit Event"
+
+msgid "Edit Speaker"
+msgstr "Edit Speaker"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email (Private - Internal Only)"
+msgstr "Email (Private - Internal Only)"
+
+msgid "Emergency / High Priority"
+msgstr "Emergency / High Priority"
+
+msgid "Emergency Override"
+msgstr "Emergency Override"
+
+msgid "Emergency override"
+msgstr "Emergency override"
+
+msgid "Enable Public Access"
+msgstr "Enable Public Access"
+
+msgid "Enable Public Profile on Event Program Pages"
+msgstr "Enable Public Profile on Event Program Pages"
+
+msgid "Enable Public QR Check-in for this event"
+msgstr "Enable Public QR Check-in for this event"
+
+msgid "Enabled"
+msgstr "Enabled"
+
+msgid "End Date"
+msgstr "End Date"
+
+msgid "End Time"
+msgstr "End Time"
+
+msgid "Erkin"
+msgstr "Free"
+
+msgid "Erkin zallar"
+msgstr "Free venues"
+
+msgid "Event Agenda & Schedule"
+msgstr "Event Agenda & Schedule"
+
+msgid "Event Check-in Configuration"
+msgstr "Event Check-in Configuration"
+
+msgid "Event Summary Review"
+msgstr "Event Summary Review"
+
+msgid "Event types"
+msgstr "Event types"
+
+msgid ""
+"Events, venues, communications and governance in one professional workspace."
+msgstr ""
+"Events, venues, communications and governance in one professional workspace."
+
+msgid "Expected"
+msgstr "Expected"
+
+msgid "Expected attendees"
+msgstr "Expected attendees"
+
+msgid "Expected attendees exceeds venue capacity"
+msgstr "Expected attendees exceeds venue capacity"
+
+msgid "External post"
+msgstr "External post"
+
+msgid "F.I.Sh. (ixtiyoriy)"
+msgstr "F.I.Sh. (ixtiyoriy)"
+
+msgid "F.I.Sh. / Full Name"
+msgstr "F.I.Sh. / Full Name"
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Faol"
+msgstr "Faol"
+
+msgid "Faol emas"
+msgstr "Inactive"
+
+msgid "Faol tadbir"
+msgstr "Active event"
+
+msgid "Feed links may not be clickable. Use the QR code for event access."
+msgstr "Feed links may not be clickable. Use the QR code for event access."
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Filter by event type"
+msgstr "Filter by event type"
+
+msgid "Filter by priority"
+msgstr "Filter by priority"
+
+msgid "Filter by status"
+msgstr "Filter by status"
+
+msgid "Filter by venue"
+msgstr "Filter by venue"
+
+msgid "Filtrlash"
+msgstr "Filter"
+
+msgid "Full Event Details →"
+msgstr "Full Event Details →"
+
+msgid "Full Name / F.I.Sh."
+msgstr "Full Name / F.I.Sh."
+
+msgid "Generate preview"
+msgstr "Generate preview"
+
+msgid "Generate the banner and exact platform caption from the saved draft."
+msgstr "Generate the banner and exact platform caption from the saved draft."
+
+msgid "Generated event announcement banner"
+msgstr "Generated event announcement banner"
+
+msgid "HOZIR"
+msgstr "HOZIR"
+
+msgid "Hafta"
+msgstr "Hafta"
+
+msgid "Higher-Priority Event"
+msgstr "Higher-Priority Event"
+
+msgid "Hisob ma'lumotlari"
+msgstr "Account information"
+
+msgid "Hisob ma'lumotlari va shaxsiy sozlamalar"
+msgstr "Account information and personal settings"
+
+msgid "History"
+msgstr "History"
+
+msgid "Holat"
+msgstr "Status"
+
+msgid "Holat bo‘yicha"
+msgstr "By status"
+
+msgid "Hozir bo'sh"
+msgstr "Hozir bo'sh"
+
+msgid "Hozircha rejalashtirilgan tadbirlar mavjud emas."
+msgstr "No events are scheduled yet."
+
+msgid "Hozircha tizimda zallar mavjud emas."
+msgstr "No venues exist in the system yet."
+
+msgid "Hozirda erkin — rejalashtirish mumkin"
+msgstr "Currently free — can be booked"
+
+msgid "Hozirda faol zallar mavjud emas"
+msgstr "No venues are currently active"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid ""
+"Instagram feed caption links are not presented as clickable. Event access is"
+" provided through the banner QR."
+msgstr ""
+"Instagram feed caption links are not presented as clickable. Event access is"
+" provided through the banner QR."
+
+msgid "Integratsiya holati"
+msgstr "Integration status"
+
+msgid ""
+"Interactive calendar overview of planned international events and venue "
+"schedules."
+msgstr ""
+"Interactive calendar overview of planned international events and venue "
+"schedules."
+
+msgid "International activity, managed with clarity."
+msgstr "International activity, managed with clarity."
+
+msgid "Invalid request"
+msgstr "Invalid request"
+
+msgid ""
+"It is referenced by protected operational data. Remove or archive the "
+"dependency first."
+msgstr ""
+"It is referenced by protected operational data. Remove or archive the "
+"dependency first."
+
+msgid "Items"
+msgstr "Items"
+
+msgid "JONLI MONITORING"
+msgstr "JONLI MONITORING"
+
+msgid "Join Live Zoom Meeting"
+msgstr "Join Live Zoom Meeting"
+
+msgid "Jonli zallar holati"
+msgstr "Live venue status"
+
+msgid "K-ONE Control Center"
+msgstr "K-ONE Control Center"
+
+msgid "Kanal/guruh sozlamalari"
+msgstr "Channel/group settings"
+
+msgid "Kechikayotgan tadbirlar"
+msgstr "Delayed events"
+
+msgid "Key indicators"
+msgstr "Key indicators"
+
+msgid "Keyingi"
+msgstr "Keyingi"
+
+msgid "Keyingi dastur"
+msgstr "Keyingi dastur"
+
+msgid "Keynote Speakers & Experts"
+msgstr "Keynote Speakers & Experts"
+
+msgid "Konfliktlar aniqlanmadi"
+msgstr "Konfliktlar aniqlanmadi"
+
+msgid "Kun"
+msgstr "Kun"
+
+msgid "Kun davomida erkin"
+msgstr "Free for the day"
+
+msgid "Kutilayotgan"
+msgstr "Kutilayotgan"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Last login"
+msgstr "Last login"
+
+msgid "Live Venue Display"
+msgstr "Live Venue Display"
+
+msgid "Live count"
+msgstr "Live count"
+
+msgid "Live real-time operational status foundation across university halls."
+msgstr "Live real-time operational status foundation across university halls."
+
+msgid "Live status"
+msgstr "Live status"
+
+msgid "Localized names"
+msgstr "Localized names"
+
+msgid "MEN KELDIM"
+msgstr "MEN KELDIM"
+
+msgid "Ma'lumotlar ixtiyoriy. Anonim qatnashish ham mumkin."
+msgstr "Ma'lumotlar ixtiyoriy. Anonim qatnashish ham mumkin."
+
+msgid "Main"
+msgstr "Main"
+
+msgid "Manage Program & Public Page"
+msgstr "Manage Program & Public Page"
+
+msgid "Management approval"
+msgstr "Management approval"
+
+msgid ""
+"Manually record guest attendance for VIPs or guests unable to scan QR code."
+msgstr ""
+"Manually record guest attendance for VIPs or guests unable to scan QR code."
+
+msgid "Mas'ul"
+msgstr "Mas'ul"
+
+msgid "Mas'ul xodimlar uchun shaxsiy tadbir eslatmalari."
+msgstr "Personal event reminders for responsible staff."
+
+msgid "Master Data"
+msgstr "Master Data"
+
+msgid "Master data"
+msgstr "Master data"
+
+msgid "Missing"
+msgstr "Missing"
+
+msgid "More actions"
+msgstr "More actions"
+
+msgid "Name or org provided"
+msgstr "Name or org provided"
+
+msgid "Nashr manzili"
+msgstr "Publication destination"
+
+msgid "Navbat"
+msgstr "Queue"
+
+msgid "Navbatda"
+msgstr "Queued"
+
+msgid "Navbatdagi so'rovlar"
+msgstr "Requests in queue"
+
+msgid "New End Time"
+msgstr "New End Time"
+
+msgid "New Planned Date"
+msgstr "New Planned Date"
+
+msgid "New Start Time"
+msgstr "New Start Time"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Next 7 days"
+msgstr "Next 7 days"
+
+msgid "Next Event"
+msgstr "Next Event"
+
+msgid "Next: Date & Venue →"
+msgstr "Next: Date & Venue →"
+
+msgid "Next: Partners & Sponsors →"
+msgstr "Next: Partners & Sponsors →"
+
+msgid "Next: Responsible People →"
+msgstr "Next: Responsible People →"
+
+msgid "Next: Review & Submit →"
+msgstr "Next: Review & Submit →"
+
+msgid "No"
+msgstr "No"
+
+msgid "No PDF document uploaded yet. Upload a PDF to publish in PDF mode."
+msgstr "No PDF document uploaded yet. Upload a PDF to publish in PDF mode."
+
+msgid "No Telegram deliveries yet."
+msgstr "No Telegram deliveries yet."
+
+msgid "No attendance records recorded yet."
+msgstr "No attendance records recorded yet."
+
+msgid "No event in progress"
+msgstr "No event in progress"
+
+msgid "No events today"
+msgstr "No events today"
+
+msgid "No high-priority events"
+msgstr "No high-priority events"
+
+msgid "No manual agenda items added yet."
+msgstr "No manual agenda items added yet."
+
+msgid "No more events today"
+msgstr "No more events today"
+
+msgid "No permitted modules"
+msgstr "No permitted modules"
+
+msgid "No publications found"
+msgstr "No publications found"
+
+msgid "No publications yet."
+msgstr "No publications yet."
+
+msgid "No publications yet. Open an eligible event to create one."
+msgstr "No publications yet. Open an eligible event to create one."
+
+msgid "No upcoming events"
+msgstr "No upcoming events"
+
+msgid "No venue photo"
+msgstr "No venue photo"
+
+msgid "No venues found"
+msgstr "No venues found"
+
+msgid "Nofaol"
+msgstr "Nofaol"
+
+msgid "Not allowed"
+msgstr "Not allowed"
+
+msgid "Not required"
+msgstr "Not required"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "OCCUPIED"
+msgstr "OCCUPIED"
+
+msgid "OPERATSION KO'RINISH"
+msgstr "OPERATIONAL VIEW"
+
+msgid "OPERATSION MARKAZ"
+msgstr "OPERATSION MARKAZ"
+
+msgid "OPERATSION NAZORAT"
+msgstr "OPERATSION NAZORAT"
+
+msgid "OPERATSION TAQVIM"
+msgstr "OPERATSION TAQVIM"
+
+msgid "Occupied Venues"
+msgstr "Occupied Venues"
+
+msgid "Ochiq tizim"
+msgstr "Ochiq tizim"
+
+msgid "Of expected attendees"
+msgstr "Of expected attendees"
+
+msgid "Official Event Program (PDF)"
+msgstr "Official Event Program (PDF)"
+
+msgid "Oldingi"
+msgstr "Oldingi"
+
+msgid "One or more records are protected and cannot be removed."
+msgstr "One or more records are protected and cannot be removed."
+
+msgid "Open PDF Program"
+msgstr "Open PDF Program"
+
+msgid "Open navigation"
+msgstr "Open navigation"
+
+msgid "Open website"
+msgstr "Open website"
+
+msgid "Operational details"
+msgstr "Operational details"
+
+msgid "Operatsion holatda"
+msgstr "Operational"
+
+msgid "Organization / Tashkilot"
+msgstr "Organization / Tashkilot"
+
+msgid "Organization details"
+msgstr "Organization details"
+
+msgid "Organization type"
+msgstr "Organization type"
+
+msgid "Organizations"
+msgstr "Organizations"
+
+msgid "Organized By"
+msgstr "Organized By"
+
+msgid "Organizer"
+msgstr "Organizer"
+
+msgid "Orqaga"
+msgstr "Back"
+
+msgid "Over Capacity"
+msgstr "Over Capacity"
+
+msgid "Override"
+msgstr "Override"
+
+msgid "Override Conflict"
+msgstr "Override Conflict"
+
+msgid "Override Reason (Mandatory)"
+msgstr "Override Reason (Mandatory)"
+
+msgid "Oy"
+msgstr "Oy"
+
+msgid "PDF Document"
+msgstr "PDF Document"
+
+msgid "PRIVATE / HIDDEN"
+msgstr "PRIVATE / HIDDEN"
+
+msgid "PUBLICLY ACCESSIBLE"
+msgstr "PUBLICLY ACCESSIBLE"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Page not found"
+msgstr "Page not found"
+
+msgid "Pagination"
+msgstr "Pagination"
+
+msgid "Partners"
+msgstr "Partners"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "People"
+msgstr "People"
+
+msgid "Permanent Printable QR Code"
+msgstr "Permanent Printable QR Code"
+
+msgid "Permission required"
+msgstr "Permission required"
+
+msgid "Personal notifications only; no public channel publishing."
+msgstr "Personal notifications only; no public channel publishing."
+
+msgid "Phone"
+msgstr "Phone"
+
+msgid "Planned Date"
+msgstr "Planned Date"
+
+msgid "Platform"
+msgstr "Platform"
+
+msgid "Platform preview"
+msgstr "Platform preview"
+
+msgid "Platforma"
+msgstr "Platforma"
+
+msgid "Please correct the errors below."
+msgstr "Please correct the errors below."
+
+msgid "Please review the highlighted fields."
+msgstr "Please review the highlighted fields."
+
+msgid "Please slow down"
+msgstr "Please slow down"
+
+msgid "Point your camera to view the live agenda, schedule, and speakers."
+msgstr "Point your camera to view the live agenda, schedule, and speakers."
+
+msgid "Postpone"
+msgstr "Postpone"
+
+msgid "Postpone Event"
+msgstr "Postpone Event"
+
+msgid "Postponement Reason (Optional)"
+msgstr "Postponement Reason (Optional)"
+
+msgid "Prepare, approve and track public event announcements."
+msgstr "Prepare, approve and track public event announcements."
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Preview Public Page"
+msgstr "Preview Public Page"
+
+msgid "Preview after saving"
+msgstr "Preview after saving"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Primary navigation"
+msgstr "Primary navigation"
+
+msgid "Print Poster / Save PDF"
+msgstr "Print Poster / Save PDF"
+
+msgid "Print Poster QR (A4/A5)"
+msgstr "Print Poster QR (A4/A5)"
+
+msgid "Print QR Code"
+msgstr "Print QR Code"
+
+msgid "Priority Override"
+msgstr "Priority Override"
+
+msgid "Program Footer Notes"
+msgstr "Program Footer Notes"
+
+msgid "Program Introduction / Note"
+msgstr "Program Introduction / Note"
+
+msgid "Protected operational history"
+msgstr "Protected operational history"
+
+msgid ""
+"Provide remote meeting URLs and review event schedule before finalizing."
+msgstr ""
+"Provide remote meeting URLs and review event schedule before finalizing."
+
+msgid ""
+"Provide the primary identity and target audience capacity for the "
+"international event."
+msgstr ""
+"Provide the primary identity and target audience capacity for the "
+"international event."
+
+msgid "Public Access & Status"
+msgstr "Public Access & Status"
+
+msgid "Public Communications"
+msgstr "Public Communications"
+
+msgid "Public Event URL"
+msgstr "Public Event URL"
+
+msgid "Publication Eligibility"
+msgstr "Publication Eligibility"
+
+msgid "Publication composer"
+msgstr "Publication composer"
+
+msgid "Publicly Accessible"
+msgstr "Publicly Accessible"
+
+msgid "Publish now"
+msgstr "Publish now"
+
+msgid "Published"
+msgstr "Published"
+
+msgid "Qanday sozlash kerak"
+msgstr "How to set it up"
+
+msgid "Qidirish..."
+msgstr "Search..."
+
+msgid "Quick QR check-in"
+msgstr "Quick QR check-in"
+
+msgid "REJA"
+msgstr "REJA"
+
+msgid "REJALASHTIRILGAN DASTUR"
+msgstr "REJALASHTIRILGAN DASTUR"
+
+msgid "REJECTION RATIONALE"
+msgstr "REJECTION RATIONALE"
+
+msgid "Ready"
+msgstr "Ready"
+
+msgid "Recipients"
+msgstr "Recipients"
+
+msgid "Refreshes automatically every 20 seconds"
+msgstr "Refreshes automatically every 20 seconds"
+
+msgid "Register for Event"
+msgstr "Register for Event"
+
+msgid "Rejalashtirilgan"
+msgstr "Rejalashtirilgan"
+
+msgid "Reject"
+msgstr "Reject"
+
+msgid "Reject Event"
+msgstr "Reject Event"
+
+msgid "Rejection Rationale (Mandatory)"
+msgstr "Rejection Rationale (Mandatory)"
+
+msgid "Replace PDF"
+msgstr "Replace PDF"
+
+msgid "Reports"
+msgstr "Reports"
+
+msgid "Reports & Analytics"
+msgstr "Reports & Analytics"
+
+msgid "Required"
+msgstr "Required"
+
+msgid "Reschedule"
+msgstr "Reschedule"
+
+msgid "Reschedule Event"
+msgstr "Reschedule Event"
+
+msgid "Reschedule Now"
+msgstr "Reschedule Now"
+
+msgid "Resubmit Event"
+msgstr "Resubmit Event"
+
+msgid "Retry"
+msgstr "Retry"
+
+msgid "Return to dashboard"
+msgstr "Return to dashboard"
+
+msgid "Return to public dashboard"
+msgstr "Return to public dashboard"
+
+msgid "Review"
+msgstr "Review"
+
+msgid "Review every selected object before continuing."
+msgstr "Review every selected object before continuing."
+
+msgid "Reviewed at"
+msgstr "Reviewed at"
+
+msgid "Reviewed by"
+msgstr "Reviewed by"
+
+msgid "Ro'yxat"
+msgstr "Ro'yxat"
+
+msgid "Role / Title"
+msgstr "Role / Title"
+
+msgid "Role and permissions are managed centrally by system administrators."
+msgstr "Role and permissions are managed centrally by system administrators."
+
+msgid "Rotate Token"
+msgstr "Rotate Token"
+
+msgid "Rules"
+msgstr "Rules"
+
+msgid "Salom"
+msgstr "Salom"
+
+msgid "Saqlash"
+msgstr "Saqlash"
+
+msgid "Save Changes"
+msgstr "Save Changes"
+
+msgid "Save Configuration"
+msgstr "Save Configuration"
+
+msgid "Save Program Settings"
+msgstr "Save Program Settings"
+
+msgid "Save Speaker"
+msgstr "Save Speaker"
+
+msgid "Save as Draft"
+msgstr "Save as Draft"
+
+msgid "Save as Planned"
+msgstr "Save as Planned"
+
+msgid "Save changes"
+msgstr "Save changes"
+
+msgid "Save draft"
+msgstr "Save draft"
+
+msgid "Save reminder policy"
+msgstr "Save reminder policy"
+
+msgid "Scan to Open Event Program"
+msgstr "Scan to Open Event Program"
+
+msgid ""
+"Scan with smartphone camera to immediately open the digital event program "
+"and schedule."
+msgstr ""
+"Scan with smartphone camera to immediately open the digital event program "
+"and schedule."
+
+msgid "Schedule"
+msgstr "Schedule"
+
+msgid "Scheduled"
+msgstr "Scheduled"
+
+msgid "Search by name or org..."
+msgstr "Search by name or org..."
+
+msgid "Search records"
+msgstr "Search records"
+
+msgid "Secure control center"
+msgstr "Secure control center"
+
+msgid "Select Program Mode"
+msgstr "Select Program Mode"
+
+msgid ""
+"Select a new date, time, or venue. The conflict engine will validate "
+"availability automatically."
+msgstr ""
+"Select a new date, time, or venue. The conflict engine will validate "
+"availability automatically."
+
+msgid "Select event date, time interval, and available venue hall."
+msgstr "Select event date, time interval, and available venue hall."
+
+msgid "Selected image preview"
+msgstr "Selected image preview"
+
+msgid "Service error"
+msgstr "Service error"
+
+msgid "Session Title"
+msgstr "Session Title"
+
+msgid "Sessions"
+msgstr "Sessions"
+
+msgid "Shaxsiy sozlamalar"
+msgstr "Personal settings"
+
+msgid "Sign in"
+msgstr "Sign in"
+
+msgid "Sign in to Admin"
+msgstr "Sign in to Admin"
+
+msgid "Sign out"
+msgstr "Sign out"
+
+msgid "Skip to content"
+msgstr "Skip to content"
+
+msgid "Skip to main content"
+msgstr "Skip to main content"
+
+msgid "So'nggi muvaffaqiyatli yetkazish"
+msgstr "Last successful delivery"
+
+msgid "So'nggi xatoliklar"
+msgstr "Recent failures"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+msgid "Sort order"
+msgstr "Sort order"
+
+msgid "Speaker"
+msgstr "Speaker"
+
+msgid "Speaker (Select or Override)"
+msgstr "Speaker (Select or Override)"
+
+msgid "Speaker Name Override (If not in directory)"
+msgstr "Speaker Name Override (If not in directory)"
+
+msgid "Speaker Photo"
+msgstr "Speaker Photo"
+
+msgid "Speakers"
+msgstr "Speakers"
+
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgid "Sponsor record"
+msgstr "Sponsor record"
+
+msgid "Sponsors & Partners"
+msgstr "Sponsors & Partners"
+
+msgid "Staff Status"
+msgstr "Staff Status"
+
+msgid "Start Date"
+msgstr "Start Date"
+
+msgid "Start Time"
+msgstr "Start Time"
+
+msgid "Starts in"
+msgstr "Starts in"
+
+msgid "Status & Priority"
+msgstr "Status & Priority"
+
+msgid "Step 1: Basic Information"
+msgstr "Step 1: Basic Information"
+
+msgid "Step 2: Date, Time & Venue"
+msgstr "Step 2: Date, Time & Venue"
+
+msgid "Step 3: Responsible Staff Selection"
+msgstr "Step 3: Responsible Staff Selection"
+
+msgid "Step 4: Organizations & Sponsors"
+msgstr "Step 4: Organizations & Sponsors"
+
+msgid "Step 5: Online Links & Final Review"
+msgstr "Step 5: Online Links & Final Review"
+
+msgid "Structured Agenda Timeline"
+msgstr "Structured Agenda Timeline"
+
+msgid "Submit for Approval"
+msgstr "Submit for Approval"
+
+msgid "Suggested Alternative Venues"
+msgstr "Suggested Alternative Venues"
+
+msgid "Superuser"
+msgstr "Superuser"
+
+msgid ""
+"Tadbir e'lonlari avtomatik yuboriladigan Telegram kanali yoki guruhini "
+"belgilang."
+msgstr ""
+"Set the Telegram channel or group that event announcements are sent to "
+"automatically."
+
+msgid "Tadbir sahifasiga o'tish"
+msgstr "Go to event page"
+
+msgid "Tadbir turi bo‘yicha"
+msgstr "By event type"
+
+msgid "Tadbir yaratish"
+msgstr "Create event"
+
+msgid "Tadbirga keldingizmi?"
+msgstr "Attending this event?"
+
+msgid "Tadbirga kelganingizni tasdiqlang"
+msgstr "Confirm your attendance"
+
+msgid "Tadbirni qidirish..."
+msgstr "Search events..."
+
+msgid "Target capacity"
+msgstr "Target capacity"
+
+msgid "Tasdiq talab qiladi"
+msgstr "Requires approval"
+
+msgid "Tashkilot / Organization"
+msgstr "Tashkilot / Organization"
+
+msgid "Tashkilot nomi (ixtiyoriy)"
+msgstr "Tashkilot nomi (ixtiyoriy)"
+
+msgid "Telegram botni ochish"
+msgstr "Open Telegram bot"
+
+msgid "Telegram kanal / guruh sozlamalari"
+msgstr "Telegram channel / group settings"
+
+msgid "Telegram kanal sozlamalari"
+msgstr "Telegram channel settings"
+
+msgid "Telegram reminders"
+msgstr "Telegram reminders"
+
+msgid "Telegram sozlamalari"
+msgstr "Telegram settings"
+
+msgid "Telegram'da kanal yoki guruh yarating (agar mavjud bo'lmasa)."
+msgstr ""
+"Create a channel or group in Telegram (if you don't already have one)."
+
+msgid "Telegram'ni ulash"
+msgstr "Connect Telegram"
+
+msgid "Test xabar yuborish"
+msgstr "Send test message"
+
+msgid "Tez orada"
+msgstr "Tez orada"
+
+msgid "The following event(s) will be DISPLACED:"
+msgstr "The following event(s) will be DISPLACED:"
+
+msgid ""
+"The request could not be processed. Check the entered information and try "
+"again."
+msgstr ""
+"The request could not be processed. Check the entered information and try "
+"again."
+
+msgid "The requested page is unavailable or the link has expired."
+msgstr "The requested page is unavailable or the link has expired."
+
+msgid "The service could not complete the request. Please try again later."
+msgstr "The service could not complete the request. Please try again later."
+
+msgid "The username or password is incorrect."
+msgstr "The username or password is incorrect."
+
+msgid ""
+"This action cannot be undone. Confirm only when the record is no longer "
+"required."
+msgstr ""
+"This action cannot be undone. Confirm only when the record is no longer "
+"required."
+
+msgid ""
+"This action cannot be undone. Review affected records before continuing."
+msgstr ""
+"This action cannot be undone. Review affected records before continuing."
+
+msgid ""
+"This action will release the venue schedule slot. Operational records will "
+"retain cancellation history."
+msgstr ""
+"This action will release the venue schedule slot. Operational records will "
+"retain cancellation history."
+
+msgid "This event was displaced by an emergency override event"
+msgstr "This event was displaced by an emergency override event"
+
+msgid "This record cannot be deleted"
+msgstr "This record cannot be deleted"
+
+msgid "Til"
+msgstr "Til"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Tizim"
+msgstr "Tizim"
+
+msgid "Tizim botini o'sha kanal/guruhga administrator sifatida qo'shing."
+msgstr "Add the system bot to that channel/group as an administrator."
+
+msgid "Tizim faol"
+msgstr "Tizim faol"
+
+msgid "Tizim holati"
+msgstr "System status"
+
+msgid "Today"
+msgstr "Today"
+
+msgid "Today's Schedule"
+msgstr "Today's Schedule"
+
+msgid "Today's Timeline"
+msgstr "Today's Timeline"
+
+msgid "Too many requests"
+msgstr "Too many requests"
+
+msgid "Tozalash"
+msgstr "Clear"
+
+msgid "Tugash vaqti:"
+msgstr "Ends at:"
+
+msgid "Turi"
+msgstr "Turi"
+
+msgid "Ulangan"
+msgstr "Connected"
+
+msgid "Ulangan sana"
+msgstr "Connected at"
+
+msgid "Ulanish"
+msgstr "Connection"
+
+msgid "Ulanmagan"
+msgstr "Not connected"
+
+msgid "Upcoming Events"
+msgstr "Upcoming Events"
+
+msgid "Update event parameters, venue reservation, or schedule."
+msgstr "Update event parameters, venue reservation, or schedule."
+
+msgid "Updated at"
+msgstr "Updated at"
+
+msgid "Upload / Replace PDF (Max 10 MB)"
+msgstr "Upload / Replace PDF (Max 10 MB)"
+
+msgid "Upload PDF"
+msgstr "Upload PDF"
+
+msgid "Upload PDF Document"
+msgstr "Upload PDF Document"
+
+msgid "Uploaded"
+msgstr "Uploaded"
+
+msgid ""
+"Use approved event facts and entered copy. K-ONE does not invent official "
+"wording."
+msgstr ""
+"Use approved event facts and entered copy. K-ONE does not invent official "
+"wording."
+
+msgid "Use your K-ONE staff account."
+msgstr "Use your K-ONE staff account."
+
+msgid "User"
+msgstr "User"
+
+msgid "Username"
+msgstr "Username"
+
+msgid ""
+"Ushbu shaxsiy havolani Telegram'da oching. U tez orada eskiradi va faqat bir"
+" marta ishlaydi."
+msgstr ""
+"Open this private link in Telegram. It expires shortly and works only once."
+
+msgid "Uzish"
+msgstr "Disconnect"
+
+msgid "Vaqt"
+msgstr "Time"
+
+msgid "Vaqtida boshlanmagan tadbirlar bor"
+msgstr "Some events have not started on time"
+
+msgid "Venue Directory"
+msgstr "Venue Directory"
+
+msgid "Venue Location"
+msgstr "Venue Location"
+
+msgid "Venues"
+msgstr "Venues"
+
+msgid ""
+"View or download the official printable PDF schedule for this conference."
+msgstr ""
+"View or download the official printable PDF schedule for this conference."
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Website"
+msgstr "Website"
+
+msgid ""
+"When enabled, guests scanning the QR code can record attendance on the "
+"public page."
+msgstr ""
+"When enabled, guests scanning the QR code can record attendance on the "
+"public page."
+
+msgid "Working hours"
+msgstr "Working hours"
+
+msgid "XRONOLOGIK MONITORING"
+msgstr "XRONOLOGIK MONITORING"
+
+msgid "Xalqaro bo'lim"
+msgstr "International Department"
+
+msgid "Xalqaro tadbirlar taqvimi"
+msgstr "International events calendar"
+
+msgid "Xavfsizlik va ruxsatlar"
+msgstr "Xavfsizlik va ruxsatlar"
+
+msgid "Yangi tadbir"
+msgstr "New event"
+
+msgid "Yangi xabarlar"
+msgstr "New notifications"
+
+msgid "Yaqin tadbirlar"
+msgstr "Upcoming events"
+
+msgid "Yaqinlashayotgan tadbirlar ro'yxati"
+msgstr "Upcoming events list"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "Yopish"
+msgstr "Close"
+
+msgid "Yoqilgan"
+msgstr "Enabled"
+
+msgid "Your account does not have access to records in this section."
+msgstr "Your account does not have access to records in this section."
+
+msgid "Your account does not have permission to perform this action."
+msgstr "Your account does not have permission to perform this action."
+
+msgid "Your account does not have permission to remove all dependent records."
+msgstr ""
+"Your account does not have permission to remove all dependent records."
+
+msgid "Yuklanmoqda..."
+msgstr "Yuklanmoqda..."
+
+msgid "Zal"
+msgstr "Venue"
+
+msgid "Zal bo‘yicha"
+msgstr "By venue"
+
+msgid "Zal to'qnashuvlari"
+msgstr "Room conflicts"
+
+msgid "Zallar holati"
+msgstr "Venue status"
+
+msgid "ago"
+msgstr "ago"
+
+msgid "exceeds venue capacity"
+msgstr "exceeds venue capacity"
+
+msgid "min"
+msgstr "min"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "minutes remaining"
+msgstr "minutes remaining"
+
+msgid "persons"
+msgstr "persons"
+
+msgid "records"
+msgstr "records"
+
+msgid "registered in K-ONE"
+msgstr "registered in K-ONE"
+
+msgid "seats"
+msgstr "seats"
+
+msgid "tadbir"
+msgstr "event"
+
+msgid "Ha"
+msgstr "Yes"
+
+msgid "Yo'q"
+msgstr "No"
+
+msgid "Location not specified"
+msgstr "Location not specified"
+
+msgid "No description provided."
+msgstr "No description provided."
+
+msgid "No notes provided."
+msgstr "No notes provided."
+
+msgid "Too many requests. Please try again later."
+msgstr "Too many requests. Please try again later."
+
+msgid "Channel/group name"
+msgstr "Channel/group name"
+
+msgid "Chat ID"
+msgstr "Chat ID"
+
+msgid "Send event publications to this channel/group"
+msgstr "Send event publications to this channel/group"
+
+msgid "e.g. K-ONE Events Channel"
+msgstr "e.g. K-ONE Events Channel"
+
+msgid ""
+"The numeric Telegram chat ID of the channel or group (add the bot as an "
+"admin there first)."
+msgstr ""
+"The numeric Telegram chat ID of the channel or group (add the bot as an "
+"admin there first)."
+
+msgid "Enable Telegram reminders"
+msgstr "Enable Telegram reminders"
+
+msgid "7 days before"
+msgstr "7 days before"
+
+msgid "3 days before"
+msgstr "3 days before"
+
+msgid "1 day before"
+msgstr "1 day before"
+
+msgid "3 hours before"
+msgstr "3 hours before"
+
+msgid "30 minutes before"
+msgstr "30 minutes before"
+
+msgid "Please wait before creating another link."
+msgstr "Please wait before creating another link."
+
+msgid "Telegram integration is not configured."
+msgstr "Telegram integration is not configured."
+
+msgid "Telegram disconnected."
+msgstr "Telegram disconnected."
+
+msgid "Please wait before sending another test."
+msgstr "Please wait before sending another test."
+
+msgid "Test message could not be sent."
+msgstr "Test message could not be sent."
+
+msgid "Test message sent."
+msgstr "Test message sent."
+
+msgid "Telegram channel settings updated."
+msgstr "Telegram channel settings updated."
+
+msgid "Telegram reminder policy updated."
+msgstr "Telegram reminder policy updated."
+
+msgid "Event Calendar"
+msgstr "Event Calendar"
+
+msgid "Tadbir hozir boshlanmoqda"
+msgstr "Event is starting now"
+
+msgid "Tadbir tez orada boshlanadi"
+msgstr "Event starting soon"
+
+msgid "Event Banner / Poster Image"
+msgstr "Event Banner / Poster Image"
+
+msgid ""
+"No banner image uploaded yet. Upload a poster image to use for the event and"
+" its Telegram announcement."
+msgstr ""
+"No banner image uploaded yet. Upload a poster image to use for the event and"
+" its Telegram announcement."
+
+msgid "Upload / Replace Banner Image"
+msgstr "Upload / Replace Banner Image"
+
+msgid "Replace Banner"
+msgstr "Replace Banner"
+
+msgid "Upload Banner"
+msgstr "Upload Banner"
+
+msgid "Delete Banner"
+msgstr "Delete Banner"
+
+msgid "Event banner image uploaded successfully."
+msgstr "Event banner image uploaded successfully."
+
+msgid "Event banner image removed."
+msgstr "Event banner image removed."
+
+msgid "Invalid image file."
+msgstr "Invalid image file."
+
+msgid "Dasturni ko'rish"
+msgstr "View Program"

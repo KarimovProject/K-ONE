@@ -42,7 +42,7 @@
     gap: var(--space-4);
     font-size: 12px;
     color: var(--color-text-muted);
-    background: #FFFFFF;
+    background: var(--color-surface-2);
     padding: 8px 16px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--color-border-subtle);
@@ -62,7 +62,7 @@
     gap: var(--space-5);
   }
   .venues-command-grid .live-venue-card {
-    background: #FFFFFF;
+    background: var(--color-surface-2);
     border: 1px solid var(--color-border-subtle);
     border-radius: 16px;
     padding: 20px 24px;
@@ -181,7 +181,7 @@
   .venues-command-grid .venue-progress {
     height: 6px;
     border-radius: var(--radius-pill);
-    background: #EEF2F6;
+    background: var(--color-surface-hover);
     overflow: hidden;
     margin: var(--space-2) 0;
   }
@@ -197,7 +197,7 @@
   .venues-command-grid .venue-next {
     margin-top: var(--space-3);
     padding: 10px 14px;
-    background: #FAFBFD;
+    background: var(--color-surface-1);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-md);
   }
@@ -235,7 +235,7 @@
   .footer-count {
     padding: 3px 10px;
     border-radius: var(--radius-pill);
-    background: #FAFBFD;
+    background: var(--color-surface-1);
     color: var(--color-text-secondary);
     font-size: 11px;
     font-weight: 700;
@@ -270,7 +270,7 @@
     {% for venue in venues %}
       {% include "public/_venue_card.html" %}
     {% empty %}
-      <div class="empty-state-card" style="grid-column: 1 / -1; background: #FFFFFF; color: var(--color-text-muted); padding: var(--space-8); text-align: center; border-radius: 16px; border: 1px solid var(--color-border-subtle);">
+      <div class="empty-state-card" style="grid-column: 1 / -1; background: var(--color-surface-2); color: var(--color-text-muted); padding: var(--space-8); text-align: center; border-radius: 16px; border: 1px solid var(--color-border-subtle);">
         <strong>{% trans "Hozirda faol zallar mavjud emas" %}</strong>
       </div>
     {% endfor %}

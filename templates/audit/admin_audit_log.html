@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Admin Audit Logs | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .audit-log-container {
+        margin: 20px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    .audit-log-line {
+        font-family: monospace;
+        font-size: 13px;
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
+    .audit-log-line:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <h1>Admin Audit Logs (Faqat Superadmin uchun)</h1>
+    <p>Quyida admin panel orqali qilingan so'nggi 1000 ta amal (POST/PUT/DELETE) ko'rsatilgan.</p>
+    
+    <div class="audit-log-container">
+        {% if logs %}
+            {% for line in logs %}
+                <div class="audit-log-line">{{ line }}</div>
+            {% endfor %}
+        {% else %}
+            <p>Hozircha loglar yo'q yoki log fayl topilmadi.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

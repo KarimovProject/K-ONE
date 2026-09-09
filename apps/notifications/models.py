@@ -72,6 +72,34 @@ class TelegramLinkToken(models.Model):
         indexes = [models.Index(fields=("token_hash", "expires_at"))]
 
 
+class TelegramChannelSettings(models.Model):
+    """Singleton row holding the admin-configurable publication channel/group."""
+
+    chat_id = models.CharField(_("chat ID"), max_length=64, blank=True, default="")
+    label = models.CharField(_("label"), max_length=120, blank=True, default="")
+    is_enabled = models.BooleanField(_("enabled"), default=False)
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Telegram channel settings")
+        verbose_name_plural = _("Telegram channel settings")
+
+    def __str__(self) -> str:
+        return self.label or self.chat_id or "Telegram channel settings"
+
+    @classmethod
+    def load(cls) -> "TelegramChannelSettings":
+        instance, _created = cls.objects.get_or_create(pk=1)
+        return instance
+
+
 class TelegramDelivery(models.Model):
     class Status(models.TextChoices):
         PENDING = "pending", _("Pending")

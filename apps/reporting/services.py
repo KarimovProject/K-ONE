@@ -42,6 +42,12 @@ def _event_payload(event: Event, now_time=None) -> dict[str, Any]:
         "is_past": bool(now_time and event.end_time <= now_time),
         "is_upcoming": bool(now_time and event.start_time > now_time),
         "checkins_count": getattr(event, "checkins_count", 0),
+        "detail_url": f"/events/{event.pk}/",
+        "banner_url": event.banner_image.url if event.banner_image else "",
+        "program_mode": event.program_source,
+        "has_program_pdf": bool(event.program_pdf),
+        "responsible_name": event.responsible_employee.get_full_name()
+        or event.responsible_employee.username,
     }
 
 

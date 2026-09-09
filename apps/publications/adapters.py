@@ -39,19 +39,34 @@ class TelegramChannelAdapter:
     def __init__(self, client: TelegramClient | None = None):
         self.client = client or TelegramClient()
 
+    def _channel_settings(self):
+        from apps.notifications.models import TelegramChannelSettings
+
+        return TelegramChannelSettings.objects.first()
+
+    @property
+    def chat_id(self) -> str:
+        row = self._channel_settings()
+        if row and row.is_enabled and row.chat_id:
+            return row.chat_id
+        return settings.TELEGRAM_CHANNEL_CHAT_ID
+
     @property
     def configured(self) -> bool:
-        return bool(
-            settings.TELEGRAM_CHANNEL_ENABLED
-            and settings.TELEGRAM_CHANNEL_CHAT_ID
-            and self.client.configured
-        )
+        row = self._channel_settings()
+        if row is not None:
+            enabled = row.is_enabled
+            chat_id = row.chat_id
+        else:
+            enabled = settings.TELEGRAM_CHANNEL_ENABLED
+            chat_id = settings.TELEGRAM_CHANNEL_CHAT_ID
+        return bool(enabled and chat_id and self.client.configured)
 
     def publish(self, image_url: str, caption: str) -> PublishResult:
         if not self.configured:
             raise PublicationDisabledError("Telegram channel publishing is disabled")
         try:
-            result = self.client.send_photo(settings.TELEGRAM_CHANNEL_CHAT_ID, image_url, caption)
+            result = self.client.send_photo(self.chat_id, image_url, caption)
         except TelegramError as exc:
             error = (
                 PublicationTransientError if exc.code == "transient" else PublicationPermanentError

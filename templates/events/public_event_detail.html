@@ -122,6 +122,7 @@
       margin-bottom: 1rem;
       color: #ffffff;
       letter-spacing: -0.02em;
+      padding-right: 90px; /* Space for the QR code */
     }
 
     .event-meta-grid {
@@ -504,6 +505,12 @@
       border: 1px solid var(--card-border);
       cursor: pointer;
     }
+    
+    @media (max-width: 600px) {
+      .desktop-qr {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -524,7 +531,12 @@
 
     <!-- Main Hero Card -->
     <main>
-      <div class="hero-card" data-testid="public-hero-card">
+      <div class="hero-card" data-testid="public-hero-card" style="position: relative;">
+        <!-- Top Right QR Code -->
+        <div class="desktop-qr" style="position: absolute; top: 1.5rem; right: 1.5rem; background: #fff; padding: 0.3rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <img src="{% url 'events:qr-png' pk=event.pk %}" alt="QR" style="width: 70px; height: 70px; display: block;" title="QR orqali ro'yxatdan o'tish">
+        </div>
+
         <div class="status-countdown-bar {{ countdown_info.state }}" data-testid="status-countdown-bar">
           <span>●</span>
           <span>{{ countdown_info.text }}</span>
@@ -561,7 +573,7 @@
       </div>
 
       <!-- Phase 5 Attendance Section -->
-      {% if event.checkin_enabled %}
+      {% if scanned or user_checked_in %}
         <div class="attendance-card {% if user_checked_in %}success-card{% endif %}" id="attendance-section-card" data-testid="public-attendance-card">
           {% if user_checked_in %}
             <div class="success-icon">✓</div>
@@ -575,9 +587,10 @@
               <span id="live-attendee-count-num">{{ attendance_count }}</span> {% trans "nafar ishtirokchi" %}
             </div>
           {% else %}
-            {% if checkin_status.eligible %}
               <h2 class="attendance-title">{% trans "Tadbirga keldingizmi?" %}</h2>
-              <button type="button" class="btn-checkin" id="open-checkin-modal-btn" data-testid="public-checkin-btn">
+              <button type="button" class="btn-checkin" id="open-checkin-modal-btn" data-testid="public-checkin-btn"
+                      data-eligible="{{ checkin_status.eligible|yesno:'true,false' }}"
+                      data-reason="{{ checkin_status.reason }}">
                 ✓ {% trans "MEN KELDIM" %}
               </button>
               <div>
@@ -585,17 +598,9 @@
                   <span id="live-attendee-count-num">{{ attendance_count }}</span> {% trans "nafar ishtirokchi" %}
                 </div>
               </div>
-            {% else %}
-              <h2 class="attendance-title">{% trans "Check-in Ma'lumoti" %}</h2>
-              <div style="font-size: 0.95rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem;" data-testid="checkin-status-message">
-                {{ checkin_status.reason }}
-              </div>
-              <div class="attendee-count-badge" id="live-attendee-badge" data-testid="live-attendee-count">
-                <span id="live-attendee-count-num">{{ attendance_count }}</span> {% trans "nafar ishtirokchi" %}
-              </div>
-            {% endif %}
           {% endif %}
         </div>
+      {% endif %}
 
         <!-- Optional Guest Information Modal -->
         <div class="modal-backdrop" id="checkin-modal" data-testid="checkin-modal">
@@ -623,7 +628,6 @@
             </form>
           </div>
         </div>
-      {% endif %}
 
       <!-- Action Buttons (Zoom & Registration) -->
       {% if event.zoom_url or event.registration_url %}
@@ -754,6 +758,25 @@
 
       if (openBtn) {
         openBtn.addEventListener('click', function() {
+          const isEligible = openBtn.dataset.eligible === 'true';
+          if (!isEligible) {
+            const reason = openBtn.dataset.reason || 'Hali uchrashuv boshlanmagan';
+            let toast = document.getElementById('checkin-toast');
+            if (!toast) {
+              toast = document.createElement('div');
+              toast.id = 'checkin-toast';
+              toast.style.cssText = 'position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#ef4444; color:white; padding:12px 24px; border-radius:8px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.2); font-weight: 600; text-align: center; max-width: 90%; transition: opacity 0.3s ease;';
+              document.body.appendChild(toast);
+            }
+            toast.textContent = reason;
+            toast.style.display = 'block';
+            toast.style.opacity = '1';
+            setTimeout(() => {
+              toast.style.opacity = '0';
+              setTimeout(() => { toast.style.display = 'none'; }, 300);
+            }, 3000);
+            return;
+          }
           if (modal) modal.classList.add('active');
         });
       }

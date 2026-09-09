@@ -1,0 +1,3472 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: IEMS 0.1.0\n"
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Men keldim"
+msgstr "Men keldim"
+
+msgid "Check in"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Я пришёл"
+msgstr "buradayım"
+
+msgid "Ro‘yxatdan o‘tdingiz"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Ishtirokingiz qayd etildi."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Siz avval ro‘yxatdan o‘tgansiz."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Check-in hali ochilmagan."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Check-in yakunlangan."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "nafar ishtirokchi"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Attendance Management"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Expected Attendees"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Checked In"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Attendance Rate"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Anonymous"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Identified"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Staff Manual Check-in"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Export CSV"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Leadership Dashboard"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid ""
+"Real-time executive overview of active events, venue occupancy & attendance "
+"statistics."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "TV Wallboard Mode"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Today's Events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "In Progress"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Available Venues"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Occupied / Upcoming"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Today's Check-ins"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Live Venue Status"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "BO‘SH"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "BAND"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "TAYYORLANMOQDA"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Tugashiga:"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Boshlanishiga:"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "daqiqa"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Private Meeting"
+msgstr "Özel Toplantı"
+
+msgid "Occupied (Private Event)"
+msgstr "Meşgul (Özel Etkinlik)"
+
+msgid "Bugungi kun tartibi"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Yaqinlashib kelayotgan tadbirlar"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Fullscreen"
+msgstr "Tam ekran"
+
+msgid "International Events Management System"
+msgstr "Uluslararası Etkinlik Yönetim Sistemi"
+
+msgid "Public navigation"
+msgstr "Genel navigasyon"
+
+msgid "Live dashboard"
+msgstr "Canlı kontrol paneli"
+
+msgid "Staff sign in"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Workspace"
+msgstr "Çalışma alanı"
+
+msgid "Official international events information"
+msgstr "Resmi uluslararası etkinlik bilgileri"
+
+msgid "Live events dashboard"
+msgstr "Canlı etkinlikler kontrol paneli"
+
+msgid "Live institutional schedule"
+msgstr "Canlı kurumsal program"
+
+msgid "International events, clearly coordinated."
+msgstr "Uluslararası etkinlikler açıkça koordine edilmiştir."
+
+msgid ""
+"A public, real-time overview of today's programme, active venues and "
+"upcoming international events."
+msgstr ""
+"Bugünün programına, aktif mekanlara ve yaklaşan uluslararası etkinliklere "
+"kamuya açık, gerçek zamanlı bir genel bakış."
+
+msgid "Current time in Tashkent"
+msgstr "Taşkent geçerli saati"
+
+msgid "Today at a glance"
+msgstr "Bugün bir bakışta"
+
+msgid "In progress"
+msgstr "Devam etmekte"
+
+msgid "right now"
+msgstr "Şu anda"
+
+msgid "Starting soon"
+msgstr "Yakında başlıyor"
+
+msgid "within one hour"
+msgstr "bir saat içinde"
+
+msgid "Active venues"
+msgstr "Aktif mekanlar"
+
+msgid "monitored"
+msgstr "izlendi"
+
+msgid "Live operations"
+msgstr "Canlı operasyonlar"
+
+msgid "Venue status"
+msgstr "Mekan durumu"
+
+msgid "View all venues"
+msgstr "Tüm mekanları görüntüle"
+
+msgid "No active venues"
+msgstr "Aktif mekan yok"
+
+msgid "Venue status will appear when active venues are configured."
+msgstr "Aktif mekanlar yapılandırıldığında mekan durumu görünecektir."
+
+msgid "Programme timeline"
+msgstr "Program zaman çizelgesi"
+
+msgid "Open calendar"
+msgstr "Takvimi aç"
+
+msgid "No public events today"
+msgstr "Bugün halka açık etkinlik yok"
+
+msgid "The next published programme will appear here."
+msgstr "Bir sonraki yayınlanan program burada görünecektir."
+
+msgid "Next seven days"
+msgstr "Önümüzdeki yedi gün"
+
+msgid "No upcoming public events."
+msgstr "Yaklaşan halka açık etkinlik yok."
+
+msgid "Live data refreshes automatically."
+msgstr "Canlı veriler otomatik olarak yenilenir."
+
+msgid "Available for scheduling"
+msgstr "Planlama için kullanılabilir"
+
+msgid "Live venues"
+msgstr "Canlı mekanlar"
+
+msgid "Operational visibility"
+msgstr "Operasyonel görünürlük"
+
+msgid "Live venue status"
+msgstr "Canlı mekan durumu"
+
+msgid ""
+"Current availability and the next public programme item for each active "
+"venue."
+msgstr ""
+"Her aktif mekan için mevcut kullanılabilirlik ve bir sonraki genel program "
+"öğesi."
+
+msgid "Public event calendar"
+msgstr "Genel etkinlik takvimi"
+
+msgid "Published schedule"
+msgstr "Yayınlanan program"
+
+msgid "International events calendar"
+msgstr "Uluslararası etkinlik takvimi"
+
+msgid "Explore public events by date, venue, type and status."
+msgstr ""
+"Herkese açık etkinlikleri tarihe, mekana, türe ve duruma göre keşfedin."
+
+msgid "Previous period"
+msgstr "Önceki dönem"
+
+msgid "Next period"
+msgstr "Sonraki dönem"
+
+msgid "All venues"
+msgstr "Tüm mekanlar"
+
+msgid "All types"
+msgstr "Tüm türler"
+
+msgid "All statuses"
+msgstr "Tüm durumlar"
+
+msgid "Open public event page"
+msgstr "Herkese açık etkinlik sayfasını aç"
+
+msgid "Venue occupied"
+msgstr "Mekan işgal edildi"
+
+msgid "Private meeting"
+msgstr "Özel toplantı"
+
+msgid "My workspace"
+msgstr "Çalışma alanım"
+
+msgid "My events"
+msgstr "Etkinliklerim"
+
+msgid "Operations"
+msgstr "Operasyonlar"
+
+msgid "Communication"
+msgstr "İletişim"
+
+msgid "Insights"
+msgstr "Analizler"
+
+msgid "System operational"
+msgstr "Sistem çalışır durumda"
+
+msgid "Phase 11 interface"
+msgstr "Faz 11 arayüzü"
+
+msgid "Coordinated events workspace"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Public view"
+msgstr "Herkese açık görünüm"
+
+msgid "Role-aware workspace"
+msgstr "Rol bilinçli çalışma alanı"
+
+msgid ""
+"Your priorities, upcoming events and required actions in one focused view."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Plan new event"
+msgstr "Yeni etkinlik planla"
+
+msgid "Needs action"
+msgstr "İşlem yapılması gerekiyor"
+
+msgid "Pending approval"
+msgstr "Onay bekleniyor"
+
+msgid "Unread notifications"
+msgstr "Okunmamış bildirimler"
+
+msgid "Your schedule"
+msgstr "Programınız"
+
+msgid "Your schedule is clear"
+msgstr "Programınız açık"
+
+msgid "Assigned and upcoming events will appear here."
+msgstr "Atanan ve yaklaşan etkinlikler burada görünecek."
+
+msgid "Quick access"
+msgstr "Hızlı erişim"
+
+msgid "Tools for your role"
+msgstr "Rolünüz için araçlar"
+
+msgid "Internal calendar"
+msgstr "Dahili takvim"
+
+msgid "Telegram settings"
+msgstr "Telgraf ayarları"
+
+msgid "Profile and language"
+msgstr "Profil ve dil"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Account control"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Profile and preferences"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid ""
+"Manage your identity and interface language. Access role changes require an "
+"administrator."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Preferred language"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Profile updated successfully."
+msgstr "Profil başarıyla güncellendi."
+
+msgid "Save profile"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Access"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Role and permissions are managed centrally."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Assigned events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Management events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Boshqaruv markazi"
+msgstr "Kontrol merkezi"
+
+msgid "Month"
+msgstr "Ay"
+
+msgid "Week"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Day"
+msgstr "Gün"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Planned"
+msgstr "Planlanan"
+
+msgid "Approved"
+msgstr "Onaylı"
+
+msgid "Available"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Occupied"
+msgstr "Dolu"
+
+msgid "Upcoming"
+msgstr "Yaklaşan"
+
+msgid "Event type"
+msgstr "Etkinlik türü"
+
+msgid "Priority"
+msgstr "Öncelik"
+
+msgid "Role"
+msgstr "Rol"
+
+msgid "Activity"
+msgstr "Etkinlik"
+
+msgid "Connected"
+msgstr "Bağlı"
+
+msgid "Not connected"
+msgstr "Bağlı değil"
+
+msgid "View all"
+msgstr "Tümünü görüntüle"
+
+msgid "Available venues"
+msgstr "Mevcut mekanlar"
+
+msgid "Occupied venues"
+msgstr "İşgal edilen mekanlar"
+
+msgid "Seven-day calendar preview"
+msgstr "Yedi günlük takvim önizlemesi"
+
+msgid "Calendar preview"
+msgstr "Takvim önizlemesi"
+
+msgid "Open interactive calendar"
+msgstr "Etkileşimli takvimi aç"
+
+msgid "Try again"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Could not refresh data."
+msgstr "Veriler yenilenemedi."
+
+msgid "Loading calendar"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Publications to prepare"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Today's check-in events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "International Events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Approval queue"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Displaced events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Leadership dashboard"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Super administrator"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "International department administrator"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Responsible employee"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Management responsible"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Leadership viewer"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Content manager"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Reception operator"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Management"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Overview"
+msgstr "Genel Bakış"
+
+msgid "Events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "All events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Rescheduling"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Programs"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Reference data"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Users"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Staff"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Roles"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Analytics"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "System"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Audit log"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Control center"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "IEMS Control Center"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Manage the system, events and international activity from one place."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Live operational context and secure administrative tools."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "System indicators"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "registered in IEMS"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Today's events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "on today's schedule"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Awaiting approval"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "requires a decision"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "available to the system"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Today's attendance"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "recorded check-ins"
+msgstr "kayıtlı check-in'ler"
+
+msgid "Quick actions"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Start a common task"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "New event"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Plan and assign"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Add speaker"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Create profile"
+msgstr "Profil oluştur"
+
+msgid "Add organization"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Register partner"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Add venue"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Configure space"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Review schedule"
+msgstr "Programı gözden geçir"
+
+msgid "Operational insight"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Administration"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "System modules"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "awaiting approval"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "active spaces"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Manage venues"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Display access"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Partners and sponsors"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Users and access"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Staff accounts and roles"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Communications"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Telegram and publications"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Telegram deliveries"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Governance"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Attendance and audit history"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Recent changes"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No new activity yet"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Administrative changes will appear here."
+msgstr "Yönetimsel değişiklikler burada görünecek."
+
+msgid "Manage all international events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Search, filter and manage permitted records."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Clear filters"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Active"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "New record"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Complete the fields below. Required information is clearly marked."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Basic information"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Schedule and venue"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Responsible persons and partners"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Public information and attendance"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Workflow"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Reminder policy"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "System metadata"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Choose a module to view and manage permitted records."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Secure administrative records"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "View records"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Add new"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Audit trail"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Change history"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No change history"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Changes to this record will appear here."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Event"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Date / time"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Venue"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Type"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Responsible"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Status"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Filters"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Search by event title, organization or responsible person…"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Search records…"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Normal"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Cancelled"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Pending Approval"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Planned Events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Schedule and manage international events across university venues."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Plan New Event"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Search by event title or description..."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "All Statuses"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "All Venues"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "All Types"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Event Type"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Date & Weekday"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Time"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Actions"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "View"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Edit"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Cancel"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No events found"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Try adjusting your search query or filters."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Plan an Event"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Clear"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "System active"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Operational"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "%(minutes)s minutes remaining"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Starts in %(minutes)s minutes"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Free until"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Public dashboard"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Today's timeline"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No events scheduled today"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No events awaiting approval"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Live"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "System online"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Tashkent operational time"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Search"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Search events"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Reset"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Responsible person"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Organization"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No events planned"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Republican Oncology Center and Gustave Roussy International Uzbekistan"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Republic Oncology Center"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Program Mode"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Public Accessibility"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Manual Agenda"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Private"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Open Public Event Page"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Print Poster (A4/A5)"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Schedule & Timing"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Time Interval"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Duration"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Venue Name"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Capacity"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Location"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Organizing Organizations"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Zoom / Meeting Link"
+msgstr "Yakınlaştırma / Toplantı Bağlantısı"
+
+msgid "Registration Link"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Telegram Reminders"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Configure Reminders"
+msgstr "Hatırlatıcıları Yapılandır"
+
+msgid "Publications"
+msgstr "Yayınlar"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "No data."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Program & Public Page"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Venue Details"
+msgstr "Mekan Detayları"
+
+msgid "Partners & Sponsors"
+msgstr "Ortaklar ve Sponsorlar"
+
+msgid "Responsible Staff"
+msgstr "Sorumlu Personel"
+
+msgid "Responsible Employee"
+msgstr "Sorumlu Çalışan"
+
+msgid "Management Responsible"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Online Links"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Join Meeting"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Register Here"
+msgstr "Buradan Kayıt Olun"
+
+msgid "Audit Metadata"
+msgstr "Denetim Meta Verileri"
+
+msgid "Working Hours"
+msgstr "Çalışma Saatleri"
+
+msgid "Back to Events"
+msgstr "Etkinliklere Geri Dön"
+
+msgid "Sponsors"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Speakers Directory"
+msgstr "Konuşmacılar Dizini"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "New Speaker"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No speakers found in directory."
+msgstr "Dizinde hoparlör bulunamadı."
+
+msgid "Full Name"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Title / Position"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Country"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Public"
+msgstr "Halk"
+
+msgid "Hidden"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Filtreleri ayarlayın veya ilk konuşmacı kaydını oluşturun."
+
+msgid "No event types found"
+msgstr "Hiçbir etkinlik türü bulunamadı"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No sponsors found"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Speakers Directory"
+msgstr "Konuşmacılar Dizini"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Açılış konuşmacılarını, sunum yapan kişileri ve uzmanları yönetin."
+
+msgid "New Speaker"
+msgstr "Yeni Konuşmacı"
+
+msgid "No speakers found in directory."
+msgstr "Dizinde hoparlör bulunamadı."
+
+msgid "Full Name"
+msgstr "Ad Soyad"
+
+msgid "Title / Position"
+msgstr "Unvan / Pozisyon"
+
+msgid "Organization"
+msgstr "Organizasyon"
+
+msgid "Country"
+msgstr "Ülke"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Actions"
+msgstr "Eylemler"
+
+msgid "Public"
+msgstr "Halk"
+
+msgid "Hidden"
+msgstr "Gizlenmiş"
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr "Filtreleri ayarlayın veya ilk konuşmacı kaydını oluşturun."
+
+msgid "No event types found"
+msgstr "Hiçbir etkinlik türü bulunamadı"
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Filtreleri ayarlayın veya varsayılan olay türlerini tohumlayın."
+
+msgid "No sponsors found"
+msgstr "Sponsor bulunamadı"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Filtreleri ayarlayın veya ilk sponsor kaydını oluşturun."
+
+msgid "Speakers Directory"
+msgstr "Konuşmacılar Dizini"
+
+msgid "Manage keynote speakers, presenters, and experts."
+msgstr "Açılış konuşmacılarını, sunum yapan kişileri ve uzmanları yönetin."
+
+msgid "New Speaker"
+msgstr "Yeni Konuşmacı"
+
+msgid "No speakers found in directory."
+msgstr "Dizinde hoparlör bulunamadı."
+
+msgid "Full Name"
+msgstr "Ad Soyad"
+
+msgid "Title / Position"
+msgstr "Unvan / Pozisyon"
+
+msgid "Organization"
+msgstr "Organizasyon"
+
+msgid "Country"
+msgstr "Ülke"
+
+msgid "Status"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Actions"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Public"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Hidden"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Adjust the filters or create the first speaker record."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "No event types found"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Adjust the filters or seed the default event types."
+msgstr "Filtreleri ayarlayın veya varsayılan olay türlerini tohumlayın."
+
+msgid "No sponsors found"
+msgstr "Sponsor bulunamadı"
+
+msgid "Adjust the filters or create the first sponsor record."
+msgstr "Filtreleri ayarlayın veya ilk sponsor kaydını oluşturun."
+
+# Login page translations (Phase 27.19)
+msgid "Kirish"
+msgstr "Girmek"
+
+msgid "Xush kelibsiz"
+msgstr "Rica ederim"
+
+msgid "K-ONE boshqaruv tizimiga kiring"
+msgstr "K-ONE yönetim sistemine giriş yapın"
+
+msgid "Foydalanuvchi nomi"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Parol"
+msgstr "Şartlı tahliye"
+
+msgid "Parolni ko'rsatish"
+msgstr "Şifreyi göster"
+
+msgid "Parolni yashirish"
+msgstr "Şifreyi gizle"
+
+msgid ""
+"Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+msgstr ""
+"Kullanıcı adı veya şifre yanlış. Verilerinizi kontrol edip tekrar deneyin."
+
+msgid "Tizimga kirish faqat ruxsat etilgan xodimlar uchun."
+msgstr "Sisteme erişim yalnızca yetkili personelin erişimine açıktır."
+
+msgid "Barcha tadbirlar yagona tizimda"
+msgstr "Tüm faaliyetler tek sistemde"
+
+msgid ""
+"Tadbirlar, konferensiya zallari va boshqaruv jarayonlarini yagona "
+"professional platformada boshqaring."
+msgstr ""
+"Etkinlikleri, konferans salonlarını ve yönetim süreçlerini tek bir "
+"profesyonel platformda yönetin."
+
+msgid "Xavfsiz kirish"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Real vaqt monitoringi"
+msgstr "Gerçek zamanlı izleme"
+
+msgid "Markazlashgan boshqaruv"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Mavzuni o'zgartirish"
+msgstr "Konuyu değiştir"
+
+msgid "Cannot delete %(resource)s because it is currently in use."
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Bosh sahifa"
+msgstr "Ana sayfa"
+
+msgid "Tadbirlar"
+msgstr ""
+"Error 500 (Server Error)!!1500.That’s an error.There was an error. Please "
+"try again later.That’s all we know."
+
+msgid "Taqvim"
+msgstr "Takvim"
+
+msgid "Tasdiqlash"
+msgstr "Onay"
+
+msgid "Ko'chirilganlar"
+msgstr "Yerinden edilmiş"
+
+msgid "Ma'lumotnomalar"
+msgstr "Referanslar"
+
+msgid "Zallar"
+msgstr "tamamen"
+
+msgid "Tadbir turlari"
+msgstr "Etkinlik türleri"
+
+msgid "Tashkilotlar"
+msgstr "Organizasyonlar"
+
+msgid "Homiylar"
+msgstr "Sponsorlar"
+
+msgid "Ma'ruzachilar"
+msgstr "Hoparlörler"
+
+msgid "Nashrlar"
+msgstr "Yayınlar"
+
+msgid "Rahbariyat paneli"
+msgstr "Yönetim paneli"
+
+msgid "Hisobotlar"
+msgstr "Raporlar"
+
+msgid "Shaxsiy"
+msgstr "Kişisel"
+
+msgid "Profil"
+msgstr "Profil"
+
+msgid "Operatsiya"
+msgstr "Operasyon"
+
+msgid "Aloqa"
+msgstr "İletişim"
+
+msgid "Tahlil"
+msgstr "Analiz"
+
+msgid "Ish maydoni"
+msgstr "Çalışma alanı"
+
+msgid "1. Program Mode & Details"
+msgstr "1. Program Modu ve Detaylar"
+
+msgid "2. PDF Document Upload"
+msgstr "2. PDF Belge Yükleme"
+
+msgid "3. Structured Agenda Items"
+msgstr "3. Yapılandırılmış Gündem Öğeleri"
+
+msgid "AVAILABLE"
+msgstr "MÜSAİT"
+
+msgid "Access denied"
+msgstr "Erişim reddedildi"
+
+msgid "Action"
+msgstr "İşlem"
+
+msgid "Activity Summary"
+msgstr "Etkinlik Özeti"
+
+msgid "Add Agenda Session"
+msgstr "Gündem Oturumu Ekle"
+
+msgid "Add New Agenda Session"
+msgstr "Yeni Gündem Oturumu Ekle"
+
+msgid "Add New Speaker"
+msgstr "Yeni Konuşmacı Ekle"
+
+msgid "Add Speaker"
+msgstr "Konuşmacı Ekle"
+
+msgid "Address"
+msgstr "Adres"
+
+msgid "Adjust the filters or create the first venue record."
+msgstr "Filtreleri ayarlayın veya ilk salon kaydını oluşturun."
+
+msgid "Admin Panel"
+msgstr "Yönetici Paneli"
+
+msgid "Admin navigation"
+msgstr "Yönetici navigasyonu"
+
+msgid "Admin sign in"
+msgstr "Yönetici girişi"
+
+msgid "Administrator sozlamalari"
+msgstr "Yönetici ayarları"
+
+msgid "All Methods"
+msgstr "Tüm Yöntemler"
+
+msgid "All Priorities"
+msgstr "Tüm Öncelikler"
+
+msgid "Allowed"
+msgstr "İzin verildi"
+
+msgid "Announcement"
+msgstr "Duyuru"
+
+msgid "Anonymous Guest"
+msgstr "Anonim Misafir"
+
+msgid "Approvals"
+msgstr "Onaylar"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "Approve Event"
+msgstr "Etkinliği Onayla"
+
+msgid ""
+"Assign responsible employee and management oversight contact using Master "
+"Data staff selectors."
+msgstr ""
+"Ana Veri personel seçicilerini kullanarak sorumlu çalışanı ve yönetim "
+"gözetim kişisini atayın."
+
+msgid ""
+"Attach co-organizing local/foreign organizations and supporting sponsors."
+msgstr ""
+"Ortak düzenleyen yerel/yabancı kurumları ve destekleyen sponsorları ekleyin."
+
+msgid "Attendance"
+msgstr "Katılım"
+
+msgid "Attendance Summary"
+msgstr "Katılım Özeti"
+
+msgid "Attendee Directory"
+msgstr "Katılımcı Dizini"
+
+msgid "Attendees"
+msgstr "Katılımcılar"
+
+msgid "Authorized staff"
+msgstr "Yetkili personel"
+
+msgid "Available now"
+msgstr "Şu anda müsait"
+
+msgid "Back"
+msgstr "Geri"
+
+msgid "Back to Event"
+msgstr "Etkinliğe Dön"
+
+msgid "Back to Event Details"
+msgstr "Etkinlik Detaylarına Dön"
+
+msgid "Back to event"
+msgstr "Etkinliğe dön"
+
+msgid "Back to event types"
+msgstr "Etkinlik türlerine dön"
+
+msgid "Back to organizations"
+msgstr "Kurumlara dön"
+
+msgid "Back to sponsors"
+msgstr "Sponsorlara dön"
+
+msgid "Back to venues"
+msgstr "Salonlara dön"
+
+msgid "Banner not generated"
+msgstr "Afiş oluşturulmadı"
+
+msgid "Barcha Turlar"
+msgstr "Tüm Türler"
+
+msgid "Barcha Zallar"
+msgstr "Tüm Salonlar"
+
+msgid ""
+"Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va "
+"navbatdagi dasturlari."
+msgstr ""
+"Tüm aktif kongre ve toplantı salonlarının gerçek zamanlı doluluk durumu ve "
+"yaklaşan programları."
+
+msgid "Barcha holatlar"
+msgstr "Tüm Durumlar"
+
+msgid "Barcha jadvallar vaqtida"
+msgstr "Tüm programlar zamanında"
+
+msgid "Barcha tadbirlar"
+msgstr "Tüm Etkinlikler"
+
+msgid "Barcha turlar"
+msgstr "Tüm Türler"
+
+msgid "Barchasi"
+msgstr "Tümü"
+
+msgid "Basic Info"
+msgstr "Temel Bilgiler"
+
+msgid "Bekor qilish"
+msgstr "İptal"
+
+msgid "Bildirishnomalar"
+msgstr "Bildirimler"
+
+msgid "Biography / Profile"
+msgstr "Biyografi / Profil"
+
+msgid ""
+"Bir martalik, tez muddatli havola orqali ulanadi — foydalanuvchi nomi talab "
+"qilinmaydi."
+msgstr ""
+"Kısa ömürlü, tek kullanımlık bir bağlantı ile bağlanılır — kullanıcı adı "
+"gerekmez."
+
+msgid "Bo'sh vaqt:"
+msgstr "Boş zaman:"
+
+msgid "Bot sozlangan"
+msgstr "Bot yapılandırıldı"
+
+msgid ""
+"Botni maqsadli kanal yoki guruhga administrator sifatida qo'shing, so'ng "
+"uning chat ID raqamini shu yerga kiriting."
+msgstr ""
+"Botu hedef kanala veya gruba yönetici olarak ekleyin, ardından sohbet "
+"kimliğini (chat ID) buraya girin."
+
+msgid "Bugun"
+msgstr "Bugün"
+
+msgid "Bugun uchun rejalashtirilgan operatsion tadbirlar mavjud emas."
+msgstr "Bugün için planlanmış operasyonel etkinlik yok."
+
+msgid "Bugungi operatsion oqim"
+msgstr "Bugünün operasyonel akışı"
+
+msgid "Bugungi tadbirlar, zallar va tasdiqlash jarayonlari."
+msgstr "Bugünün etkinlikleri, salonları ve onay süreçleri."
+
+msgid "Bulk deletion"
+msgstr "Toplu silme"
+
+msgid "Calendar"
+msgstr "Takvim"
+
+msgid "Cancel Event"
+msgstr "Etkinliği İptal Et"
+
+msgid ""
+"Cancelling an event releases the venue reservation and marks the record as "
+"cancelled."
+msgstr ""
+"Bir etkinliği iptal etmek salon rezervasyonunu serbest bırakır ve kaydı "
+"iptal edildi olarak işaretler."
+
+msgid "Capacity Warning"
+msgstr "Kapasite Uyarısı"
+
+msgid "Change password"
+msgstr "Şifreyi değiştir"
+
+msgid ""
+"Chat ID raqamini oling (masalan, @userinfobot yordamida) va yuqoridagi "
+"maydonga kiriting."
+msgstr ""
+"Sohbet kimliğini (örneğin @userinfobot ile) alın ve yukarıdaki alana girin."
+
+msgid "Check In Attendee"
+msgstr "Katılımcı Check-in"
+
+msgid "Check-in Closes At"
+msgstr "Check-in Kapanış Saati"
+
+msgid "Check-in Ma'lumoti"
+msgstr "Check-in Bilgisi"
+
+msgid "Check-in Method"
+msgstr "Check-in Yöntemi"
+
+msgid "Check-in Opens At"
+msgstr "Check-in Açılış Saati"
+
+msgid "Checked in"
+msgstr "Check-in yapıldı"
+
+msgid "Chiqish"
+msgstr "Çıkış"
+
+msgid "City"
+msgstr "Şehir"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Close drawer"
+msgstr "Paneli kapat"
+
+msgid "Close navigation"
+msgstr "Gezinmeyi kapat"
+
+msgid "Collapse sidebar"
+msgstr "Kenar çubuğunu daralt"
+
+msgid "Color"
+msgstr "Renk"
+
+msgid "Configure Program"
+msgstr "Programı Yapılandır"
+
+msgid "Confirm Cancellation"
+msgstr "İptali Onayla"
+
+msgid "Confirm Override"
+msgstr "Geçersiz Kılmayı Onayla"
+
+msgid "Confirm Postpone"
+msgstr "Ertelemeyi Onayla"
+
+msgid "Confirm Postpone Event"
+msgstr "Etkinlik Ertelemeyi Onayla"
+
+msgid "Confirm Rejection"
+msgstr "Reddi Onayla"
+
+msgid "Confirm Reschedule"
+msgstr "Yeniden Planlamayı Onayla"
+
+msgid "Conflict Status"
+msgstr "Çakışma Durumu"
+
+msgid "Conflict with approved event(s)"
+msgstr "Onaylanmış etkinlik(ler)le çakışma"
+
+msgid "Conflict with existing approved events"
+msgstr "Mevcut onaylanmış etkinliklerle çakışma"
+
+msgid "Contact"
+msgstr "İletişim"
+
+msgid "Contact and address"
+msgstr "İletişim ve adres"
+
+msgid "Contact details"
+msgstr "İletişim bilgileri"
+
+msgid "Contact person"
+msgstr "İletişim kişisi"
+
+msgid "Created at"
+msgstr "Oluşturulma tarihi"
+
+msgid "Created by"
+msgstr "Oluşturan"
+
+msgid "Current Event"
+msgstr "Mevcut Etkinlik"
+
+msgid "Current PDF"
+msgstr "Mevcut PDF"
+
+msgid "Currently free for bookings"
+msgstr "Şu anda rezervasyona açık"
+
+msgid "DISPLACED"
+msgstr "ERTELENDİ"
+
+msgid "DISPLACED BY EMERGENCY"
+msgstr "ACİL DURUM NEDENİYLE ERTELENDİ"
+
+msgid "Dangerous action"
+msgstr "Tehlikeli işlem"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Date & Time"
+msgstr "Tarih ve Saat"
+
+msgid "Date & Venue"
+msgstr "Tarih ve Salon"
+
+msgid "Date/time"
+msgstr "Tarih/saat"
+
+msgid "Default: 60m before event start"
+msgstr "Varsayılan: etkinlik başlangıcından 60 dk önce"
+
+msgid "Default: event end time"
+msgstr "Varsayılan: etkinlik bitiş zamanı"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Delete Event"
+msgstr "Etkinliği Sil"
+
+msgid "Delete PDF"
+msgstr "PDF Sil"
+
+msgid "Delete permanently"
+msgstr "Kalıcı olarak sil"
+
+msgid "Delete selected records?"
+msgstr "Seçili kayıtlar silinsin mi?"
+
+msgid "Delivery status"
+msgstr "İletim durumu"
+
+msgid "Dependent records"
+msgstr "Bağımlı kayıtlar"
+
+msgid "Description"
+msgstr "Açıklama"
+
+msgid "Description / Abstract"
+msgstr "Açıklama / Özet"
+
+msgid "Diqqat: band vaqt to'qnashuvlari aniqlandi"
+msgstr "Uyarı: çakışan rezervasyonlar tespit edildi"
+
+msgid "Disable Public Access"
+msgstr "Herkese Açık Erişimi Devre Dışı Bırak"
+
+msgid "Disabled"
+msgstr "Devre dışı"
+
+msgid "Display"
+msgstr "Görüntüle"
+
+msgid "Download PDF"
+msgstr "PDF İndir"
+
+msgid "Download PNG"
+msgstr "PNG İndir"
+
+msgid "Draft"
+msgstr "Taslak"
+
+msgid "EMERGENCY OVERRIDE RATIONALE"
+msgstr "ACİL DURUM GEÇERSİZ KILMA GEREKÇESİ"
+
+msgid "ERKIN"
+msgstr "BOŞ"
+
+msgid "Edit Event"
+msgstr "Etkinliği Düzenle"
+
+msgid "Edit Speaker"
+msgstr "Konuşmacıyı Düzenle"
+
+msgid "Email"
+msgstr "E-posta"
+
+msgid "Email (Private - Internal Only)"
+msgstr "E-posta (Gizli - Yalnızca Dahili)"
+
+msgid "Emergency / High Priority"
+msgstr "Acil / Yüksek Öncelik"
+
+msgid "Emergency Override"
+msgstr "Acil Durum Geçersiz Kılma"
+
+msgid "Emergency override"
+msgstr "acil durum geçersiz kılma"
+
+msgid "Enable Public Access"
+msgstr "Herkese Açık Erişimi Etkinleştir"
+
+msgid "Enable Public Profile on Event Program Pages"
+msgstr "Etkinlik Programı Sayfalarında Herkese Açık Profili Etkinleştir"
+
+msgid "Enable Public QR Check-in for this event"
+msgstr "Bu etkinlik için Herkese Açık QR Check-in'i Etkinleştir"
+
+msgid "Enabled"
+msgstr "Etkin"
+
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+msgid "End Time"
+msgstr "Bitiş Saati"
+
+msgid "Erkin"
+msgstr "Boş"
+
+msgid "Erkin zallar"
+msgstr "Boş salonlar"
+
+msgid "Event Agenda & Schedule"
+msgstr "Etkinlik Gündemi ve Programı"
+
+msgid "Event Check-in Configuration"
+msgstr "Etkinlik Check-in Yapılandırması"
+
+msgid "Event Summary Review"
+msgstr "Etkinlik Özeti İncelemesi"
+
+msgid "Event types"
+msgstr "Etkinlik türleri"
+
+msgid ""
+"Events, venues, communications and governance in one professional workspace."
+msgstr ""
+"Etkinlikler, salonlar, iletişim ve yönetişim tek bir profesyonel çalışma "
+"alanında."
+
+msgid "Expected"
+msgstr "Beklenen"
+
+msgid "Expected attendees"
+msgstr "Beklenen katılımcılar"
+
+msgid "Expected attendees exceeds venue capacity"
+msgstr "Beklenen katılımcı sayısı salon kapasitesini aşıyor"
+
+msgid "External post"
+msgstr "Harici gönderi"
+
+msgid "F.I.Sh. (ixtiyoriy)"
+msgstr "Ad Soyad (isteğe bağlı)"
+
+msgid "F.I.Sh. / Full Name"
+msgstr "Ad Soyad"
+
+msgid "Failed"
+msgstr "Başarısız"
+
+msgid "Faol"
+msgstr "Aktif"
+
+msgid "Faol emas"
+msgstr "Etkin değil"
+
+msgid "Faol tadbir"
+msgstr "Aktif etkinlik"
+
+msgid "Feed links may not be clickable. Use the QR code for event access."
+msgstr ""
+"Akış bağlantıları tıklanabilir olmayabilir. Etkinliğe erişim için QR kodunu "
+"kullanın."
+
+msgid "Filter"
+msgstr "Filtre"
+
+msgid "Filter by event type"
+msgstr "Etkinlik türüne göre filtrele"
+
+msgid "Filter by priority"
+msgstr "Önceliğe göre filtrele"
+
+msgid "Filter by status"
+msgstr "Duruma göre filtrele"
+
+msgid "Filter by venue"
+msgstr "Salona göre filtrele"
+
+msgid "Filtrlash"
+msgstr "Filtrele"
+
+msgid "Full Event Details →"
+msgstr "Etkinlik Detayları →"
+
+msgid "Full Name / F.I.Sh."
+msgstr "Ad Soyad"
+
+msgid "Generate preview"
+msgstr "Önizleme oluştur"
+
+msgid "Generate the banner and exact platform caption from the saved draft."
+msgstr "Kaydedilen taslaktan afişi ve platforma özel açıklamayı oluşturun."
+
+msgid "Generated event announcement banner"
+msgstr "Oluşturulan etkinlik duyuru afişi"
+
+msgid "HOZIR"
+msgstr "ŞİMDİ"
+
+msgid "Hafta"
+msgstr "Hafta"
+
+msgid "Higher-Priority Event"
+msgstr "Daha Yüksek Öncelikli Etkinlik"
+
+msgid "Hisob ma'lumotlari"
+msgstr "Hesap bilgileri"
+
+msgid "Hisob ma'lumotlari va shaxsiy sozlamalar"
+msgstr "Hesap bilgileri ve kişisel ayarlar"
+
+msgid "History"
+msgstr "Geçmiş"
+
+msgid "Holat"
+msgstr "Durum"
+
+msgid "Holat bo‘yicha"
+msgstr "Duruma göre"
+
+msgid "Hozir bo'sh"
+msgstr "Şu anda boş"
+
+msgid "Hozircha rejalashtirilgan tadbirlar mavjud emas."
+msgstr "Henüz planlanmış etkinlik yok."
+
+msgid "Hozircha tizimda zallar mavjud emas."
+msgstr "Sistemde henüz salon bulunmuyor."
+
+msgid "Hozirda erkin — rejalashtirish mumkin"
+msgstr "Şu anda boş — rezervasyona açık"
+
+msgid "Hozirda faol zallar mavjud emas"
+msgstr "Şu anda aktif salon yok"
+
+msgid "Icon"
+msgstr "Simge"
+
+msgid "Inactive"
+msgstr "Etkin değil"
+
+msgid ""
+"Instagram feed caption links are not presented as clickable. Event access is"
+" provided through the banner QR."
+msgstr ""
+"Instagram akış açıklama bağlantıları tıklanabilir olarak sunulmaz. Etkinliğe"
+" erişim afiş QR kodu ile sağlanır."
+
+msgid "Integratsiya holati"
+msgstr "Entegrasyon durumu"
+
+msgid ""
+"Interactive calendar overview of planned international events and venue "
+"schedules."
+msgstr ""
+"Planlanan uluslararası etkinliklerin ve salon programlarının etkileşimli "
+"takvim görünümü."
+
+msgid "International activity, managed with clarity."
+msgstr "Netlikle yönetilen uluslararası faaliyet."
+
+msgid "Invalid request"
+msgstr "Geçersiz istek"
+
+msgid ""
+"It is referenced by protected operational data. Remove or archive the "
+"dependency first."
+msgstr ""
+"Korumalı operasyonel verilerce referans veriliyor. Önce bağımlılığı kaldırın"
+" veya arşivleyin."
+
+msgid "Items"
+msgstr "Öğeler"
+
+msgid "JONLI MONITORING"
+msgstr "CANLI İZLEME"
+
+msgid "Join Live Zoom Meeting"
+msgstr "Canlı Zoom Toplantısına Katıl"
+
+msgid "Jonli zallar holati"
+msgstr "Canlı salon durumu"
+
+msgid "K-ONE Control Center"
+msgstr "K-ONE Kontrol Merkezi"
+
+msgid "Kanal/guruh sozlamalari"
+msgstr "Kanal/grup ayarları"
+
+msgid "Kechikayotgan tadbirlar"
+msgstr "Gecikmiş etkinlikler"
+
+msgid "Key indicators"
+msgstr "Temel göstergeler"
+
+msgid "Keyingi"
+msgstr "Sonraki"
+
+msgid "Keyingi dastur"
+msgstr "Sonraki program"
+
+msgid "Keynote Speakers & Experts"
+msgstr "Ana Konuşmacılar ve Uzmanlar"
+
+msgid "Konfliktlar aniqlanmadi"
+msgstr "Çakışma tespit edilmedi"
+
+msgid "Kun"
+msgstr "Gün"
+
+msgid "Kun davomida erkin"
+msgstr "Gün boyunca boş"
+
+msgid "Kutilayotgan"
+msgstr "Bekleniyor"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "Last login"
+msgstr "Son giriş"
+
+msgid "Live Venue Display"
+msgstr "Canlı Salon Ekranı"
+
+msgid "Live count"
+msgstr "Canlı sayaç"
+
+msgid "Live real-time operational status foundation across university halls."
+msgstr "Üniversite salonlarında gerçek zamanlı operasyonel durum altyapısı."
+
+msgid "Live status"
+msgstr "Canlı durum"
+
+msgid "Localized names"
+msgstr "Yerelleştirilmiş adlar"
+
+msgid "MEN KELDIM"
+msgstr "GELDİM"
+
+msgid "Ma'lumotlar ixtiyoriy. Anonim qatnashish ham mumkin."
+msgstr "Bilgiler isteğe bağlıdır. Anonim katılım da mümkündür."
+
+msgid "Main"
+msgstr "Ana"
+
+msgid "Manage Program & Public Page"
+msgstr "Program ve Herkese Açık Sayfayı Yönet"
+
+msgid "Management approval"
+msgstr "Yönetim onayı"
+
+msgid ""
+"Manually record guest attendance for VIPs or guests unable to scan QR code."
+msgstr ""
+"QR kodu tarayamayan VIP'ler veya misafirler için katılımı manuel olarak "
+"kaydedin."
+
+msgid "Mas'ul"
+msgstr "Sorumlu"
+
+msgid "Mas'ul xodimlar uchun shaxsiy tadbir eslatmalari."
+msgstr "Sorumlu personel için kişisel etkinlik hatırlatmaları."
+
+msgid "Master Data"
+msgstr "Ana Veri"
+
+msgid "Master data"
+msgstr "Ana veri"
+
+msgid "Missing"
+msgstr "Eksik"
+
+msgid "More actions"
+msgstr "Diğer işlemler"
+
+msgid "Name or org provided"
+msgstr "İsim veya kurum belirtildi"
+
+msgid "Nashr manzili"
+msgstr "Yayın hedefi"
+
+msgid "Navbat"
+msgstr "Kuyruk"
+
+msgid "Navbatda"
+msgstr "Sırada"
+
+msgid "Navbatdagi so'rovlar"
+msgstr "Sıradaki talepler"
+
+msgid "New End Time"
+msgstr "Yeni Bitiş Saati"
+
+msgid "New Planned Date"
+msgstr "Yeni Planlanan Tarih"
+
+msgid "New Start Time"
+msgstr "Yeni Başlangıç Saati"
+
+msgid "Next"
+msgstr "Sonraki"
+
+msgid "Next 7 days"
+msgstr "Sonraki 7 gün"
+
+msgid "Next Event"
+msgstr "Sonraki Etkinlik"
+
+msgid "Next: Date & Venue →"
+msgstr "Sonraki: Tarih ve Salon →"
+
+msgid "Next: Partners & Sponsors →"
+msgstr "Sonraki: Ortaklar ve Sponsorlar →"
+
+msgid "Next: Responsible People →"
+msgstr "Sonraki: Sorumlu Kişiler →"
+
+msgid "Next: Review & Submit →"
+msgstr "Sonraki: İnceleme ve Gönderim →"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "No PDF document uploaded yet. Upload a PDF to publish in PDF mode."
+msgstr ""
+"Henüz PDF belgesi yüklenmedi. PDF modunda yayınlamak için bir PDF yükleyin."
+
+msgid "No Telegram deliveries yet."
+msgstr "Henüz Telegram iletimi yok."
+
+msgid "No attendance records recorded yet."
+msgstr "Henüz katılım kaydı yok."
+
+msgid "No event in progress"
+msgstr "Devam eden etkinlik yok"
+
+msgid "No events today"
+msgstr "Bugün etkinlik yok"
+
+msgid "No high-priority events"
+msgstr "Yüksek öncelikli etkinlik yok"
+
+msgid "No manual agenda items added yet."
+msgstr "Henüz manuel gündem öğesi eklenmedi."
+
+msgid "No more events today"
+msgstr "Bugün için başka etkinlik yok"
+
+msgid "No permitted modules"
+msgstr "İzin verilen modül yok"
+
+msgid "No publications found"
+msgstr "Yayın bulunamadı"
+
+msgid "No publications yet."
+msgstr "Henüz yayın yok."
+
+msgid "No publications yet. Open an eligible event to create one."
+msgstr "Henüz yayın yok. Oluşturmak için uygun bir etkinlik açın."
+
+msgid "No upcoming events"
+msgstr "Yaklaşan etkinlik yok"
+
+msgid "No venue photo"
+msgstr "Salon fotoğrafı yok"
+
+msgid "No venues found"
+msgstr "Salon bulunamadı"
+
+msgid "Nofaol"
+msgstr "Etkin değil"
+
+msgid "Not allowed"
+msgstr "İzin verilmiyor"
+
+msgid "Not required"
+msgstr "Gerekli değil"
+
+msgid "Notes"
+msgstr "Notlar"
+
+msgid "Notifications"
+msgstr "Bildirimler"
+
+msgid "OCCUPIED"
+msgstr "DOLU"
+
+msgid "OPERATSION KO'RINISH"
+msgstr "OPERASYONEL GÖRÜNÜM"
+
+msgid "OPERATSION MARKAZ"
+msgstr "OPERASYON MERKEZİ"
+
+msgid "OPERATSION NAZORAT"
+msgstr "OPERASYONEL KONTROL"
+
+msgid "OPERATSION TAQVIM"
+msgstr "OPERASYONEL TAKVİM"
+
+msgid "Occupied Venues"
+msgstr "Dolu Salonlar"
+
+msgid "Ochiq tizim"
+msgstr "Açık sistem"
+
+msgid "Of expected attendees"
+msgstr "Beklenen katılımcıların"
+
+msgid "Official Event Program (PDF)"
+msgstr "Resmi Etkinlik Programı (PDF)"
+
+msgid "Oldingi"
+msgstr "Önceki"
+
+msgid "One or more records are protected and cannot be removed."
+msgstr "Bir veya daha fazla kayıt korumalı olduğundan kaldırılamaz."
+
+msgid "Open PDF Program"
+msgstr "PDF Programı Aç"
+
+msgid "Open navigation"
+msgstr "Gezinmeyi aç"
+
+msgid "Open website"
+msgstr "Web sitesini aç"
+
+msgid "Operational details"
+msgstr "Operasyonel detaylar"
+
+msgid "Operatsion holatda"
+msgstr "Operasyonel durumda"
+
+msgid "Organization / Tashkilot"
+msgstr "Kurum / Organizasyon"
+
+msgid "Organization details"
+msgstr "Kurum detayları"
+
+msgid "Organization type"
+msgstr "Kurum türü"
+
+msgid "Organizations"
+msgstr "Kurumlar"
+
+msgid "Organized By"
+msgstr "Düzenleyen"
+
+msgid "Organizer"
+msgstr "Düzenleyici"
+
+msgid "Orqaga"
+msgstr "Geri"
+
+msgid "Over Capacity"
+msgstr "Kapasite Aşımı"
+
+msgid "Override"
+msgstr "Geçersiz Kıl"
+
+msgid "Override Conflict"
+msgstr "Çakışmayı Geçersiz Kıl"
+
+msgid "Override Reason (Mandatory)"
+msgstr "Geçersiz Kılma Nedeni (Zorunlu)"
+
+msgid "Oy"
+msgstr "Ay"
+
+msgid "PDF Document"
+msgstr "PDF Belgesi"
+
+msgid "PRIVATE / HIDDEN"
+msgstr "ÖZEL / GİZLİ"
+
+msgid "PUBLICLY ACCESSIBLE"
+msgstr "HERKESE AÇIK"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Page not found"
+msgstr "Sayfa bulunamadı"
+
+msgid "Pagination"
+msgstr "Sayfalama"
+
+msgid "Partners"
+msgstr "Ortaklar"
+
+msgid "Password"
+msgstr "Şifre"
+
+msgid "People"
+msgstr "Kişiler"
+
+msgid "Permanent Printable QR Code"
+msgstr "Kalıcı Yazdırılabilir QR Kod"
+
+msgid "Permission required"
+msgstr "İzin gerekli"
+
+msgid "Personal notifications only; no public channel publishing."
+msgstr "Yalnızca kişisel bildirimler; herkese açık kanal yayını yok."
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Planned Date"
+msgstr "Planlanan Tarih"
+
+msgid "Platform"
+msgstr "Platform"
+
+msgid "Platform preview"
+msgstr "Platform önizlemesi"
+
+msgid "Platforma"
+msgstr "Platform"
+
+msgid "Please correct the errors below."
+msgstr "Lütfen aşağıdaki hataları düzeltin."
+
+msgid "Please review the highlighted fields."
+msgstr "Lütfen vurgulanan alanları gözden geçirin."
+
+msgid "Please slow down"
+msgstr "Lütfen yavaşlayın"
+
+msgid "Point your camera to view the live agenda, schedule, and speakers."
+msgstr ""
+"Canlı gündemi, programı ve konuşmacıları görmek için kameranızı yöneltin."
+
+msgid "Postpone"
+msgstr "Ertele"
+
+msgid "Postpone Event"
+msgstr "Etkinliği Ertele"
+
+msgid "Postponement Reason (Optional)"
+msgstr "Erteleme Nedeni (İsteğe Bağlı)"
+
+msgid "Prepare, approve and track public event announcements."
+msgstr ""
+"Herkese açık etkinlik duyurularını hazırlayın, onaylayın ve takip edin."
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Preview Public Page"
+msgstr "Herkese Açık Sayfayı Önizle"
+
+msgid "Preview after saving"
+msgstr "Kaydettikten sonra önizle"
+
+msgid "Previous"
+msgstr "Önceki"
+
+msgid "Primary navigation"
+msgstr "Birincil gezinme"
+
+msgid "Print Poster / Save PDF"
+msgstr "Afiş Yazdır / PDF Kaydet"
+
+msgid "Print Poster QR (A4/A5)"
+msgstr "QR Afiş Yazdır (A4/A5)"
+
+msgid "Print QR Code"
+msgstr "QR Kodu Yazdır"
+
+msgid "Priority Override"
+msgstr "Öncelik Geçersiz Kılma"
+
+msgid "Program Footer Notes"
+msgstr "Program Alt Notları"
+
+msgid "Program Introduction / Note"
+msgstr "Program Girişi / Notu"
+
+msgid "Protected operational history"
+msgstr "Korumalı operasyonel geçmiş"
+
+msgid ""
+"Provide remote meeting URLs and review event schedule before finalizing."
+msgstr ""
+"Kesinleştirmeden önce uzaktan toplantı bağlantılarını girin ve etkinlik "
+"programını gözden geçirin."
+
+msgid ""
+"Provide the primary identity and target audience capacity for the "
+"international event."
+msgstr ""
+"Uluslararası etkinlik için temel kimliği ve hedef katılımcı kapasitesini "
+"girin."
+
+msgid "Public Access & Status"
+msgstr "Herkese Açık Erişim ve Durum"
+
+msgid "Public Communications"
+msgstr "Kamu İletişimi"
+
+msgid "Public Event URL"
+msgstr "Herkese Açık Etkinlik URL'si"
+
+msgid "Publication Eligibility"
+msgstr "Yayın Uygunluğu"
+
+msgid "Publication composer"
+msgstr "Yayın oluşturucu"
+
+msgid "Publicly Accessible"
+msgstr "Herkese Açık"
+
+msgid "Publish now"
+msgstr "Şimdi yayınla"
+
+msgid "Published"
+msgstr "Yayınlandı"
+
+msgid "Qanday sozlash kerak"
+msgstr "Nasıl kurulur"
+
+msgid "Qidirish..."
+msgstr "Ara..."
+
+msgid "Quick QR check-in"
+msgstr "Hızlı QR check-in"
+
+msgid "REJA"
+msgstr "PLAN"
+
+msgid "REJALASHTIRILGAN DASTUR"
+msgstr "PLANLANMIŞ PROGRAM"
+
+msgid "REJECTION RATIONALE"
+msgstr "RED GEREKÇESİ"
+
+msgid "Ready"
+msgstr "Hazır"
+
+msgid "Recipients"
+msgstr "Alıcılar"
+
+msgid "Refreshes automatically every 20 seconds"
+msgstr "Her 20 saniyede bir otomatik yenilenir"
+
+msgid "Register for Event"
+msgstr "Etkinliğe Kaydol"
+
+msgid "Rejalashtirilgan"
+msgstr "Planlandı"
+
+msgid "Reject"
+msgstr "Reddet"
+
+msgid "Reject Event"
+msgstr "Etkinliği Reddet"
+
+msgid "Rejection Rationale (Mandatory)"
+msgstr "Red Gerekçesi (Zorunlu)"
+
+msgid "Replace PDF"
+msgstr "PDF Değiştir"
+
+msgid "Reports"
+msgstr "Raporlar"
+
+msgid "Reports & Analytics"
+msgstr "Raporlar ve Analitik"
+
+msgid "Required"
+msgstr "Zorunlu"
+
+msgid "Reschedule"
+msgstr "Yeniden Planla"
+
+msgid "Reschedule Event"
+msgstr "Etkinliği Yeniden Planla"
+
+msgid "Reschedule Now"
+msgstr "Şimdi Yeniden Planla"
+
+msgid "Resubmit Event"
+msgstr "Etkinliği Yeniden Gönder"
+
+msgid "Retry"
+msgstr "Tekrar dene"
+
+msgid "Return to dashboard"
+msgstr "Panoya dön"
+
+msgid "Return to public dashboard"
+msgstr "Herkese açık panoya dön"
+
+msgid "Review"
+msgstr "İnceleme"
+
+msgid "Review every selected object before continuing."
+msgstr "Devam etmeden önce seçilen her nesneyi inceleyin."
+
+msgid "Reviewed at"
+msgstr "İncelenme tarihi"
+
+msgid "Reviewed by"
+msgstr "İnceleyen"
+
+msgid "Ro'yxat"
+msgstr "Liste"
+
+msgid "Role / Title"
+msgstr "Rol / Ünvan"
+
+msgid "Role and permissions are managed centrally by system administrators."
+msgstr ""
+"Rol ve izinler sistem yöneticileri tarafından merkezi olarak yönetilir."
+
+msgid "Rotate Token"
+msgstr "Belirteci Yenile"
+
+msgid "Rules"
+msgstr "Kurallar"
+
+msgid "Salom"
+msgstr "Merhaba"
+
+msgid "Saqlash"
+msgstr "Kaydet"
+
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+msgid "Save Configuration"
+msgstr "Yapılandırmayı Kaydet"
+
+msgid "Save Program Settings"
+msgstr "Program Ayarlarını Kaydet"
+
+msgid "Save Speaker"
+msgstr "Konuşmacıyı Kaydet"
+
+msgid "Save as Draft"
+msgstr "Taslak Olarak Kaydet"
+
+msgid "Save as Planned"
+msgstr "Planlanmış Olarak Kaydet"
+
+msgid "Save changes"
+msgstr "Değişiklikleri kaydet"
+
+msgid "Save draft"
+msgstr "Taslağı kaydet"
+
+msgid "Save reminder policy"
+msgstr "Hatırlatma politikasını kaydet"
+
+msgid "Scan to Open Event Program"
+msgstr "Etkinlik Programını Açmak İçin Tarayın"
+
+msgid ""
+"Scan with smartphone camera to immediately open the digital event program "
+"and schedule."
+msgstr ""
+"Dijital etkinlik programını ve zaman çizelgesini hemen açmak için akıllı "
+"telefon kamerasıyla tarayın."
+
+msgid "Schedule"
+msgstr "Program"
+
+msgid "Scheduled"
+msgstr "Planlandı"
+
+msgid "Search by name or org..."
+msgstr "İsim veya kuruma göre ara..."
+
+msgid "Search records"
+msgstr "Kayıt ara"
+
+msgid "Secure control center"
+msgstr "Güvenli kontrol merkezi"
+
+msgid "Select Program Mode"
+msgstr "Program Modunu Seç"
+
+msgid ""
+"Select a new date, time, or venue. The conflict engine will validate "
+"availability automatically."
+msgstr ""
+"Yeni bir tarih, saat veya salon seçin. Çakışma motoru uygunluğu otomatik "
+"olarak doğrular."
+
+msgid "Select event date, time interval, and available venue hall."
+msgstr "Etkinlik tarihini, zaman aralığını ve müsait salonu seçin."
+
+msgid "Selected image preview"
+msgstr "Seçilen görsel önizlemesi"
+
+msgid "Service error"
+msgstr "Servis hatası"
+
+msgid "Session Title"
+msgstr "Oturum Başlığı"
+
+msgid "Sessions"
+msgstr "Oturumlar"
+
+msgid "Shaxsiy sozlamalar"
+msgstr "Kişisel ayarlar"
+
+msgid "Sign in"
+msgstr "Giriş yap"
+
+msgid "Sign in to Admin"
+msgstr "Yönetici olarak giriş yap"
+
+msgid "Sign out"
+msgstr "Çıkış yap"
+
+msgid "Skip to content"
+msgstr "İçeriğe geç"
+
+msgid "Skip to main content"
+msgstr "Ana içeriğe geç"
+
+msgid "So'nggi muvaffaqiyatli yetkazish"
+msgstr "Son başarılı iletim"
+
+msgid "So'nggi xatoliklar"
+msgstr "Son hatalar"
+
+msgid "Something went wrong"
+msgstr "Bir şeyler ters gitti"
+
+msgid "Sort order"
+msgstr "Sıralama düzeni"
+
+msgid "Speaker"
+msgstr "Konuşmacı"
+
+msgid "Speaker (Select or Override)"
+msgstr "Konuşmacı (Seç veya Geçersiz Kıl)"
+
+msgid "Speaker Name Override (If not in directory)"
+msgstr "Konuşmacı Adı Geçersiz Kılma (Dizinde Yoksa)"
+
+msgid "Speaker Photo"
+msgstr "Konuşmacı Fotoğrafı"
+
+msgid "Speakers"
+msgstr "Konuşmacılar"
+
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgid "Sponsor record"
+msgstr "Sponsor kaydı"
+
+msgid "Sponsors & Partners"
+msgstr "Sponsorlar ve Ortaklar"
+
+msgid "Staff Status"
+msgstr "Personel Durumu"
+
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+msgid "Start Time"
+msgstr "Başlangıç Saati"
+
+msgid "Starts in"
+msgstr "Başlamasına"
+
+msgid "Status & Priority"
+msgstr "Durum ve Öncelik"
+
+msgid "Step 1: Basic Information"
+msgstr "Adım 1: Temel Bilgiler"
+
+msgid "Step 2: Date, Time & Venue"
+msgstr "Adım 2: Tarih, Saat ve Salon"
+
+msgid "Step 3: Responsible Staff Selection"
+msgstr "Adım 3: Sorumlu Personel Seçimi"
+
+msgid "Step 4: Organizations & Sponsors"
+msgstr "Adım 4: Kurumlar ve Sponsorlar"
+
+msgid "Step 5: Online Links & Final Review"
+msgstr "Adım 5: Çevrimiçi Bağlantılar ve Son İnceleme"
+
+msgid "Structured Agenda Timeline"
+msgstr "Yapılandırılmış Gündem Zaman Çizelgesi"
+
+msgid "Submit for Approval"
+msgstr "Onaya Gönder"
+
+msgid "Suggested Alternative Venues"
+msgstr "Önerilen Alternatif Salonlar"
+
+msgid "Superuser"
+msgstr "Süper kullanıcı"
+
+msgid ""
+"Tadbir e'lonlari avtomatik yuboriladigan Telegram kanali yoki guruhini "
+"belgilang."
+msgstr ""
+"Etkinlik duyurularının otomatik gönderileceği Telegram kanalını veya grubunu"
+" belirleyin."
+
+msgid "Tadbir sahifasiga o'tish"
+msgstr "Etkinlik sayfasına git"
+
+msgid "Tadbir turi bo‘yicha"
+msgstr "Etkinlik türüne göre"
+
+msgid "Tadbir yaratish"
+msgstr "Etkinlik oluştur"
+
+msgid "Tadbirga keldingizmi?"
+msgstr "Etkinliğe geldiniz mi?"
+
+msgid "Tadbirga kelganingizni tasdiqlang"
+msgstr "Katılımınızı onaylayın"
+
+msgid "Tadbirni qidirish..."
+msgstr "Etkinlik ara..."
+
+msgid "Target capacity"
+msgstr "Hedef kapasite"
+
+msgid "Tasdiq talab qiladi"
+msgstr "Onay gerektirir"
+
+msgid "Tashkilot / Organization"
+msgstr "Kurum / Organizasyon"
+
+msgid "Tashkilot nomi (ixtiyoriy)"
+msgstr "Kurum adı (isteğe bağlı)"
+
+msgid "Telegram botni ochish"
+msgstr "Telegram botunu aç"
+
+msgid "Telegram kanal / guruh sozlamalari"
+msgstr "Telegram kanal / grup ayarları"
+
+msgid "Telegram kanal sozlamalari"
+msgstr "Telegram kanal ayarları"
+
+msgid "Telegram reminders"
+msgstr "Telegram hatırlatmaları"
+
+msgid "Telegram sozlamalari"
+msgstr "Telegram ayarları"
+
+msgid "Telegram'da kanal yoki guruh yarating (agar mavjud bo'lmasa)."
+msgstr "Telegram'da bir kanal veya grup oluşturun (henüz yoksa)."
+
+msgid "Telegram'ni ulash"
+msgstr "Telegram'ı bağla"
+
+msgid "Test xabar yuborish"
+msgstr "Test mesajı gönder"
+
+msgid "Tez orada"
+msgstr "Yakında"
+
+msgid "The following event(s) will be DISPLACED:"
+msgstr "Aşağıdaki etkinlik(ler) ERTELENECEK:"
+
+msgid ""
+"The request could not be processed. Check the entered information and try "
+"again."
+msgstr "İstek işlenemedi. Girilen bilgileri kontrol edip tekrar deneyin."
+
+msgid "The requested page is unavailable or the link has expired."
+msgstr "İstenen sayfa kullanılamıyor veya bağlantının süresi doldu."
+
+msgid "The service could not complete the request. Please try again later."
+msgstr "Servis isteği tamamlayamadı. Lütfen daha sonra tekrar deneyin."
+
+msgid "The username or password is incorrect."
+msgstr "Kullanıcı adı veya şifre hatalı."
+
+msgid ""
+"This action cannot be undone. Confirm only when the record is no longer "
+"required."
+msgstr ""
+"Bu işlem geri alınamaz. Yalnızca kayıt artık gerekli değilse onaylayın."
+
+msgid ""
+"This action cannot be undone. Review affected records before continuing."
+msgstr ""
+"Bu işlem geri alınamaz. Devam etmeden önce etkilenen kayıtları gözden "
+"geçirin."
+
+msgid ""
+"This action will release the venue schedule slot. Operational records will "
+"retain cancellation history."
+msgstr ""
+"Bu işlem salon program dilimini serbest bırakır. Operasyonel kayıtlar iptal "
+"geçmişini saklar."
+
+msgid "This event was displaced by an emergency override event"
+msgstr "Bu etkinlik bir acil durum etkinliği tarafından ertelendi"
+
+msgid "This record cannot be deleted"
+msgstr "Bu kayıt silinemez"
+
+msgid "Til"
+msgstr "Dil"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Tizim"
+msgstr "Sistem"
+
+msgid "Tizim botini o'sha kanal/guruhga administrator sifatida qo'shing."
+msgstr "Sistem botunu o kanal/gruba yönetici olarak ekleyin."
+
+msgid "Tizim faol"
+msgstr "Sistem aktif"
+
+msgid "Tizim holati"
+msgstr "Sistem durumu"
+
+msgid "Today"
+msgstr "Bugün"
+
+msgid "Today's Schedule"
+msgstr "Bugünün Programı"
+
+msgid "Today's Timeline"
+msgstr "Bugünün Zaman Çizelgesi"
+
+msgid "Too many requests"
+msgstr "Çok fazla istek"
+
+msgid "Tozalash"
+msgstr "Temizle"
+
+msgid "Tugash vaqti:"
+msgstr "Bitiş zamanı:"
+
+msgid "Turi"
+msgstr "Tür"
+
+msgid "Ulangan"
+msgstr "Bağlandı"
+
+msgid "Ulangan sana"
+msgstr "Bağlanma tarihi"
+
+msgid "Ulanish"
+msgstr "Bağlantı"
+
+msgid "Ulanmagan"
+msgstr "Bağlı değil"
+
+msgid "Upcoming Events"
+msgstr "Yaklaşan Etkinlikler"
+
+msgid "Update event parameters, venue reservation, or schedule."
+msgstr ""
+"Etkinlik parametrelerini, salon rezervasyonunu veya programı güncelleyin."
+
+msgid "Updated at"
+msgstr "Güncellenme tarihi"
+
+msgid "Upload / Replace PDF (Max 10 MB)"
+msgstr "PDF Yükle / Değiştir (Maks 10 MB)"
+
+msgid "Upload PDF"
+msgstr "PDF Yükle"
+
+msgid "Upload PDF Document"
+msgstr "PDF Belgesi Yükle"
+
+msgid "Uploaded"
+msgstr "Yüklendi"
+
+msgid ""
+"Use approved event facts and entered copy. K-ONE does not invent official "
+"wording."
+msgstr ""
+"Onaylanmış etkinlik bilgilerini ve girilen metni kullanın. K-ONE resmi "
+"ifadeler uydurmaz."
+
+msgid "Use your K-ONE staff account."
+msgstr "K-ONE personel hesabınızı kullanın."
+
+msgid "User"
+msgstr "Kullanıcı"
+
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+msgid ""
+"Ushbu shaxsiy havolani Telegram'da oching. U tez orada eskiradi va faqat bir"
+" marta ishlaydi."
+msgstr ""
+"Bu özel bağlantıyı Telegram'da açın. Kısa süre içinde geçersiz olur ve "
+"yalnızca bir kez çalışır."
+
+msgid "Uzish"
+msgstr "Bağlantıyı kes"
+
+msgid "Vaqt"
+msgstr "Zaman"
+
+msgid "Vaqtida boshlanmagan tadbirlar bor"
+msgstr "Bazı etkinlikler zamanında başlamadı"
+
+msgid "Venue Directory"
+msgstr "Salon Dizini"
+
+msgid "Venue Location"
+msgstr "Salon Konumu"
+
+msgid "Venues"
+msgstr "Salonlar"
+
+msgid ""
+"View or download the official printable PDF schedule for this conference."
+msgstr ""
+"Bu konferansın resmi yazdırılabilir PDF programını görüntüleyin veya "
+"indirin."
+
+msgid "Warning"
+msgstr "Uyarı"
+
+msgid "Website"
+msgstr "Web sitesi"
+
+msgid ""
+"When enabled, guests scanning the QR code can record attendance on the "
+"public page."
+msgstr ""
+"Etkinleştirildiğinde, QR kodu tarayan misafirler herkese açık sayfada "
+"katılımını kaydedebilir."
+
+msgid "Working hours"
+msgstr "Çalışma saatleri"
+
+msgid "XRONOLOGIK MONITORING"
+msgstr "KRONOLOJİK İZLEME"
+
+msgid "Xalqaro bo'lim"
+msgstr "Uluslararası Bölüm"
+
+msgid "Xalqaro tadbirlar taqvimi"
+msgstr "Uluslararası etkinlik takvimi"
+
+msgid "Xavfsizlik va ruxsatlar"
+msgstr "Güvenlik ve izinler"
+
+msgid "Yangi tadbir"
+msgstr "Yeni etkinlik"
+
+msgid "Yangi xabarlar"
+msgstr "Yeni bildirimler"
+
+msgid "Yaqin tadbirlar"
+msgstr "Yaklaşan etkinlikler"
+
+msgid "Yaqinlashayotgan tadbirlar ro'yxati"
+msgstr "Yaklaşan etkinlikler listesi"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "Yopish"
+msgstr "Kapat"
+
+msgid "Yoqilgan"
+msgstr "Etkin"
+
+msgid "Your account does not have access to records in this section."
+msgstr "Hesabınızın bu bölümdeki kayıtlara erişimi yok."
+
+msgid "Your account does not have permission to perform this action."
+msgstr "Hesabınızın bu işlemi gerçekleştirme izni yok."
+
+msgid "Your account does not have permission to remove all dependent records."
+msgstr "Hesabınızın tüm bağımlı kayıtları kaldırma izni yok."
+
+msgid "Yuklanmoqda..."
+msgstr "Yükleniyor..."
+
+msgid "Zal"
+msgstr "Salon"
+
+msgid "Zal bo‘yicha"
+msgstr "Salona göre"
+
+msgid "Zal to'qnashuvlari"
+msgstr "Salon çakışmaları"
+
+msgid "Zallar holati"
+msgstr "Salon durumu"
+
+msgid "ago"
+msgstr "önce"
+
+msgid "exceeds venue capacity"
+msgstr "salon kapasitesini aşıyor"
+
+msgid "min"
+msgstr "dk"
+
+msgid "minutes"
+msgstr "dakika"
+
+msgid "minutes remaining"
+msgstr "dakika kaldı"
+
+msgid "persons"
+msgstr "kişi"
+
+msgid "records"
+msgstr "kayıt"
+
+msgid "registered in K-ONE"
+msgstr "K-ONE'da kayıtlı"
+
+msgid "seats"
+msgstr "koltuk"
+
+msgid "tadbir"
+msgstr "etkinlik"
+
+msgid "Ha"
+msgstr "Evet"
+
+msgid "Yo'q"
+msgstr "Hayır"
+
+msgid "Location not specified"
+msgstr "Konum belirtilmedi"
+
+msgid "No description provided."
+msgstr "Açıklama girilmedi."
+
+msgid "No notes provided."
+msgstr "Not girilmedi."
+
+msgid "Too many requests. Please try again later."
+msgstr "Çok fazla istek. Lütfen daha sonra tekrar deneyin."
+
+msgid "Channel/group name"
+msgstr "Kanal/grup adı"
+
+msgid "Chat ID"
+msgstr "Sohbet Kimliği (Chat ID)"
+
+msgid "Send event publications to this channel/group"
+msgstr "Etkinlik yayınlarını bu kanala/gruba gönder"
+
+msgid "e.g. K-ONE Events Channel"
+msgstr "örn. K-ONE Etkinlikler Kanalı"
+
+msgid ""
+"The numeric Telegram chat ID of the channel or group (add the bot as an "
+"admin there first)."
+msgstr ""
+"Kanal veya grubun sayısal Telegram sohbet kimliği (önce botu oraya yönetici "
+"olarak ekleyin)."
+
+msgid "Enable Telegram reminders"
+msgstr "Telegram hatırlatmalarını etkinleştir"
+
+msgid "7 days before"
+msgstr "7 gün önce"
+
+msgid "3 days before"
+msgstr "3 gün önce"
+
+msgid "1 day before"
+msgstr "1 gün önce"
+
+msgid "3 hours before"
+msgstr "3 saat önce"
+
+msgid "30 minutes before"
+msgstr "30 dakika önce"
+
+msgid "Please wait before creating another link."
+msgstr "Yeni bir bağlantı oluşturmadan önce bekleyin."
+
+msgid "Telegram integration is not configured."
+msgstr "Telegram entegrasyonu yapılandırılmamış."
+
+msgid "Telegram disconnected."
+msgstr "Telegram bağlantısı kesildi."
+
+msgid "Please wait before sending another test."
+msgstr "Başka bir test göndermeden önce bekleyin."
+
+msgid "Test message could not be sent."
+msgstr "Test mesajı gönderilemedi."
+
+msgid "Test message sent."
+msgstr "Test mesajı gönderildi."
+
+msgid "Telegram channel settings updated."
+msgstr "Telegram kanal ayarları güncellendi."
+
+msgid "Telegram reminder policy updated."
+msgstr "Telegram hatırlatma politikası güncellendi."
+
+msgid "Event Calendar"
+msgstr "Etkinlik Takvimi"
+
+msgid "Tadbir hozir boshlanmoqda"
+msgstr "Etkinlik şimdi başlıyor"
+
+msgid "Tadbir tez orada boshlanadi"
+msgstr "Etkinlik yakında başlıyor"
+
+msgid "Event Banner / Poster Image"
+msgstr "Etkinlik Afişi / Banner Görseli"
+
+msgid ""
+"No banner image uploaded yet. Upload a poster image to use for the event and"
+" its Telegram announcement."
+msgstr ""
+"Henüz banner görseli yüklenmedi. Etkinlik ve Telegram duyurusu için bir afiş"
+" görseli yükleyin."
+
+msgid "Upload / Replace Banner Image"
+msgstr "Banner Görselini Yükle / Değiştir"
+
+msgid "Replace Banner"
+msgstr "Bannerı Değiştir"
+
+msgid "Upload Banner"
+msgstr "Banner Yükle"
+
+msgid "Delete Banner"
+msgstr "Bannerı Sil"
+
+msgid "Event banner image uploaded successfully."
+msgstr "Etkinlik banner görseli başarıyla yüklendi."
+
+msgid "Event banner image removed."
+msgstr "Etkinlik banner görseli kaldırıldı."
+
+msgid "Invalid image file."
+msgstr "Geçersiz görsel dosyası."
+
+msgid "Dasturni ko'rish"
+msgstr "Programı Görüntüle"

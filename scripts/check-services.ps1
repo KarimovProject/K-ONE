@@ -39,8 +39,8 @@ $pong = & $redisCliPath -h 127.0.0.1 -p 6379 ping
 if ($pong -ne "PONG") { throw "Redis PING failed: $pong" }
 Write-Host "Redis PING: PONG"
 
-if (-not (Test-Path $venvPython)) { throw "C:\IEMS\.venv is missing. Run scripts\setup-local.ps1." }
-if (-not (Test-Path $envFile)) { throw "C:\IEMS\.env is missing. Copy .env.example and set DB_PASSWORD." }
+if (-not (Test-Path $venvPython)) { throw "D:\Projects\K ONE\.venv is missing. Run scripts\setup-local.ps1." }
+if (-not (Test-Path $envFile)) { throw "D:\Projects\K ONE\.env is missing. Copy .env.example and set DB_PASSWORD." }
 $envText = Get-Content -Raw -LiteralPath $envFile
 if ($envText -match "replace-with-your-local-postgresql-password") {
     throw "Set the existing local PostgreSQL password in .env before Django connectivity checks."

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Bildirishnomalar" %} · K-ONE{% endblock %}
+
+{% block content %}
+<div class="page-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <div>
+        <h1 class="page-title" style="font-size: 24px; margin-bottom: 4px;">{% trans "Bildirishnomalar" %}</h1>
+        <p class="page-description" style="color: var(--color-text-dim);">{% trans "Tizimdagi barcha yangilik va ogohlantirishlar" %}</p>
+    </div>
+    {% if notifications %}
+    <div>
+        <form method="post" action="{% url 'notifications:list' %}">
+            {% csrf_token %}
+            <button type="submit" name="mark_all_read" class="btn-ghost" style="padding: 8px 16px; border: 1px solid var(--color-border); border-radius: 8px; background: white; cursor: pointer;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><polyline points="20 6 9 17 4 12"/></svg>
+                {% trans "Barchasini o'qilgan deb belgilash" %}
+            </button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+<div class="notifications-list" style="background: var(--color-surface); border-radius: 12px; border: 1px solid var(--color-border); overflow: hidden;">
+    {% for notif in notifications %}
+        <div class="notification-item {% if not notif.is_read %}unread{% endif %}" style="display: flex; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--color-border); background: {% if not notif.is_read %}var(--color-surface-2){% else %}transparent{% endif %}; transition: background 0.2s;">
+            <div class="notification-icon" style="flex-shrink: 0; margin-top: 4px; color: {% if notif.severity == 'info' %}var(--primary-color, #2563EB){% elif notif.severity == 'warning' %}var(--warning-color, #D97706){% else %}var(--danger-color, #DC2626){% endif %};">
+                {% if notif.severity == 'info' %}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                {% elif notif.severity == 'warning' %}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                {% else %}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                {% endif %}
+            </div>
+            <div class="notification-content" style="flex: 1;">
+                <h3 style="margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--color-text);">
+                    {{ notif.title }}
+                    {% if not notif.is_read %}
+                        <span style="display: inline-block; width: 8px; height: 8px; background: var(--primary-color, #2563EB); border-radius: 50%; margin-left: 6px; vertical-align: middle;"></span>
+                    {% endif %}
+                </h3>
+                <p style="margin: 0 0 8px; font-size: 14px; color: var(--color-text-dim); line-height: 1.5;">{{ notif.message }}</p>
+                <div style="display: flex; gap: 12px; align-items: center; font-size: 12px; color: var(--color-text-muted);">
+                    <span>{{ notif.created_at|date:"d M Y, H:i" }}</span>
+                    {% if notif.target_url %}
+                        <a href="{{ notif.target_url }}" style="color: var(--primary-color, #2563EB); font-weight: 500; text-decoration: none;">{% trans "Batafsil ko'rish" %} &rarr;</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if not notif.is_read %}
+            <div class="notification-actions">
+                <form method="post" action="{% url 'notifications:mark-read' pk=notif.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-ghost" aria-label="{% trans 'O\'qilgan deb belgilash' %}" style="background: transparent; border: none; color: var(--color-text-dim); cursor: pointer; padding: 4px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <div style="padding: 40px 20px; text-align: center; color: var(--color-text-muted);">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom: 12px; opacity: 0.5;"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <p style="font-size: 15px;">{% trans "Sizda yangi bildirishnomalar yo'q" %}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+    <div class="pagination" style="margin-top: 24px; display: flex; justify-content: center; gap: 8px;">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn-ghost" style="padding: 6px 12px; border: 1px solid var(--color-border); border-radius: 6px;">&laquo;</a>
+        {% endif %}
+        <span style="padding: 6px 12px; font-weight: 600; color: var(--color-text);">
+            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn-ghost" style="padding: 6px 12px; border: 1px solid var(--color-border); border-radius: 6px;">&raquo;</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

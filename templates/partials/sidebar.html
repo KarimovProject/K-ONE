@@ -1,5 +1,5 @@
 {% load i18n static %}
-<aside class="sidebar" id="primary-navigation" aria-label="{% trans 'Primary navigation' %}">
+<aside class="sidebar" id="primary-navigation" aria-label="{% trans 'Primary navigation' %}" style="position: relative; transition: width 0.3s;">
   <div class="sidebar-header">
     <a class="sidebar-brand" href="{% url 'dashboard' %}">
       <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE" class="sidebar-logo">
@@ -79,12 +79,24 @@
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="report" %}</span>
       <span>{% trans "Hisobotlar" %}</span>
     </a>
+    {% if user.is_superuser or user.role == 'super_admin' %}
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'audit' %} is-active{% endif %}" href="{% url 'audit:view-logs' %}" {% if nav_key == 'audit' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="activity" %}</span>
+        <span>{% trans "Audit Log" %}</span>
+      </a>
+    {% endif %}
 
     <span class="nav-section">{% trans "Shaxsiy" %}</span>
     <a class="nav-item sidebar-nav-item{% if nav_key == 'telegram' %} is-active{% endif %}" href="{% url 'notifications:telegram-settings' %}" {% if nav_key == 'telegram' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="send" %}</span>
       <span>Telegram</span>
     </a>
+    {% if user.is_superuser or user.role == 'super_admin' or user.role == 'international_admin' %}
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'telegram-channel' %} is-active{% endif %}" href="{% url 'notifications:telegram-channel-settings' %}" {% if nav_key == 'telegram-channel' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="settings" %}</span>
+        <span>{% trans "Telegram kanal sozlamalari" %}</span>
+      </a>
+    {% endif %}
     <a class="nav-item sidebar-nav-item{% if nav_key == 'profile' %} is-active{% endif %}" href="{% url 'profile' %}" {% if nav_key == 'profile' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="user" %}</span>
       <span>{% trans "Profil" %}</span>

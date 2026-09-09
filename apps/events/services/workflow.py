@@ -19,9 +19,9 @@ from apps.venues.models import Venue
 
 
 def submit_event_for_approval(event: Event, actor: User) -> Event:
-    if event.status not in (Event.Status.DRAFT, Event.Status.REJECTED):
+    if event.status not in (Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.PLANNED):
         raise ValidationError(
-            _("Only events in Draft or Rejected status can be submitted for approval.")
+            _("Only events in Draft, Planned or Rejected status can be submitted for approval.")
         )
 
     event.status = Event.Status.PENDING_APPROVAL
@@ -93,7 +93,38 @@ def approve_event(event: Event, actor: User, notes: str = "") -> Event:
         )
 
     schedule_event_notification(event, "approved")
+    _auto_prepare_telegram_publication(event, actor)
     return event
+
+
+def _auto_prepare_telegram_publication(event: Event, actor: User) -> None:
+    """Pre-create and render a draft Telegram channel announcement so that
+    publishing an approved event only takes one manual "Publish" click,
+    instead of building the whole publication from scratch. The actual send
+    to Telegram always remains a deliberate, human-triggered action.
+    """
+    from apps.publications.models import Publication
+    from apps.publications.services import prepare_publication
+
+    already_exists = Publication.objects.filter(
+        event=event, platform=Publication.Platform.TELEGRAM_CHANNEL
+    ).exists()
+    if already_exists:
+        return
+
+    try:
+        publication = Publication.objects.create(
+            event=event,
+            platform=Publication.Platform.TELEGRAM_CHANNEL,
+            language="uz",
+            headline=event.title[:180],
+            short_description=event.description[:500] if event.description else "",
+            created_by=actor,
+        )
+        prepare_publication(publication, actor)
+    except Exception:
+        # Never let publication draft preparation block event approval.
+        pass
 
 
 def reject_event(event: Event, actor: User, reason: str) -> Event:

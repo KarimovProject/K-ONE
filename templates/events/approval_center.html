@@ -20,53 +20,55 @@
 </div>
 
 <div class="calendar-toolbar-row" style="margin-top: var(--space-4);">
-  <form class="calendar-filters premium-filters" method="get" action="">
-    <div class="filter-group filter-group--search">
-      <svg class="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input class="filter-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
+  <form class="command-filter-form" method="get" action="" role="search">
+    <div class="command-search-wrap">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input class="command-search-input" type="search" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by event title or description...' %}" aria-label="{% trans 'Search events' %}">
     </div>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="priority" aria-label="{% trans 'Filter by priority' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="priority" aria-label="{% trans 'Filter by priority' %}">
       <option value="">{% trans "All Priorities" %}</option>
       {% for code, label in priorities %}
         <option value="{{ code }}"{% if current_priority == code %} selected{% endif %}>{{ label }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="status" aria-label="{% trans 'Filter by status' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="status" aria-label="{% trans 'Filter by status' %}">
       <option value="all">{% trans "All Statuses" %}</option>
       {% for code, label in statuses %}
         <option value="{{ code }}"{% if status_filter == code %} selected{% endif %}>{{ label }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="venue" aria-label="{% trans 'Filter by venue' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="venue" aria-label="{% trans 'Filter by venue' %}">
       <option value="">{% trans "All Venues" %}</option>
       {% for v in venues %}
         <option value="{{ v.id }}"{% if selected_venue == v.id|stringformat:"s" %} selected{% endif %}>{{ v.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" name="type" aria-label="{% trans 'Filter by event type' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" name="type" aria-label="{% trans 'Filter by event type' %}">
       <option value="">{% trans "All Types" %}</option>
       {% for t in event_types %}
         <option value="{{ t.id }}"{% if selected_type == t.id|stringformat:"s" %} selected{% endif %}>{{ t.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <input type="date" class="filter-input" style="width: auto;" name="start_date" value="{{ start_date }}" aria-label="{% trans 'Start Date' %}">
-    <span style="color: var(--text-muted);">-</span>
-    <input type="date" class="filter-input" style="width: auto;" name="end_date" value="{{ end_date }}" aria-label="{% trans 'End Date' %}">
+    <div class="command-filter-divider"></div>
+    <input type="date" class="command-date-input" name="start_date" value="{{ start_date }}" aria-label="{% trans 'Start Date' %}">
+    <span style="color: var(--color-text-muted);">–</span>
+    <input type="date" class="command-date-input" name="end_date" value="{{ end_date }}" aria-label="{% trans 'End Date' %}">
 
-    <button class="btn-primary compact" style="margin-left: var(--space-3);" type="submit">{% trans "Filter" %}</button>
-    {% if search_query or status_filter != 'all' or selected_venue or selected_type or start_date or end_date %}
-      <a class="filter-clear" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
-    {% endif %}
+    <div class="command-filter-actions">
+      <button class="btn-primary compact" type="submit">{% trans "Filter" %}</button>
+      {% if search_query or status_filter != 'all' or selected_venue or selected_type or start_date or end_date %}
+        <a class="filter-clear" href="{% url 'events:list' %}">{% trans "Reset" %}</a>
+      {% endif %}
+    </div>
   </form>
 </div>
 

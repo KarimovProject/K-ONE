@@ -38,7 +38,7 @@ Start-Sleep -Seconds 2
 
 # Safely verify if any IEMS processes remain and stop ONLY those specific to C:\IEMS
 $iemsProcesses = Get-CimInstance Win32_Process | Where-Object {
-    ($_.CommandLine -like "*C:\IEMS*" -or $_.CommandLine -like "*$projectRoot*") -and (
+    ($_.CommandLine -like "*D:\Projects\K ONE*" -or $_.CommandLine -like "*$projectRoot*") -and (
         $_.CommandLine -match "waitress" -or
         $_.CommandLine -match "manage\.py runserver" -or
         $_.CommandLine -match "celery -A config"

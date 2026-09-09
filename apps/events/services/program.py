@@ -113,6 +113,51 @@ def remove_program_pdf(event: Event, actor: User) -> Event:
     return event
 
 
+def upload_banner_image(event: Event, actor: User, image_file) -> Event:
+    """Upload or replace the event's banner/poster image."""
+    is_replacement = bool(event.banner_image)
+
+    if event.banner_image and default_storage.exists(event.banner_image.name):
+        try:
+            default_storage.delete(event.banner_image.name)
+        except Exception:
+            pass
+
+    event.banner_image = image_file
+    event.updated_by = actor
+    event.save(update_fields=["banner_image", "updated_by", "updated_at"])
+
+    action = "event.banner_image_replaced" if is_replacement else "event.banner_image_uploaded"
+    log_audit_event(
+        action,
+        actor=actor,
+        target=event,
+        payload={"filename": os.path.basename(image_file.name), "size": image_file.size},
+    )
+    return event
+
+
+def remove_banner_image(event: Event, actor: User) -> Event:
+    """Remove the event's banner/poster image."""
+    if event.banner_image:
+        filename = event.banner_image.name
+        if default_storage.exists(filename):
+            try:
+                default_storage.delete(filename)
+            except Exception:
+                pass
+        event.banner_image = None
+        event.updated_by = actor
+        event.save(update_fields=["banner_image", "updated_by", "updated_at"])
+        log_audit_event(
+            "event.banner_image_removed",
+            actor=actor,
+            target=event,
+            payload={"removed_filename": os.path.basename(filename)},
+        )
+    return event
+
+
 def add_program_item(
     event: Event,
     actor: User,

@@ -15,37 +15,34 @@
 </div>
 
 <div class="calendar-toolbar-row">
-  <form class="calendar-filters premium-filters" id="calendar-filter-form" style="width: 100%;">
-    <div class="filter-group filter-group--search" style="flex: 0.5;">
-      <!-- Optional left spacing, leaving mostly selects -->
-    </div>
-    
-    <div class="filter-divider"></div>
-    <select class="filter-select" id="filter-venue" aria-label="{% trans 'Zal bo‘yicha' %}">
+  <form class="command-filter-form" id="calendar-filter-form" style="width: 100%;">
+    <select class="command-select" id="filter-venue" aria-label="{% trans 'Zal bo‘yicha' %}">
       <option value="">{% trans "Zal" %}</option>
       {% for v in venues %}
         <option value="{{ v.id }}">{{ v.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" id="filter-type" aria-label="{% trans 'Tadbir turi bo‘yicha' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" id="filter-type" aria-label="{% trans 'Tadbir turi bo‘yicha' %}">
       <option value="">{% trans "Turi" %}</option>
       {% for t in event_types %}
         <option value="{{ t.id }}">{{ t.localized_name }}</option>
       {% endfor %}
     </select>
 
-    <div class="filter-divider"></div>
-    <select class="filter-select" id="filter-status" aria-label="{% trans 'Holat bo‘yicha' %}">
+    <div class="command-filter-divider"></div>
+    <select class="command-select" id="filter-status" aria-label="{% trans 'Holat bo‘yicha' %}">
       <option value="all">{% trans "Holat" %}</option>
       {% for code, label in statuses %}
         <option value="{{ code }}">{{ label }}</option>
       {% endfor %}
     </select>
 
-    <button class="primary-button compact" style="margin-left: var(--space-3);" type="button" id="btn-apply-filters">{% trans "Filtrlash" %}</button>
-    <button class="filter-clear" type="button" id="btn-reset-filters">{% trans "Tozalash" %}</button>
+    <div class="command-filter-actions">
+      <button class="btn-primary compact" type="button" id="btn-apply-filters">{% trans "Filtrlash" %}</button>
+      <button class="filter-clear" type="button" id="btn-reset-filters">{% trans "Tozalash" %}</button>
+    </div>
   </form>
 </div>
 
@@ -57,6 +54,7 @@
 <div class="drawer-overlay" id="event-drawer-overlay" hidden>
   <div class="drawer-panel" id="event-drawer">
     <button class="drawer-close" type="button" id="btn-close-drawer" aria-label="{% trans 'Close drawer' %}">×</button>
+    <img id="drawer-banner" class="drawer-banner-img" src="" alt="" hidden>
     <div class="drawer-header">
       <span class="type-pill" id="drawer-type-pill"></span>
       <span class="status-badge" id="drawer-status-badge"></span>
@@ -85,6 +83,10 @@
 <!-- FullCalendar JS & CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/calendar.css' %}?v=27.1">
+<style>
+  .fc-day-today { background-color: var(--color-status-active-bg) !important; }
+</style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -95,6 +97,9 @@
     const calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: "dayGridMonth",
       locale: localeMap[lang] || "uz",
+      eventDisplay: "block",
+      dayMaxEvents: 3,
+      height: "auto",
       headerToolbar: {
         left: "prev,next today",
         center: "title",
@@ -138,6 +143,15 @@
         document.getElementById("drawer-venue").textContent = props.venue_name || "";
         document.getElementById("drawer-responsible").textContent = props.responsible_name || "";
         document.getElementById("drawer-detail-link").href = props.detail_url || "#";
+
+        const bannerImg = document.getElementById("drawer-banner");
+        if (props.banner_url) {
+            bannerImg.src = props.banner_url;
+            bannerImg.hidden = false;
+        } else {
+            bannerImg.hidden = true;
+            bannerImg.src = "";
+        }
 
         document.getElementById("event-drawer-overlay").hidden = false;
       }

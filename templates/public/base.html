@@ -9,12 +9,23 @@
   <title>{% block title %}K-ONE{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=19.5">
-  <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=19.5">
-  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=19.5">
-  <link rel="stylesheet" href="{% static 'css/public.css' %}?v=19.5">
-  <link rel="stylesheet" href="{% static 'css/calendar.css' %}?v=19.5">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=22.0">
+  <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=21.0">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=21.0">
+  <link rel="stylesheet" href="{% static 'css/public.css' %}?v=21.0">
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}?v=21.0">
+  <script>
+    // Theme Initialization (runs before render to prevent flicker)
+    (function() {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   {% block extra_css %}{% endblock %}
 </head>
 <body class="public-shell">
@@ -45,6 +56,10 @@
     </div>
 
     <div class="public-header__actions">
+      <button class="theme-toggle btn-ghost" type="button" aria-label="Toggle theme" style="font-size: 16px; padding: 4px 8px; border-radius: 50%; cursor: pointer;">
+        <span class="theme-icon">🌓</span>
+      </button>
+
       <form class="public-header__lang animate-stagger-2" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Language' %}">{% csrf_token %}
         <input name="next" type="hidden" value="{{ request.get_full_path }}">
         {% get_current_language as CURRENT_LANGUAGE %}
@@ -71,6 +86,30 @@
       <span>{% trans "Official international events information" %}</span>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var themeToggle = document.querySelector('.theme-toggle');
+      var docEl = document.documentElement;
+      var icon = themeToggle ? themeToggle.querySelector('.theme-icon') : null;
+      
+      function updateIcon() {
+          if (!icon) return;
+          icon.textContent = docEl.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+      }
+      
+      updateIcon();
+      
+      if (themeToggle) {
+          themeToggle.addEventListener('click', function() {
+              var current = docEl.getAttribute('data-theme');
+              var newTheme = current === 'dark' ? 'light' : 'dark';
+              docEl.setAttribute('data-theme', newTheme);
+              localStorage.setItem('theme', newTheme);
+              updateIcon();
+          });
+      }
+    });
+  </script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

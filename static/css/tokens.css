@@ -4,7 +4,7 @@
 
 :root {
   /* --------------------------------------------------------------------------
-     1. COLOR SYSTEM
+     1. COLOR SYSTEM (Light Mode)
      -------------------------------------------------------------------------- */
 
   /* Core Colors */
@@ -28,6 +28,11 @@
   --color-surface-3: #FFFFFF;
   --color-surface-hover: #F8FAFC;
   --color-surface-active: #EEF4FA;
+  
+  --color-header-bg: rgba(255, 255, 255, 0.9);
+  --color-nav-bg: rgba(248, 250, 252, 0.6);
+  --color-nav-border: rgba(255, 255, 255, 0.8);
+  --color-nav-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
 
   /* Text Colors */
   --color-text-title:     #0F172A;
@@ -54,40 +59,40 @@
   --color-brand-navy: var(--color-deep-navy);
   --color-brand-navy-light: var(--color-navy);
   --color-brand-cobalt: var(--color-cobalt);
-  --color-brand-cyan: var(--color-electric);
+  --color-brand-cyan: var(--color-sky);
   --color-text-main: var(--color-text-primary);
   --color-border-default: var(--color-border);
-  --color-ink: var(--color-deep-navy);
+  --color-ink: var(--color-text-title);
   --color-surface-elevated: var(--color-surface-3);
 
   --color-status-free: var(--color-emerald);
-  --color-status-active: var(--color-cobalt);
+  --color-status-active: var(--color-sky);
   --color-status-upcoming: var(--color-amber);
   --color-status-critical: var(--color-rose);
   --color-status-special: var(--color-violet);
 
-  --color-status-free-bg: rgba(16, 185, 129, 0.08);
-  --color-status-active-bg: rgba(37, 99, 235, 0.08);
-  --color-status-upcoming-bg: rgba(245, 158, 11, 0.08);
-  --color-status-critical-bg: rgba(244, 63, 94, 0.08);
-  --color-status-special-bg: rgba(124, 58, 237, 0.08);
+  --color-status-free-bg: rgba(16, 185, 129, 0.15);
+  --color-status-active-bg: rgba(56, 189, 248, 0.15);
+  --color-status-upcoming-bg: rgba(245, 158, 11, 0.15);
+  --color-status-critical-bg: rgba(244, 63, 94, 0.15);
+  --color-status-special-bg: rgba(139, 92, 246, 0.15);
 
   --color-success: var(--color-emerald);
   --color-warning: var(--color-amber);
   --color-danger:  var(--color-rose);
-  --color-info:    var(--color-electric);
+  --color-info:    var(--color-sky);
 
   /* Semantic Action Tokens */
-  --action-primary: var(--color-cobalt);
-  --action-primary-hover: var(--color-navy);
+  --action-primary: var(--color-sky);
+  --action-primary-hover: var(--color-electric);
   --action-success: var(--color-emerald);
   --action-warning: var(--color-amber);
   --action-danger: var(--color-rose);
-  --action-info: var(--color-electric);
+  --action-info: var(--color-sky);
   --action-telegram: #2AABEE;
 
   /* Surface Accents */
-  --surface-accent-blue: var(--color-cobalt);
+  --surface-accent-blue: var(--color-sky);
   --surface-accent-green: var(--color-emerald);
   --surface-accent-amber: var(--color-amber);
   --surface-accent-red: var(--color-rose);
@@ -95,12 +100,89 @@
   --surface-accent-cyan: var(--color-electric);
   --surface-accent-teal: #0D9488;
   --surface-accent-slate: #64748B;
+}
 
+[data-theme="dark"] {
+  /* --------------------------------------------------------------------------
+     1. COLOR SYSTEM (Premium Dark Command Center)
+     -------------------------------------------------------------------------- */
+
+  /* Core Colors */
+  --color-deep-navy: #040D1A;
+  --color-navy:      #08172E;
+  --color-cobalt:    #1D4ED8;
+  --color-electric:  #0284C7;
+  --color-sky:       #38BDF8;
+
+  /* Operational Accents */
+  --color-emerald:   #10B981;
+  --color-amber:     #F59E0B;
+  --color-violet:    #8B5CF6;
+  --color-rose:      #F43F5E;
+  --color-informational: var(--color-sky);
+
+  /* Surfaces */
+  --color-canvas:    #06101D;
+  --color-surface-1: rgba(14, 28, 54, 0.6);
+  --color-surface-2: rgba(23, 42, 77, 0.7);
+  --color-surface-3: rgba(30, 58, 102, 0.8);
+  --color-surface-hover: rgba(255, 255, 255, 0.05);
+  --color-surface-active: rgba(255, 255, 255, 0.08);
+
+  --color-header-bg: rgba(6, 16, 29, 0.85);
+  --color-nav-bg: rgba(14, 28, 54, 0.6);
+  --color-nav-border: rgba(255, 255, 255, 0.1);
+  --color-nav-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05);
+
+  /* Text Colors */
+  --color-text-title:     #FFFFFF;
+  --color-text-primary:   #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted:     #64748B;
+  --color-text-inverse:   #0F172A;
+
+  /* Borders */
+  --color-border:        rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.2);
+  --color-border-focus:  #38BDF8;
+
+  /* Navigation / Sidebar */
+  --color-nav-base:      var(--color-deep-navy);
+  --color-nav-surface:   rgba(255, 255, 255, 0.04);
+  --color-nav-hover:     rgba(255, 255, 255, 0.08);
+  --color-nav-active-bg: rgba(255, 255, 255, 0.12);
+  --color-nav-text:      #94A3B8;
+  --color-nav-text-active: #FFFFFF;
+
+  --color-ink: var(--color-text-title);
+  
+  --color-status-active: var(--color-sky);
+  --color-status-special: var(--color-violet);
+
+  --color-status-free-bg: rgba(16, 185, 129, 0.15);
+  --color-status-active-bg: rgba(56, 189, 248, 0.15);
+  --color-status-upcoming-bg: rgba(245, 158, 11, 0.15);
+  --color-status-critical-bg: rgba(244, 63, 94, 0.15);
+  --color-status-special-bg: rgba(139, 92, 246, 0.15);
+
+  --color-info:    var(--color-sky);
+
+  /* Semantic Action Tokens */
+  --action-primary: var(--color-sky);
+  --action-primary-hover: var(--color-electric);
+  --action-info: var(--color-sky);
+
+  /* Surface Accents */
+  --surface-accent-blue: var(--color-sky);
+}
+
+:root {
   /* --------------------------------------------------------------------------
      2. TYPOGRAPHY
      -------------------------------------------------------------------------- */
-  --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
   --font-heading: var(--font-display);
 
@@ -112,14 +194,14 @@
   --weight-black:    700; /* No 800/900 allowed */
 
   /* Type Scale */
-  --text-micro:    11px;
-  --text-xs:       12px;
-  --text-sm:       13px;
-  --text-sm-plus:  14px;
-  --text-base:     15px;
-  --text-md:       16px;
-  --text-lg:       19px;
-  --text-xl:       22px;
+  --text-micro:    12px;
+  --text-xs:       13px;
+  --text-sm:       14px;
+  --text-sm-plus:  15px;
+  --text-base:     16px;
+  --text-md:       17px;
+  --text-lg:       20px;
+  --text-xl:       23px;
   --text-2xl:      30px;
   --text-3xl:      34px;
   --text-display:  40px;

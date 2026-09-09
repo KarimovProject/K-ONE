@@ -104,12 +104,15 @@ body {
 }
 
 .sidebar-logo {
-  height: 42px;
+  height: 56px;
   width: auto;
-  max-width: 168px;
+  max-width: 190px;
   object-fit: contain;
   display: block;
   opacity: 1;
+  /* Source asset is navy-on-transparent; invert to white so it reads
+     against the dark sidebar background instead of disappearing into it. */
+  filter: brightness(0) invert(1);
 }
 
 .sidebar-slogan {
@@ -163,13 +166,26 @@ body {
   border-radius: var(--radius-md);
   transition:
     background var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out);
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
   cursor: pointer;
 }
 
 .sidebar-nav-item:hover, .nav-item:hover {
   background: var(--color-nav-surface);
   color: var(--color-nav-text-active);
+  transform: translateX(2px);
+}
+
+.sidebar-nav-item.active::before,
+.sidebar-nav-item.is-active::before,
+.nav-item.is-active::before {
+  transform: scaleY(0);
+  animation: nav-indicator-in var(--duration-component) var(--ease-out) forwards;
+}
+
+@keyframes nav-indicator-in {
+  to { transform: scaleY(1); }
 }
 
 /* Active State — Sophisticated */

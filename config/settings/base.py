@@ -50,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.audit.middleware.AdminAuditLogMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -100,6 +101,7 @@ LANGUAGES = [
     ("uz", "O‘zbekcha"),
     ("ru", "Русский"),
     ("en", "English"),
+    ("tr", "Türkçe"),
 ]
 LOCALE_PATHS = [BASE_DIR / "locale"]
 TIME_ZONE = env("DJANGO_TIME_ZONE", default="Asia/Tashkent")

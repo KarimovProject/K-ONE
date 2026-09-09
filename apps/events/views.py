@@ -28,6 +28,7 @@ from apps.attendance.services import (
 )
 from apps.audit.services import log_audit_event
 from apps.events.forms import (
+    EventBannerImageForm,
     EventCancelForm,
     EventProgramItemForm,
     EventProgramModeForm,
@@ -230,7 +231,7 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
                 "can_cancel": can_cancel,
                 "can_submit": (
                     (is_owner or is_admin)
-                    and event.status in (Event.Status.DRAFT, Event.Status.REJECTED)
+                    and event.status in (Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.PLANNED)
                 ),
                 "can_approve": is_mgmt and event.status == Event.Status.PENDING_APPROVAL,
                 "can_reject": is_mgmt and event.status == Event.Status.PENDING_APPROVAL,
@@ -358,6 +359,21 @@ class EventCancelView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
         )
 
         return redirect(reverse("events:detail", kwargs={"pk": self.event.pk}))
+
+
+class EventDeleteView(LoginRequiredMixin, CapabilityRequiredMixin, MasterDataDeleteMixin, DeleteView):
+    required_capability = Capability.MANAGE_EVENTS
+    model = Event
+    list_url_name = "events:list"
+    resource_name = _("Event")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Delete Event “%(title)s”") % {"title": self.object.title}
+        context["nav_key"] = "events"
+        context["list_url_name"] = self.list_url_name
+        context["resource_name"] = self.resource_name
+        return context
 
 
 # --- Phase 3 Approval & Emergency Views ---
@@ -782,6 +798,27 @@ class VenueLiveStatusView(LoginRequiredMixin, CapabilityRequiredMixin, TemplateV
 
 # --- Phase 4 Program & Public Page Views ---
 
+class PublicKioskView(TemplateView):
+    template_name = "events/public_kiosk.html"
+
+    def get_context_data(self, **kwargs):
+        from django.utils import timezone
+        context = super().get_context_data(**kwargs)
+        now = timezone.now()
+        today = now.date()
+        
+        events_today = Event.objects.filter(
+            is_public_enabled=True,
+            planned_date=today,
+            status=Event.Status.APPROVED
+        ).order_by('start_time').select_related("event_type", "venue")
+        
+        # We can also filter out events that are not publicly accessible if there are other conditions (like checkin_status)
+        # But for now, is_public_enabled=True and status=APPROVED is sufficient for the kiosk.
+        
+        context["events_today"] = events_today
+        context["now"] = now
+        return context
 
 class PublicEventPageView(DetailView):
     model = Event
@@ -859,6 +896,7 @@ class PublicEventPageView(DetailView):
         context["checkin_status"] = status_info
         context["attendance_count"] = event.attendances.count()
         context["user_checked_in"] = checked_in
+        context["scanned"] = self.request.GET.get("scan") == "true"
         return context
 
 
@@ -887,6 +925,7 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
                 "page_title": _("Manage Program & Public Page"),
                 "mode_form": EventProgramModeForm(instance=self.event),
                 "pdf_form": EventProgramPdfForm(),
+                "banner_form": EventBannerImageForm(),
                 "item_form": EventProgramItemForm(),
                 "program_items": self.event.program_items.select_related("speaker").all(),
                 "speakers": Speaker.objects.filter(public_profile_enabled=True),
@@ -898,11 +937,13 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs):
         from apps.events.services.program import (
             add_program_item,
+            remove_banner_image,
             remove_program_item,
             remove_program_pdf,
             rotate_public_token,
             set_public_enabled,
             update_program_source,
+            upload_banner_image,
             upload_program_pdf,
         )
 
@@ -936,6 +977,20 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
         elif action == "remove_pdf":
             remove_program_pdf(self.event, request.user)
             messages.success(request, _("Program PDF document removed."))
+
+        elif action == "upload_banner":
+            banner_form = EventBannerImageForm(request.POST, request.FILES)
+            if banner_form.is_valid():
+                upload_banner_image(
+                    self.event, request.user, banner_form.cleaned_data["banner_image"]
+                )
+                messages.success(request, _("Event banner image uploaded successfully."))
+            else:
+                messages.error(request, _("Invalid image file."))
+
+        elif action == "remove_banner":
+            remove_banner_image(self.event, request.user)
+            messages.success(request, _("Event banner image removed."))
 
         elif action == "add_item":
             item_form = EventProgramItemForm(request.POST)
@@ -978,7 +1033,7 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
 class EventQrCodePngView(View):
     def get(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        public_url = f"{request.scheme}://{request.get_host()}/event/{event.public_token}/"
+        public_url = f"{request.scheme}://{request.get_host()}/event/{event.public_token}/?scan=true"
         from apps.events.services.qr import generate_qr_code_png
 
         log_audit_event(
@@ -994,7 +1049,7 @@ class EventQrCodePngView(View):
 class EventQrCodeSvgView(View):
     def get(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        public_url = f"{request.scheme}://{request.get_host()}/event/{event.public_token}/"
+        public_url = f"{request.scheme}://{request.get_host()}/event/{event.public_token}/?scan=true"
         from apps.events.services.qr import generate_qr_code_svg
 
         log_audit_event(

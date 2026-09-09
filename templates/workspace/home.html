@@ -5,6 +5,7 @@
 
 {% block content %}
 <span class="sr-only">Phase 0 foundation preserved</span>
+<div id="upcomingToastContainer" class="toast-container" aria-live="polite"></div>
 <div class="workspace-page animate-entrance">
   <!-- EXECUTIVE CONTEXT HEADER -->
   <header class="workspace-exec-header">
@@ -28,35 +29,55 @@
 
   <!-- OPERATIONAL METRICS STRIP (Segmented Rail) -->
   <section class="exec-metric-rail" aria-label="{% trans 'Key indicators' %}">
-    <div class="exec-metric-item">
-      <span class="exec-metric-label">{% trans "Yaqin tadbirlar" %}</span>
-      <div class="exec-metric-val-row">
-        <strong class="exec-metric-value">{{ upcoming_count|default:"0" }}</strong>
-        <span class="exec-metric-badge cobalt">{% trans "Rejalashtirilgan" %}</span>
+    <div class="exec-metric-item accent-cobalt">
+      <div class="exec-metric-icon cobalt">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="exec-metric-body">
+        <span class="exec-metric-label">{% trans "Yaqin tadbirlar" %}</span>
+        <div class="exec-metric-val-row">
+          <strong class="exec-metric-value">{{ upcoming_count|default:"0" }}</strong>
+          <span class="exec-metric-badge cobalt">{% trans "Rejalashtirilgan" %}</span>
+        </div>
       </div>
     </div>
 
-    <div class="exec-metric-item">
-      <span class="exec-metric-label">{% trans "Tasdiq talab qiladi" %}</span>
-      <div class="exec-metric-val-row">
-        <strong class="exec-metric-value {% if pending_approval_count > 0 %}text-warning{% endif %}">{{ pending_approval_count|default:"0" }}</strong>
-        <span class="exec-metric-badge amber">{% trans "Navbatda" %}</span>
+    <div class="exec-metric-item accent-amber">
+      <div class="exec-metric-icon amber">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="exec-metric-body">
+        <span class="exec-metric-label">{% trans "Tasdiq talab qiladi" %}</span>
+        <div class="exec-metric-val-row">
+          <strong class="exec-metric-value {% if pending_approval_count > 0 %}text-warning{% endif %}">{{ pending_approval_count|default:"0" }}</strong>
+          <span class="exec-metric-badge amber">{% trans "Navbatda" %}</span>
+        </div>
       </div>
     </div>
 
-    <div class="exec-metric-item">
-      <span class="exec-metric-label">{% trans "Erkin zallar" %}</span>
-      <div class="exec-metric-val-row">
-        <strong class="exec-metric-value">{{ venues_free_count|default:"4" }} <span class="exec-metric-slash">/</span> {{ venues_total_count|default:"6" }}</strong>
-        <span class="exec-metric-badge emerald">{% trans "Hozir bo'sh" %}</span>
+    <div class="exec-metric-item accent-emerald">
+      <div class="exec-metric-icon emerald">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+      </div>
+      <div class="exec-metric-body">
+        <span class="exec-metric-label">{% trans "Erkin zallar" %}</span>
+        <div class="exec-metric-val-row">
+          <strong class="exec-metric-value">{{ venues_free_count|default:"0" }} <span class="exec-metric-slash">/</span> {{ venues_total_count|default:"0" }}</strong>
+          <span class="exec-metric-badge emerald">{% trans "Hozir bo'sh" %}</span>
+        </div>
       </div>
     </div>
 
-    <div class="exec-metric-item">
-      <span class="exec-metric-label">{% trans "Yangi xabarlar" %}</span>
-      <div class="exec-metric-val-row">
-        <strong class="exec-metric-value">{{ notification_count|default:"0" }}</strong>
-        <span class="exec-metric-badge slate">{% trans "Tizim" %}</span>
+    <div class="exec-metric-item accent-slate">
+      <div class="exec-metric-icon slate">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      </div>
+      <div class="exec-metric-body">
+        <span class="exec-metric-label">{% trans "Yangi xabarlar" %}</span>
+        <div class="exec-metric-val-row">
+          <strong class="exec-metric-value">{{ notification_count|default:"0" }}</strong>
+          <span class="exec-metric-badge slate">{% trans "Tizim" %}</span>
+        </div>
       </div>
     </div>
   </section>
@@ -92,7 +113,7 @@
           </div>
 
           <!-- Live NOW Marker -->
-          <div class="exec-now-marker" style="left: 42%;">
+          <div class="exec-now-marker" id="liveNowMarker" style="display: none;">
             <div class="exec-now-line"></div>
             <div class="exec-now-pill">
               <span class="live-dot-pulse"></span>
@@ -103,7 +124,7 @@
           <!-- Event Track Capsules -->
           <div class="exec-timeline-tracks">
             {% for ev in today_events %}
-              <a href="{% url 'events:detail' ev.pk %}" class="exec-event-capsule {% if ev.status == 'in_progress' %}status-active{% else %}status-upcoming{% endif %}" style="left: calc(({{ ev.start_time|slice:':2'|add:'-8' }} * 8.33%) + ({{ ev.start_time|slice:'3:5' }} / 60 * 8.33%)); width: 24%; top: calc({{ forloop.counter0 }} * 48px + 10px);">
+              <a href="{% url 'events:detail' ev.pk %}" class="exec-event-capsule js-event-popup {% if ev.status == 'in_progress' %}status-active{% else %}status-upcoming{% endif %}" data-upcoming-event data-start-time="{{ ev.start_time|time:'H:i' }}" data-end-time="{{ ev.end_time|time:'H:i' }}" data-title="{{ ev.title }}" data-venue="{{ ev.venue.localized_name }}" data-type="{{ ev.event_type.localized_name }}" data-status="{{ ev.get_status_display }}" data-responsible="{{ ev.responsible_employee.get_full_name|default:ev.responsible_employee.username }}" data-url="{% url 'events:detail' ev.pk %}" data-banner="{% if ev.banner_image %}{{ ev.banner_image.url }}{% endif %}" style="left: calc(({{ ev.start_time|date:'H'|add:'-8' }} * 8.33%) + ({{ ev.start_time|date:'i' }} / 60 * 8.33%)); width: 24%; top: calc({{ forloop.counter0 }} * 48px + 10px);">
                 <span class="capsule-room-badge">{{ ev.venue.code|default:"AUD" }}</span>
                 <div class="capsule-details">
                   <strong class="capsule-title">{{ ev.title }}</strong>
@@ -111,27 +132,8 @@
                 </div>
               </a>
             {% empty %}
-              <!-- Fallback High-Fidelity Operational Demo Capsules -->
-              <div class="exec-event-capsule status-active" style="left: 17%; width: 28%; top: 12px;">
-                <span class="capsule-room-badge">AUD1</span>
-                <div class="capsule-details">
-                  <strong class="capsule-title">Central Asia Scientific Workshop Session</strong>
-                  <span class="capsule-meta">10:00–12:30 · Ilmiy seminarlar zali</span>
-                </div>
-              </div>
-              <div class="exec-event-capsule status-upcoming" style="left: 48%; width: 26%; top: 66px;">
-                <span class="capsule-room-badge">AUD2</span>
-                <div class="capsule-details">
-                  <strong class="capsule-title">Multidisciplinary Tumor Board Consultation</strong>
-                  <span class="capsule-meta">13:45–16:00 · Konsilium xonasi</span>
-                </div>
-              </div>
-              <div class="exec-event-capsule status-scheduled" style="left: 74%; width: 22%; top: 120px;">
-                <span class="capsule-room-badge">AUD3</span>
-                <div class="capsule-details">
-                  <strong class="capsule-title">International Telemedicine Direct Link</strong>
-                  <span class="capsule-meta">17:00–19:30 · Telemeditsina zali</span>
-                </div>
+              <div class="exec-empty-state" style="padding-top: 40px;">
+                <p style="color: var(--color-text-muted);">{% trans "Bugun uchun rejalashtirilgan operatsion tadbirlar mavjud emas." %}</p>
               </div>
             {% endfor %}
           </div>
@@ -153,7 +155,7 @@
 
         <div class="exec-agenda-list">
           {% for event in upcoming %}
-            <a class="exec-agenda-row" href="{% url 'events:detail' event.pk %}">
+            <a class="exec-agenda-row js-event-popup" href="{% url 'events:detail' event.pk %}" data-start-time="{{ event.start_time|time:'H:i' }}" data-end-time="{{ event.end_time|time:'H:i' }}" data-title="{{ event.title }}" data-venue="{{ event.venue.localized_name }}" data-type="{{ event.event_type.localized_name }}" data-status="{{ event.get_status_display }}" data-responsible="{{ event.responsible_employee.get_full_name|default:event.responsible_employee.username }}" data-url="{% url 'events:detail' event.pk %}" data-date="{{ event.planned_date|date:'d.m.Y' }}" data-banner="{% if event.banner_image %}{{ event.banner_image.url }}{% endif %}">
               <div class="agenda-time-cell">
                 <span class="date">{{ event.planned_date|date:"d M" }}</span>
                 <span class="time">{{ event.start_time|time:"H:i" }}</span>
@@ -227,51 +229,8 @@
               </div>
             </div>
           {% empty %}
-            <!-- Rich Venue Items -->
-            <div class="exec-room-card status-occupied">
-              <div class="room-card-top">
-                <div class="room-id-group">
-                  <span class="room-code-badge">AUD1</span>
-                  <span class="room-name">Xalqaro konferensiyalar zali</span>
-                </div>
-                <div class="room-status-indicator">
-                  <span class="status-dot-pulse bg-active"></span>
-                  <span class="status-text active">{% trans "BAND" %}</span>
-                </div>
-              </div>
-              <div class="room-card-bottom">
-                <span class="room-event-snippet">10:00–12:30 · Plenar yig'ilish</span>
-              </div>
-            </div>
-            <div class="exec-room-card status-free">
-              <div class="room-card-top">
-                <div class="room-id-group">
-                  <span class="room-code-badge">AUD2</span>
-                  <span class="room-name">Konsilium xonasi</span>
-                </div>
-                <div class="room-status-indicator">
-                  <span class="status-dot-pulse bg-free"></span>
-                  <span class="status-text free">{% trans "ERKIN" %}</span>
-                </div>
-              </div>
-              <div class="room-card-bottom">
-                <span class="room-event-snippet">Keyingi tadbir: 13:45 da</span>
-              </div>
-            </div>
-            <div class="exec-room-card status-free">
-              <div class="room-card-top">
-                <div class="room-id-group">
-                  <span class="room-code-badge">AUD3</span>
-                  <span class="room-name">Ilmiy seminarlar zali</span>
-                </div>
-                <div class="room-status-indicator">
-                  <span class="status-dot-pulse bg-free"></span>
-                  <span class="status-text free">{% trans "ERKIN" %}</span>
-                </div>
-              </div>
-              <div class="room-card-bottom">
-                <span class="room-event-snippet">Keyingi tadbir: 17:00 da</span>
-              </div>
+            <div class="exec-empty-state" style="padding-top: 40px; text-align: center;">
+              <p style="color: var(--color-text-muted);">{% trans "Hozircha tizimda zallar mavjud emas." %}</p>
             </div>
           {% endfor %}
         </div>
@@ -294,7 +253,7 @@
             <div class="intel-content">
               <div class="intel-row">
                 <span class="intel-label">{% trans "Tasdiq talab qiladi" %}</span>
-                <strong class="intel-count">{{ pending_approval_count|default:"1" }}</strong>
+                <strong class="intel-count{% if pending_approval_count > 0 %} text-warning{% endif %}">{{ pending_approval_count|default:"0" }}</strong>
               </div>
               <small class="intel-desc">{% trans "Navbatdagi so'rovlar" %}</small>
             </div>
@@ -307,9 +266,11 @@
             <div class="intel-content">
               <div class="intel-row">
                 <span class="intel-label">{% trans "Kechikayotgan tadbirlar" %}</span>
-                <strong class="intel-count">0</strong>
+                <strong class="intel-count{% if delayed_events_count > 0 %} text-warning{% endif %}">{{ delayed_events_count|default:"0" }}</strong>
               </div>
-              <small class="intel-desc">{% trans "Barcha jadvallar vaqtida" %}</small>
+              <small class="intel-desc">
+                {% if delayed_events_count > 0 %}{% trans "Vaqtida boshlanmagan tadbirlar bor" %}{% else %}{% trans "Barcha jadvallar vaqtida" %}{% endif %}
+              </small>
             </div>
           </div>
 
@@ -320,9 +281,11 @@
             <div class="intel-content">
               <div class="intel-row">
                 <span class="intel-label">{% trans "Zal to'qnashuvlari" %}</span>
-                <strong class="intel-count">0</strong>
+                <strong class="intel-count{% if room_conflicts_count > 0 %} text-warning{% endif %}">{{ room_conflicts_count|default:"0" }}</strong>
               </div>
-              <small class="intel-desc">{% trans "Konfliktlar aniqlanmadi" %}</small>
+              <small class="intel-desc">
+                {% if room_conflicts_count > 0 %}{% trans "Diqqat: band vaqt to'qnashuvlari aniqlandi" %}{% else %}{% trans "Konfliktlar aniqlanmadi" %}{% endif %}
+              </small>
             </div>
           </div>
         </div>
@@ -330,4 +293,175 @@
     </aside>
   </div>
 </div>
+
+<div class="drawer-overlay" id="dash-event-drawer-overlay" hidden>
+  <div class="drawer-panel">
+    <button class="drawer-close" type="button" id="dash-drawer-close" aria-label="{% trans 'Close' %}">&times;</button>
+    <img id="dash-drawer-banner" class="drawer-banner-img" src="" alt="" hidden>
+    <div class="drawer-header">
+      <span class="type-pill" id="dash-drawer-type"></span>
+      <span class="status-badge" id="dash-drawer-status"></span>
+      <h2 id="dash-drawer-title"></h2>
+    </div>
+    <div class="drawer-body">
+      <div class="info-item">
+        <span class="info-label">{% trans "Date & Time" %}</span>
+        <span class="info-value" id="dash-drawer-datetime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Venue" %}</span>
+        <span class="info-value" id="dash-drawer-venue"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">{% trans "Responsible Staff" %}</span>
+        <span class="info-value" id="dash-drawer-responsible"></span>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <a class="primary-button compact" id="dash-drawer-link" href="#">{% trans "Full Event Details →" %}</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const dashBannerImg = document.getElementById('dash-drawer-banner');
+    function updateTimeline() {
+        const marker = document.getElementById('liveNowMarker');
+        if (!marker) return;
+
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+
+        // Timeline is from 08:00 to 20:00 (12 hours)
+        const startHour = 8;
+        const endHour = 20;
+
+        if (hours >= startHour && hours < endHour) {
+            // Calculate percentage
+            const totalMinutes = (endHour - startHour) * 60;
+            const elapsedMinutes = ((hours - startHour) * 60) + minutes;
+            const percent = (elapsedMinutes / totalMinutes) * 100;
+            
+            marker.style.left = percent + '%';
+            marker.style.display = 'block';
+        } else {
+            // Outside of working hours, hide it
+            marker.style.display = 'none';
+        }
+    }
+
+    function updateLiveCapsules() {
+        const now = new Date();
+        const nowMinutes = now.getHours() * 60 + now.getMinutes();
+        document.querySelectorAll('.exec-event-capsule[data-start-time]').forEach((el) => {
+            const [sh, sm] = el.getAttribute('data-start-time').split(':').map(Number);
+            const [eh, em] = (el.getAttribute('data-end-time') || '23:59').split(':').map(Number);
+            const startMinutes = sh * 60 + sm;
+            const endMinutes = eh * 60 + em;
+            const isLive = nowMinutes >= startMinutes && nowMinutes < endMinutes;
+            el.classList.toggle('is-live-now', isLive);
+        });
+    }
+
+    // Run once initially
+    updateTimeline();
+    updateLiveCapsules();
+
+    // Update every minute
+    setInterval(updateTimeline, 60000);
+    setInterval(updateLiveCapsules, 60000);
+
+    // --- Upcoming event notifications ---
+    const notifiedEvents = new Set();
+    const UPCOMING_WINDOW_MINUTES = 20;
+
+    function minutesUntil(startTime) {
+        const [h, m] = startTime.split(':').map(Number);
+        const now = new Date();
+        const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+        return Math.round((target - now) / 60000);
+    }
+
+    function showUpcomingToast(title, venue, minutesLeft) {
+        const container = document.getElementById('upcomingToastContainer');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = 'event-toast';
+        const label = minutesLeft <= 0
+            ? "{% trans 'Tadbir hozir boshlanmoqda' %}"
+            : "{% trans 'Tadbir tez orada boshlanadi' %}";
+        toast.innerHTML = `
+          <div class="event-toast__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="event-toast__body">
+            <strong>${label}</strong>
+            <span>${title} · ${venue}</span>
+          </div>
+          <button type="button" class="event-toast__close" aria-label="{% trans 'Close' %}">&times;</button>
+        `;
+        container.appendChild(toast);
+        requestAnimationFrame(() => toast.classList.add('is-visible'));
+        const dismiss = () => {
+            toast.classList.remove('is-visible');
+            setTimeout(() => toast.remove(), 300);
+        };
+        toast.querySelector('.event-toast__close').addEventListener('click', dismiss);
+        setTimeout(dismiss, 12000);
+    }
+
+    function checkUpcomingEvents() {
+        document.querySelectorAll('[data-upcoming-event]').forEach((el) => {
+            const start = el.getAttribute('data-start-time');
+            if (!start) return;
+            const diff = minutesUntil(start);
+            const key = el.getAttribute('data-title') + start;
+            if (diff >= -2 && diff <= UPCOMING_WINDOW_MINUTES && !notifiedEvents.has(key)) {
+                notifiedEvents.add(key);
+                showUpcomingToast(el.getAttribute('data-title'), el.getAttribute('data-venue'), diff);
+            }
+        });
+    }
+
+    checkUpcomingEvents();
+    setInterval(checkUpcomingEvents, 60000);
+
+    // --- Click-to-inspect popup for timeline capsules & agenda rows ---
+    const dashDrawer = document.getElementById('dash-event-drawer-overlay');
+    if (dashDrawer) {
+        document.querySelectorAll('.js-event-popup').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('dash-drawer-type').textContent = el.getAttribute('data-type') || '';
+                document.getElementById('dash-drawer-status').textContent = el.getAttribute('data-status') || '';
+                document.getElementById('dash-drawer-status').className = 'status-badge ' + (el.getAttribute('data-status') || '').toLowerCase();
+                document.getElementById('dash-drawer-title').textContent = el.getAttribute('data-title') || '';
+                const date = el.getAttribute('data-date');
+                const start = el.getAttribute('data-start-time');
+                const end = el.getAttribute('data-end-time');
+                document.getElementById('dash-drawer-datetime').textContent = (date ? date + ' · ' : '') + start + '–' + end;
+                document.getElementById('dash-drawer-venue').textContent = el.getAttribute('data-venue') || '';
+                document.getElementById('dash-drawer-responsible').textContent = el.getAttribute('data-responsible') || '';
+                document.getElementById('dash-drawer-link').href = el.getAttribute('data-url') || '#';
+                const bannerUrl = el.getAttribute('data-banner');
+                if (bannerUrl) {
+                    dashBannerImg.src = bannerUrl;
+                    dashBannerImg.hidden = false;
+                } else {
+                    dashBannerImg.hidden = true;
+                    dashBannerImg.src = '';
+                }
+                dashDrawer.hidden = false;
+            });
+        });
+        const closeDashDrawer = () => { dashDrawer.hidden = true; };
+        document.getElementById('dash-drawer-close').addEventListener('click', closeDashDrawer);
+        dashDrawer.addEventListener('click', (e) => {
+            if (e.target === dashDrawer) closeDashDrawer();
+        });
+    }
+});
+</script>
 {% endblock %}

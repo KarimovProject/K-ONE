@@ -10,7 +10,7 @@
     <tbody>{% for organization in organizations %}<tr>
       <td><a class="record-title" href="{% url 'organizations:detail' organization.pk %}" class="action-view">{% if organization.logo %}<img class="record-logo" src="{{ organization.logo.url }}" alt="">{% else %}<div style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--color-surface-2); color: var(--color-text-muted); border: 1px solid var(--color-border); flex-shrink: 0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg></div>{% endif %}<span><strong>{{ organization.name }}</strong><small>{{ organization.short_name|default:"—" }}</small></span></a></td>
       <td><span class="soft-badge">{{ organization.get_organization_type_display }}</span></td><td>{{ organization.city|default:"—" }}{% if organization.country %}, {{ organization.country }}{% endif %}</td><td>{{ organization.contact_person|default:organization.email|default:"—" }}</td>
-      <td><span class="status-badge{% if not organization.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{{ organization.is_active|yesno:_('Active,Inactive') }}</span></td>
+      <td><span class="status-badge{% if not organization.is_active %} is-inactive{% endif %}"><span aria-hidden="true"></span>{% if organization.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</span></td>
       <td class="actions-cell">
   <div class="dropdown-wrapper desktop-only" style="display: inline-block; text-align: left;">
     <button type="button" class="btn-ghost btn-icon compact dropdown-toggle" aria-label="{% trans 'Actions' %}">
@@ -20,6 +20,7 @@
       <a href="{% url 'organizations:detail' organization.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
       {% if can_manage %}
       <a href="{% url 'organizations:edit' organization.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+      <a href="{% url 'organizations:delete' organization.pk %}" class="action-delete" style="color: var(--color-danger);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg> {% trans "Delete" %}</a>
       {% endif %}
     </div>
   </div>
@@ -27,6 +28,7 @@
     <a href="{% url 'organizations:detail' organization.pk %}" class="action-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> {% trans "View" %}</a>
     {% if can_manage %}
     <a href="{% url 'organizations:edit' organization.pk %}" class="action-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> {% trans "Edit" %}</a>
+    <a href="{% url 'organizations:delete' organization.pk %}" class="action-delete" style="color: var(--color-danger);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg> {% trans "Delete" %}</a>
     {% endif %}
   </div>
 </td>

@@ -95,6 +95,18 @@ def generate_banner(publication: Publication, variant: str | None = None) -> byt
 
 
 def save_banner(publication: Publication, variant: str | None = None) -> None:
-    content = generate_banner(publication, variant)
-    publication.banner.save(f"{publication.id}.png", ContentFile(content), save=False)
+    event = publication.event
+    if event.banner_image:
+        # The organizer already uploaded a designed poster for this event —
+        # use it as-is rather than drawing a generic gradient banner over it.
+        event.banner_image.open("rb")
+        try:
+            content = event.banner_image.read()
+        finally:
+            event.banner_image.close()
+        ext = event.banner_image.name.rsplit(".", 1)[-1].lower() or "png"
+        publication.banner.save(f"{publication.id}.{ext}", ContentFile(content), save=False)
+    else:
+        content = generate_banner(publication, variant)
+        publication.banner.save(f"{publication.id}.png", ContentFile(content), save=False)
     publication.save(update_fields=("banner", "updated_at"))

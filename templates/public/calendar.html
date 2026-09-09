@@ -6,14 +6,22 @@
 {% block content %}
 <div class="public-calendar animate-entrance" data-calendar data-endpoint="{% url 'public-calendar-api' %}">
 
-  <div class="calendar-header-intro">
-    <div style="font-size:var(--text-micro); font-weight:var(--weight-bold); color:var(--color-brand-cyan); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:var(--space-1); display:flex; align-items:center; gap:6px;">
-      <span class="live-beacon cyan"></span>
-      {% trans "REJALASHTIRILGAN DASTUR" %}
+  <div class="calendar-header-intro" style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:var(--space-3);">
+    <div>
+      <div style="font-size:var(--text-micro); font-weight:var(--weight-bold); color:var(--color-brand-cyan); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:var(--space-1); display:flex; align-items:center; gap:6px;">
+        <span class="live-beacon cyan"></span>
+        {% trans "REJALASHTIRILGAN DASTUR" %}
+      </div>
+      <h1 style="font-size:var(--text-title-xl); font-weight:var(--weight-bold); color:var(--color-text-title); margin:0 0 var(--space-4) 0; letter-spacing:-0.03em;">
+        {% trans "Xalqaro tadbirlar taqvimi" %}
+      </h1>
     </div>
-    <h1 style="font-size:var(--text-title-xl); font-weight:var(--weight-bold); color:var(--color-text-title); margin:0 0 var(--space-4) 0; letter-spacing:-0.03em;">
-      {% trans "Xalqaro tadbirlar taqvimi" %}
-    </h1>
+    <div class="dashboard-hero__time-pill">
+      <span class="time-live-dot"></span>
+      <span data-clock class="time-clock">--:--</span>
+      <span class="time-divider">·</span>
+      <span data-clock-weekday class="time-weekday">{% trans "Bugun" %}</span>
+    </div>
   </div>
 
   <!-- TOP COMMAND BAR -->
@@ -114,6 +122,7 @@
 <div class="calendar-inspector premium-inspector" id="calendar-inspector" data-event-dialog aria-labelledby="inspector-title" aria-modal="true" role="dialog">
   <div class="inspector-backdrop" data-dialog-close></div>
   <div class="inspector-panel">
+    <img data-dialog-banner class="inspector-banner-img" src="" alt="" hidden>
     <div class="inspector-header">
       <h2 class="inspector-title" id="inspector-title" data-dialog-title></h2>
       <button type="button" class="btn btn--ghost" data-dialog-close aria-label="{% trans 'Yopish' %}">✕</button>
@@ -144,13 +153,14 @@
       <p class="inspector-desc" data-dialog-description></p>
     </div>
 
-    <div class="inspector-footer">
+    <div class="inspector-footer" style="display:flex; flex-direction:column; gap: var(--space-2);">
       <a class="btn btn--primary" style="width:100%; justify-content:center;" data-dialog-link href="#">{% trans "Tadbir sahifasiga o'tish" %} →</a>
+      <a class="btn btn--secondary" style="width:100%; justify-content:center;" data-dialog-program href="#" target="_blank" hidden>📄 {% trans "Dasturni ko'rish" %}</a>
     </div>
   </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/public-calendar.js' %}"></script>
+<script src="{% static 'js/public-calendar.js' %}?v=3"></script>
 {% endblock %}

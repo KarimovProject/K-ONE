@@ -299,6 +299,13 @@ class EventProgramPdfForm(forms.Form):
     )
 
 
+class EventBannerImageForm(forms.Form):
+    banner_image = forms.ImageField(
+        label=_("Event Banner / Poster Image"),
+        widget=forms.FileInput(attrs={"accept": "image/*"}),
+    )
+
+
 class EventProgramItemForm(forms.ModelForm):
     class Meta:
         model = EventProgramItem

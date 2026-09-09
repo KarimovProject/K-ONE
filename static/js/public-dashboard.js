@@ -105,11 +105,34 @@
         return Math.max(0, Math.min(100, pct));
     };
 
-    const updateTimelineMarker = () => {
+    const updateRealtimeTimeline = () => {
         if (!nowMarker) return;
         const now = new Date();
         const pct = timeToPercent(now.toISOString());
         nowMarker.style.left = `${pct}%`;
+
+        // Update capsule statuses in real-time
+        const capsules = $$('.event-capsule', tracksContainer);
+        capsules.forEach(capsule => {
+            const startStr = capsule.dataset.start;
+            const endStr = capsule.dataset.end;
+            if (startStr && endStr) {
+                const isLive = new Date(startStr) <= now && now < new Date(endStr);
+                const isPast = now >= new Date(endStr);
+                
+                // Clear old status
+                capsule.classList.remove('status-active', 'status-upcoming', 'status-free');
+                
+                if (isLive) {
+                    capsule.classList.add('status-active');
+                } else if (isPast) {
+                    capsule.classList.add('status-free');
+                    capsule.style.opacity = '0.5';
+                } else {
+                    capsule.classList.add('status-upcoming');
+                }
+            }
+        });
     };
 
     const renderTimeline = (events) => {
@@ -122,20 +145,25 @@
             const endPct = timeToPercent(ev.end);
             let widthPct = Math.max(5, endPct - startPct);
 
-            const isLive = ev.status === 'in_progress';
             const laneIndex = index % 5;
             const topOffset = laneIndex * 60;
 
             const block = document.createElement('div');
-            block.className = `timeline-event animate-stagger-${stagger} animate-entrance ${isLive ? 'timeline-event--active' : 'timeline-event--upcoming'}`;
+            block.className = `event-capsule animate-stagger-${stagger} animate-entrance`;
+            block.dataset.start = ev.start;
+            block.dataset.end = ev.end;
             block.style.left = `${startPct}%`;
             block.style.width = `${widthPct}%`;
             block.style.top = `${topOffset}px`;
 
             block.innerHTML = `
-                <div class="timeline-event__meta">${ev.venue_code}</div>
-                <div class="timeline-event__title">${ev.title}</div>
+                <span class="event-capsule-badge">${ev.venue_code}</span>
+                <div class="event-capsule-content">
+                  <div class="event-title">${ev.title}</div>
+                  <div class="event-meta">${ev.start_time || ''}–${ev.end_time || ''}</div>
+                </div>
             `;
+            block.addEventListener('click', () => openEventPopup(ev));
 
             tracksContainer.appendChild(block);
             if (stagger < 5) stagger++;
@@ -143,10 +171,42 @@
 
         const maxLanes = Math.min(events.length, 5);
         tracksContainer.style.minHeight = `${maxLanes * 60 + 20}px`;
+        updateRealtimeTimeline();
     };
 
-    updateTimelineMarker();
-    setInterval(updateTimelineMarker, 60000);
+    updateRealtimeTimeline();
+    setInterval(updateRealtimeTimeline, 1000);
+
+    // =========================================================================
+    // 4b. EVENT CLICK POPUP
+    // =========================================================================
+    const drawer = $('#public-event-drawer-overlay');
+    const openEventPopup = (ev) => {
+        if (!drawer) return;
+        $('#public-drawer-type').textContent = ev.event_type || '';
+        const statusBadge = $('#public-drawer-status');
+        statusBadge.textContent = ev.status_label || '';
+        statusBadge.className = 'status-badge ' + (ev.status || '');
+        $('#public-drawer-title').textContent = ev.title || '';
+        $('#public-drawer-datetime').textContent = `${ev.start_time || ''}–${ev.end_time || ''}`;
+        $('#public-drawer-venue').textContent = ev.venue_full || ev.venue || '';
+        const link = $('#public-drawer-link');
+        link.href = ev.public_url || '#';
+        link.style.display = ev.public_url ? '' : 'none';
+        const bannerImg = $('#public-drawer-banner');
+        if (ev.banner_url) {
+            bannerImg.src = ev.banner_url;
+            bannerImg.hidden = false;
+        } else {
+            bannerImg.hidden = true;
+            bannerImg.src = '';
+        }
+        drawer.hidden = false;
+    };
+    if (drawer) {
+        $('#public-drawer-close').addEventListener('click', () => { drawer.hidden = true; });
+        drawer.addEventListener('click', (e) => { if (e.target === drawer) drawer.hidden = true; });
+    }
 
     // =========================================================================
     // 5. DATA POLLING & BINDING
@@ -173,7 +233,7 @@
         console.warn('Dashboard poll error:', err);
       }
     };
-    setInterval(refresh, 30000);
+    setInterval(refresh, 10000);
     refresh();
 
   })();

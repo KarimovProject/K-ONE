@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Telegram kanal sozlamalari" %} · K-ONE{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">{% trans "Administrator sozlamalari" %}</p>
+    <h1>{% trans "Telegram kanal / guruh sozlamalari" %}</h1>
+    <p>{% trans "Tadbir e'lonlari avtomatik yuboriladigan Telegram kanali yoki guruhini belgilang." %}</p>
+  </div>
+</div>
+
+<div class="detail-grid">
+  <div class="detail-main">
+    <section class="detail-card" data-testid="telegram-channel-settings-card">
+      <div class="flex-between">
+        <div>
+          <h2>{% trans "Nashr manzili" %}</h2>
+          <p class="text-muted">{% trans "Botni maqsadli kanal yoki guruhga administrator sifatida qo'shing, so'ng uning chat ID raqamini shu yerga kiriting." %}</p>
+        </div>
+        {% if object.is_enabled and object.chat_id %}
+          <span class="status-badge approved">{% trans "Faol" %}</span>
+        {% else %}
+          <span class="status-badge draft">{% trans "Faol emas" %}</span>
+        {% endif %}
+      </div>
+
+      <form method="post" class="form-stack">
+        {% csrf_token %}
+        <div class="form-field">
+          {{ form.label.label_tag }}
+          {{ form.label }}
+        </div>
+        <div class="form-field">
+          {{ form.chat_id.label_tag }}
+          {{ form.chat_id }}
+          {% if form.chat_id.help_text %}<small class="form-helper">{{ form.chat_id.help_text }}</small>{% endif %}
+        </div>
+        <div class="form-field form-field--checkbox">
+          {{ form.is_enabled }}
+          {{ form.is_enabled.label_tag }}
+        </div>
+        <div class="detail-actions">
+          <button class="btn-primary compact" type="submit">{% trans "Saqlash" %}</button>
+          <a class="btn-secondary compact" href="{% url 'notifications:telegram-settings' %}">{% trans "Orqaga" %}</a>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <aside class="detail-sidebar">
+    <section class="detail-card">
+      <h2>{% trans "Qanday sozlash kerak" %}</h2>
+      <p>1. {% trans "Telegram'da kanal yoki guruh yarating (agar mavjud bo'lmasa)." %}</p>
+      <p>2. {% trans "Tizim botini o'sha kanal/guruhga administrator sifatida qo'shing." %}</p>
+      <p>3. {% trans "Chat ID raqamini oling (masalan, @userinfobot yordamida) va yuqoridagi maydonga kiriting." %}</p>
+      <p>4. {% trans "\"Faol\" belgisini yoqib, saqlang." %}</p>
+    </section>
+  </aside>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@
 param()
 
 $ErrorActionPreference = "Stop"
-$projectRoot = "C:\IEMS"
+$projectRoot = "D:\Projects\K ONE"
 $venvDir = Join-Path $projectRoot ".venv\Scripts"
 $pythonwExe = Join-Path $venvDir "pythonw.exe"
 $logDir = Join-Path $projectRoot "logs"
@@ -82,12 +82,12 @@ Register-IemsScheduledTask `
     -TaskName "IEMS Celery Worker" `
     -Description "IEMS Celery Worker (solo pool)" `
     -Command $pythonwExe `
-    -Arguments "-m celery -A config worker -l info --pool=solo --logfile=C:\IEMS\logs\worker.log"
+    -Arguments "-m celery -A config worker -l info --pool=solo --logfile=D:\Projects\K ONE\logs\worker.log"
 
 Register-IemsScheduledTask `
     -TaskName "IEMS Celery Beat" `
     -Description "IEMS Celery Beat Scheduler" `
     -Command $pythonwExe `
-    -Arguments "-m celery -A config beat -l info --logfile=C:\IEMS\logs\beat.log"
+    -Arguments "-m celery -A config beat -l info --logfile=D:\Projects\K ONE\logs\beat.log"
 
 Write-Host "All 3 IEMS Windows Scheduled Tasks registered successfully."

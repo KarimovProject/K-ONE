@@ -99,6 +99,44 @@
         </div>
     </div>
 
+    <!-- Banner / Poster Image Card -->
+    <div class="form-container compact-margin" data-testid="banner-upload-card">
+      <div class="form-header">
+        <h2>🖼️ {% trans "Event Banner / Poster Image" %}</h2>
+      </div>
+      {% if event.banner_image %}
+        <div style="margin-bottom: 1rem;">
+          <img src="{{ event.banner_image.url }}" alt="{{ event.title }}" style="max-width: 100%; border-radius: 12px; border: 1px solid var(--color-border, #E2E8F0); display: block;" data-testid="banner-preview-img">
+        </div>
+      {% else %}
+        <div class="app-message warning" style="margin-bottom: 1rem;">
+          ⚠️ {% trans "No banner image uploaded yet. Upload a poster image to use for the event and its Telegram announcement." %}
+        </div>
+      {% endif %}
+
+      <form method="post" action="{% url 'events:program' pk=event.pk %}" enctype="multipart/form-data" class="app-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="upload_banner">
+        <div class="form-group">
+          <label class="form-label">{% trans "Upload / Replace Banner Image" %}</label>
+          {{ banner_form.banner_image }}
+        </div>
+        <div class="form-actions flex-between">
+          <button type="submit" class="btn-primary" data-testid="upload-banner-btn">
+            {% if event.banner_image %}🔄 {% trans "Replace Banner" %}{% else %}📤 {% trans "Upload Banner" %}{% endif %}
+          </button>
+        </div>
+      </form>
+
+      {% if event.banner_image %}
+        <form method="post" action="{% url 'events:program' pk=event.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="remove_banner">
+          <button type="submit" class="btn-danger compact" data-testid="remove-banner-btn">🗑️ {% trans "Delete Banner" %}</button>
+        </form>
+      {% endif %}
+    </div>
+
     <!-- Agenda Timeline Items Card -->
     <div class="form-container" data-testid="agenda-manager-card">
       <div class="form-header flex-between">
