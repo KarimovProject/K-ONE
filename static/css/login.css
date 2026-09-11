@@ -12,6 +12,13 @@
   background: #111C32; 
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05); 
 }
+/* Recolor the navy/blue logo artwork to solid white in dark mode — the logo
+   itself has no dark-mode variant asset, and its navy tones have poor
+   contrast against the dark navy panels. */
+[data-theme="dark"] .auth-brand-logo,
+[data-theme="dark"] .auth-form-logo {
+  filter: brightness(0) invert(1);
+}
 [data-theme="dark"] .auth-form-title { color: #F1F5F9; }
 [data-theme="dark"] .auth-form-subtitle { color: #94A3B8; }
 [data-theme="dark"] .auth-field label { color: #CBD5E1; }
@@ -111,6 +118,12 @@
   height: auto;
   max-height: 230px;
   object-fit: contain;
+  animation: auth-logo-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes auth-logo-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
 }
 
 .auth-brand-tagline {
@@ -470,6 +483,35 @@
 /* Safe area */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .auth-form-panel { padding-bottom: calc(2rem + env(safe-area-inset-bottom)); }
+}
+
+/* ── REGISTRATION FORM (multi-field questionnaire, wider + 2-col grid) ── */
+.auth-form-panel:has(.auth-field-grid) .auth-form-inner {
+  max-width: 640px;
+}
+.auth-field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+.auth-field-grid .auth-field--full {
+  grid-column: 1 / -1;
+}
+/* No icon is rendered inside these auto-generated fields, so drop the
+   icon-reserved left padding that .auth-input assumes by default. */
+.auth-field-grid .auth-input {
+  padding-left: 14px !important;
+}
+.auth-field-help {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #94A3B8;
+}
+@media (max-width: 560px) {
+  .auth-field-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Reduced motion */

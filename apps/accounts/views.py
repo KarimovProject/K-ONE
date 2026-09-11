@@ -1,11 +1,23 @@
+from datetime import date
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, View
 
-from apps.accounts.forms import ProfileForm
-from apps.accounts.models import User
+from apps.accounts.forms import (
+    MAX_UNAVAILABILITY_SLOTS_PER_YEAR,
+    DoctorRegistrationForm,
+    ProfileForm,
+    StaffUnavailabilityForm,
+)
+from apps.accounts.models import StaffUnavailability, User
+from apps.accounts.rbac import Capability, CapabilityRequiredMixin
+from apps.accounts.selectors import is_admin_privileged, manageable_users
+from config.rate_limit import clear_rate_limit, is_rate_limited
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
@@ -36,3 +48,132 @@ class ProfileView(LoginRequiredMixin, UpdateView):
             }
         )
         return context
+
+
+class DoctorRegisterView(CreateView):
+    model = User
+    form_class = DoctorRegistrationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("login")
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("dashboard")
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if is_rate_limited(request, "register", 5, 300):
+            return render(
+                request,
+                "errors/429.html",
+                {"message": _("Too many registration attempts. Please try again later.")},
+                status=429,
+            )
+        response = super().post(request, *args, **kwargs)
+        clear_rate_limit(request, "register")
+        return response
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _(
+                "Registration submitted. An administrator will review and activate "
+                "your account before you can sign in."
+            ),
+        )
+        return response
+
+
+class AvailabilityListView(LoginRequiredMixin, ListView):
+    model = StaffUnavailability
+    template_name = "accounts/availability.html"
+    context_object_name = "slots"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.role != User.Role.DOCTOR:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return StaffUnavailability.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nav_key"] = "availability"
+        context.setdefault("form", StaffUnavailabilityForm(user=self.request.user))
+        current_year = date.today().year
+        context["slots_used_this_year"] = StaffUnavailability.objects.filter(
+            user=self.request.user, start_date__year=current_year
+        ).count()
+        context["slots_limit_per_year"] = MAX_UNAVAILABILITY_SLOTS_PER_YEAR
+        context["current_year"] = current_year
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = StaffUnavailabilityForm(request.POST, user=request.user)
+        if form.is_valid():
+            slot = form.save(commit=False)
+            slot.user = request.user
+            slot.save()
+            messages.success(request, _("Busy time slot added."))
+            return redirect("doctor-availability")
+        self.object_list = self.get_queryset()
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+
+class AvailabilityDeleteView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        slot = get_object_or_404(StaffUnavailability, pk=pk, user=request.user)
+        slot.delete()
+        messages.success(request, _("Busy time slot removed."))
+        return redirect("doctor-availability")
+
+
+class UserManagementListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
+    """Sibling page to /profile/ for approving pending registrations (doctors)
+    and managing account activity, without needing Django Admin access."""
+
+    model = User
+    required_capability = Capability.MANAGE_USERS
+    template_name = "accounts/user_management.html"
+    context_object_name = "users"
+
+    def get_queryset(self):
+        return (
+            manageable_users()
+            .select_related("doctor_profile")
+            .order_by("is_active", "first_name", "last_name", "username")
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nav_key"] = "users"
+        context["pending_count"] = self.get_queryset().filter(is_active=False).count()
+        return context
+
+
+class UserToggleActiveView(LoginRequiredMixin, CapabilityRequiredMixin, View):
+    required_capability = Capability.MANAGE_USERS
+
+    def post(self, request, pk, *args, **kwargs):
+        target = get_object_or_404(User, pk=pk)
+        if target.pk == request.user.pk:
+            messages.error(request, _("You cannot change your own active status here."))
+            return redirect("user-management")
+        if is_admin_privileged(target):
+            raise PermissionDenied
+        target.is_active = not target.is_active
+        target.save(update_fields=["is_active"])
+        if target.is_active:
+            messages.success(
+                request,
+                _("%(user)s activated.") % {"user": target.get_full_name() or target.username},
+            )
+        else:
+            messages.success(
+                request,
+                _("%(user)s deactivated.") % {"user": target.get_full_name() or target.username},
+            )
+        return redirect("user-management")

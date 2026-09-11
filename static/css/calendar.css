@@ -238,7 +238,15 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  animation: fade-in-up 400ms var(--ease-out) both;
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+}
+
+/* Triggered from JS just before/after swapping day/week/month/list content
+   so navigating the calendar feels like a soft cross-fade instead of a
+   hard jump-cut. */
+.calendar-stage.is-swapping {
+  opacity: 0;
+  transform: translateY(8px) scale(0.995);
 }
 
 .calendar-month__header {
@@ -354,7 +362,6 @@
   background: linear-gradient(135deg, var(--color-cobalt), var(--color-electric));
   box-shadow: 0 2px 6px rgba(37, 99, 235, 0.28);
   transition: transform 0.16s var(--ease-out), box-shadow 0.16s var(--ease-out);
-  animation: fade-in-up 320ms var(--ease-out) both;
 }
 .cal-capsule:hover {
   transform: translateY(-2px) scale(1.015);
@@ -865,6 +872,7 @@
 .mobile-event-card.border-cyan::before { background: var(--color-brand-cyan); }
 .mobile-event-card.border-emerald::before { background: var(--color-success); }
 .mobile-event-card.border-violet::before { background: var(--color-status-special); }
+.mobile-event-card.border-amber::before { background: var(--color-amber); }
 
 .mobile-event-time {
   display: flex;
@@ -916,6 +924,7 @@
 .mobile-event-room .dot.bg-cyan { background: var(--color-brand-cyan); }
 .mobile-event-room .dot.bg-emerald { background: var(--color-success); }
 .mobile-event-room .dot.bg-violet { background: var(--color-status-special); }
+.mobile-event-room .dot.bg-amber { background: var(--color-amber); }
 
 .mobile-event-title {
   font-size: var(--text-base);

@@ -21,6 +21,7 @@ from django.views.generic import (
 )
 
 from apps.accounts.rbac import Capability, CapabilityRequiredMixin, user_has_capability
+from apps.accounts.services import find_busy_doctors
 from apps.attendance.services import (
     CHECKIN_COOKIE_NAME,
     get_or_create_browser_checkin_token,
@@ -51,6 +52,21 @@ from config.master_data import (
     MasterDataManageMixin,
     MasterDataReadMixin,
 )
+
+
+def busy_attending_doctor_errors(doctors, planned_date, start_time, end_time) -> list[str]:
+    """Blocking check: an event cannot be saved with an attending doctor who
+    is marked busy for that date/time — a doctor can't be in two places at
+    once, so this is a hard error, not a dismissible warning. Returns one
+    translated error message per busy doctor (empty list means all clear)."""
+    errors = []
+    for doctor, reason in find_busy_doctors(doctors, planned_date, start_time, end_time):
+        doctor_name = doctor.get_full_name() or doctor.username
+        errors.append(
+            _("%(doctor)s is busy at this time and cannot be assigned — reason: %(reason)s")
+            % {"doctor": doctor_name, "reason": reason}
+        )
+    return errors
 
 
 class EventTypeContextMixin(MasterDataContextMixin):
@@ -231,7 +247,8 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
                 "can_cancel": can_cancel,
                 "can_submit": (
                     (is_owner or is_admin)
-                    and event.status in (Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.PLANNED)
+                    and event.status
+                    in (Event.Status.DRAFT, Event.Status.REJECTED, Event.Status.PLANNED)
                 ),
                 "can_approve": is_mgmt and event.status == Event.Status.PENDING_APPROVAL,
                 "can_reject": is_mgmt and event.status == Event.Status.PENDING_APPROVAL,
@@ -302,6 +319,17 @@ class EventUpdateView(LoginRequiredMixin, CapabilityRequiredMixin, UpdateView):
                 form.add_error(None, exc.message)
                 return self.form_invalid(form)
 
+        # A doctor already marked busy for this time cannot be assigned —
+        # checked against the form's selection before anything is saved.
+        attending_doctors = form.cleaned_data.get("attending_doctors")
+        if attending_doctors:
+            for error in busy_attending_doctor_errors(
+                attending_doctors, event.planned_date, event.start_time, event.end_time
+            ):
+                form.add_error(None, error)
+            if form.errors:
+                return self.form_invalid(form)
+
         event.save()
         form.save_m2m()
 
@@ -361,7 +389,9 @@ class EventCancelView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
         return redirect(reverse("events:detail", kwargs={"pk": self.event.pk}))
 
 
-class EventDeleteView(LoginRequiredMixin, CapabilityRequiredMixin, MasterDataDeleteMixin, DeleteView):
+class EventDeleteView(
+    LoginRequiredMixin, CapabilityRequiredMixin, MasterDataDeleteMixin, DeleteView
+):
     required_capability = Capability.MANAGE_EVENTS
     model = Event
     list_url_name = "events:list"
@@ -813,8 +843,9 @@ class PublicKioskView(TemplateView):
             status=Event.Status.APPROVED
         ).order_by('start_time').select_related("event_type", "venue")
         
-        # We can also filter out events that are not publicly accessible if there are other conditions (like checkin_status)
-        # But for now, is_public_enabled=True and status=APPROVED is sufficient for the kiosk.
+        # We can also filter out events that are not publicly accessible if
+        # there are other conditions (like checkin_status). But for now,
+        # is_public_enabled=True and status=APPROVED is sufficient for the kiosk.
         
         context["events_today"] = events_today
         context["now"] = now

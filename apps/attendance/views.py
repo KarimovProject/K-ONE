@@ -298,6 +298,7 @@ class EventAttendanceView(LoginRequiredMixin, View):
                     _("Attendee '%(name)s' checked in manually.")
                     % {"name": form.cleaned_data["attendee_name"]},
                 )
+            else:
                 messages.error(
                     request,
                     _("Please provide a valid attendee name for manual check-in."),

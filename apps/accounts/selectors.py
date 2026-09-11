@@ -1,12 +1,17 @@
 from collections.abc import Iterable
 
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 
 from apps.accounts.models import User
 
+ADMIN_ROLES = (User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN)
 
-def selectable_staff() -> QuerySet[User]:
-    return User.objects.filter(is_active=True).order_by("first_name", "last_name", "username")
+
+def selectable_staff(*, exclude_doctors: bool = False) -> QuerySet[User]:
+    queryset = User.objects.filter(is_active=True).order_by("first_name", "last_name", "username")
+    if exclude_doctors:
+        queryset = queryset.exclude(role=User.Role.DOCTOR)
+    return queryset
 
 
 def staff_for_roles(roles: Iterable[str]) -> QuerySet[User]:
@@ -31,6 +36,21 @@ def leadership_viewers() -> QuerySet[User]:
 
 def content_managers() -> QuerySet[User]:
     return staff_for_roles((User.Role.CONTENT_MANAGER,))
+
+
+def doctors() -> QuerySet[User]:
+    return staff_for_roles((User.Role.DOCTOR,))
+
+
+def manageable_users() -> QuerySet[User]:
+    """Users eligible to appear on the /users/ approval page — excludes anyone
+    with admin-level privileges (superusers, super admins, international
+    admins), who manage themselves via their own accounts, not each other."""
+    return User.objects.exclude(Q(is_superuser=True) | Q(role__in=ADMIN_ROLES))
+
+
+def is_admin_privileged(user: User) -> bool:
+    return user.is_superuser or user.role in ADMIN_ROLES
 
 
 def staff_choices(users: Iterable[User] | None = None) -> list[tuple[int, str]]:

@@ -118,7 +118,7 @@
       margin-bottom: 1rem;
       color: #ffffff;
       letter-spacing: -0.02em;
-      padding-right: 90px;
+      padding-right: 170px;
     }
 
     .event-meta-grid {
@@ -149,7 +149,7 @@
       top: 1.5rem;
       right: 1.5rem;
       background: #fff;
-      padding: 0.3rem;
+      padding: 0.5rem;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
@@ -193,7 +193,7 @@
       <a href="{% url 'public-event-page' public_token=event.public_token %}" class="hero-card" data-testid="public-hero-card">
         
         <div class="qr-container">
-          <img src="{% url 'events:qr-png' pk=event.pk %}" alt="QR" style="width: 70px; height: 70px; display: block;">
+          <img src="{% url 'events:qr-png' pk=event.pk %}" alt="QR" style="width: 150px; height: 150px; display: block;">
         </div>
 
         <div class="status-countdown-bar {{ countdown_info.state }}" data-testid="status-countdown-bar">
@@ -207,7 +207,7 @@
         <h1 class="event-title" data-testid="public-event-title">{{ event.title }}</h1>
 
         {% if event.description %}
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-right: 90px;" data-testid="public-event-description">{{ event.description|truncatewords:20 }}</p>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-right: 170px;" data-testid="public-event-description">{{ event.description|truncatewords:20 }}</p>
         {% endif %}
 
         <div class="event-meta-grid">

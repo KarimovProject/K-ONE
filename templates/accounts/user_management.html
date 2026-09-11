@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n account_ui %}
+
+{% block title %}{% trans "Foydalanuvchilar" %} · K-ONE{% endblock %}
+
+{% block content %}
+<div class="workspace-page">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">{% trans "Boshqaruv" %}</span>
+      <h1>{% trans "Foydalanuvchilar" %}</h1>
+      <p class="text-muted">
+        {% blocktrans %}Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan tasdiqlang. Kutilayotgan arizalar soni: {{ pending_count }}.{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+
+  <div class="profile-zone-card account-zone" style="grid-column: 1 / -1;">
+    <div class="security-list">
+      {% for u in users %}
+      <div class="security-item">
+        <span>
+          <strong>{{ u.get_full_name|default:u.username }}</strong>
+          <span class="text-muted"> · @{{ u.username }} · {{ u|localized_role }}</span>
+          {% if u.doctor_profile %}
+            <span class="text-muted"> · {{ u.doctor_profile.specialty }}, {{ u.doctor_profile.workplace }}</span>
+          {% endif %}
+          {% if not u.is_active %}
+            <span class="status-badge" style="margin-left:8px;">{% trans "Kutilmoqda" %}</span>
+          {% endif %}
+        </span>
+        <form method="post" action="{% url 'user-toggle-active' u.pk %}">
+          {% csrf_token %}
+          {% if u.pk == request.user.pk %}
+            <span class="text-muted text-sm">{% trans "Siz" %}</span>
+          {% else %}
+            <button class="btn {% if u.is_active %}btn--ghost{% else %}btn-primary{% endif %}" type="submit">
+              {% if u.is_active %}{% trans "Bloklash" %}{% else %}{% trans "Faollashtirish" %}{% endif %}
+            </button>
+          {% endif %}
+        </form>
+      </div>
+      {% empty %}
+      <p class="text-muted text-sm">{% trans "Foydalanuvchilar topilmadi." %}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

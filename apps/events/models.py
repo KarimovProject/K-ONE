@@ -162,6 +162,13 @@ class Event(models.Model):
         related_name="events",
         verbose_name=_("sponsors"),
     )
+    attending_doctors = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name="attending_events",
+        limit_choices_to={"role": "doctor"},
+        verbose_name=_("speaker doctors"),
+    )
 
     zoom_url = models.URLField(_("Zoom / Meeting URL"), blank=True)
     registration_url = models.URLField(_("Registration URL"), blank=True)
@@ -257,7 +264,7 @@ class Event(models.Model):
     is_public_enabled = models.BooleanField(_("public page enabled"), default=True)
 
     # Phase 5 Event Check-in Configuration
-    checkin_enabled = models.BooleanField(_("check-in enabled"), default=False)
+    checkin_enabled = models.BooleanField(_("check-in enabled"), default=True)
     checkin_opens_at = models.DateTimeField(_("check-in opens at"), null=True, blank=True)
     checkin_closes_at = models.DateTimeField(_("check-in closes at"), null=True, blank=True)
 
@@ -426,6 +433,13 @@ class Event(models.Model):
                 "eligible": False,
                 "code": "not_public",
                 "reason": _("This event page is not currently published or unavailable."),
+            }
+
+        if not self.checkin_enabled:
+            return {
+                "eligible": False,
+                "code": "not_enabled",
+                "reason": _("Check-in is not enabled for this event."),
             }
 
         opens_at = self.effective_checkin_opens_at

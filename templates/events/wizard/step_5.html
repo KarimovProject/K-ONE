@@ -45,6 +45,14 @@
       <div><strong>{% trans "Attendees" %}:</strong> {{ summary_data.expected_attendees|default:"1" }}</div>
       <div><strong>{% trans "Responsible" %}:</strong> {{ summary_data.responsible_employee.get_full_name|default:summary_data.responsible_employee.username|default:"—" }}</div>
       <div><strong>{% trans "Management" %}:</strong> {{ summary_data.management_responsible.get_full_name|default:summary_data.management_responsible.username|default:"—" }}</div>
+      <div>
+        <strong>{% trans "Speaker Doctors" %}:</strong>
+        {% if summary_data.attending_doctors %}
+          {% for doctor in summary_data.attending_doctors %}{{ doctor.get_full_name|default:doctor.username }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        {% else %}
+          —
+        {% endif %}
+      </div>
     </div>
   </div>
 

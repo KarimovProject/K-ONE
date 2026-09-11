@@ -365,7 +365,8 @@ def override_event(event: Event, actor: User, reason: str) -> Event:
                     recipient=conflict.responsible_employee,
                     title=_("Event Displaced"),
                     message=_(
-                        "Your event '%(title)s' was displaced by a higher priority event. Reason: %(reason)s"
+                        "Your event '%(title)s' was displaced by a higher priority event. "
+                        "Reason: %(reason)s"
                     )
                     % {"title": conflict.title, "reason": clean_reason},
                     severity=Notification.Severity.WARNING,
@@ -400,7 +401,8 @@ def override_event(event: Event, actor: User, reason: str) -> Event:
                 recipient=event.responsible_employee,
                 title=_("Event Approved (Override)"),
                 message=_(
-                    "Your event '%(title)s' has been approved via priority override by %(reviewer)s."
+                    "Your event '%(title)s' has been approved via priority override "
+                    "by %(reviewer)s."
                 )
                 % {"title": event.title, "reviewer": actor.get_full_name() or actor.username},
                 severity=Notification.Severity.INFO,

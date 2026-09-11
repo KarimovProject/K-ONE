@@ -1,9 +1,11 @@
 import hashlib
 import uuid
+from datetime import datetime
 from typing import Any
 
 from django.db import IntegrityError, transaction
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.attendance.models import EventAttendance
@@ -71,9 +73,6 @@ def process_public_checkin(
             "new_token": new_token,
         }
 
-    from django.utils import timezone
-    from datetime import datetime
-
     active_end_iso = request.session.get("active_event_end")
     if active_end_iso:
         try:
@@ -84,7 +83,12 @@ def process_public_checkin(
                     return {
                         "success": False,
                         "code": "conflict",
-                        "message": str(_("Siz hozirda boshqa uchrashuvdasiz. Uning vaqti tugamaguncha yangisiga yozila olmaysiz.")),
+                        "message": str(
+                            _(
+                                "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
+                                "tugamaguncha yangisiga yozila olmaysiz."
+                            )
+                        ),
                         "already_checked_in": False,
                         "token": token,
                         "new_token": new_token,

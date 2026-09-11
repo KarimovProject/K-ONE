@@ -16,5 +16,6 @@ def localized_role(user: User) -> str:
         User.Role.LEADERSHIP_VIEWER: _("Leadership viewer"),
         User.Role.CONTENT_MANAGER: _("Content manager"),
         User.Role.RECEPTION_OPERATOR: _("Reception operator"),
+        User.Role.DOCTOR: _("Doctor"),
     }
     return str(labels.get(user.role, user.get_role_display()))

@@ -4084,3 +4084,366 @@ msgstr "Noto'g'ri rasm fayli."
 msgid "Dasturni ko'rish"
 msgstr "Dasturni ko'rish"
 
+#: templates/public/dashboard.html:0
+msgid "Operatsion Markaz"
+msgstr "Operatsion Markaz"
+
+#: templates/public/dashboard.html:0
+msgid "K-ONE OPERATSION MARKAZI"
+msgstr "K-ONE OPERATSION MARKAZI"
+
+#: templates/public/dashboard.html:0
+msgid "Bugungi tadbirlar boshqaruvi"
+msgstr "Bugungi tadbirlar boshqaruvi"
+
+#: templates/public/dashboard.html:0
+msgid "Zallar, tadbirlar va real vaqt holati yagona boshqaruv markazida."
+msgstr "Zallar, tadbirlar va real vaqt holati yagona boshqaruv markazida."
+
+#: templates/public/dashboard.html:0
+msgid "Tizim barqaror ishlamoqda"
+msgstr "Tizim barqaror ishlamoqda"
+
+#: templates/public/dashboard.html:0
+msgid "BUGUNGI TADBIRLAR"
+msgstr "BUGUNGI TADBIRLAR"
+
+#: templates/public/dashboard.html:0
+msgid "o'tgan haftaga nisbatan"
+msgstr "o'tgan haftaga nisbatan"
+
+#: templates/public/dashboard.html:0
+msgid "JONLI HOZIR"
+msgstr "JONLI HOZIR"
+
+#: templates/public/dashboard.html:0
+msgid "Zallarda davom etmoqda"
+msgstr "Zallarda davom etmoqda"
+
+#: templates/public/dashboard.html:0
+msgid "BAND ZALLAR"
+msgstr "BAND ZALLAR"
+
+#: templates/public/dashboard.html:0
+msgid "0% bandlik"
+msgstr "0% bandlik"
+
+#: templates/public/dashboard.html:0
+msgid "KEYINGI TADBIR"
+msgstr "KEYINGI TADBIR"
+
+#: templates/public/dashboard.html:0
+msgid "Kutilmoqda..."
+msgstr "Kutilmoqda..."
+
+#: templates/public/dashboard.html:0
+msgid "Xronologik Oqim"
+msgstr "Xronologik Oqim"
+
+#: templates/public/dashboard.html:0
+msgid "Zallar bo'yicha joriy reja (08:00 — 18:00)"
+msgstr "Zallar bo'yicha joriy reja (08:00 — 18:00)"
+
+#: templates/public/dashboard.html:0
+msgid "Reja"
+msgstr "Reja"
+
+#: templates/public/dashboard.html:0
+msgid "Bugun tadbirlar yo'q"
+msgstr "Bugun tadbirlar yo'q"
+
+#: templates/public/dashboard.html:0
+msgid "Barcha zallar erkin. Yangi tadbir rejalashtirishingiz mumkin."
+msgstr "Barcha zallar erkin. Yangi tadbir rejalashtirishingiz mumkin."
+
+#: templates/public/dashboard.html:0
+msgid "Hozir"
+msgstr "Hozir"
+
+#: templates/public/dashboard.html:0
+msgid "Zallar Faolligi"
+msgstr "Zallar Faolligi"
+
+#: templates/public/dashboard.html:0
+msgid "Haftalik Faollik"
+msgstr "Haftalik Faollik"
+
+#: templates/public/dashboard.html:0
+msgid "Tezkor Amallar"
+msgstr "Tezkor Amallar"
+
+#: templates/public/dashboard.html:0
+msgid "Kalendar"
+msgstr "Kalendar"
+
+#: templates/public/dashboard.html:0
+msgid "Boshqaruv paneli"
+msgstr "Boshqaruv paneli"
+
+#: templates/public/dashboard.html:0
+msgid "Jonli"
+msgstr "Jonli"
+
+msgid "Doctor"
+msgstr "Shifokor"
+
+msgid "specialty"
+msgstr "mutaxassislik"
+
+msgid "workplace"
+msgstr "ish joyi"
+
+msgid "position / academic degree"
+msgstr "lavozimi / ilmiy darajasi"
+
+msgid "languages spoken"
+msgstr "so'zlashadigan tillari"
+
+msgid "license / ID number"
+msgstr "litsenziya / ID raqami"
+
+msgid "short bio"
+msgstr "qisqacha ma'lumot"
+
+msgid "doctor profile"
+msgstr "shifokor profili"
+
+msgid "doctor profiles"
+msgstr "shifokor profillari"
+
+msgid "staff unavailability"
+msgstr "xodim bandligi"
+
+msgid "attending doctors"
+msgstr "ishtirok etuvchi shifokorlar"
+
+msgid "Specialty"
+msgstr "Mutaxassislik"
+
+msgid "Workplace"
+msgstr "Ish joyi"
+
+msgid "Position / academic degree"
+msgstr "Lavozimi / ilmiy darajasi"
+
+msgid "Languages spoken"
+msgstr "So'zlashadigan tillari"
+
+msgid "License / ID number"
+msgstr "Litsenziya / ID raqami"
+
+msgid "Short bio"
+msgstr "Qisqacha ma'lumot"
+
+msgid "Photo"
+msgstr "Surat"
+
+msgid "Start time"
+msgstr "Boshlanish vaqti"
+
+msgid "End time"
+msgstr "Tugash vaqti"
+
+msgid "Reason"
+msgstr "Sababi"
+
+msgid "Attending Doctors"
+msgstr "Ishtirok etuvchi shifokorlar"
+
+msgid "This username is already taken."
+msgstr "Bu foydalanuvchi nomi allaqachon band."
+
+msgid "Too many registration attempts. Please try again later."
+msgstr ""
+"Juda ko'p ro'yxatdan o'tish urinishi. Birozdan so'ng qayta urinib ko'ring."
+
+msgid ""
+"Registration submitted. An administrator will review and activate your "
+"account before you can sign in."
+msgstr ""
+"Ariza yuborildi. Administrator ko'rib chiqib, hisobingizni faollashtirgach "
+"tizimga kira olasiz."
+
+msgid "Busy time slot added."
+msgstr "Band vaqt qo'shildi."
+
+msgid "Busy time slot removed."
+msgstr "Band vaqt o'chirildi."
+
+msgid "Attending doctor is busy"
+msgstr "Ishtirok etuvchi shifokor band"
+
+msgid "%(doctor)s is marked busy for this time — reason: %(reason)s"
+msgstr "%(doctor)s ushbu vaqtda band deb belgilangan — sababi: %(reason)s"
+
+msgid "%(doctor)s is marked busy for “%(event)s” — reason: %(reason)s"
+msgstr "%(doctor)s «%(event)s» tadbiri vaqtida band — sababi: %(reason)s"
+
+msgid "Shifokor sifatida ro'yxatdan o'tish"
+msgstr "Shifokor sifatida ro'yxatdan o'tish"
+
+msgid ""
+"Xalqaro tadbirlarga shifokor sifatida qatnashish uchun ro'yxatdan o'ting. "
+"Arizangiz administrator tomonidan ko'rib chiqiladi."
+msgstr ""
+"Xalqaro tadbirlarga shifokor sifatida qatnashish uchun ro'yxatdan o'ting. "
+"Arizangiz administrator tomonidan ko'rib chiqiladi."
+
+msgid ""
+"Quyidagi ma'lumotlarni to'ldiring. Ariza yuborilgach, administrator "
+"tasdiqlaguncha tizimga kira olmaysiz."
+msgstr ""
+"Quyidagi ma'lumotlarni to'ldiring. Ariza yuborilgach, administrator "
+"tasdiqlaguncha tizimga kira olmaysiz."
+
+msgid "Arizani yuborish"
+msgstr "Arizani yuborish"
+
+msgid "Hisobingiz allaqachon bormi?"
+msgstr "Hisobingiz allaqachon bormi?"
+
+msgid "Shifokormisiz?"
+msgstr "Shifokormisiz?"
+
+msgid "Ro'yxatdan o'ting"
+msgstr "Ro'yxatdan o'ting"
+
+msgid "Band vaqtlarim"
+msgstr "Band vaqtlarim"
+
+msgid ""
+"Bu yerda band bo'lgan sana va vaqt oralig'ini sababi bilan belgilang. Sizni "
+"tadbirga mas'ul/ishtirokchi shifokor sifatida belgilashda tizim bu "
+"ma'lumotdan foydalanadi."
+msgstr ""
+"Bu yerda band bo'lgan sana va vaqt oralig'ini sababi bilan belgilang. Sizni "
+"tadbirga mas'ul/ishtirokchi shifokor sifatida belgilashda tizim bu "
+"ma'lumotdan foydalanadi."
+
+msgid "Yangi band vaqt qo'shish"
+msgstr "Yangi band vaqt qo'shish"
+
+msgid "Qo'shish"
+msgstr "Qo'shish"
+
+msgid "Belgilangan band vaqtlar"
+msgstr "Belgilangan band vaqtlar"
+
+msgid "O'chirish"
+msgstr "O'chirish"
+
+msgid "Hozircha band vaqt belgilanmagan."
+msgstr "Hozircha band vaqt belgilanmagan."
+
+msgid "Band vaqtlarimni boshqarish"
+msgstr "Band vaqtlarimni boshqarish"
+
+msgid "End time must be later than start time."
+msgstr "Tugash vaqti boshlanish vaqtidan keyin bo'lishi kerak."
+
+msgid "created at"
+msgstr "yaratilgan vaqti"
+
+msgid "date"
+msgstr "sana"
+
+msgid "e.g. UZ, RU, EN"
+msgstr "masalan, UZ, RU, EN"
+
+msgid "end time"
+msgstr "tugash vaqti"
+
+msgid "reason"
+msgstr "sababi"
+
+msgid "start time"
+msgstr "boshlanish vaqti"
+
+msgid "user"
+msgstr "foydalanuvchi"
+
+msgid "Foydalanuvchilar"
+msgstr "Foydalanuvchilar"
+
+msgid "Boshqaruv"
+msgstr "Boshqaruv"
+
+msgid ""
+"Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan "
+"tasdiqlang. Kutilayotgan arizalar soni: %(pending_count)s."
+msgstr ""
+"Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan "
+"tasdiqlang. Kutilayotgan arizalar soni: %(pending_count)s."
+
+msgid "Kutilmoqda"
+msgstr "Kutilmoqda"
+
+msgid "Siz"
+msgstr "Siz"
+
+msgid "Bloklash"
+msgstr "Bloklash"
+
+msgid "Faollashtirish"
+msgstr "Faollashtirish"
+
+msgid "Foydalanuvchilar topilmadi."
+msgstr "Foydalanuvchilar topilmadi."
+
+msgid "You cannot change your own active status here."
+msgstr "Bu yerda o'zingizning faollik holatingizni o'zgartira olmaysiz."
+
+msgid "%(user)s activated."
+msgstr "%(user)s faollashtirildi."
+
+msgid "%(user)s deactivated."
+msgstr "%(user)s bloklandi."
+
+msgid "Majburiy — band bo'lish sababini qisqacha yozing."
+msgstr "Majburiy — band bo'lish sababini qisqacha yozing."
+
+msgid "Please explain why you're busy at this time."
+msgstr "Iltimos, ushbu vaqtda band bo'lish sababini yozing."
+
+msgid "End date/time must be later than start date/time."
+msgstr "Tugash sana/vaqti boshlanish sana/vaqtidan keyin bo'lishi kerak."
+
+msgid ""
+"You can mark yourself busy at most %(limit)d times per year. You've already "
+"used all %(limit)d for %(year)d — remove an existing entry first if you need"
+" to add a new one."
+msgstr ""
+"Siz bir yilda o'zingizni ko'pi bilan %(limit)d marta band deb belgilashingiz"
+" mumkin. %(year)d-yil uchun barcha %(limit)d martasi ishlatib bo'lingan — "
+"yangisini qo'shish uchun avval mavjudlaridan birini o'chiring."
+
+msgid ""
+"%(current_year)s-yil uchun ishlatilgan: %(slots_used_this_year)s / "
+"%(slots_limit_per_year)s"
+msgstr ""
+"%(current_year)s-yil uchun ishlatilgan: %(slots_used_this_year)s / "
+"%(slots_limit_per_year)s"
+
+msgid ""
+"%(doctor)s is busy at this time and cannot be assigned — reason: %(reason)s"
+msgstr ""
+"%(doctor)s ushbu vaqtda band va biriktirilishi mumkin emas — sababi: "
+"%(reason)s"
+
+msgid "speaker doctors"
+msgstr "ma'ruzachi shifokorlar"
+
+msgid "Speaker Doctors"
+msgstr "Ma'ruzachi shifokorlar"
+
+msgid ""
+"Bu yerda band bo'lgan sana va vaqt oralig'ini sababi bilan belgilang. Sizni "
+"tadbirga ma'ruzachi shifokor sifatida belgilashda tizim bu ma'lumotdan "
+"foydalanadi."
+msgstr ""
+"Bu yerda band bo'lgan sana va vaqt oralig'ini sababi bilan belgilang. Sizni "
+"tadbirga ma'ruzachi shifokor sifatida belgilashda tizim bu ma'lumotdan "
+"foydalanadi."
+
+msgid "Check-in is not enabled for this event."
+msgstr "Ushbu tadbir uchun ro'yxatdan o'tish (check-in) yoqilmagan."

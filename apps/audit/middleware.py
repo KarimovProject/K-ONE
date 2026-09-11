@@ -1,8 +1,7 @@
-import json
 import logging
-from datetime import datetime
-from django.conf import settings
 from pathlib import Path
+
+from django.conf import settings
 
 # Set up a dedicated logger for admin audit
 AUDIT_LOG_FILE = getattr(settings, "BASE_DIR", Path(".")) / "logs" / "admin_audit.log"
@@ -15,8 +14,8 @@ handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
 audit_logger.addHandler(handler)
 audit_logger.propagate = False
 
-class AdminAuditLogMiddleware:
 
+class AdminAuditLogMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -24,10 +23,13 @@ class AdminAuditLogMiddleware:
         response = self.get_response(request)
         if request.user.is_authenticated and request.method in ("POST", "PUT", "DELETE", "PATCH"):
             path = request.path
-            
+
             user_info = f"{request.user.username} ({request.user.role})"
-            log_msg = f"User: {user_info} | Method: {request.method} | Path: {path} | Status: {response.status_code}"
-            
+            log_msg = (
+                f"User: {user_info} | Method: {request.method} | "
+                f"Path: {path} | Status: {response.status_code}"
+            )
+
             audit_logger.info(log_msg)
 
         return response

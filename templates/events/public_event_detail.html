@@ -122,7 +122,7 @@
       margin-bottom: 1rem;
       color: #ffffff;
       letter-spacing: -0.02em;
-      padding-right: 90px; /* Space for the QR code */
+      padding-right: 170px; /* Space for the QR code */
     }
 
     .event-meta-grid {
@@ -533,8 +533,8 @@
     <main>
       <div class="hero-card" data-testid="public-hero-card" style="position: relative;">
         <!-- Top Right QR Code -->
-        <div class="desktop-qr" style="position: absolute; top: 1.5rem; right: 1.5rem; background: #fff; padding: 0.3rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-          <img src="{% url 'events:qr-png' pk=event.pk %}" alt="QR" style="width: 70px; height: 70px; display: block;" title="QR orqali ro'yxatdan o'tish">
+        <div class="desktop-qr" style="position: absolute; top: 1.5rem; right: 1.5rem; background: #fff; padding: 0.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+          <img src="{% url 'events:qr-png' pk=event.pk %}" alt="QR" style="width: 150px; height: 150px; display: block;" title="QR orqali ro'yxatdan o'tish">
         </div>
 
         <div class="status-countdown-bar {{ countdown_info.state }}" data-testid="status-countdown-bar">

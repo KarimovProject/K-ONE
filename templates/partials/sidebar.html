@@ -58,6 +58,10 @@
         <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="speaker" %}</span>
         <span>{% trans "Ma'ruzachilar" %}</span>
       </a>
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'users' %} is-active{% endif %}" href="{% url 'user-management' %}" {% if nav_key == 'users' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="users" %}</span>
+        <span>{% trans "Foydalanuvchilar" %}</span>
+      </a>
     {% endif %}
 
     {% if user.is_superuser or user.role == 'super_admin' or user.role == 'content_manager' %}
@@ -87,6 +91,12 @@
     {% endif %}
 
     <span class="nav-section">{% trans "Shaxsiy" %}</span>
+    {% if user.role == 'doctor' %}
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'availability' %} is-active{% endif %}" href="{% url 'doctor-availability' %}" {% if nav_key == 'availability' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar" %}</span>
+        <span>{% trans "Band vaqtlarim" %}</span>
+      </a>
+    {% endif %}
     <a class="nav-item sidebar-nav-item{% if nav_key == 'telegram' %} is-active{% endif %}" href="{% url 'notifications:telegram-settings' %}" {% if nav_key == 'telegram' %}aria-current="page"{% endif %}>
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="send" %}</span>
       <span>Telegram</span>

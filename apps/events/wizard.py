@@ -24,6 +24,7 @@ from apps.events.services.conflicts import (
     check_venue_availability,
     validate_and_lock_event_reservation,
 )
+from apps.events.views import busy_attending_doctor_errors
 from apps.organizations.models import Organization, Sponsor
 from apps.venues.models import Venue
 
@@ -141,6 +142,7 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
         resp_emp_id = step3.get("responsible_employee")
         mgmt_resp_id = step3.get("management_responsible")
 
+        attending_doctor_ids = step3.get("attending_doctors", [])
         org_ids = step4.get("organizing_organizations", [])
         sponsor_ids = step4.get("sponsors", [])
 
@@ -184,6 +186,16 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
             messages.error(request, exc.message)
             return redirect(f"{reverse('events:wizard')}?step=2")
 
+        if attending_doctor_ids:
+            candidate_doctors = User.objects.filter(pk__in=attending_doctor_ids)
+            doctor_errors = busy_attending_doctor_errors(
+                candidate_doctors, planned_date, start_time, end_time
+            )
+            if doctor_errors:
+                for error in doctor_errors:
+                    messages.error(request, error)
+                return redirect(f"{reverse('events:wizard')}?step=3")
+
         # Create Event record
         event = Event.objects.create(
             title=title,
@@ -209,6 +221,8 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
             event.organizing_organizations.set(Organization.objects.filter(pk__in=org_ids))
         if sponsor_ids:
             event.sponsors.set(Sponsor.objects.filter(pk__in=sponsor_ids))
+        if attending_doctor_ids:
+            event.attending_doctors.set(candidate_doctors)
 
         # Audit logs
         log_audit_event(
@@ -286,6 +300,7 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
         venue = Venue.objects.filter(pk=s2.get("venue")).first()
         resp_emp = User.objects.filter(pk=s3.get("responsible_employee")).first()
         mgmt_resp = User.objects.filter(pk=s3.get("management_responsible")).first()
+        attending_doctors = User.objects.filter(pk__in=s3.get("attending_doctors", []))
         orgs = Organization.objects.filter(pk__in=s4.get("organizing_organizations", []))
         sponsors = Sponsor.objects.filter(pk__in=s4.get("sponsors", []))
 
@@ -300,6 +315,7 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
             "venue": venue,
             "responsible_employee": resp_emp,
             "management_responsible": mgmt_resp,
+            "attending_doctors": attending_doctors,
             "organizing_organizations": orgs,
             "sponsors": sponsors,
         }

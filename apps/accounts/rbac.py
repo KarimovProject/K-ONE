@@ -22,6 +22,7 @@ class Capability(StrEnum):
     MANAGE_ATTENDANCE = "manage_attendance"
     VIEW_MASTER_DATA = "view_master_data"
     MANAGE_MASTER_DATA = "manage_master_data"
+    MANAGE_USERS = "manage_users"
 
 
 ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
@@ -37,6 +38,7 @@ ROLE_CAPABILITIES: dict[str, frozenset[Capability]] = {
             Capability.MANAGE_MASTER_DATA,
             Capability.MANAGE_CONTENT,
             Capability.MANAGE_ATTENDANCE,
+            Capability.MANAGE_USERS,
         }
     ),
     User.Role.RESPONSIBLE_EMPLOYEE: frozenset(

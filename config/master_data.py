@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q, ProtectedError
+from django.db.models import ProtectedError, Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -105,6 +105,7 @@ class MasterDataDeleteMixin:
         except ProtectedError:
             messages.error(
                 request,
-                _("Cannot delete %(resource)s because it is currently in use.") % {"resource": self.resource_name}
+                _("Cannot delete %(resource)s because it is currently in use.")
+                % {"resource": self.resource_name},
             )
             return HttpResponseRedirect(self.get_success_url())

@@ -18,22 +18,27 @@
     let view = new URLSearchParams(location.search).get("view") || "month";
 
     // Live clock badge (date/time, real-time, Asia/Tashkent).
+    // Hour/minute are formatted manually from Tashkent wall-clock parts
+    // (not via a language-specific Intl format) so the clock is correct
+    // regardless of ICU locale-data quirks for less common locales.
     (() => {
         const clockEl = document.querySelector("[data-clock]");
         const weekdayEl = document.querySelector("[data-clock-weekday]");
         if (!clockEl && !weekdayEl) return;
-        const locale = { uz: "uz-UZ", ru: "ru-RU", en: "en-GB", tr: "tr-TR" }[document.documentElement.lang] || "uz-UZ";
+        const weekdayLocale = { uz: "uz-UZ", ru: "ru-RU", en: "en-GB", tr: "tr-TR" }[document.documentElement.lang] || "uz-UZ";
+        const fieldFormatter = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Asia/Tashkent", hour: "2-digit", minute: "2-digit", hour12: false,
+        });
+        const weekdayFormatter = new Intl.DateTimeFormat(weekdayLocale, {
+            timeZone: "Asia/Tashkent", day: "numeric", month: "short", weekday: "long",
+        });
         const tick = () => {
             const now = new Date();
             if (clockEl) {
-                clockEl.textContent = new Intl.DateTimeFormat(locale, {
-                    timeZone: "Asia/Tashkent", hour: "2-digit", minute: "2-digit", hour12: false,
-                }).format(now);
+                clockEl.textContent = fieldFormatter.format(now);
             }
             if (weekdayEl) {
-                weekdayEl.textContent = new Intl.DateTimeFormat(locale, {
-                    timeZone: "Asia/Tashkent", day: "numeric", month: "short", weekday: "long",
-                }).format(now);
+                weekdayEl.textContent = weekdayFormatter.format(now);
             }
         };
         tick();
@@ -45,31 +50,36 @@
         months: ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
         days: ["Dush","Sesh","Chor","Pay","Jum","Shan","Yak"],
         today: "Bugun", tomorrow: "Erta", now: "Hozir",
-        empty: "Tadbirlar topilmadi", more: "yana", retry: "Xatolik yuz berdi", again: "Qayta urinish"
+        empty: "Tadbirlar topilmadi", more: "yana", retry: "Xatolik yuz berdi", again: "Qayta urinish",
+        eventsCount: "ta tadbir", noEventsToday: "Bu kunda tadbirlar yo'q"
       },
       ru: {
         months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
         days: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
         today: "Сегодня", tomorrow: "Завтра", now: "Сейчас",
-        empty: "Мероприятия не найдены", more: "ещё", retry: "Произошла ошибка", again: "Повторить"
+        empty: "Мероприятия не найдены", more: "ещё", retry: "Произошла ошибка", again: "Повторить",
+        eventsCount: "событие(й)", noEventsToday: "В этот день нет мероприятий"
       },
       en: {
         months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
         days: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
         today: "Today", tomorrow: "Tomorrow", now: "Now",
-        empty: "No events found", more: "more", retry: "Something went wrong", again: "Retry"
+        empty: "No events found", more: "more", retry: "Something went wrong", again: "Retry",
+        eventsCount: "event(s)", noEventsToday: "No events on this day"
       },
       tr: {
         months: ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
         days: ["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],
         today: "Bugün", tomorrow: "Yarın", now: "Şimdi",
-        empty: "Etkinlik bulunamadı", more: "daha fazla", retry: "Bir hata oluştu", again: "Tekrar dene"
+        empty: "Etkinlik bulunamadı", more: "daha fazla", retry: "Bir hata oluştu", again: "Tekrar dene",
+        eventsCount: "etkinlik", noEventsToday: "Bu günde etkinlik yok"
       }
     }[document.documentElement.lang] || {
         months: ["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"],
         days: ["Dush","Sesh","Chor","Pay","Jum","Shan","Yak"],
         today: "Bugun", tomorrow: "Erta", now: "Hozir",
-        empty: "Tadbirlar topilmadi", more: "yana", retry: "Xatolik yuz berdi", again: "Qayta urinish"
+        empty: "Tadbirlar topilmadi", more: "yana", retry: "Xatolik yuz berdi", again: "Qayta urinish",
+        eventsCount: "ta tadbir", noEventsToday: "Bu kunda tadbirlar yo'q"
     };
 
     const iso = d => {
@@ -109,7 +119,7 @@
         let colorClass = 'cobalt';
         const typeCode = (e.event_type_code || '').toLowerCase();
         if (typeCode.includes('conf') || typeCode.includes('konf') || typeCode.includes('forum')) colorClass = 'cobalt';
-        else if (typeCode.includes('meet') || typeCode.includes('majlis')) colorClass = 'cyan';
+        else if (typeCode.includes('meet') || typeCode.includes('majlis')) colorClass = 'amber';
         else if (typeCode.includes('sem') || typeCode.includes('train')) colorClass = 'emerald';
         else if (typeCode.includes('spec') || typeCode.includes('rasmiy')) colorClass = 'violet';
 
@@ -217,13 +227,13 @@
         const dateString = `${cursor.getDate()} ${text.months[cursor.getMonth()]}, ${text.days[(cursor.getDay()+6)%7]}`;
         agendaHtml += `<div class="mobile-cal-agenda-header">
             <h3>${dateString}</h3>
-            <span>${dayEvents.length} ta tadbir</span>
+            <span>${dayEvents.length} ${text.eventsCount}</span>
         </div>`;
 
         if (dayEvents.length === 0) {
             agendaHtml += `<div class="mobile-cal-empty">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <p>Bu kunda tadbirlar yo'q</p>
+                <p>${text.noEventsToday}</p>
             </div>`;
         } else {
             agendaHtml += `<div class="mobile-cal-events">`;
@@ -231,7 +241,7 @@
                 let colorClass = 'cobalt';
                 const typeCode = (e.event_type_code || '').toLowerCase();
                 if (typeCode.includes('conf') || typeCode.includes('konf') || typeCode.includes('forum')) colorClass = 'cobalt';
-                else if (typeCode.includes('meet') || typeCode.includes('majlis')) colorClass = 'cyan';
+                else if (typeCode.includes('meet') || typeCode.includes('majlis')) colorClass = 'amber';
                 else if (typeCode.includes('sem') || typeCode.includes('train')) colorClass = 'emerald';
                 else if (typeCode.includes('spec') || typeCode.includes('rasmiy')) colorClass = 'violet';
 
@@ -262,6 +272,26 @@
         return `<div class="mobile-calendar-wrapper fade-in-up">${stripHtml}${agendaHtml}</div>`;
     };
 
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let swapTimer = null;
+
+    // Cross-fades the calendar stage content instead of hard-swapping it, so
+    // moving between day/week/month/list or prev/next/today reads as one
+    // smooth transition rather than a flash of new content.
+    const setStageHtml = html => {
+        if (reducedMotion) {
+            stage.innerHTML = html;
+            return;
+        }
+        clearTimeout(swapTimer);
+        stage.classList.add("is-swapping");
+        swapTimer = setTimeout(() => {
+            stage.innerHTML = html;
+            void stage.offsetWidth; // force reflow so the class removal transitions back in
+            stage.classList.remove("is-swapping");
+        }, 160);
+    };
+
     const render = () => {
       const {start, end} = range();
 
@@ -269,11 +299,10 @@
       else if (view === "week") title.textContent = `${label(start)} – ${label(end)}`;
       else title.textContent = label(cursor);
 
-      if (window.innerWidth <= 767) {
-          stage.innerHTML = renderMobile();
-      } else {
-          stage.innerHTML = view === "month" ? renderMonth(start, end) : view === "week" ? renderWeek(start) : view === "day" ? renderDay() : renderList();
-      }
+      const html = window.innerWidth <= 767
+          ? renderMobile()
+          : view === "month" ? renderMonth(start, end) : view === "week" ? renderWeek(start) : view === "day" ? renderDay() : renderList();
+      setStageHtml(html);
 
       root.querySelectorAll("[data-view]").forEach(b => {
           b.classList.toggle('active', b.dataset.view === view);

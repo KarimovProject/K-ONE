@@ -4,6 +4,20 @@
 
 :root {
   /* --------------------------------------------------------------------------
+     0. Z-INDEX SCALE
+     Referenced across app.css/workspace.css/public.css (e.g. .topbar,
+     .dropdown-content) as var(--z-*). Previously undefined, which silently
+     computed to z-index:auto and let page content with its own stacking
+     context (e.g. a `transform`-holding .animate-entrance wrapper) paint
+     over "elevated" chrome like the topbar user menu.
+     -------------------------------------------------------------------------- */
+  --z-base: 1;
+  --z-sticky: 20;
+  --z-dropdown: 40;
+  --z-modal: 60;
+  --z-max: 100;
+
+  /* --------------------------------------------------------------------------
      1. COLOR SYSTEM (Light Mode)
      -------------------------------------------------------------------------- */
 
@@ -61,9 +75,12 @@
   --color-brand-cobalt: var(--color-cobalt);
   --color-brand-cyan: var(--color-sky);
   --color-text-main: var(--color-text-primary);
+  --color-text: var(--color-text-primary);
   --color-border-default: var(--color-border);
   --color-ink: var(--color-text-title);
+  --color-surface: var(--color-surface-2);
   --color-surface-elevated: var(--color-surface-3);
+  --color-primary: var(--color-cobalt);
 
   --color-status-free: var(--color-emerald);
   --color-status-active: var(--color-sky);
@@ -81,6 +98,43 @@
   --color-warning: var(--color-amber);
   --color-danger:  var(--color-rose);
   --color-info:    var(--color-sky);
+
+  --color-success-bg:     rgba(16, 185, 129, 0.12);
+  --color-success-border: rgba(16, 185, 129, 0.3);
+  --color-warning-bg:     rgba(245, 158, 11, 0.12);
+  --color-warning-border: rgba(245, 158, 11, 0.3);
+  --color-danger-bg:      rgba(244, 63, 94, 0.12);
+  --color-danger-border:  rgba(244, 63, 94, 0.3);
+  --color-info-bg:        rgba(56, 189, 248, 0.12);
+  --color-info-border:    rgba(56, 189, 248, 0.3);
+
+  --color-text-link: var(--color-cobalt);
+  --color-nav-text-muted: var(--color-nav-text);
+  --color-ink-light: color-mix(in srgb, var(--color-ink) 85%, white);
+  --gradient-primary: linear-gradient(135deg, var(--color-cobalt), var(--color-electric));
+  --shadow-glow: 0 0 16px rgba(56, 189, 248, 0.35);
+  --color-status-error: var(--color-rose);
+  --color-bg-subtle: var(--color-surface-1);
+  --color-cobalt-subtle: color-mix(in srgb, var(--color-cobalt) 12%, transparent);
+  --color-sky-subtle: var(--color-status-active-bg);
+  --color-indigo: #6366F1;
+  --color-indigo-subtle: rgba(99, 102, 241, 0.12);
+  --color-brand-teal: var(--surface-accent-teal);
+  --color-brand-blue: var(--color-cobalt);
+  --amber-500: var(--color-amber);
+  --amber-600: #D97706;
+  --emerald-600: #059669;
+  --crimson-600: #DC2626;
+  --indigo-500: #6366F1;
+  --violet-500: #8B5CF6;
+
+  /* Legacy admin-skin aliases (static/css/admin-pages.css) */
+  --blue: var(--color-cobalt);
+  --ink-500: var(--color-text-secondary);
+  --ink-700: var(--color-text-primary);
+  --surface: var(--color-surface-3);
+  --surface-soft: var(--color-surface-1);
+  --line: var(--color-border);
 
   /* Semantic Action Tokens */
   --action-primary: var(--color-sky);
@@ -216,9 +270,18 @@
   --text-meta:       var(--text-sm);
 
   /* Tracking */
+  --tracking-tighter: -0.03em;
   --tracking-tight:   -0.015em;
   --tracking-normal:  0em;
+  --tracking-wide:    0.02em;
   --tracking-wider:   0.08em;
+  --tracking-widest:  0.12em;
+
+  /* Leading */
+  --leading-none:    1;
+  --leading-tight:   1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
 
   /* --------------------------------------------------------------------------
      3. ELEVATION & DEPTH
@@ -226,6 +289,8 @@
   --shadow-xs:  0 1px 2px rgba(7, 26, 51, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   --shadow-sm:  0 1px 3px rgba(7, 26, 51, 0.05), 0 1px 2px rgba(7, 26, 51, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   --shadow-md:  0 4px 6px -1px rgba(7, 26, 51, 0.06), 0 2px 4px -1px rgba(7, 26, 51, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-lg:  0 10px 15px -3px rgba(7, 26, 51, 0.08), 0 4px 6px -2px rgba(7, 26, 51, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-xl:  0 20px 25px -5px rgba(7, 26, 51, 0.10), 0 8px 10px -6px rgba(7, 26, 51, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   --shadow-focus: 0 0 0 3px rgba(14, 165, 233, 0.25);
 
   /* --------------------------------------------------------------------------
@@ -236,7 +301,9 @@
   --radius-md:   8px;
   --radius-lg:   10px;
   --radius-xl:   12px;
+  --radius-2xl:  16px;
   --radius-pill: 9999px;
+  --radius-full: var(--radius-pill);
 
   --space-0: 0px;
   --space-px: 1px;
@@ -250,6 +317,12 @@
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
+  --space-16: 64px;
+
+  /* --------------------------------------------------------------------------
+     Content width
+     -------------------------------------------------------------------------- */
+  --content-max: 1440px;
 
   /* --------------------------------------------------------------------------
      5. MOTION
@@ -260,6 +333,8 @@
   --duration-component: 180ms;
   --duration-normal: 200ms;
   --duration-panel: 260ms;
+  --motion-fast: var(--duration-fast);
+  --motion-normal: var(--duration-normal);
 }
 
 .tabular-nums {

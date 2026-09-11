@@ -10,12 +10,12 @@ def generate_qr_code_png(data: str) -> bytes:
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_M,
         box_size=10,
-        border=3,
+        border=4,
     )
     qr.add_data(data)
     qr.make(fit=True)
 
-    img = qr.make_image(fill_color="#07172f", back_color="#ffffff")
+    img = qr.make_image(fill_color="#000000", back_color="#ffffff")
     buffer = io.BytesIO()
     img.save(buffer, format="PNG")
     return buffer.getvalue()
@@ -27,7 +27,7 @@ def generate_qr_code_svg(data: str) -> str:
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_M,
         box_size=10,
-        border=3,
+        border=4,
         image_factory=qrcode.image.svg.SvgPathImage,
     )
     qr.add_data(data)

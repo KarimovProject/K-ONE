@@ -3,6 +3,7 @@ from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.selectors import (
+    doctors,
     management_responsible_users,
     responsible_employees,
     selectable_staff,
@@ -114,23 +115,33 @@ class EventStep2Form(forms.Form):
 class EventStep3Form(forms.Form):
     responsible_employee = forms.ModelChoiceField(
         label=_("Responsible Employee"),
-        queryset=selectable_staff(),
+        queryset=selectable_staff(exclude_doctors=True),
     )
     management_responsible = forms.ModelChoiceField(
         label=_("Management Responsible Person"),
-        queryset=selectable_staff(),
+        queryset=selectable_staff(exclude_doctors=True),
+    )
+    attending_doctors = forms.ModelMultipleChoiceField(
+        label=_("Speaker Doctors"),
+        queryset=doctors(),
+        required=False,
+        widget=forms.SelectMultiple(attrs={"class": "select-multiple"}),
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Doctors are assigned only through attending_doctors — never let one
+        # be picked as responsible/management staff by accident (the fallback
+        # to "any active user" below is exactly how that happened in practice).
         resps = responsible_employees()
         self.fields["responsible_employee"].queryset = (
-            resps if resps.exists() else selectable_staff()
+            resps if resps.exists() else selectable_staff(exclude_doctors=True)
         )
         mgmts = management_responsible_users()
         self.fields["management_responsible"].queryset = (
-            mgmts if mgmts.exists() else selectable_staff()
+            mgmts if mgmts.exists() else selectable_staff(exclude_doctors=True)
         )
+        self.fields["attending_doctors"].queryset = doctors()
 
 
 class EventStep4Form(forms.Form):
@@ -172,6 +183,18 @@ class EventUpdateForm(forms.ModelForm):
     zoom_url = forms.URLField(required=False, assume_scheme="https")
     registration_url = forms.URLField(required=False, assume_scheme="https")
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Django's default ModelForm queryset (User.objects.all()) would let a
+        # doctor be picked as responsible/management staff, bypassing the
+        # doctor-only attending_doctors busy-conflict check entirely. Any
+        # other active staff member stays eligible for these two fields —
+        # only doctors are carved out, since they have their own dedicated
+        # attending_doctors field.
+        self.fields["responsible_employee"].queryset = selectable_staff(exclude_doctors=True)
+        self.fields["management_responsible"].queryset = selectable_staff(exclude_doctors=True)
+        self.fields["attending_doctors"].queryset = doctors()
+
     class Meta:
         model = Event
         fields = (
@@ -184,6 +207,7 @@ class EventUpdateForm(forms.ModelForm):
             "end_time",
             "responsible_employee",
             "management_responsible",
+            "attending_doctors",
             "organizing_organizations",
             "sponsors",
             "zoom_url",

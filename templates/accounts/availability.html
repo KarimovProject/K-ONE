@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Band vaqtlarim" %} · K-ONE{% endblock %}
+
+{% block content %}
+<div class="workspace-page">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">{% trans "Profil" %}</span>
+      <h1>{% trans "Band vaqtlarim" %}</h1>
+      <p class="text-muted">{% trans "Bu yerda band bo'lgan sana va vaqt oralig'ini sababi bilan belgilang. Sizni tadbirga ma'ruzachi shifokor sifatida belgilashda tizim bu ma'lumotdan foydalanadi." %}</p>
+      <p class="text-muted text-sm">
+        {% blocktrans %}{{ current_year }}-yil uchun ishlatilgan: {{ slots_used_this_year }} / {{ slots_limit_per_year }}{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+
+  <div class="profile-layout-3zone">
+    <div class="profile-zone-card account-zone" style="grid-column: 1 / -1;">
+      <h3>{% trans "Yangi band vaqt qo'shish" %}</h3>
+      <form method="post" class="data-form" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="form-alert" role="alert">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}<span aria-hidden="true"> *</span></label>
+            {{ form.start_date }}
+            {% for error in form.start_date.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.start_time.id_for_label }}">{{ form.start_time.label }}<span aria-hidden="true"> *</span></label>
+            {{ form.start_time }}
+            {% for error in form.start_time.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.end_date.id_for_label }}">{{ form.end_date.label }}<span aria-hidden="true"> *</span></label>
+            {{ form.end_date }}
+            {% for error in form.end_date.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-field">
+            <label for="{{ form.end_time.id_for_label }}">{{ form.end_time.label }}<span aria-hidden="true"> *</span></label>
+            {{ form.end_time }}
+            {% for error in form.end_time.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+          </div>
+          <div class="form-field" style="grid-column: 1 / -1;">
+            <label for="{{ form.reason.id_for_label }}">{{ form.reason.label }}<span aria-hidden="true"> *</span></label>
+            {{ form.reason }}
+            <small class="text-muted text-sm">{% trans "Majburiy — band bo'lish sababini qisqacha yozing." %}</small>
+            {% for error in form.reason.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top: var(--space-5);">
+          <button class="btn btn-primary" type="submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            {% trans "Qo'shish" %}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="profile-zone-card security-zone" style="grid-column: 1 / -1;">
+      <h3>{% trans "Belgilangan band vaqtlar" %}</h3>
+      {% if slots %}
+        <div class="security-list">
+          {% for slot in slots %}
+          <div class="security-item">
+            <span>{{ slot.start_date|date:"d.m.Y" }} {{ slot.start_time|time:"H:i" }} — {{ slot.end_date|date:"d.m.Y" }} {{ slot.end_time|time:"H:i" }} · {{ slot.reason }}</span>
+            <form method="post" action="{% url 'doctor-availability-delete' slot.pk %}">
+              {% csrf_token %}
+              <button class="btn btn--ghost" type="submit" aria-label="{% trans 'O\'chirish' %}">{% trans "O'chirish" %}</button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted text-sm">{% trans "Hozircha band vaqt belgilanmagan." %}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

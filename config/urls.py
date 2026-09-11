@@ -5,10 +5,22 @@ from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.views.generic import RedirectView
 
-from apps.accounts.views import ProfileView
+from apps.accounts.views import (
+    AvailabilityDeleteView,
+    AvailabilityListView,
+    DoctorRegisterView,
+    ProfileView,
+    UserManagementListView,
+    UserToggleActiveView,
+)
 from apps.attendance.views import PublicCheckinView
 from apps.events.urls import event_type_patterns
-from apps.events.views import CalendarView, PublicEventPageView, VenueLiveStatusView, PublicKioskView
+from apps.events.views import (
+    CalendarView,
+    PublicEventPageView,
+    PublicKioskView,
+    VenueLiveStatusView,
+)
 from apps.organizations.urls import organization_patterns, sponsor_patterns
 from apps.reporting.views import (
     LeadershipDashboardView,
@@ -37,6 +49,19 @@ urlpatterns = [
     path("api/public/venues/", PublicVenuesAPIView.as_view(), name="public-venues-api"),
     path("workspace/", dashboard, name="dashboard"),
     path("profile/", ProfileView.as_view(), name="profile"),
+    path("users/", UserManagementListView.as_view(), name="user-management"),
+    path(
+        "users/<int:pk>/toggle-active/",
+        UserToggleActiveView.as_view(),
+        name="user-toggle-active",
+    ),
+    path("profile/availability/", AvailabilityListView.as_view(), name="doctor-availability"),
+    path(
+        "profile/availability/<int:pk>/delete/",
+        AvailabilityDeleteView.as_view(),
+        name="doctor-availability-delete",
+    ),
+    path("accounts/register/", DoctorRegisterView.as_view(), name="register"),
     path("accounts/login/", ThrottledLoginView.as_view(), name="login"),
     path("login/", RedirectView.as_view(pattern_name="login", permanent=False)),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
