@@ -4091,3 +4091,993 @@ msgstr ""
 
 msgid "Check-in is not enabled for this event."
 msgstr "Регистрация (чек-ин) для этого мероприятия не включена."
+
+msgid "Sizda yangi bildirishnomalar yo'q"
+msgstr "У вас нет новых уведомлений"
+
+msgid "Bugun uchun uchrashuvlar yo'q"
+msgstr "На сегодня встреч нет"
+
+msgid "Public page %(status)s."
+msgstr "Публичная страница %(status)s."
+
+msgid "Event Planning Wizard — Step %(step)d of 5"
+msgstr "Мастер планирования мероприятия — шаг %(step)d из 5"
+
+msgid "Event Approved"
+msgstr "Мероприятие одобрено"
+
+msgid "Postponed"
+msgstr "Отложено"
+
+msgid "Publication Updated"
+msgstr "Публикация обновлена"
+
+msgid "Batafsil ko'rish"
+msgstr "Подробнее"
+
+msgid "Only PDF files are allowed."
+msgstr "Разрешены только файлы PDF."
+
+msgid "Internal Notes"
+msgstr "Внутренние заметки"
+
+msgid "check-in enabled"
+msgstr "регистрация включена"
+
+msgid "Cancel Event “%(title)s”"
+msgstr "Отменить мероприятие «%(title)s»"
+
+msgid "public token"
+msgstr "публичный токен"
+
+msgid "Report range cannot exceed two years."
+msgstr "Диапазон отчёта не может превышать два года."
+
+msgid "speaker"
+msgstr "докладчик"
+
+msgid "Create %(var)s"
+msgstr "Создать %(var)s"
+
+msgid "e.g. Senior Researcher"
+msgstr "например, старший научный сотрудник"
+
+msgid "Summary"
+msgstr "Сводка"
+
+msgid "Utilization %"
+msgstr "Использование, %"
+
+msgid "The uploaded file is not a valid PDF document."
+msgstr "Загруженный файл не является допустимым PDF-документом."
+
+msgid "Event '%(title)s' approved via priority override."
+msgstr "Мероприятие «%(title)s» одобрено через приоритетное переопределение."
+
+msgid "program item"
+msgstr "пункт программы"
+
+msgid "Event “%(title)s” successfully rescheduled."
+msgstr "Мероприятие «%(title)s» успешно перенесено."
+
+msgid "Telegram Connected"
+msgstr "Telegram подключён"
+
+msgid "Event Postponed"
+msgstr "Мероприятие отложено"
+
+msgid "Check-in open."
+msgstr "Регистрация открыта."
+
+msgid "disabled"
+msgstr "отключено"
+
+msgid ""
+"Explain state-level emergency rationale justifying venue displacement..."
+msgstr ""
+"Объясните обоснование экстренной ситуации государственного уровня, "
+"оправдывающее вытеснение зала..."
+
+msgid "reviewed by"
+msgstr "кем рассмотрено"
+
+msgid "Event Cancelled"
+msgstr "Мероприятие отменено"
+
+msgid "Emergency override justification is mandatory."
+msgstr "Обоснование экстренного переопределения обязательно."
+
+msgid "expected attendees"
+msgstr "ожидаемое число участников"
+
+msgid "Kiosk"
+msgstr "Киоск"
+
+msgid "program intro"
+msgstr "вступление программы"
+
+msgid "No file was uploaded."
+msgstr "Файл не был загружен."
+
+msgid "End date must not precede start date."
+msgstr "Дата окончания не может быть раньше даты начала."
+
+msgid "last used at"
+msgstr "последнее использование"
+
+msgid "Telegram Reminder Failed"
+msgstr "Не удалось отправить напоминание в Telegram"
+
+msgid "timestamp"
+msgstr "временная метка"
+
+msgid "Display Token Created"
+msgstr "Токен дисплея создан"
+
+msgid "event attendances"
+msgstr "посещаемости мероприятий"
+
+msgid "start date"
+msgstr "дата начала"
+
+msgid "Rejection Rationale"
+msgstr "Обоснование отклонения"
+
+msgid "Provide clear rationale and feedback for rejection..."
+msgstr "Укажите чёткое обоснование и комментарий для отклонения..."
+
+msgid "display tokens"
+msgstr "токены дисплея"
+
+msgid "Only the responsible employee or admin can submit."
+msgstr "Отправить может только ответственный сотрудник или администратор."
+
+msgid "An override reason is mandatory."
+msgstr "Причина приоритетного переопределения обязательна."
+
+msgid "Cancelled or completed events cannot be postponed."
+msgstr "Отменённые или завершённые мероприятия нельзя отложить."
+
+msgid ""
+"Event conflicts with existing reservations. Requires priority override."
+msgstr ""
+"Мероприятие конфликтует с существующими бронированиями. Требуется "
+"приоритетное переопределение."
+
+msgid "Full (Show Event Details)"
+msgstr "Полностью (показать детали мероприятия)"
+
+msgid "Program PDF uploaded successfully."
+msgstr "PDF-документ программы успешно загружен."
+
+msgid "Skipped"
+msgstr "Пропущено"
+
+msgid "Postponement Reason"
+msgstr "Причина отсрочки"
+
+msgid "Check-in close time must be after open time."
+msgstr "Время закрытия регистрации должно быть позже времени открытия."
+
+msgid "public page enabled"
+msgstr "публичная страница включена"
+
+msgid "Event Resubmitted"
+msgstr "Мероприятие отправлено повторно"
+
+msgid "Telegram Disconnected"
+msgstr "Telegram отключён"
+
+msgid "Event Approval Request"
+msgstr "Запрос на согласование мероприятия"
+
+msgid "Uploaded file is not a valid PDF document."
+msgstr "Загруженный файл не является допустимым PDF-документом."
+
+msgid "Provide rationale for postponing this event..."
+msgstr "Укажите обоснование отсрочки этого мероприятия..."
+
+msgid "chat ID"
+msgstr "ID чата"
+
+msgid "Public Token Rotated"
+msgstr "Публичный токен обновлён"
+
+msgid "display token"
+msgstr "токен дисплея"
+
+msgid "Attendee '%(name)s' checked in manually."
+msgstr "Участник «%(name)s» зарегистрирован вручную."
+
+msgid "Event Created"
+msgstr "Мероприятие создано"
+
+msgid ""
+"Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan "
+"tasdiqlang. Kutilayotgan arizalar soni: %(var)s."
+msgstr ""
+"Здесь одобряйте недавно зарегистрированные аккаунты (например, врачей). "
+"Количество ожидающих заявок: %(var)s."
+
+msgid "Event “%(title)s” resubmitted for approval."
+msgstr "Мероприятие «%(title)s» повторно отправлено на согласование."
+
+msgid ""
+"Only super admins and international admins can execute emergency overrides."
+msgstr ""
+"Экстренное переопределение могут выполнять только супер-администраторы и "
+"международные администраторы."
+
+msgid "Event “%(title)s” approved successfully."
+msgstr "Мероприятие «%(title)s» успешно одобрено."
+
+msgid "Hidden (Show Occupied Only)"
+msgstr "Скрыто (показать только «занято»)"
+
+msgid "Under Review"
+msgstr "На рассмотрении"
+
+msgid "Telegram Test Sent"
+msgstr "Тестовое сообщение Telegram отправлено"
+
+msgid ""
+"Your event “%(title)s” was rejected by %(reviewer)s. Reason: %(reason)s"
+msgstr ""
+"Ваше мероприятие «%(title)s» было отклонено пользователем %(reviewer)s. "
+"Причина: %(reason)s"
+
+msgid "Invalid or disabled display token."
+msgstr "Токен дисплея недействителен или отключён."
+
+msgid "created by"
+msgstr "создано пользователем"
+
+msgid "Tizimga kirish"
+msgstr "Войти в систему"
+
+msgid "Bugungi Uchrashuvlar"
+msgstr "Сегодняшние встречи"
+
+msgid "Banner Regenerated"
+msgstr "Баннер пересоздан"
+
+msgid "Program PDF Uploaded"
+msgstr "PDF-документ программы загружен"
+
+msgid "attendee_organization"
+msgstr "организация_участника"
+
+msgid "Telegram channel settings"
+msgstr "Настройки канала Telegram"
+
+msgid ""
+"Are you sure you want to postpone <strong>%(var)s</strong>? The event status"
+" will be set to Postponed and staff will be notified."
+msgstr ""
+"Вы уверены, что хотите отложить <strong>%(var)s</strong>? Статус мероприятия"
+" изменится на «Отложено», и сотрудники будут уведомлены."
+
+msgid "Available minutes"
+msgstr "Свободные минуты"
+
+msgid "Starts in %(hours)d hours %(minutes)d minutes"
+msgstr "Начнётся через %(hours)d ч %(minutes)d мин"
+
+msgid "Barchasini o'qilgan deb belgilash"
+msgstr "Отметить всё как прочитанное"
+
+msgid "Publishing"
+msgstr "Публикуется"
+
+msgid "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
+msgstr "Вы сейчас находитесь на другой встрече. Её время "
+
+msgid "Publication Created"
+msgstr "Публикация создана"
+
+msgid "Hozircha rejalashtirilgan ochiq uchrashuvlar mavjud emas."
+msgstr "Пока нет запланированных открытых встреч."
+
+msgid "event attendance"
+msgstr "посещаемость мероприятия"
+
+msgid "program PDF"
+msgstr "PDF программы"
+
+msgid "Display Disabled"
+msgstr "Дисплей отключён"
+
+msgid "is active"
+msgstr "активен"
+
+msgid "Cancel “%(var)s”?"
+msgstr "Отменить «%(var)s»?"
+
+msgid "Publication Cancelled"
+msgstr "Публикация отменена"
+
+msgid "No conflicting events to override."
+msgstr "Нет конфликтующих мероприятий для переопределения."
+
+msgid "Event Rescheduled"
+msgstr "Мероприятие перенесено"
+
+msgid "Event Submitted for Approval"
+msgstr "Мероприятие отправлено на согласование"
+
+msgid "Program item title cannot be empty."
+msgstr "Название пункта программы не может быть пустым."
+
+msgid "The numeric Telegram chat ID of the channel or group "
+msgstr "Числовой идентификатор чата Telegram канала или группы "
+
+msgid "You do not have permission to manage event attendance."
+msgstr "У вас нет прав на управление посещаемостью мероприятия."
+
+msgid "end date"
+msgstr "дата окончания"
+
+msgid "rejection reason"
+msgstr "причина отклонения"
+
+msgid "PDF size must not exceed 10 MB."
+msgstr "Размер PDF не должен превышать 10 МБ."
+
+msgid "Publication Retried"
+msgstr "Публикация повторена"
+
+msgid "Speaker added successfully."
+msgstr "Докладчик успешно добавлен."
+
+msgid "displaced by event"
+msgstr "вытеснено мероприятием"
+
+msgid "Event Resubmitted for Approval"
+msgstr "Мероприятие повторно отправлено на согласование"
+
+msgid "Event “%(title)s” has been corrected and resubmitted by %(user)s."
+msgstr ""
+"Мероприятие «%(title)s» было исправлено и повторно отправлено пользователем "
+"%(user)s."
+
+msgid "Event Updated"
+msgstr "Мероприятие обновлено"
+
+msgid "Telegram reminders enabled"
+msgstr "Напоминания Telegram включены"
+
+msgid "Only the responsible employee or admin can resubmit."
+msgstr ""
+"Повторно отправить может только ответственный сотрудник или администратор."
+
+msgid "You do not have permission to export this report."
+msgstr "У вас нет прав на экспорт этого отчёта."
+
+msgid "Program PDF Replaced"
+msgstr "PDF-документ программы заменён"
+
+msgid "Cannot override event '%(title)s' which has equal or higher priority."
+msgstr ""
+"Невозможно переопределить мероприятие «%(title)s» с равным или более высоким"
+" приоритетом."
+
+msgid "You do not have permission to view event attendance."
+msgstr "У вас нет прав на просмотр посещаемости мероприятия."
+
+msgid "Display Enabled"
+msgstr "Дисплей включён"
+
+msgid "title"
+msgstr "заголовок"
+
+msgid "Custom range requires both dates."
+msgstr "Для произвольного диапазона нужны обе даты."
+
+msgid "You can mark yourself busy at most %(limit)d times per year. "
+msgstr "Вы можете отметить себя занятым не более %(limit)d раз в год. "
+
+msgid "PDF Report Exported"
+msgstr "Отчёт PDF экспортирован"
+
+msgid "Event “%(title)s” updated."
+msgstr "Мероприятие «%(title)s» обновлено."
+
+msgid "e.g. Tashkent State Medical University"
+msgstr "например, Ташкентская медицинская академия"
+
+msgid "Approval Center"
+msgstr "Центр согласования"
+
+msgid "full name"
+msgstr "полное имя"
+
+msgid "O'qilgan deb belgilash"
+msgstr "Отметить как прочитанное"
+
+msgid "Audit Log"
+msgstr "Журнал аудита"
+
+msgid "attendee identifier hash"
+msgstr "хеш идентификатора участника"
+
+msgid "Provide brief rationale for event cancellation..."
+msgstr "Укажите краткое обоснование отмены мероприятия..."
+
+msgid "event banner image"
+msgstr "изображение баннера мероприятия"
+
+msgid "Publication Scheduled"
+msgstr "Публикация запланирована"
+
+msgid "%(var)s-yil uchun ishlatilgan: %(var)s / %(var)s"
+msgstr "Использовано за %(var)s год: %(var)s / %(var)s"
+
+msgid "bio"
+msgstr "биография"
+
+msgid "emergency justification"
+msgstr "обоснование экстренной ситуации"
+
+msgid "Starts in %(var)s minutes"
+msgstr "Начнётся через %(var)s мин"
+
+msgid "%(var)s minutes remaining"
+msgstr "осталось %(var)s мин."
+
+msgid "Invalid file. Only PDF documents up to 10 MB are allowed."
+msgstr "Недопустимый файл. Разрешены только PDF-документы до 10 МБ."
+
+msgid "status"
+msgstr "статус"
+
+msgid "Starts in %(minutes)d minutes"
+msgstr "Начнётся через %(minutes)d мин"
+
+msgid "\"Faol\" belgisini yoqib, saqlang."
+msgstr "Включите отметку «Активен» и сохраните."
+
+msgid "audit log entries"
+msgstr "записи журнала аудита"
+
+msgid "XLSX Report Exported"
+msgstr "Отчёт XLSX экспортирован"
+
+msgid "Agenda item added successfully."
+msgstr "Пункт повестки успешно добавлен."
+
+msgid "reviewed at"
+msgstr "дата рассмотрения"
+
+msgid "Invitation"
+msgstr "Приглашение"
+
+msgid "target URL"
+msgstr "URL цели"
+
+msgid "checked_in_at"
+msgstr "время_регистрации"
+
+msgid "Now in progress — Ends in %(minutes)d minutes"
+msgstr "Идёт сейчас — закончится через %(minutes)d мин"
+
+msgid "check-in method"
+msgstr "способ регистрации"
+
+msgid "Cannot save as Planned: Expected attendees (%(attendees)d) "
+msgstr ""
+"Невозможно сохранить как «Запланировано»: ожидаемое число участников "
+"(%(attendees)d) "
+
+msgid "QR Code Generated"
+msgstr "QR-код создан"
+
+msgid "action"
+msgstr "действие"
+
+msgid "Reject Event — %(title)s"
+msgstr "Отклонить мероприятие — %(title)s"
+
+msgid "A rejection reason is mandatory."
+msgstr "Причина отклонения обязательна."
+
+msgid "You do not have permission to view reports."
+msgstr "У вас нет прав на просмотр отчётов."
+
+msgid "Your event '%(title)s' was displaced by a higher priority event. "
+msgstr ""
+"Ваше мероприятие «%(title)s» было вытеснено мероприятием с более высоким "
+"приоритетом. "
+
+msgid "title / position"
+msgstr "звание / должность"
+
+msgid "You do not have permission to view the Leadership Dashboard."
+msgstr "У вас нет прав на просмотр панели руководства."
+
+msgid "Delete Event “%(title)s”"
+msgstr "Удалить мероприятие «%(title)s»"
+
+msgid "Reschedule Event — %(title)s"
+msgstr "Перенести мероприятие — %(title)s"
+
+msgid "Event completed"
+msgstr "Мероприятие завершено"
+
+msgid "Program PDF document removed."
+msgstr "PDF-документ программы удалён."
+
+msgid "target representation"
+msgstr "представление цели"
+
+msgid "Event is not pending approval."
+msgstr "Мероприятие не ожидает согласования."
+
+msgid "Agenda item removed."
+msgstr "Пункт повестки удалён."
+
+msgid "Your event “%(title)s” scheduled for %(date)s (%(start)s - %(end)s) "
+msgstr ""
+"Ваше мероприятие «%(title)s», запланированное на %(date)s (%(start)s - "
+"%(end)s) "
+
+msgid "Registration Import"
+msgstr "Импорт регистрации"
+
+msgid "public profile enabled"
+msgstr "публичный профиль включён"
+
+msgid "Program PDF Removed"
+msgstr "PDF-документ программы удалён"
+
+msgid "Starts in %(days)d days"
+msgstr "Начнётся через %(days)d дн."
+
+msgid "Public Page Enabled"
+msgstr "Публичная страница включена"
+
+msgid "severity"
+msgstr "степень серьёзности"
+
+msgid ""
+"Only events in Draft, Planned or Rejected status can be submitted for "
+"approval."
+msgstr ""
+"На согласование можно отправить только мероприятия со статусом «Черновик», "
+"«Запланировано» или «Отклонено»."
+
+msgid "Event “%(title)s” rejected."
+msgstr "Мероприятие «%(title)s» отклонено."
+
+msgid "program items"
+msgstr "пункты программы"
+
+msgid "Telegram Event Notification Sent"
+msgstr "Уведомление о мероприятии в Telegram отправлено"
+
+msgid "submitted at"
+msgstr "дата отправки"
+
+msgid "target ID"
+msgstr "ID цели"
+
+msgid "Error updating program details."
+msgstr "Ошибка при обновлении сведений программы."
+
+msgid "Completed"
+msgstr "Завершено"
+
+msgid "Info"
+msgstr "Инфо"
+
+msgid "Please correct the errors in the configuration form."
+msgstr "Пожалуйста, исправьте ошибки в форме настроек."
+
+msgid "Event Displaced by Emergency"
+msgstr "Мероприятие вытеснено из-за экстренной ситуации"
+
+msgid "Postpone Event — %(title)s"
+msgstr "Отложить мероприятие — %(title)s"
+
+msgid "Program Source Changed"
+msgstr "Источник программы изменён"
+
+msgid "Only events pending approval can be approved."
+msgstr "Одобрить можно только мероприятия, ожидающие согласования."
+
+msgid "Roles and permissions"
+msgstr "Роли и права"
+
+msgid "Event Title"
+msgstr "Название мероприятия"
+
+msgid "File size exceeds maximum allowed limit of 10 MB."
+msgstr "Размер файла превышает допустимый лимит в 10 МБ."
+
+msgid "Staff Manual"
+msgstr "Вручную сотрудником"
+
+msgid "Program details updated successfully."
+msgstr "Сведения программы успешно обновлены."
+
+msgid "Tanlangan vaqtda ushbu zal band. Boshqa vaqt yoki zalni tanlang."
+msgstr "В выбранное время этот зал занят. Выберите другое время или зал."
+
+msgid "label"
+msgstr "метка"
+
+msgid "Display Token Rotated"
+msgstr "Токен дисплея обновлён"
+
+msgid "Your event '%(title)s' has been approved via priority override "
+msgstr ""
+"Ваше мероприятие «%(title)s» одобрено через приоритетное переопределение "
+
+msgid ""
+"You are about to reject <strong>%(var)s</strong>. This action requires a "
+"mandatory rationale."
+msgstr ""
+"Вы собираетесь отклонить <strong>%(var)s</strong>. Для этого действия "
+"обязательно нужно обоснование."
+
+msgid "Metric"
+msgstr "Показатель"
+
+msgid "check-in opens at"
+msgstr "время открытия регистрации"
+
+msgid "Only PDF files (.pdf) are allowed."
+msgstr "Разрешены только файлы PDF (.pdf)."
+
+msgid "Check-in configuration updated."
+msgstr "Настройки регистрации обновлены."
+
+msgid "program notes"
+msgstr "заметки программы"
+
+msgid "Registration URL"
+msgstr "Ссылка для регистрации"
+
+msgid "Event “%(title)s” cancelled."
+msgstr "Мероприятие «%(title)s» отменено."
+
+msgid "You do not have permission to export attendance data."
+msgstr "У вас нет прав на экспорт данных о посещаемости."
+
+msgid "display name / location"
+msgstr "отображаемое имя / местоположение"
+
+msgid "attendee_name"
+msgstr "имя_участника"
+
+msgid "Occupied by “%(title)s” (%(start)s – %(end)s)."
+msgstr "Занято «%(title)s» (%(start)s – %(end)s)."
+
+msgid "%(venue)s is available."
+msgstr "%(venue)s свободен."
+
+msgid "High"
+msgstr "Высокий"
+
+msgid "Program PDF Document"
+msgstr "PDF-документ программы"
+
+msgid "Emergency Justification"
+msgstr "Обоснование экстренной ситуации"
+
+msgid "Emergency override executed! %(count)d event(s) displaced."
+msgstr ""
+"Экстренное переопределение выполнено! Вытеснено мероприятий: %(count)d."
+
+msgid "IEMS Leadership Report"
+msgstr "Отчёт руководства IEMS"
+
+msgid "check-in closes at"
+msgstr "время закрытия регистрации"
+
+msgid "speakers"
+msgstr "докладчики"
+
+msgid "organizing organizations"
+msgstr "организации-организаторы"
+
+msgid "Override Conflict for \"%(title)s\""
+msgstr "Переопределение конфликта для «%(title)s»"
+
+msgid "Publication Approved"
+msgstr "Публикация одобрена"
+
+msgid "Cancellation Reason"
+msgstr "Причина отмены"
+
+msgid "management responsible"
+msgstr "ответственный руководитель"
+
+msgid "Your event “%(title)s” has been approved by %(reviewer)s."
+msgstr "Ваше мероприятие «%(title)s» одобрено пользователем %(reviewer)s."
+
+msgid "e.g. Abdullayev Jasur"
+msgstr "например, Абдуллаев Жасур"
+
+msgid "notifications"
+msgstr "уведомления"
+
+msgid "Event “%(title)s” submitted for management approval."
+msgstr "Мероприятие «%(title)s» отправлено на согласование руководству."
+
+msgid "e.g., International Oncology Conference"
+msgstr "например, Международная онкологическая конференция"
+
+msgid "audit log entry"
+msgstr "запись журнала аудита"
+
+msgid "Zoom / Meeting URL"
+msgstr "Ссылка Zoom / встречи"
+
+msgid "Emergency Override Executed"
+msgstr "Экстренное переопределение выполнено"
+
+msgid "Too many login attempts. Please try again later."
+msgstr "Слишком много попыток входа. Пожалуйста, попробуйте позже."
+
+msgid "Telegram Reminder Scheduled"
+msgstr "Напоминание в Telegram запланировано"
+
+msgid "Only events pending approval can override others."
+msgstr ""
+"Только мероприятия, ожидающие согласования, могут переопределять другие."
+
+msgid "Now in progress — Ends in %(hours)d hours %(minutes)d minutes"
+msgstr "Идёт сейчас — закончится через %(hours)d ч %(minutes)d мин"
+
+msgid "CRITICAL: Event Displaced by Emergency Override"
+msgstr "КРИТИЧНО: Мероприятие вытеснено экстренным переопределением"
+
+msgid "speaker name override"
+msgstr "переопределение имени докладчика"
+
+msgid "Only events pending approval can be rejected."
+msgstr "Отклонить можно только мероприятия, ожидающие согласования."
+
+msgid "planned date"
+msgstr "запланированная дата"
+
+msgid "event"
+msgstr "мероприятие"
+
+msgid "Event Displaced"
+msgstr "Мероприятие вытеснено"
+
+msgid "Summary of event objectives and agenda..."
+msgstr "Краткое описание целей и повестки мероприятия..."
+
+msgid ""
+"You are about to approve <strong>%(var)s</strong> via priority override. "
+"This is a high-risk action."
+msgstr ""
+"Вы собираетесь одобрить <strong>%(var)s</strong> через приоритетное "
+"переопределение. Это действие с высоким риском."
+
+msgid "Event Approved (Override)"
+msgstr "Мероприятие одобрено (переопределение)"
+
+msgid "Management Responsible Person"
+msgstr "Ответственное лицо руководства"
+
+msgid "Speaker updated successfully."
+msgstr "Докладчик успешно обновлён."
+
+msgid "checked in at"
+msgstr "время регистрации"
+
+msgid "Program Item Added"
+msgstr "Пункт программы добавлен"
+
+msgid "is read"
+msgstr "прочитано"
+
+msgid "updated at"
+msgstr "дата обновления"
+
+msgid "Free until %(var)s"
+msgstr "Свободно до %(var)s"
+
+msgid "Page %(var)s of %(var)s"
+msgstr "Страница %(var)s из %(var)s"
+
+msgid "CSV Report Exported"
+msgstr "Отчёт CSV экспортирован"
+
+msgid "checkin_method"
+msgstr "способ_регистрации"
+
+msgid "responsible employee"
+msgstr "ответственный сотрудник"
+
+msgid "message"
+msgstr "сообщение"
+
+msgid "Program Item Removed"
+msgstr "Пункт программы удалён"
+
+msgid "Registration submitted. An administrator will review and activate "
+msgstr "Заявка отправлена. Администратор рассмотрит и активирует "
+
+msgid "Publication Failed"
+msgstr "Публикация не удалась"
+
+msgid "Event “%(title)s” has been postponed."
+msgstr "Мероприятие «%(title)s» отложено."
+
+msgid "Your event “%(title)s” has been successfully rescheduled "
+msgstr "Ваше мероприятие «%(title)s» успешно перенесено "
+
+msgid "Event “%(title)s” saved successfully as %(status)s."
+msgstr "Мероприятие «%(title)s» успешно сохранено со статусом «%(status)s»."
+
+msgid "Generated"
+msgstr "Создано"
+
+msgid "Delete “%(var)s”?"
+msgstr "Удалить «%(var)s»?"
+
+msgid "enabled"
+msgstr "включено"
+
+msgid "Banner Generated"
+msgstr "Баннер создан"
+
+msgid "Booked minutes"
+msgstr "Забронированные минуты"
+
+msgid "This event page is not currently published or unavailable."
+msgstr "Эта страница мероприятия сейчас не опубликована или недоступна."
+
+msgid "Public token rotated successfully."
+msgstr "Публичный токен успешно обновлён."
+
+msgid ""
+"Expected attendees (%(attendees)d) exceeds venue capacity (%(capacity)d)."
+msgstr ""
+"Ожидаемое число участников (%(attendees)d) превышает вместимость зала "
+"(%(capacity)d)."
+
+msgid "payload"
+msgstr "полезная нагрузка"
+
+msgid "Displaced by Emergency"
+msgstr "Вытеснено из-за экстренной ситуации"
+
+msgid "Emergency Requested"
+msgstr "Запрошена экстренная ситуация"
+
+msgid "Publication Published"
+msgstr "Публикация опубликована"
+
+msgid "updated by"
+msgstr "кем обновлено"
+
+msgid "recipient"
+msgstr "получатель"
+
+msgid "PDF File"
+msgstr "Файл PDF"
+
+msgid "Tizimdagi barcha yangilik va ogohlantirishlar"
+msgstr "Все новости и оповещения системы"
+
+msgid "Display / TV Visibility"
+msgstr "Видимость на дисплее / ТВ"
+
+msgid "Error adding agenda item."
+msgstr "Ошибка при добавлении пункта повестки."
+
+msgid "display visibility"
+msgstr "видимость на дисплее"
+
+msgid "Ongoing"
+msgstr "Идёт сейчас"
+
+msgid "Only rejected events can be resubmitted."
+msgstr "Повторно отправить можно только отклонённые мероприятия."
+
+msgid "Telegram Reminder Sent"
+msgstr "Напоминание в Telegram отправлено"
+
+msgid "Value"
+msgstr "Значение"
+
+msgid "Event “%(title)s” submitted for management review by %(user)s."
+msgstr ""
+"Мероприятие «%(title)s» отправлено на рассмотрение руководству пользователем"
+" %(user)s."
+
+msgid "role / title"
+msgstr "роль / должность"
+
+msgid "QR Code Printed"
+msgstr "QR-код распечатан"
+
+msgid "Please complete all required fields before saving."
+msgstr "Пожалуйста, заполните все обязательные поля перед сохранением."
+
+msgid "Event Rejected"
+msgstr "Мероприятие отклонено"
+
+msgid "Critical Alert"
+msgstr "Критическое предупреждение"
+
+msgid "Program Item Updated"
+msgstr "Пункт программы обновлён"
+
+msgid "Event time (%(start)s - %(end)s) is outside "
+msgstr "Время мероприятия (%(start)s - %(end)s) находится за пределами "
+
+msgid "Event Planned"
+msgstr "Мероприятие запланировано"
+
+msgid "Please provide a valid attendee name for manual check-in."
+msgstr "Укажите корректное имя участника для ручной регистрации."
+
+msgid "priority"
+msgstr "приоритет"
+
+msgid "Emergency Override — %(title)s"
+msgstr "Экстренное переопределение — %(title)s"
+
+msgid "notification"
+msgstr "уведомление"
+
+msgid "Invalid program source mode."
+msgstr "Недопустимый режим источника программы."
+
+msgid "Generic (Show 'Private Meeting')"
+msgstr "Общее (показать «Закрытая встреча»)"
+
+msgid "program source"
+msgstr "источник программы"
+
+msgid "The uploaded image is damaged or unsafe."
+msgstr "Загруженное изображение повреждено или небезопасно."
+
+msgid "Emergency"
+msgstr "Экстренно"
+
+msgid ""
+"Rejecting this event will change its status to Rejected. The responsible "
+"employee will be notified. A rationale must be provided."
+msgstr ""
+"Отклонение этого мероприятия изменит его статус на «Отклонено». "
+"Ответственный сотрудник будет уведомлен. Необходимо указать обоснование."
+
+msgid "Hozircha sizni ma'ruzachi sifatida belgilangan tadbir yo'q."
+msgstr "Пока нет мероприятий, где вы назначены докладчиком."
+
+msgid "Ma'ruzachi bo'lgan tadbirlarim"
+msgstr "Мои мероприятия в роли докладчика"
+
+msgid "Profilga qaytish"
+msgstr "Вернуться в профиль"
+
+msgid ""
+"Sizni ma'ruzachi shifokor sifatida belgilangan barcha tadbirlar ro'yxati."
+msgstr "Список всех мероприятий, где вы назначены врачом-докладчиком."
+
+msgid "Speaker-assigned events"
+msgstr "Мероприятия в роли докладчика"
+
+msgid "You've been assigned as a speaker"
+msgstr "Вы назначены докладчиком"
+
+msgid ""
+"You have been assigned as a speaker doctor for the event “%(title)s” on "
+"%(date)s (%(start)s–%(end)s) at %(venue)s."
+msgstr ""
+"Вы назначены врачом-докладчиком на мероприятие «%(title)s», %(date)s "
+"(%(start)s–%(end)s), место: %(venue)s."
+
+msgid "Sizda %(var)s ta o'qilmagan bildirishnoma bor."
+msgstr "У вас %(var)s непрочитанных уведомлений."
+
+msgid "Yangi bildirishnomalar"
+msgstr "Новые уведомления"

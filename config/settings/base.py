@@ -68,6 +68,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.notifications.context_processors.unread_notifications",
             ],
         },
     }
@@ -104,6 +105,8 @@ LANGUAGES = [
     ("tr", "Türkçe"),
 ]
 LOCALE_PATHS = [BASE_DIR / "locale"]
+DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="noreply@k-one.local")
+
 TIME_ZONE = env("DJANGO_TIME_ZONE", default="Asia/Tashkent")
 USE_I18N = True
 USE_TZ = True

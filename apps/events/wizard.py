@@ -24,7 +24,7 @@ from apps.events.services.conflicts import (
     check_venue_availability,
     validate_and_lock_event_reservation,
 )
-from apps.events.views import busy_attending_doctor_errors
+from apps.events.views import busy_attending_doctor_errors, notify_assigned_doctors
 from apps.organizations.models import Organization, Sponsor
 from apps.venues.models import Venue
 
@@ -223,6 +223,7 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
             event.sponsors.set(Sponsor.objects.filter(pk__in=sponsor_ids))
         if attending_doctor_ids:
             event.attending_doctors.set(candidate_doctors)
+            notify_assigned_doctors(event, candidate_doctors)
 
         # Audit logs
         log_audit_event(

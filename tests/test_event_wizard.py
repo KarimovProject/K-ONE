@@ -40,7 +40,7 @@ class TestEventWizard:
         client.force_login(wizard_setup["user"])
         res = client.get(reverse("events:wizard"))
         assert res.status_code == status.HTTP_200_OK
-        assert "Step 1" in res.content.decode()
+        assert "1-qadam" in res.content.decode()
 
     def test_wizard_session_persistence_and_submission(self, client, wizard_setup):
         client.force_login(wizard_setup["user"])

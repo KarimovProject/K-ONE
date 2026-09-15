@@ -2292,7 +2292,7 @@ msgstr "Joylashuv joyi"
 
 #: template:0
 msgid "Personal event reminders for responsible staff."
-msgstr "Mas&#39;ul xodimlar uchun shaxsiy tadbirlar haqida eslatmalar."
+msgstr "Mas'ul xodimlar uchun shaxsiy tadbirlar haqida eslatmalar."
 
 #: template:0
 msgid "tadbir"
@@ -2334,7 +2334,7 @@ msgstr ""
 
 #: template:0
 msgid "Capacity Warning"
-msgstr "Sig&#39;im haqida ogohlantirish"
+msgstr "Sig'im haqida ogohlantirish"
 
 #: template:0
 msgid "Structured Agenda Timeline"
@@ -2361,7 +2361,7 @@ msgid ""
 "Provide remote meeting URLs and review event schedule before finalizing."
 msgstr ""
 "Yakuniylashtirishdan oldin masofaviy uchrashuv URL manzillarini taqdim eting"
-" va tadbir jadvalini ko&#39;rib chiqing."
+" va tadbir jadvalini ko'rib chiqing."
 
 #: template:0
 msgid "Suggested Alternative Venues"
@@ -2393,7 +2393,7 @@ msgstr "Hafta"
 
 #: template:0
 msgid "Step 1: Basic Information"
-msgstr "1-qadam: Asosiy ma&#39;lumotlar"
+msgstr "1-qadam: Asosiy ma'lumotlar"
 
 #: template:0
 msgid "Hozirda erkin — rejalashtirish mumkin"
@@ -2417,11 +2417,11 @@ msgstr "Tasdiqlangan tadbir(lar) bilan ziddiyat"
 
 #: template:0
 msgid "Check-in Closes At"
-msgstr "Ro&#39;yxatdan o&#39;tish vaqti tugaydi"
+msgstr "Ro'yxatdan o'tish vaqti tugaydi"
 
 #: template:0
 msgid "Join Live Zoom Meeting"
-msgstr "Jonli Zoom uchrashuviga qo&#39;shiling"
+msgstr "Jonli Zoom uchrashuviga qo'shiling"
 
 #: template:0
 msgid "Xush kelibsiz"
@@ -2469,11 +2469,11 @@ msgstr "Ochiq tizim"
 
 #: template:0
 msgid "Expected attendees exceeds venue capacity"
-msgstr "Kutilayotgan ishtirokchilar joy sig&#39;imidan oshib ketdi"
+msgstr "Kutilayotgan ishtirokchilar joy sig'imidan oshib ketdi"
 
 #: template:0
 msgid "DISPLACED BY EMERGENCY"
-msgstr "FAVQULODDA VAZIYAT TOMONIDAN KO&#39;CHIRIB OLINGAN"
+msgstr "FAVQULODDA VAZIYAT TOMONIDAN KO'CHIRIB OLINGAN"
 
 #: template:0
 msgid "Current PDF"
@@ -2509,7 +2509,7 @@ msgstr "Ishga kirishish sanasi"
 
 #: template:0
 msgid "No Telegram deliveries yet."
-msgstr "Telegram orqali yetkazib berish hali yo&#39;q."
+msgstr "Telegram orqali yetkazib berish hali yo'q."
 
 #: template:0
 msgid "More actions"
@@ -2597,15 +2597,15 @@ msgstr "XUSUSIY / YASHIRIN"
 
 #: template:0
 msgid "OCCUPIED"
-msgstr "BAND BO&#39;LGAN"
+msgstr "BAND BO'LGAN"
 
 #: template:0
 msgid "Check-in Opens At"
-msgstr "Ro&#39;yxatdan o&#39;tish vaqti"
+msgstr "Ro'yxatdan o'tish vaqti"
 
 #: template:0
 msgid "Delete selected records?"
-msgstr "Tanlangan yozuvlar o&#39;chirilsinmi?"
+msgstr "Tanlangan yozuvlar o'chirilsinmi?"
 
 #: template:0
 msgid "Homiylar"
@@ -2618,8 +2618,8 @@ msgstr "Doimiy chop etiladigan QR kod"
 #: template:0
 msgid "Live real-time operational status foundation across university halls."
 msgstr ""
-"Universitet zallari bo&#39;ylab real vaqt rejimida operatsion holatni "
-"kuzatib boring."
+"Universitet zallari bo'ylab real vaqt rejimida operatsion holatni kuzatib "
+"boring."
 
 #: template:0
 msgid "Page"
@@ -2675,7 +2675,7 @@ msgstr "Tavsif / Abstrakt"
 
 #: template:0
 msgid "Bulk deletion"
-msgstr "Ommaviy o&#39;chirish"
+msgstr "Ommaviy o'chirish"
 
 #: template:0
 msgid "Role / Title"
@@ -2707,7 +2707,7 @@ msgstr "Sessiya nomi"
 
 #: template:0
 msgid "No manual agenda items added yet."
-msgstr "Qo&#39;lda tuzilgan kun tartibi bandlari hali qo&#39;shilmagan."
+msgstr "Qo'lda tuzilgan kun tartibi bandlari hali qo'shilmagan."
 
 #: template:0
 msgid "Vaqt"
@@ -2723,7 +2723,7 @@ msgstr "Berilgan nom yoki tashkilot"
 
 #: template:0
 msgid "Holat bo‘yicha"
-msgstr "Holat bo&#39;yicha"
+msgstr "Holat bo'yicha"
 
 #: template:0
 msgid "Barcha turlar"
@@ -2739,7 +2739,7 @@ msgstr "Hodisani   oʻchirish"
 
 #: template:0
 msgid "Review every selected object before continuing."
-msgstr "Davom etishdan oldin tanlangan har bir obyektni ko&#39;rib chiqing."
+msgstr "Davom etishdan oldin tanlangan har bir obyektni ko'rib chiqing."
 
 #: template:0
 msgid "Biography / Profile"
@@ -2763,12 +2763,11 @@ msgstr "Haqiqiy vaqt monitoringi"
 
 #: template:0
 msgid "The following event(s) will be DISPLACED:"
-msgstr "Quyidagi hodisa(lar) O&#39;ZGARIB QOLADI:"
+msgstr "Quyidagi hodisa(lar) O'ZGARIB QOLADI:"
 
 #: template:0
 msgid "Your account does not have permission to remove all dependent records."
-msgstr ""
-"Hisobingiz barcha bog&#39;liq yozuvlarni o&#39;chirishga ruxsat bermagan."
+msgstr "Hisobingiz barcha bog'liq yozuvlarni o'chirishga ruxsat bermagan."
 
 #: template:0
 msgid "Publicly Accessible"
@@ -2800,7 +2799,7 @@ msgstr "2. PDF hujjatni yuklash"
 
 #: template:0
 msgid "Add New Agenda Session"
-msgstr "Yangi kun tartibi sessiyasini qo&#39;shish"
+msgstr "Yangi kun tartibi sessiyasini qo'shish"
 
 #: template:0
 msgid "Higher-Priority Event"
@@ -2820,7 +2819,7 @@ msgstr "4-qadam: Tashkilotlar va homiylar"
 
 #: template:0
 msgid "Filter by priority"
-msgstr "Ustuvorlik bo&#39;yicha filtrlash"
+msgstr "Ustuvorlik bo'yicha filtrlash"
 
 #: template:0
 msgid "Approve Event"
@@ -2871,7 +2870,7 @@ msgstr "Administrator tizimiga kirish"
 
 #: template:0
 msgid "Reviewed at"
-msgstr "Ko&#39;rib chiqilgan"
+msgstr "Ko'rib chiqilgan"
 
 #: template:0
 msgid "Secure control center"
@@ -2895,7 +2894,7 @@ msgstr "Hozirda faol zallar mavjud emas"
 
 #: template:0
 msgid "Target capacity"
-msgstr "Maqsadli sig&#39;im"
+msgstr "Maqsadli sig'im"
 
 #: template:0
 msgid "Protected operational history"
@@ -2943,7 +2942,7 @@ msgstr "Tashkilot / Tashkilot"
 
 #: template:0
 msgid "Preview Public Page"
-msgstr "Umumiy sahifani oldindan ko&#39;rish"
+msgstr "Umumiy sahifani oldindan ko'rish"
 
 #: template:0
 msgid "Speaker Photo"
@@ -2955,7 +2954,7 @@ msgstr "Chiqish"
 
 #: template:0
 msgid "No permitted modules"
-msgstr "Ruxsat berilgan modullar yo&#39;q"
+msgstr "Ruxsat berilgan modullar yo'q"
 
 #: template:0
 msgid ""
@@ -2963,7 +2962,7 @@ msgid ""
 "wording."
 msgstr ""
 "Tasdiqlangan voqea faktlaridan va kiritilgan nusxadan foydalaning. K-ONE "
-"rasmiy so&#39;zlarni ixtiro qilmaydi."
+"rasmiy so'zlarni ixtiro qilmaydi."
 
 #: template:0
 msgid "Organized By"
@@ -2999,7 +2998,7 @@ msgstr "Filtrlash"
 
 #: template:0
 msgid "exceeds venue capacity"
-msgstr "joy sig&#39;imidan oshib ketdi"
+msgstr "joy sig'imidan oshib ketdi"
 
 #: template:0
 msgid "New End Time"
@@ -3023,7 +3022,7 @@ msgstr "Tadbirni keyinga qoldirishni tasdiqlash"
 
 #: template:0
 msgid "Next: Responsible People →"
-msgstr "Keyingi: Mas&#39;uliyatli odamlar →"
+msgstr "Keyingi: Mas'uliyatli odamlar →"
 
 #: template:0
 msgid "Submit for Approval"
@@ -3081,7 +3080,7 @@ msgstr "Keyingi dastur"
 
 #: template:0
 msgid "Select event date, time interval, and available venue hall."
-msgstr "Tadbir sanasini, vaqt oralig&#39;ini va bo&#39;sh joy zalini tanlang."
+msgstr "Tadbir sanasini, vaqt oralig'ini va bo'sh joy zalini tanlang."
 
 #: template:0
 msgid "Enable Public Profile on Event Program Pages"
@@ -3112,16 +3111,16 @@ msgid ""
 "This action will release the venue schedule slot. Operational records will "
 "retain cancellation history."
 msgstr ""
-"Bu harakat joy jadvali vaqtini bo&#39;shatadi. Operatsion yozuvlar bekor "
-"qilish tarixini saqlab qoladi."
+"Bu harakat joy jadvali vaqtini bo'shatadi. Operatsion yozuvlar bekor qilish "
+"tarixini saqlab qoladi."
 
 #: template:0
 msgid "Enable Public QR Check-in for this event"
-msgstr "Ushbu tadbir uchun ommaviy QR ro&#39;yxatdan o&#39;tishni yoqish"
+msgstr "Ushbu tadbir uchun ommaviy QR ro'yxatdan o'tishni yoqish"
 
 #: template:0
 msgid "Register for Event"
-msgstr "Tadbirga ro&#39;yxatdan o&#39;ting"
+msgstr "Tadbirga ro'yxatdan o'ting"
 
 #: template:0
 msgid "Bugun"
@@ -3133,17 +3132,17 @@ msgstr "Erkin zallar"
 
 #: template:0
 msgid "Disable Public Access"
-msgstr "Umumiy kirishni o&#39;chirib qo&#39;yish"
+msgstr "Umumiy kirishni o'chirib qo'yish"
 
 #: template:0
 msgid "Linked with a short-lived one-time token, not a username."
 msgstr ""
 "Foydalanuvchi nomi bilan emas, balki qisqa muddatli bir martalik token bilan"
-" bog&#39;langan."
+" bog'langan."
 
 #: template:0
 msgid "Next: Review & Submit →"
-msgstr "Keyingi: Ko&#39;rib chiqish va yuborish →"
+msgstr "Keyingi: Ko'rib chiqish va yuborish →"
 
 #: template:0
 msgid "Barcha tadbirlar yagona tizimda"
@@ -3159,7 +3158,7 @@ msgstr "Holat va ustuvorlik"
 
 #: template:0
 msgid "Zal bo‘yicha"
-msgstr "Zal bo&#39;yicha"
+msgstr "Zal bo'yicha"
 
 #: template:0
 msgid "Attendee Directory"
@@ -3167,21 +3166,21 @@ msgstr "Ishtirokchilar katalogi"
 
 #: template:0
 msgid "Search by name or org..."
-msgstr "Nom yoki tashkilot bo&#39;yicha qidiruv..."
+msgstr "Nom yoki tashkilot bo'yicha qidiruv..."
 
 #: template:0
 msgid ""
 "It is referenced by protected operational data. Remove or archive the "
 "dependency first."
 msgstr ""
-"Unga himoyalangan operatsion ma&#39;lumotlar havola qilinadi. Avval "
-"bog&#39;liqlikni olib tashlang yoki arxivlang."
+"Unga himoyalangan operatsion ma'lumotlar havola qilinadi. Avval bog'liqlikni"
+" olib tashlang yoki arxivlang."
 
 #: template:0
 msgid "Point your camera to view the live agenda, schedule, and speakers."
 msgstr ""
-"Jonli kun tartibi, jadval va ma&#39;ruzachilarni ko&#39;rish uchun "
-"kamerangizni yo&#39;naltiring."
+"Jonli kun tartibi, jadval va ma'ruzachilarni ko'rish uchun kamerangizni "
+"yo'naltiring."
 
 #: template:0
 msgid "Zal"
@@ -3191,8 +3190,8 @@ msgstr "Zal"
 msgid ""
 "This action cannot be undone. Review affected records before continuing."
 msgstr ""
-"Bu amalni bekor qilib bo&#39;lmaydi. Davom etishdan oldin ta&#39;sirlangan "
-"yozuvlarni ko&#39;rib chiqing."
+"Bu amalni bekor qilib bo'lmaydi. Davom etishdan oldin ta'sirlangan "
+"yozuvlarni ko'rib chiqing."
 
 #: template:0
 msgid "Profil"
@@ -3252,7 +3251,7 @@ msgstr "2-bosqich: Sana, vaqt va joy"
 
 #: template:0
 msgid "Add Agenda Session"
-msgstr "Sessiya kun tartibini qo&#39;shish"
+msgstr "Sessiya kun tartibini qo'shish"
 
 #: template:0
 msgid "Save Speaker"
@@ -3276,7 +3275,7 @@ msgstr "Tizim faol"
 
 #: template:0
 msgid "Your account does not have access to records in this section."
-msgstr "Hisobingiz ushbu bo&#39;limdagi yozuvlarga kirish huquqiga ega emas."
+msgstr "Hisobingiz ushbu bo'limdagi yozuvlarga kirish huquqiga ega emas."
 
 #: template:0
 msgid "Barcha Turlar"
@@ -3284,7 +3283,7 @@ msgstr "Barcha Turlar"
 
 #: template:0
 msgid "Speaker Name Override (If not in directory)"
-msgstr "Spiker nomini bekor qilish (agar katalogda bo&#39;lmasa)"
+msgstr "Spiker nomini bekor qilish (agar katalogda bo'lmasa)"
 
 #: template:0
 msgid "Tugash vaqti:"
@@ -3298,7 +3297,7 @@ msgstr "Tashkilot / Tashkilot"
 msgid ""
 "Attach co-organizing local/foreign organizations and supporting sponsors."
 msgstr ""
-"Mahalliy/xorijiy tashkilotlarni va qo&#39;llab-quvvatlovchi homiylarni "
+"Mahalliy/xorijiy tashkilotlarni va qo'llab-quvvatlovchi homiylarni "
 "birlashtiring."
 
 #: template:0
@@ -3347,7 +3346,7 @@ msgstr "RAD ETISHNING ASOSI"
 
 #: template:0
 msgid "Add Speaker"
-msgstr "Karnay qo&#39;shish"
+msgstr "Karnay qo'shish"
 
 #: template:0
 msgid ""
@@ -3374,7 +3373,7 @@ msgid ""
 "Manually record guest attendance for VIPs or guests unable to scan QR code."
 msgstr ""
 "VIP mehmonlar yoki QR kodini skanerlay olmaydigan mehmonlar uchun mehmonlar "
-"tashrifini qo&#39;lda yozib oling."
+"tashrifini qo'lda yozib oling."
 
 #: template:0
 msgid "Date & Time"
@@ -3386,15 +3385,15 @@ msgstr "Qabul qiluvchilar"
 
 #: template:0
 msgid "This record cannot be deleted"
-msgstr "Bu yozuvni o&#39;chirib bo&#39;lmaydi"
+msgstr "Bu yozuvni o'chirib bo'lmaydi"
 
 #: template:0
 msgid ""
 "Assign responsible employee and management oversight contact using Master "
 "Data staff selectors."
 msgstr ""
-"Master Data xodimlarini tanlash vositalaridan foydalangan holda mas&#39;ul "
-"xodim va boshqaruv nazorati bo&#39;yicha aloqa shaxsini tayinlang."
+"Master Data xodimlarini tanlash vositalaridan foydalangan holda mas'ul xodim"
+" va boshqaruv nazorati bo'yicha aloqa shaxsini tayinlang."
 
 #: template:0
 msgid "Date & Venue"
@@ -3418,14 +3417,14 @@ msgstr "o'rindiqlar"
 
 #: template:0
 msgid "F.I.Sh. / Full Name"
-msgstr "FISh. / To&#39;liq ism"
+msgstr "FISh. / To'liq ism"
 
 #: template:0
 msgid ""
 "View or download the official printable PDF schedule for this conference."
 msgstr ""
-"Ushbu konferensiyaning rasmiy chop etiladigan PDF jadvalini ko&#39;ring yoki"
-" yuklab oling."
+"Ushbu konferensiyaning rasmiy chop etiladigan PDF jadvalini ko'ring yoki "
+"yuklab oling."
 
 #: template:0
 msgid "Qidirish..."
@@ -3433,7 +3432,7 @@ msgstr "Qidirish..."
 
 #: template:0
 msgid "Tadbir turi bo‘yicha"
-msgstr "Tadbir turi bo&#39;yicha"
+msgstr "Tadbir turi bo'yicha"
 
 #: template:0
 msgid "Reschedule Now"
@@ -3487,7 +3486,7 @@ msgstr "Banner yaratilmadi"
 
 #: template:0
 msgid "registered in K-ONE"
-msgstr "K-ONE da ro&#39;yxatdan o&#39;tgan"
+msgstr "K-ONE da ro'yxatdan o'tgan"
 
 #: template:0
 msgid ""
@@ -3515,11 +3514,11 @@ msgstr "Yaratgan"
 
 #: template:0
 msgid "Please review the highlighted fields."
-msgstr "Iltimos, belgilangan maydonlarni ko&#39;rib chiqing."
+msgstr "Iltimos, belgilangan maydonlarni ko'rib chiqing."
 
 #: template:0
 msgid "Delete PDF"
-msgstr "PDF-ni o&#39;chirish"
+msgstr "PDF-ni o'chirish"
 
 #: template:0
 msgid "Date/time"
@@ -3527,7 +3526,7 @@ msgstr "Sana | Vaqt"
 
 #: template:0
 msgid "Keynote Speakers & Experts"
-msgstr "Asosiy ma&#39;ruzachilar va mutaxassislar"
+msgstr "Asosiy ma'ruzachilar va mutaxassislar"
 
 #: template:0
 msgid "Full Event Details →"
@@ -3559,7 +3558,7 @@ msgstr "Yopishcha"
 
 #: template:0
 msgid "Over Capacity"
-msgstr "Haddan tashqari sig&#39;im"
+msgstr "Haddan tashqari sig'im"
 
 #: template:0
 msgid "Markazlashgan boshqaruv"
@@ -3651,7 +3650,7 @@ msgstr "Dasturga kirish / eslatma"
 
 #: template:0
 msgid "Recent failures"
-msgstr "So&#39;nggi muvaffaqiyatsizliklar"
+msgstr "So'nggi muvaffaqiyatsizliklar"
 
 #: template:0
 msgid "Upload / Replace PDF (Max 10 MB)"
@@ -3667,7 +3666,7 @@ msgstr "Tizimga kirish faqat ruxsat beriladi."
 
 #: template:0
 msgid "Step 5: Online Links & Final Review"
-msgstr "5-qadam: Onlayn havolalar va yakuniy ko&#39;rib chiqish"
+msgstr "5-qadam: Onlayn havolalar va yakuniy ko'rib chiqish"
 
 #: template:0
 msgid "Delivery status"
@@ -3675,7 +3674,7 @@ msgstr "Yetkazib berish holati"
 
 #: template:0
 msgid "Full Name / F.I.Sh."
-msgstr "To&#39;liq ism / FISh."
+msgstr "To'liq ism / FISh."
 
 #: template:0
 msgid "Til"
@@ -3695,7 +3694,7 @@ msgstr "Rejalashtirilganidek saqlash"
 
 #: template:0
 msgid "Check-in Method"
-msgstr "Ro&#39;yxatdan o&#39;tish usuli"
+msgstr "Ro'yxatdan o'tish usuli"
 
 #: template:0
 msgid "Return to public dashboard"
@@ -3739,7 +3738,7 @@ msgstr "Tadbirga qaytish"
 
 #: template:0
 msgid "Check In Attendee"
-msgstr "Ro&#39;yxatdan o&#39;tish ishtirokchisi"
+msgstr "Ro'yxatdan o'tish ishtirokchisi"
 
 #: template:0
 msgid "Aloqa"
@@ -3747,7 +3746,7 @@ msgstr "Aloqa"
 
 #: template:0
 msgid "DISPLACED"
-msgstr "KO&#39;CHIRIB OLINGAN"
+msgstr "KO'CHIRIB OLINGAN"
 
 #: template:0
 msgid "Override Reason (Mandatory)"
@@ -3767,7 +3766,7 @@ msgstr "Xalq"
 
 #: template:0
 msgid "Step 3: Responsible Staff Selection"
-msgstr "3-qadam: Mas&#39;uliyatli xodimlarni tanlash"
+msgstr "3-qadam: Mas'uliyatli xodimlarni tanlash"
 
 #: template:0
 msgid "Connect Telegram"
@@ -3803,7 +3802,7 @@ msgstr "O'rqaga"
 
 #: template:0
 msgid "Event Check-in Configuration"
-msgstr "Tadbirni ro&#39;yxatdan o&#39;tkazish konfiguratsiyasi"
+msgstr "Tadbirni ro'yxatdan o'tkazish konfiguratsiyasi"
 
 msgid "Administrator sozlamalari"
 msgstr "Administrator sozlamalari"
@@ -4447,3 +4446,999 @@ msgstr ""
 
 msgid "Check-in is not enabled for this event."
 msgstr "Ushbu tadbir uchun ro'yxatdan o'tish (check-in) yoqilmagan."
+
+msgid "Sizda yangi bildirishnomalar yo'q"
+msgstr "Sizda yangi bildirishnomalar yo'q"
+
+msgid "Bugun uchun uchrashuvlar yo'q"
+msgstr "Bugun uchun uchrashuvlar yo'q"
+
+msgid "Public page %(status)s."
+msgstr "Ochiq sahifa %(status)s."
+
+msgid "Event Planning Wizard — Step %(step)d of 5"
+msgstr "Tadbir rejalashtirish sehrgari — 5 tadan %(step)d-qadam"
+
+msgid "Event Approved"
+msgstr "Tadbir tasdiqlandi"
+
+msgid "Postponed"
+msgstr "Kechiktirilgan"
+
+msgid "Publication Updated"
+msgstr "Nashr yangilandi"
+
+msgid "Batafsil ko'rish"
+msgstr "Batafsil ko'rish"
+
+msgid "Only PDF files are allowed."
+msgstr "Faqat PDF fayllarga ruxsat etiladi."
+
+msgid "Internal Notes"
+msgstr "Ichki eslatmalar"
+
+msgid "check-in enabled"
+msgstr "check-in yoqilgan"
+
+msgid "Cancel Event “%(title)s”"
+msgstr "“%(title)s” tadbirini bekor qilish"
+
+msgid "public token"
+msgstr "ochiq token"
+
+msgid "Report range cannot exceed two years."
+msgstr "Hisobot oralig'i ikki yildan oshmasligi kerak."
+
+msgid "speaker"
+msgstr "ma'ruzachi"
+
+msgid "Create %(var)s"
+msgstr "%(var)s yaratish"
+
+msgid "e.g. Senior Researcher"
+msgstr "masalan, Katta ilmiy xodim"
+
+msgid "Summary"
+msgstr "Xulosa"
+
+msgid "Utilization %"
+msgstr "Foydalanish %"
+
+msgid "The uploaded file is not a valid PDF document."
+msgstr "Yuklangan fayl to'g'ri PDF hujjat emas."
+
+msgid "Event '%(title)s' approved via priority override."
+msgstr "'%(title)s' tadbiri ustuvor bekor qilish orqali tasdiqlandi."
+
+msgid "program item"
+msgstr "dastur bandi"
+
+msgid "Event “%(title)s” successfully rescheduled."
+msgstr "“%(title)s” tadbiri muvaffaqiyatli qayta rejalashtirildi."
+
+msgid "Telegram Connected"
+msgstr "Telegram ulandi"
+
+msgid "Event Postponed"
+msgstr "Tadbir kechiktirildi"
+
+msgid "Check-in open."
+msgstr "Check-in ochiq."
+
+msgid "disabled"
+msgstr "o'chirilgan"
+
+msgid ""
+"Explain state-level emergency rationale justifying venue displacement..."
+msgstr ""
+"Zalni bo'shatishni asoslovchi davlat darajasidagi favqulodda sabab-oqibatni "
+"tushuntiring..."
+
+msgid "reviewed by"
+msgstr "kim tomonidan ko'rib chiqilgan"
+
+msgid "Event Cancelled"
+msgstr "Tadbir bekor qilindi"
+
+msgid "Emergency override justification is mandatory."
+msgstr "Favqulodda holat asoslamasini kiritish shart."
+
+msgid "expected attendees"
+msgstr "kutilayotgan ishtirokchilar"
+
+msgid "Kiosk"
+msgstr "Kiosk"
+
+msgid "program intro"
+msgstr "dastur kirish qismi"
+
+msgid "No file was uploaded."
+msgstr "Fayl yuklanmadi."
+
+msgid "End date must not precede start date."
+msgstr "Tugash sanasi boshlanish sanasidan oldin bo'lmasligi kerak."
+
+msgid "last used at"
+msgstr "oxirgi ishlatilgan vaqti"
+
+msgid "Telegram Reminder Failed"
+msgstr "Telegram eslatmasi yuborilmadi"
+
+msgid "timestamp"
+msgstr "vaqt belgisi"
+
+msgid "Display Token Created"
+msgstr "Displey tokeni yaratildi"
+
+msgid "event attendances"
+msgstr "tadbir davomatlari"
+
+msgid "start date"
+msgstr "boshlanish sanasi"
+
+msgid "Rejection Rationale"
+msgstr "Rad etish sababi"
+
+msgid "Provide clear rationale and feedback for rejection..."
+msgstr "Rad etish uchun aniq sabab va izohni yozing..."
+
+msgid "display tokens"
+msgstr "displey tokenlari"
+
+msgid "Only the responsible employee or admin can submit."
+msgstr "Faqat mas'ul xodim yoki admin yuborishi mumkin."
+
+msgid "An override reason is mandatory."
+msgstr "Ustuvor bekor qilish sababini kiritish shart."
+
+msgid "Cancelled or completed events cannot be postponed."
+msgstr "Bekor qilingan yoki yakunlangan tadbirlarni kechiktirib bo'lmaydi."
+
+msgid ""
+"Event conflicts with existing reservations. Requires priority override."
+msgstr ""
+"Tadbir mavjud bandlovlar bilan ziddiyatda. Ustuvor bekor qilish talab "
+"qilinadi."
+
+msgid "Full (Show Event Details)"
+msgstr "To'liq (Tadbir tafsilotlarini ko'rsatish)"
+
+msgid "Program PDF uploaded successfully."
+msgstr "Dastur PDF hujjati muvaffaqiyatli yuklandi."
+
+msgid "Skipped"
+msgstr "O'tkazib yuborildi"
+
+msgid "Postponement Reason"
+msgstr "Kechiktirish sababi"
+
+msgid "Check-in close time must be after open time."
+msgstr "Check-in yopilish vaqti ochilish vaqtidan keyin bo'lishi kerak."
+
+msgid "public page enabled"
+msgstr "ochiq sahifa yoqilgan"
+
+msgid "Event Resubmitted"
+msgstr "Tadbir qayta yuborildi"
+
+msgid "Telegram Disconnected"
+msgstr "Telegram uzildi"
+
+msgid "Event Approval Request"
+msgstr "Tadbirni tasdiqlash so'rovi"
+
+msgid "Mavzuni o'zgartirish"
+msgstr "Mavzuni o'zgartirish"
+
+msgid "Uploaded file is not a valid PDF document."
+msgstr "Yuklangan fayl to'g'ri PDF hujjat emas."
+
+msgid "Provide rationale for postponing this event..."
+msgstr "Ushbu tadbirni kechiktirish sababini yozing..."
+
+msgid "chat ID"
+msgstr "chat ID"
+
+msgid "Public Token Rotated"
+msgstr "Ochiq token yangilandi"
+
+msgid "display token"
+msgstr "displey tokeni"
+
+msgid "Attendee '%(name)s' checked in manually."
+msgstr "'%(name)s' ishtirokchisi qo'lda ro'yxatga olindi."
+
+msgid "Event Created"
+msgstr "Tadbir yaratildi"
+
+msgid ""
+"Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan "
+"tasdiqlang. Kutilayotgan arizalar soni: %(var)s."
+msgstr ""
+"Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan "
+"tasdiqlang. Kutilayotgan arizalar soni: %(var)s."
+
+msgid "Event “%(title)s” resubmitted for approval."
+msgstr "“%(title)s” tadbiri tasdiqlash uchun qayta yuborildi."
+
+msgid ""
+"Only super admins and international admins can execute emergency overrides."
+msgstr ""
+"Favqulodda bekor qilishni faqat super adminlar va xalqaro adminlar amalga "
+"oshira oladi."
+
+msgid "Event “%(title)s” approved successfully."
+msgstr "“%(title)s” tadbiri muvaffaqiyatli tasdiqlandi."
+
+msgid "Hidden (Show Occupied Only)"
+msgstr "Yashirin (Faqat band deb ko'rsatish)"
+
+msgid "Under Review"
+msgstr "Ko'rib chiqilmoqda"
+
+msgid "Telegram Test Sent"
+msgstr "Telegram sinov xabari yuborildi"
+
+msgid ""
+"Your event “%(title)s” was rejected by %(reviewer)s. Reason: %(reason)s"
+msgstr ""
+"“%(title)s” tadbiringiz %(reviewer)s tomonidan rad etildi. Sababi: "
+"%(reason)s"
+
+msgid "Invalid or disabled display token."
+msgstr "Displey tokeni noto'g'ri yoki o'chirilgan."
+
+msgid "created by"
+msgstr "yaratuvchi"
+
+msgid "Tizimga kirish"
+msgstr "Tizimga kirish"
+
+msgid "Bugungi Uchrashuvlar"
+msgstr "Bugungi Uchrashuvlar"
+
+msgid "Banner Regenerated"
+msgstr "Banner qayta yaratildi"
+
+msgid "Program PDF Uploaded"
+msgstr "Dastur PDF hujjati yuklandi"
+
+msgid "attendee_organization"
+msgstr "ishtirokchi_tashkiloti"
+
+msgid "Telegram channel settings"
+msgstr "Telegram kanali sozlamalari"
+
+msgid ""
+"Are you sure you want to postpone <strong>%(var)s</strong>? The event status"
+" will be set to Postponed and staff will be notified."
+msgstr ""
+"<strong>%(var)s</strong>ni kechiktirishga aminmisiz? Tadbir holati "
+"\"Kechiktirilgan\"ga o'zgaradi va xodimlarga xabar beriladi."
+
+msgid "Available minutes"
+msgstr "Bo'sh daqiqalar"
+
+msgid "Starts in %(hours)d hours %(minutes)d minutes"
+msgstr "%(hours)d soat %(minutes)d daqiqadan keyin boshlanadi"
+
+msgid "Barchasini o'qilgan deb belgilash"
+msgstr "Barchasini o'qilgan deb belgilash"
+
+msgid "Publishing"
+msgstr "Nashr qilinmoqda"
+
+msgid "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
+msgstr "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
+
+msgid "Publication Created"
+msgstr "Nashr yaratildi"
+
+msgid "Hozircha rejalashtirilgan ochiq uchrashuvlar mavjud emas."
+msgstr "Hozircha rejalashtirilgan ochiq uchrashuvlar mavjud emas."
+
+msgid "event attendance"
+msgstr "tadbir davomati"
+
+msgid "program PDF"
+msgstr "dastur PDF fayli"
+
+msgid "Display Disabled"
+msgstr "Displey o'chirilgan"
+
+msgid "is active"
+msgstr "faolmi"
+
+msgid "Cancel “%(var)s”?"
+msgstr "“%(var)s”ni bekor qilasizmi?"
+
+msgid "Publication Cancelled"
+msgstr "Nashr bekor qilindi"
+
+msgid "No conflicting events to override."
+msgstr "Bekor qilish uchun ziddiyatli tadbirlar yo'q."
+
+msgid "Event Rescheduled"
+msgstr "Tadbir qayta rejalashtirildi"
+
+msgid "Event Submitted for Approval"
+msgstr "Tadbir tasdiqlash uchun yuborildi"
+
+msgid "Program item title cannot be empty."
+msgstr "Dastur bandi nomi bo'sh bo'lishi mumkin emas."
+
+msgid "The numeric Telegram chat ID of the channel or group "
+msgstr "Kanal yoki guruhning raqamli Telegram chat ID'si "
+
+msgid "You do not have permission to manage event attendance."
+msgstr "Tadbir davomatini boshqarishga ruxsatingiz yo'q."
+
+msgid "end date"
+msgstr "tugash sanasi"
+
+msgid "rejection reason"
+msgstr "rad etish sababi"
+
+msgid "PDF size must not exceed 10 MB."
+msgstr "PDF hajmi 10 MB dan oshmasligi kerak."
+
+msgid "Publication Retried"
+msgstr "Nashr qayta urinildi"
+
+msgid "Speaker added successfully."
+msgstr "Ma'ruzachi muvaffaqiyatli qo'shildi."
+
+msgid "displaced by event"
+msgstr "qaysi tadbir tomonidan siljitilgan"
+
+msgid "Event Resubmitted for Approval"
+msgstr "Tadbir tasdiqlash uchun qayta yuborildi"
+
+msgid "Event “%(title)s” has been corrected and resubmitted by %(user)s."
+msgstr "“%(title)s” tadbiri %(user)s tomonidan to'g'rilanib, qayta yuborildi."
+
+msgid "Event Updated"
+msgstr "Tadbir yangilandi"
+
+msgid "Telegram reminders enabled"
+msgstr "Telegram eslatmalari yoqilgan"
+
+msgid "Only the responsible employee or admin can resubmit."
+msgstr "Faqat mas'ul xodim yoki admin qayta yuborishi mumkin."
+
+msgid "You do not have permission to export this report."
+msgstr "Ushbu hisobotni eksport qilishga ruxsatingiz yo'q."
+
+msgid "Program PDF Replaced"
+msgstr "Dastur PDF hujjati almashtirildi"
+
+msgid "Cannot override event '%(title)s' which has equal or higher priority."
+msgstr ""
+"Tengdosh yoki yuqoriroq ustuvorlikka ega '%(title)s' tadbirini bekor qilib "
+"bo'lmaydi."
+
+msgid "You do not have permission to view event attendance."
+msgstr "Tadbir davomatini ko'rishga ruxsatingiz yo'q."
+
+msgid "Display Enabled"
+msgstr "Displey yoqilgan"
+
+msgid "title"
+msgstr "sarlavha"
+
+msgid "Custom range requires both dates."
+msgstr "Ixtiyoriy oraliq uchun ikkala sana ham talab qilinadi."
+
+msgid "You can mark yourself busy at most %(limit)d times per year. "
+msgstr ""
+"Siz o'zingizni yiliga ko'pi bilan %(limit)d marta band deb belgilashingiz "
+"mumkin. "
+
+msgid "PDF Report Exported"
+msgstr "PDF hisobot eksport qilindi"
+
+msgid "Event “%(title)s” updated."
+msgstr "“%(title)s” tadbiri yangilandi."
+
+msgid "e.g. Tashkent State Medical University"
+msgstr "masalan, Toshkent tibbiyot akademiyasi"
+
+msgid "Approval Center"
+msgstr "Tasdiqlash markazi"
+
+msgid "full name"
+msgstr "to'liq ism"
+
+msgid "O'qilgan deb belgilash"
+msgstr "O'qilgan deb belgilash"
+
+msgid "Audit Log"
+msgstr "Audit jurnali"
+
+msgid "attendee identifier hash"
+msgstr "ishtirokchi identifikator xeshi"
+
+msgid "Provide brief rationale for event cancellation..."
+msgstr "Tadbirni bekor qilish uchun qisqacha sabab keltiring..."
+
+msgid "event banner image"
+msgstr "tadbir banner rasmi"
+
+msgid "Publication Scheduled"
+msgstr "Nashr rejalashtirildi"
+
+msgid "%(var)s-yil uchun ishlatilgan: %(var)s / %(var)s"
+msgstr "%(var)s-yil uchun ishlatilgan: %(var)s / %(var)s"
+
+msgid "bio"
+msgstr "tarjimai hol"
+
+msgid "emergency justification"
+msgstr "favqulodda holat asoslamasi"
+
+msgid "Starts in %(var)s minutes"
+msgstr "%(var)s daqiqadan keyin boshlanadi"
+
+msgid "%(var)s minutes remaining"
+msgstr "%(var)s daqiqa qoldi"
+
+msgid "Invalid file. Only PDF documents up to 10 MB are allowed."
+msgstr "Noto'g'ri fayl. Faqat 10 MB gacha PDF hujjatlarga ruxsat etiladi."
+
+msgid "status"
+msgstr "holat"
+
+msgid "Starts in %(minutes)d minutes"
+msgstr "%(minutes)d daqiqadan keyin boshlanadi"
+
+msgid "\"Faol\" belgisini yoqib, saqlang."
+msgstr "\"Faol\" belgisini yoqib, saqlang."
+
+msgid "audit log entries"
+msgstr "audit jurnali yozuvlari"
+
+msgid "XLSX Report Exported"
+msgstr "XLSX hisobot eksport qilindi"
+
+msgid "Agenda item added successfully."
+msgstr "Kun tartibi bandi muvaffaqiyatli qo'shildi."
+
+msgid "reviewed at"
+msgstr "ko'rib chiqilgan vaqti"
+
+msgid "Invitation"
+msgstr "Taklifnoma"
+
+msgid "target URL"
+msgstr "maqsad havolasi"
+
+msgid "checked_in_at"
+msgstr "royxatga_olingan_vaqti"
+
+msgid "Now in progress — Ends in %(minutes)d minutes"
+msgstr "Hozir davom etmoqda — %(minutes)d daqiqadan keyin tugaydi"
+
+msgid "check-in method"
+msgstr "check-in usuli"
+
+msgid "Cannot save as Planned: Expected attendees (%(attendees)d) "
+msgstr ""
+"\"Rejalashtirilgan\" sifatida saqlab bo'lmaydi: kutilayotgan ishtirokchilar "
+"(%(attendees)d) "
+
+msgid "QR Code Generated"
+msgstr "QR kod yaratildi"
+
+msgid "action"
+msgstr "amal"
+
+msgid "Reject Event — %(title)s"
+msgstr "Tadbirni rad etish — %(title)s"
+
+msgid "A rejection reason is mandatory."
+msgstr "Rad etish sababini kiritish shart."
+
+msgid "You do not have permission to view reports."
+msgstr "Hisobotlarni ko'rishga ruxsatingiz yo'q."
+
+msgid "Your event '%(title)s' was displaced by a higher priority event. "
+msgstr ""
+"'%(title)s' tadbiringiz yuqoriroq ustuvorlikka ega tadbir tomonidan "
+"siljitildi. "
+
+msgid "title / position"
+msgstr "unvon / lavozim"
+
+msgid "You do not have permission to view the Leadership Dashboard."
+msgstr "Rahbariyat paneliga ko'rishga ruxsatingiz yo'q."
+
+msgid "Delete Event “%(title)s”"
+msgstr "“%(title)s” tadbirini o'chirish"
+
+msgid "Reschedule Event — %(title)s"
+msgstr "Tadbirni qayta rejalashtirish — %(title)s"
+
+msgid "Event completed"
+msgstr "Tadbir yakunlandi"
+
+msgid "Program PDF document removed."
+msgstr "Dastur PDF hujjati o'chirildi."
+
+msgid "target representation"
+msgstr "maqsad tasviri"
+
+msgid "Event is not pending approval."
+msgstr "Tadbir tasdiqlanishni kutmayapti."
+
+msgid "Agenda item removed."
+msgstr "Kun tartibi bandi o'chirildi."
+
+msgid "Your event “%(title)s” scheduled for %(date)s (%(start)s - %(end)s) "
+msgstr ""
+"“%(title)s” tadbiringiz %(date)s (%(start)s - %(end)s) sanasiga "
+"rejalashtirilgan "
+
+msgid "Registration Import"
+msgstr "Ro'yxatdan o'tishni import qilish"
+
+msgid "public profile enabled"
+msgstr "ochiq profil yoqilgan"
+
+msgid "Program PDF Removed"
+msgstr "Dastur PDF hujjati o'chirildi"
+
+msgid "Starts in %(days)d days"
+msgstr "%(days)d kundan keyin boshlanadi"
+
+msgid "Public Page Enabled"
+msgstr "Ochiq sahifa yoqilgan"
+
+msgid "severity"
+msgstr "jiddiylik darajasi"
+
+msgid ""
+"Only events in Draft, Planned or Rejected status can be submitted for "
+"approval."
+msgstr ""
+"Faqat \"Qoralama\", \"Rejalashtirilgan\" yoki \"Rad etilgan\" holatidagi "
+"tadbirlarni tasdiqlashga yuborish mumkin."
+
+msgid "Event “%(title)s” rejected."
+msgstr "“%(title)s” tadbiri rad etildi."
+
+msgid "program items"
+msgstr "dastur bandlari"
+
+msgid "Telegram Event Notification Sent"
+msgstr "Telegram tadbir bildirishnomasi yuborildi"
+
+msgid "submitted at"
+msgstr "yuborilgan vaqti"
+
+msgid "target ID"
+msgstr "maqsad ID"
+
+msgid "Error updating program details."
+msgstr "Dastur tafsilotlarini yangilashda xatolik."
+
+msgid "Completed"
+msgstr "Yakunlangan"
+
+msgid "Info"
+msgstr "Ma'lumot"
+
+msgid "Please correct the errors in the configuration form."
+msgstr "Sozlamalar shaklidagi xatolarni to'g'rilang."
+
+msgid "Event Displaced by Emergency"
+msgstr "Tadbir favqulodda holat sababli siljitildi"
+
+msgid "Postpone Event — %(title)s"
+msgstr "Tadbirni kechiktirish — %(title)s"
+
+msgid "Program Source Changed"
+msgstr "Dastur manbai o'zgartirildi"
+
+msgid "Only events pending approval can be approved."
+msgstr "Faqat tasdiqlanishni kutayotgan tadbirlarni tasdiqlash mumkin."
+
+msgid "Roles and permissions"
+msgstr "Rollar va huquqlar"
+
+msgid "Event Title"
+msgstr "Tadbir nomi"
+
+msgid "File size exceeds maximum allowed limit of 10 MB."
+msgstr "Fayl hajmi ruxsat etilgan 10 MB chegarasidan oshib ketdi."
+
+msgid "Staff Manual"
+msgstr "Xodim tomonidan qo'lda"
+
+msgid "Program details updated successfully."
+msgstr "Dastur tafsilotlari muvaffaqiyatli yangilandi."
+
+msgid "Tanlangan vaqtda ushbu zal band. Boshqa vaqt yoki zalni tanlang."
+msgstr "Tanlangan vaqtda ushbu zal band. Boshqa vaqt yoki zalni tanlang."
+
+msgid "label"
+msgstr "yorliq"
+
+msgid "Display Token Rotated"
+msgstr "Displey tokeni yangilandi"
+
+msgid "Your event '%(title)s' has been approved via priority override "
+msgstr "'%(title)s' tadbiringiz ustuvor bekor qilish orqali tasdiqlandi "
+
+msgid ""
+"You are about to reject <strong>%(var)s</strong>. This action requires a "
+"mandatory rationale."
+msgstr ""
+"Siz <strong>%(var)s</strong>ni rad etmoqchisiz. Bu amal uchun sabab "
+"ko'rsatish shart."
+
+msgid "Metric"
+msgstr "Ko'rsatkich"
+
+msgid "check-in opens at"
+msgstr "check-in ochilish vaqti"
+
+msgid "Only PDF files (.pdf) are allowed."
+msgstr "Faqat PDF fayllar (.pdf)ga ruxsat etiladi."
+
+msgid "Check-in configuration updated."
+msgstr "Check-in sozlamalari yangilandi."
+
+msgid "program notes"
+msgstr "dastur eslatmalari"
+
+msgid "Registration URL"
+msgstr "Ro'yxatdan o'tish havolasi"
+
+msgid "Event “%(title)s” cancelled."
+msgstr "“%(title)s” tadbiri bekor qilindi."
+
+msgid "You do not have permission to export attendance data."
+msgstr "Davomat ma'lumotlarini eksport qilishga ruxsatingiz yo'q."
+
+msgid "display name / location"
+msgstr "ko'rsatiladigan nom / joylashuv"
+
+msgid "attendee_name"
+msgstr "ishtirokchi_ismi"
+
+msgid "Occupied by “%(title)s” (%(start)s – %(end)s)."
+msgstr "“%(title)s” tomonidan band (%(start)s – %(end)s)."
+
+msgid "%(venue)s is available."
+msgstr "%(venue)s bo'sh."
+
+msgid "High"
+msgstr "Yuqori"
+
+msgid "Program PDF Document"
+msgstr "Dastur PDF hujjati"
+
+msgid "Emergency Justification"
+msgstr "Favqulodda holat asoslamasi"
+
+msgid "Emergency override executed! %(count)d event(s) displaced."
+msgstr ""
+"Favqulodda bekor qilish amalga oshirildi! %(count)d ta tadbir siljitildi."
+
+msgid "IEMS Leadership Report"
+msgstr "IEMS Rahbariyat hisoboti"
+
+msgid "check-in closes at"
+msgstr "check-in yopilish vaqti"
+
+msgid "speakers"
+msgstr "ma'ruzachilar"
+
+msgid "organizing organizations"
+msgstr "tashkilotchi tashkilotlar"
+
+msgid "Override Conflict for \"%(title)s\""
+msgstr "\"%(title)s\" uchun ziddiyatni bekor qilish"
+
+msgid "Publication Approved"
+msgstr "Nashr tasdiqlandi"
+
+msgid "Cancellation Reason"
+msgstr "Bekor qilish sababi"
+
+msgid "management responsible"
+msgstr "boshqaruv mas'uli"
+
+msgid "Your event “%(title)s” has been approved by %(reviewer)s."
+msgstr "“%(title)s” tadbiringiz %(reviewer)s tomonidan tasdiqlandi."
+
+msgid "e.g. Abdullayev Jasur"
+msgstr "e.g. Abdullayev Jasur"
+
+msgid "notifications"
+msgstr "bildirishnomalar"
+
+msgid "Event “%(title)s” submitted for management approval."
+msgstr "“%(title)s” tadbiri rahbariyat tasdig'i uchun yuborildi."
+
+msgid "e.g., International Oncology Conference"
+msgstr "masalan, Xalqaro onkologiya konferensiyasi"
+
+msgid "audit log entry"
+msgstr "audit jurnali yozuvi"
+
+msgid "Zoom / Meeting URL"
+msgstr "Zoom / Uchrashuv havolasi"
+
+msgid "Emergency Override Executed"
+msgstr "Favqulodda bekor qilish amalga oshirildi"
+
+msgid "Too many login attempts. Please try again later."
+msgstr "Juda ko'p kirish urinishlari. Iltimos, keyinroq qayta urining."
+
+msgid "Telegram Reminder Scheduled"
+msgstr "Telegram eslatmasi rejalashtirildi"
+
+msgid "Only events pending approval can override others."
+msgstr ""
+"Faqat tasdiqlanishni kutayotgan tadbirlar boshqalarni bekor qila oladi."
+
+msgid "Now in progress — Ends in %(hours)d hours %(minutes)d minutes"
+msgstr ""
+"Hozir davom etmoqda — %(hours)d soat %(minutes)d daqiqadan keyin tugaydi"
+
+msgid "CRITICAL: Event Displaced by Emergency Override"
+msgstr "MUHIM: Tadbir favqulodda bekor qilish orqali siljitildi"
+
+msgid "speaker name override"
+msgstr "ma'ruzachi nomini qo'lda o'zgartirish"
+
+msgid "Only events pending approval can be rejected."
+msgstr "Faqat tasdiqlanishni kutayotgan tadbirlarni rad etish mumkin."
+
+msgid "planned date"
+msgstr "rejalashtirilgan sana"
+
+msgid "event"
+msgstr "tadbir"
+
+msgid "Event Displaced"
+msgstr "Tadbir siljitildi"
+
+msgid "Summary of event objectives and agenda..."
+msgstr "Tadbir maqsadlari va kun tartibining qisqacha bayoni..."
+
+msgid "Parolni ko'rsatish"
+msgstr "Parolni ko'rsatish"
+
+msgid ""
+"You are about to approve <strong>%(var)s</strong> via priority override. "
+"This is a high-risk action."
+msgstr ""
+"Siz <strong>%(var)s</strong>ni ustuvor bekor qilish orqali "
+"tasdiqlamoqchisiz. Bu yuqori xavfli amal."
+
+msgid "Event Approved (Override)"
+msgstr "Tadbir tasdiqlandi (bekor qilish orqali)"
+
+msgid "Management Responsible Person"
+msgstr "Boshqaruv mas'ul shaxsi"
+
+msgid "Speaker updated successfully."
+msgstr "Ma'ruzachi muvaffaqiyatli yangilandi."
+
+msgid "checked in at"
+msgstr "ro'yxatga olingan vaqti"
+
+msgid "Program Item Added"
+msgstr "Dastur bandi qo'shildi"
+
+msgid "is read"
+msgstr "o'qilganmi"
+
+msgid "updated at"
+msgstr "yangilangan vaqti"
+
+msgid "Free until %(var)s"
+msgstr "%(var)sgacha bo'sh"
+
+msgid "Page %(var)s of %(var)s"
+msgstr "%(var)s / %(var)s sahifa"
+
+msgid "CSV Report Exported"
+msgstr "CSV hisobot eksport qilindi"
+
+msgid "checkin_method"
+msgstr "checkin_usuli"
+
+msgid "responsible employee"
+msgstr "mas'ul xodim"
+
+msgid "message"
+msgstr "xabar"
+
+msgid "Program Item Removed"
+msgstr "Dastur bandi o'chirildi"
+
+msgid "Registration submitted. An administrator will review and activate "
+msgstr "Ariza yuborildi. Administrator ko'rib chiqib faollashtiradi "
+
+msgid "Publication Failed"
+msgstr "Nashr muvaffaqiyatsiz tugadi"
+
+msgid "Event “%(title)s” has been postponed."
+msgstr "“%(title)s” tadbiri kechiktirildi."
+
+msgid "Your event “%(title)s” has been successfully rescheduled "
+msgstr "“%(title)s” tadbiringiz muvaffaqiyatli qayta rejalashtirildi "
+
+msgid "Event “%(title)s” saved successfully as %(status)s."
+msgstr "“%(title)s” tadbiri “%(status)s” sifatida muvaffaqiyatli saqlandi."
+
+msgid "Generated"
+msgstr "Yaratildi"
+
+msgid "Delete “%(var)s”?"
+msgstr "“%(var)s”ni o'chirasizmi?"
+
+msgid "enabled"
+msgstr "yoqilgan"
+
+msgid "Banner Generated"
+msgstr "Banner yaratildi"
+
+msgid "Booked minutes"
+msgstr "Band qilingan daqiqalar"
+
+msgid "This event page is not currently published or unavailable."
+msgstr "Ushbu tadbir sahifasi hozircha e'lon qilinmagan yoki mavjud emas."
+
+msgid "Public token rotated successfully."
+msgstr "Ochiq token muvaffaqiyatli yangilandi."
+
+msgid ""
+"Expected attendees (%(attendees)d) exceeds venue capacity (%(capacity)d)."
+msgstr ""
+"Kutilayotgan ishtirokchilar (%(attendees)d) zal sig'imidan (%(capacity)d) "
+"oshib ketmoqda."
+
+msgid "payload"
+msgstr "payload (ma'lumot)"
+
+msgid "Displaced by Emergency"
+msgstr "Favqulodda holat sababli siljitildi"
+
+msgid "Emergency Requested"
+msgstr "Favqulodda holat so'raldi"
+
+msgid "Publication Published"
+msgstr "Nashr e'lon qilindi"
+
+msgid "updated by"
+msgstr "kim tomonidan yangilangan"
+
+msgid "recipient"
+msgstr "qabul qiluvchi"
+
+msgid "PDF File"
+msgstr "PDF fayl"
+
+msgid "Tizimdagi barcha yangilik va ogohlantirishlar"
+msgstr "Tizimdagi barcha yangilik va ogohlantirishlar"
+
+msgid "Display / TV Visibility"
+msgstr "Displey / TV ko'rinishi"
+
+msgid "Error adding agenda item."
+msgstr "Kun tartibi bandini qo'shishda xatolik."
+
+msgid "display visibility"
+msgstr "displey ko'rinishi"
+
+msgid "Ongoing"
+msgstr "Davom etmoqda"
+
+msgid "Only rejected events can be resubmitted."
+msgstr "Faqat rad etilgan tadbirlarni qayta yuborish mumkin."
+
+msgid "Telegram Reminder Sent"
+msgstr "Telegram eslatmasi yuborildi"
+
+msgid "Value"
+msgstr "Qiymat"
+
+msgid "Event “%(title)s” submitted for management review by %(user)s."
+msgstr ""
+"“%(title)s” tadbiri %(user)s tomonidan rahbariyat ko'rib chiqishi uchun "
+"yuborildi."
+
+msgid "role / title"
+msgstr "rol / unvon"
+
+msgid "QR Code Printed"
+msgstr "QR kod chop etildi"
+
+msgid "Please complete all required fields before saving."
+msgstr "Saqlashdan oldin barcha majburiy maydonlarni to'ldiring."
+
+msgid "Event Rejected"
+msgstr "Tadbir rad etildi"
+
+msgid "Critical Alert"
+msgstr "Muhim ogohlantirish"
+
+msgid "Program Item Updated"
+msgstr "Dastur bandi yangilandi"
+
+msgid "Event time (%(start)s - %(end)s) is outside "
+msgstr "Tadbir vaqti (%(start)s - %(end)s) doirasidan tashqarida "
+
+msgid "Event Planned"
+msgstr "Tadbir rejalashtirildi"
+
+msgid "Please provide a valid attendee name for manual check-in."
+msgstr "Qo'lda check-in uchun to'g'ri ishtirokchi ismini kiriting."
+
+msgid "priority"
+msgstr "ustuvorlik"
+
+msgid "Emergency Override — %(title)s"
+msgstr "Favqulodda bekor qilish — %(title)s"
+
+msgid "notification"
+msgstr "bildirishnoma"
+
+msgid "Invalid program source mode."
+msgstr "Dastur manbai rejimi noto'g'ri."
+
+msgid "Generic (Show 'Private Meeting')"
+msgstr "Umumiy (\"Yopiq uchrashuv\" deb ko'rsatish)"
+
+msgid "program source"
+msgstr "dastur manbai"
+
+msgid "The uploaded image is damaged or unsafe."
+msgstr "Yuklangan rasm shikastlangan yoki xavfsiz emas."
+
+msgid "Emergency"
+msgstr "Favqulodda"
+
+msgid ""
+"Rejecting this event will change its status to Rejected. The responsible "
+"employee will be notified. A rationale must be provided."
+msgstr ""
+"Bu tadbirni rad etish uning holatini \"Rad etilgan\"ga o'zgartiradi. Mas'ul "
+"xodimga xabar beriladi. Sabab ko'rsatilishi shart."
+
+msgid "Hozircha sizni ma'ruzachi sifatida belgilangan tadbir yo'q."
+msgstr "Hozircha sizni ma'ruzachi sifatida belgilangan tadbir yo'q."
+
+msgid "Ma'ruzachi bo'lgan tadbirlarim"
+msgstr "Ma'ruzachi bo'lgan tadbirlarim"
+
+msgid "Profilga qaytish"
+msgstr "Profilga qaytish"
+
+msgid ""
+"Sizni ma'ruzachi shifokor sifatida belgilangan barcha tadbirlar ro'yxati."
+msgstr ""
+"Sizni ma'ruzachi shifokor sifatida belgilangan barcha tadbirlar ro'yxati."
+
+msgid "Speaker-assigned events"
+msgstr "Ma'ruzachi bo'lgan tadbirlar"
+
+msgid "You've been assigned as a speaker"
+msgstr "Siz ma'ruzachi sifatida belgilandingiz"
+
+msgid ""
+"You have been assigned as a speaker doctor for the event “%(title)s” on "
+"%(date)s (%(start)s–%(end)s) at %(venue)s."
+msgstr ""
+"Siz “%(title)s” tadbiriga ma'ruzachi shifokor sifatida belgilandingiz. Sana:"
+" %(date)s (%(start)s–%(end)s), joyi: %(venue)s."
+
+msgid "Sizda %(var)s ta o'qilmagan bildirishnoma bor."
+msgstr "Sizda %(var)s ta o'qilmagan bildirishnoma bor."
+
+msgid "Yangi bildirishnomalar"
+msgstr "Yangi bildirishnomalar"

@@ -92,7 +92,8 @@ class TestVenueAvailability:
         )
         assert result.is_available
         assert result.capacity_warning is not None
-        assert "exceeds venue capacity" in result.capacity_warning
+        assert "sig'imidan" in result.capacity_warning
+        assert "oshib ketmoqda" in result.capacity_warning
 
     def test_live_status_service(self, availability_setup):
         # Test reference time at 14:30 today

@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=30.0">
   <link rel="stylesheet" href="{% static 'css/motion.css' %}?v=30.0">
-  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=29.0">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=32.0">
   <link rel="stylesheet" href="{% static 'css/workspace.css' %}?v=29.0">
-  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=29.0">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=31.0">
   <style>
     /* Sidebar Collapse Styles */
     body.sidebar-collapsed {
@@ -93,6 +93,29 @@
       </div>
       <button class="sidebar-backdrop" type="button" data-sidebar-close aria-label="{% trans 'Close navigation' %}"></button>
     </div>
+    {% if unread_notification_count %}
+      <a
+        href="{% url 'notifications:list' %}"
+        class="notification-toast"
+        id="notification-toast"
+        data-testid="notification-toast"
+        data-unread-count="{{ unread_notification_count }}"
+        hidden
+      >
+        <span class="notification-toast__icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </span>
+        <span>
+          {% if unread_notification_count == 1 and latest_unread_notification %}
+            <p class="notification-toast__title">{{ latest_unread_notification.title }}</p>
+            <p class="notification-toast__message">{{ latest_unread_notification.message }}</p>
+          {% else %}
+            <p class="notification-toast__title">{% trans "Yangi bildirishnomalar" %}</p>
+            <p class="notification-toast__message">{% blocktrans with count=unread_notification_count %}Sizda {{ count }} ta o'qilmagan bildirishnoma bor.{% endblocktrans %}</p>
+          {% endif %}
+        </span>
+      </a>
+    {% endif %}
   {% else %}
     <main id="main-content" class="auth-layout">
       {% block unauthenticated_content %}{% endblock %}
@@ -125,6 +148,36 @@ document.addEventListener('DOMContentLoaded', function() {
       allDropdowns.forEach(d => d.setAttribute('hidden', 'hidden'));
     }
   });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toast = document.getElementById('notification-toast');
+  if (!toast) return;
+
+  var STORAGE_KEY = 'iems-notification-toast-shown';
+  var unreadCount = toast.getAttribute('data-unread-count');
+
+  // Show once per browser tab session for the current unread count — a
+  // fresh login/new tab (new sessionStorage) or a newly arrived
+  // notification (count changed) will surface it again.
+  if (sessionStorage.getItem(STORAGE_KEY) === unreadCount) {
+    return;
+  }
+
+  toast.removeAttribute('hidden');
+  sessionStorage.setItem(STORAGE_KEY, unreadCount);
+
+  window.setTimeout(function() {
+    toast.classList.add('is-leaving');
+    // A fixed timeout (not animationend) actually hides it — headless
+    // browsers and prefers-reduced-motion users can skip the CSS
+    // animation entirely, which would otherwise leave the toast stuck.
+    window.setTimeout(function() {
+      toast.setAttribute('hidden', 'hidden');
+    }, 250);
+  }, 5000);
 });
 </script>
 </body>

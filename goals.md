@@ -5,7 +5,7 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-11 (backend + frontend — butun loyiha bo'ylab to'liq audit va bug tuzatish)
+Oxirgi yangilanish: 2026-09-14 (bildirishnoma qo'ng'irog'ida qizil belgi + 5 soniyalik toast xabar qo'shildi)
 
 ---
 
@@ -812,6 +812,296 @@ oladi — faqat standart holat endi "yoqilgan" bo'ldi.
 
 ---
 
+### 3.20 Bajarildi — Loyiha bo'ylab to'liq tarjima auditi (uz/ru/en/tr) (2026-09-12)
+
+Foydalanuvchi: *"Projectning to'liq tarjimasini ko'rib chiq tarjima qilinmagan
+joylar bor ekan"*, so'ng aniq ko'lam so'ralganda: *"Hammasini tarjima qil va
+ular uz ru en tr tillarida bo'lsinda"*.
+
+**Aniqlangan va tuzatilgan 3 xil muammo**:
+
+1. **487 ta matn butun loyiha bo'ylab (`templates/**/*.html`, `apps/**/*.py`,
+   `config/**/*.py`) kamida bitta tildan umuman yo'q edi** — `uz`da 303,
+   `ru`da 301, `en`da 399, `tr`da 485 ta yetishmayotgan edi. Chiqarish uchun
+   maxsus skript yozildi (Django shablon `{% trans %}`/`{% blocktrans %}` va
+   Python `gettext`/`_()` chaqiruvlarini regex bilan aniqlab, escape-belgilarni
+   to'g'ri "unescape" qiladigan). Barcha 487 ta matn qo'lda uz/ru/en/tr
+   tillariga tarjima qilinib, `.po` fayllarga qo'shildi va `.mo`larga
+   kompilyatsiya qilindi. **Natija: barcha 4 tilda 0 ta tarjima qilinmagan
+   matn qoldi** (tasdiqlangan — tekshiruv skripti qayta ishga tushirilib).
+2. **`uz.po`da 64 ta HTML-entity bilan buzilgan tarjima topildi** — masalan,
+   `Step 1: Basic Information` → `1-qadam: Asosiy ma&#39;lumotlar` (haqiqiy
+   apostrof o'rniga `&#39;`). Bu qandaydir avvalgi avtomatik import
+   bosqichida matn HTML-escape qilinib saqlangani natijasi. Barchasi
+   `html.unescape()` orqali tuzatildi.
+3. **`tr.po`da 224 ta yozuv butunlay buzilgan edi** — msgstr'da haqiqiy
+   tarjima o'rniga tasodifiy "Error 500 (Server Error)!!1500.That's an
+   error..." matni saqlanib qolgan (aftidan avvalgi avtomatik tarjima
+   pipeline'i xato server javobini "tarjima" sifatida saqlab qo'ygan).
+   Bu Playwright orqali login sahifasini turkcha ko'rib tekshirganda vizual
+   ravishda aniqlandi ("Xavfsiz kirish" o'rniga xato matni ko'rinib turgan
+   edi). Barcha 224 tasi qo'lda haqiqiy turkcha tarjima bilan almashtirildi.
+4. **Qo'shimcha, alohida topilgan 2 ta sifat xatosi (`tr.po`)**: `Xush
+   kelibsiz` → noto'g'ri "Rica ederim" (bu "Marhamat/Arzimaydi" degani, salom
+   emas) va `Parol` → noto'g'ri "Şartlı tahliye" (bu "shartli ozodlik"
+   degani!). Ikkalasi ham to'g'ri turkcha ("Hoş geldiniz!", "Şifre") bilan
+   almashtirildi. **Diqqat**: bu ikkisi tasodifan Playwright skrinshotida
+   ko'zga tashlanib qoldi — `tr.po`da menga qidirilgan aniq naqshlarga
+   (`Error 500`, HTML-entity) mos kelmaydigan boshqa shunga o'xshash sifat
+   xatolari qolgan bo'lishi ehtimoldan xoli emas (4-bo'limga qarang).
+
+**Yon ta'sir — 3 ta test buzilib, tuzatildi**: yangi haqiqiy tarjimalar
+ishlay boshlagach, 3 ta test avvalgi "tarjima yo'qligi tufayli inglizcha
+matn ko'rinib turgan" holatga tayanib yozilgan ekan (`test_wizard_step_1_get`,
+`test_submit_event_flow`, `test_approve_event_flow`, `test_capacity_warning`)
+— assertionlar haqiqiy (endi to'g'ri ishlayotgan) o'zbekcha matnga mos
+yangilandi. Shu jarayonda **yana bir haqiqiy, oldindan mavjud bug** topildi:
+`test_phase3_workflow.py`dagi ikkita test to'g'ridan-to'g'ri servis
+funksiyalarini chaqiradi (request/LocaleMiddleware'siz), va ulardan oldin
+ishlaydigan boshqa test (`test_final_acceptance_blockers.py`) `ru` tilini
+faollashtirib, uni hech qachon deaktivatsiya qilmaydi — bu holat keyingi
+testlarga "sizib o'tadi" (test tartibiga bog'liq, tasodifiy natija). Bu
+avval sezilmagan, chunki tarjimalar yo'qligi tufayli natija baribir bir xil
+(inglizcha) ko'rinib turgan edi. Tuzatildi: ikkala test endi
+`translation.override("uz")` bilan aniq tilni belgilaydi.
+
+**Yakuniy holat**: `pytest tests/` — 341/341, `ruff check` — toza,
+`manage.py check` — toza. Server qayta ishga tushirilib, Playwright orqali
+login sahifasi 4 tilda (`uz`, `ru`, `en`, `tr`) tekshirildi.
+
+---
+
+### 3.21 Tuzatildi — master-data/venues (Zallar) qidiruv formasi buzilib ko'rinishi (2026-09-14)
+
+Foydalanuvchi: *"master-data/venues ya'ni zallar bo'limida qidirish oynasi
+biroz buzilib qolibdi"*. Playwright orqali turli ekran o'lchamlarida
+tekshirilib, **ikkita bog'liq, real sabab** topildi:
+
+1. **Asosiy sabab — sidebar butun responsive layout'ni buzgan**:
+   `templates/partials/sidebar.html`dagi `<aside>` elementida qattiq yozilgan
+   inline `style="position: relative; transition: width 0.3s;"` bor edi.
+   Inline style har doim CSS'dan ustun turadi — bu esa `@media
+   (max-width: 1024px) { .sidebar { position: fixed; ... } }` qoidasini
+   butunlay bekor qilib, planshet/kichikroq oynalarda sidebar'ni ekrandan
+   tashqariga (`translateX(-100%)`) yashirilishi kerak bo'lgan joyda oddiy
+   oqim elementi sifatida qoldirgan — natijada butun sahifa kontenti
+   (qidiruv oynasi ham) yuzlab pikselga pastga surilib, ko'rinmay qolgan.
+   `transition: width 0.3s` esa hech qanday amaldagi CSS qoidaga mos
+   kelmaydigan "o'lik" kod ekan (`.sidebar-collapsed` uchun `width`
+   o'zgartiruvchi CSS umuman yo'q). **Tuzatildi**: inline style butunlay
+   olib tashlandi (`position: relative` allaqachon asosiy CSS'da to'g'ri
+   belgilangan edi).
+2. **Ikkinchi sabab — qidiruv formasi konteyneri**: `static/css/
+   components.css`dagi `.command-filter-form` doim to'liq "pill" shaklida
+   (`border-radius: 9999px`) edi — bu faqat BIR QATORLI holatda chiroyli
+   ko'rinadi. Forma o'zining `.data-toolbar` ota-konteynerida hech qanday
+   `flex-grow`ga ega emas edi, shuning uchun mavjud bo'sh joydan
+   foydalanmasdan, faqat ichidagi elementlarning minimal kengligigacha
+   siqilib qolar edi — bu esa hatto 1280px kengligidagi oynalarda ham
+   (agar vertikal scroll-bar sabab bir necha piksel kamayib qolsa) tugma
+   keyingi qatorga "sirg'alib tushishi" mumkin edi (beqaror, chegara holati
+   bug'i). Tor ekranlarda esa bir necha qatorga bo'linib, to'liq pill radiusi
+   butun ko'p qatorli blokka tarqalib, g'alati "shar" shaklini hosil qilardi.
+   **Tuzatildi**: `border-radius` → `var(--radius-2xl)` (16px, har qanday
+   qator sonida chiroyli ko'rinadi), va `flex: 1 1 auto; min-width: 0;
+   max-width: 720px;` qo'shildi — endi forma mavjud bo'sh joydan to'g'ri
+   foydalanadi va beqaror qatorlanish yo'qoldi.
+
+**Tekshirildi**: Playwright orqali `master-data/venues/` sahifasi kengliklar
+bo'yicha (1280×700 — avval buzuq chegara holati, 900px planshet, 400px
+mobil) skrinshot qilindi — barchasida forma endi toza va to'g'ri ko'rinadi.
+`pytest tests/` — 341/341, `ruff check` va `manage.py check` — toza. CSS
+versiyasi (`components.css?v=31.0`) oshirildi, server qayta ishga tushirildi.
+
+**Eslatma**: bu tuzatish faqat `master_data/filters.html` (venues, event
+types, organizations, sponsors — bularning barchasi shu umumiy shablonni
+ishlatadi) va butun sidebar'ga tegishli bo'lgani uchun — bu ikkita bug
+loyihadagi BARCHA workspace sahifalariga (nafaqat Zallar bo'limiga) ta'sir
+qilgan edi, endi hammasida tuzatildi.
+
+---
+
+### 3.22 Bajarildi — Shifokorga "sizni tayinlashdi" bildirishnomasi (in-app + email) va profilda ro'yxat (2026-09-14)
+
+Foydalanuvchi: *"biror uchrashuvga biror shifokorni speaker yoki ma'sul qilib
+tayinlasa qanday qilib bilib oladi shifokor"*. Tekshirilganda — bu haqiqiy,
+oldindan mavjud bo'shliq ekan: shifokor `attending_doctors` (Ma'ruzachi)
+sifatida tayinlanganda hech qanday bildirishnoma (na in-app, na email)
+yuborilmagan (faqat workflow status-o'zgarish bildirishnomalari — submit/
+approve/reject — mavjud edi). ("Ma'sul" rollarga — `responsible_employee`/
+`management_responsible` — shifokorlar 3.12-bandda ataylab chiqarib
+tashlangan, shuning uchun bu qism faqat "Ma'ruzachi" tayinlashiga tegishli.)
+
+Foydalanuvchi so'ragan variantlar: (1) in-app bildirishnoma + email,
+(2) profil sahifasida hisoblagich + bosilganda ochiladigan ro'yxat.
+
+**Amalga oshirildi**:
+- `apps/notifications/services.py::send_notification_email()` — yangi,
+  xatoga chidamli (`fail_silently=True`, hech qachon asosiy amalni
+  bloklamaydi) email yuboruvchi funksiya. `config/settings/base.py`ga
+  `DEFAULT_FROM_EMAIL` (env orqali sozlanadigan, standart
+  `noreply@k-one.local`) qo'shildi.
+- `apps/events/views.py::notify_assigned_doctors(event, doctors)` — yangi
+  tadbir yaratilganda (`wizard.py::finalize_event`) barcha tanlangan
+  ma'ruzachi shifokorlarga, tadbir tahrirlanganda (`EventUpdateView.
+  form_valid`) esa faqat **yangi qo'shilgan** shifokorlarga (avvalgi va
+  yangi `attending_doctors` to'plamlari solishtirilib) in-app + email
+  bildirishnoma yuboradi — qayta saqlashda takroriy xabar yubormaydi
+  (testda tasdiqlangan).
+- `apps/accounts/views.py::DoctorAssignedEventsView` — yangi,
+  `/profile/assigned-events/` — faqat `DOCTOR` roli uchun, o'zining
+  `attending_events`ini ro'yxat qiladi. **Diqqat**: `events:detail` sahifasi
+  `VIEW_MASTER_DATA` huquqini talab qiladi, shifokor esa hech qanday
+  capability'ga ega emas — shuning uchun bu alohida, cheklangan ko'rish
+  sahifasi qilib qurildi (to'liq ichki boshqaruv sahifasiga kirish huquqi
+  BERILMADI — ortiqcha imkoniyat berish xavfsizlik nuqtai nazaridan noto'g'ri
+  bo'lardi). Bildirishnomaning `target_url`si ham shu sahifaga yo'naltiriladi
+  (`events:detail`ga emas).
+- `templates/accounts/profile.html` — "Faoliyat xulosasi"ga faqat
+  `user.role == 'doctor'` bo'lsa ko'rinadigan "Ma'ruzachi bo'lgan tadbirlar"
+  hisoblagichi (bosilsa ro'yxatga o'tadi) qo'shildi.
+- 7 ta yangi matn barcha 4 tilga (uz/ru/en/tr) tarjima qilindi.
+
+**Tekshirildi**: 6 ta yangi test qo'shildi (`tests/test_doctor_registration.py`)
+— bildirishnoma+email yaratilishi, qayta tayinlashda takrorlanmasligi,
+email yo'q shifokorda ham in-app xabar kelishi, profil hisoblagichi,
+ro'yxat sahifasi, va shifokor bo'lmagan foydalanuvchi bu sahifaga 403 bilan
+kira olmasligi. `manage.py shell` orqali haqiqiy dev-server sozlamalarida
+ham qo'lda tekshirildi — konsolga email chiqdi (mahalliy `EMAIL_BACKEND=
+console`), Notification yaratildi. **Yakuniy holat**: `pytest tests/` —
+347/347 (avvalgi 341 + yangi 6), `ruff check` va `manage.py check` — toza.
+
+**MUHIM — foydalanuvchi uchun eslatma**: email haqiqatan Gmail'ga borishi
+uchun productionda SMTP ma'lumotlari (`EMAIL_HOST`, `EMAIL_HOST_USER`,
+`EMAIL_HOST_PASSWORD` — Gmail uchun oddiy parol emas, "ilova paroli"/App
+Password kerak, `EMAIL_PORT=587`, `EMAIL_USE_TLS=True`) `.env` fayliga
+qo'shilishi kerak — bu kod emas, operatsion sozlash qadami, men buni
+o'zim hal qila olmayman (maxfiy ma'lumotlar). Mahalliy rejimda
+(`EMAIL_BACKEND=console`) email hozircha faqat server terminaliga
+chiqariladi — bu ataylab shunday, dasturchi uchun qulay.
+
+---
+
+### 3.23 Tuzatildi — Shifokor tayinlanganda hech narsa saqlanmagan (asl sabab: "Ctrl bosib tanlash" UX tuzog'i) (2026-09-14)
+
+Foydalanuvchi: *"tadbir yaratib satosylvni biriktirdik keyin satosylv
+profiliga kirdim biriktirilgan tadbilarda ham bildirishnomada ham hech
+narsa yo'qku"* — 3.22-bandda qurilgan bildirishnoma funksiyasi ishlamayotgan
+bo'lib chiqdi. To'g'ridan-to'g'ri bazani tekshirib, keyin Playwright orqali
+wizard oqimini qayta o'ynab chuqur tekshirildi.
+
+**Ildiz sabab aniqlandi**: `apps/events/forms.py`dagi `EventStep3Form` va
+`EventUpdateForm`dagi `attending_doctors` maydoni oddiy HTML
+`<select multiple>` widget'i orqali chizilar edi — bu **bir nechta variantni
+tanlash uchun Ctrl (yoki Cmd) bosib turishni talab qiladigan** brauzer
+konvensiyasi. Ko'p foydalanuvchi buni bilmaydi va oddiy bosish bilan tanlashga
+harakat qiladi — natijada tanlov "yopishib qolmaydi" va forma jo'natilganda
+`attending_doctors` bo'sh boradi. Audit jurnali tekshirilganda, foydalanuvchi
+tasvirlagan tadbir hech qachon tahrirlanmagan (faqat yaratish+tasdiqlash
+harakatlari bor) — demak, muammo aynan yaratish paytida, birinchi
+tanlovning o'zida yuz bergan.
+
+**Tuzatildi**: `attending_doctors` maydoni ikkala formada ham
+`forms.CheckboxSelectMultiple`ga o'zgartirildi — endi har bir shifokor
+alohida checkbox sifatida ko'rinadi, oddiy bitta bosish bilan aniq
+belgilanadi/bekor qilinadi, Ctrl talab qilinmaydi. `static/css/
+components.css`ga `.checkbox-multiple` uslubi qo'shildi (aylanma chegarali,
+scroll qiluvchi ro'yxat ko'rinishi).
+
+**IKKINCHI, TUZATISH DAVOMIDA TOPILGAN BUG**: `EventUpdateForm`ni
+tuzatgandan so'ng, tahrirlash sahifasida (`events:edit`) checkbox ro'yxati
+**butunlay bo'sh** chiqib qolgani aniqlandi (Playwright orqali chuqur
+tekshirilganda — `widget.choices` bo'sh `[]` ekanligi topildi, garchi
+`field.queryset` to'g'ri 1 ta yozuvni qaytarsa ham). Sabab — Django'ning
+kam ma'lum "tuzog'i": `ModelMultipleChoiceField.queryset`ning setter'i
+`widget.choices`ni FAQAT o'sha payt biriktirilgan widget'ga yozadi; agar
+keyinroq `field.widget`ga yangi widget obyekti tayinlansa (aynan men
+birinchi tuzatishda qilganimdek — avval `queryset`, keyin `widget`),
+yangi widget hech qachon `choices` olmaydi va bo'sh checkbox ro'yxati
+chiqadi. `EventStep3Form`da bu muammo yo'q edi, chunki u yerda widget
+sinf darajasida boshidanoq to'g'ri belgilangan edi (shuning uchun vizard
+3-qadamida ishlayotgandek ko'ringan, lekin tahrirlash sahifasida
+buzilgan edi). **Tuzatildi**: `EventUpdateForm.__init__`da widget
+almashtirish `queryset` tayinlashdan OLDIN qilinadigan qilib
+qayta tartiblangan.
+
+**Tekshirildi**: Playwright orqali wizard'ni to'liq boshidan oxirigacha
+qayta o'ynab (real brauzer bosishlari bilan) tasdiqlandi — checkbox
+belgilanganda `Event.attending_doctors`ga to'g'ri saqlanadi, bildirishnoma
+va email yuboriladi. Tahrirlash sahifasida ham checkbox endi to'g'ri
+ko'rinadi va belgilangan holda chiqadi (skrinshot bilan tasdiqlangan).
+Yangi regression-test qo'shildi
+(`test_attending_doctors_checkbox_widget_actually_has_choices`) — bu xato
+kelajakda qaytib chiqsa, test darhol ushlab qoladi. `pytest tests/` —
+347/347, `ruff check` va `manage.py check` — toza. `components.css?v=32.0`,
+server qayta ishga tushirildi.
+
+---
+
+### 3.24 Bajarildi — Bildirishnoma qo'ng'irog'ida qizil belgi + kirganda ko'rinadigan toast xabar (2026-09-14)
+
+Foydalanuvchi: *"bildirishnomalarga kelyapdi lekin bosib ko'rmagunimcha
+bilib bo'lmayapdi... birinchi kirganda ko'zga tashlanadigan qilib ber va
+5 sekund davomida ko'rinib tursin keyin yangi xabar borligini ham bilinib
+tursin qachonki ochib ko'rsa qizil belgicha yo'qolsin"*.
+
+Tekshirilganda — `apps/notifications/services.py::get_unread_count()`
+funksiyasi mavjud edi-yu, lekin **hech qayerda ishlatilmagan** (yana bir
+"o'lik funksiya" — shu sessiyadagi `checkin_enabled` bug'i bilan bir xil
+sinf). Qo'ng'iroq belgisida hech qanday indikator yo'q edi.
+
+**Amalga oshirildi**:
+- `apps/notifications/context_processors.py::unread_notifications()` —
+  yangi, `unread_notification_count` va `latest_unread_notification`ni
+  BARCHA workspace shablonlariga avtomatik uzatadigan context processor
+  (`config/settings/base.py`ning `TEMPLATES`ga ro'yxatdan o'tkazildi).
+- `templates/partials/topbar.html` — qo'ng'iroq belgisiga qizil
+  `.notification-badge` (son bilan, 9 dan ko'p bo'lsa "9+") qo'shildi.
+- `templates/base.html` — sahifa yuklanganda ko'rinadigan
+  `.notification-toast` (eng so'nggi bildirishnoma sarlavhasi/matni yoki
+  umumiy "Sizda N ta o'qilmagan bildirishnoma bor" xabari bilan).
+  JavaScript: `sessionStorage` orqali **bitta brauzer sessiyasida faqat bir
+  marta** ko'rsatiladi (joriy son uchun) — har sahifa o'tishda emas, faqat
+  "birinchi kirganda". 5000ms dan keyin avtomatik yashiriladi.
+- `apps/notifications/views.py::NotificationListView.get()` — endi
+  ro'yxat sahifasini OCHISHNING O'ZI barcha o'qilmagan bildirishnomalarni
+  "o'qilgan" deb belgilaydi (avval faqat har birini alohida bosish yoki
+  "hammasini o'qilgan deb belgilash" tugmasi orqali mumkin edi) — bu
+  qo'ng'iroqdagi qizil belgini darhol tozalaydi. Sahifa "yangi" ko'rinishini
+  yo'qotmasligi uchun (ochilgan payt qaysi yozuvlar o'qilmagan bo'lgani)
+  `newly_read_ids` orqali alohida saqlab, shablonda ajratib ko'rsatish
+  saqlab qolindi. Endi doim ishlamay qoladigan (`{% if not notif.is_read %}`
+  — sahifa ochilgach bu shart hech qachon rost bo'lmaydi) "alohida o'qilgan
+  deb belgilash" tugmasi o'lik kod bo'lib qolgani uchun olib tashlandi.
+
+**Tuzatish davomida topilgan 2 ta qo'shimcha bug (toast to'g'ri
+yashirilmasdi)**:
+1. JS `animationend` hodisasiga tayanardi — headless brauzerlar yoki
+   `prefers-reduced-motion` yoqilgan foydalanuvchilarda animatsiya
+   ishlamasligi/hodisa otilmasligi mumkin, natijada toast abadiy ekranda
+   qolib ketardi. Oddiy `setTimeout` bilan mustahkamlandi.
+2. `.notification-toast { display: flex; }` qoidasi brauzerning tabiiy
+   `[hidden] { display: none }` xatti-harakatini bekor qilib qo'ygan edi
+   (ikkalasi ham bir xil CSS specificity'ga ega, mening qoidam keyinroq
+   yuklangani uchun g'olib chiqqan). `.notification-toast[hidden] {
+   display: none; }` (yuqoriroq specificity) qo'shib tuzatildi.
+
+**Tekshirildi**: Playwright orqali to'liq sinov — bildirishnoma yaratilib,
+toast darhol ko'rinishi, qo'ng'iroqda to'g'ri son ko'rsatilishi, 5.6
+soniyadan keyin toast to'liq yo'qolishi (avval yo'qolmasdi — ikkala bug ham
+shu jarayonda topilgan), ro'yxat sahifasi ochilgach qo'ng'iroqdagi
+belgining yo'qolishi — barchasi skrinshot va dasturiy tekshiruv bilan
+tasdiqlandi. Yangi test fayli qo'shildi: `tests/
+test_notification_toast_badge.py` (7 ta test — context processor,
+badge ko'rinishi/yo'qolishi, ro'yxatni ochish "hammasini o'qilgan"
+qilishi, "yangi o'qilgan" ajratib ko'rsatish saqlanishi).
+
+**Yakuniy holat**: `pytest tests/` — 355/355 (avvalgi 348 + yangi 7),
+`ruff check` va `manage.py check` — toza. `app.css?v=31.0`, server qayta
+ishga tushirildi.
+
+---
+
 ## 4. E'tibor talab qiladigan narsalar / texnik qarz
 
 1. **`apps/approvals` app deyarli bo'sh** — `models.py` faylida faqat bitta izoh bor:
@@ -832,15 +1122,21 @@ oladi — faqat standart holat endi "yoqilgan" bo'ldi.
    ko'chirish mumkin (foydalanuvchi tasdiqlasa).
 5. **`static/css/workspace_corrupted.css`** nomli fayl commit tarixida o'chirilgan holat
    ko'rinadi (Phase 2 diffida `-451` qator) — bu fayl endi mavjud emasligini tasdiqlash kerak.
-6. **`locale/tr/`** — turkcha tarjima fayllari mavjud, lekin loyiha hujjatlarida (`README.md`,
-   `PRODUCT.md`) faqat uz/ru/en tilga oid talab bor. Turkcha qo'llab-quvvatlash rejada
-   bormi — noaniq.
-7. **`apps/events` ichida ~111 ta oldindan mavjud, kodda ishlatiladigan, lekin
-   `locale/uz/LC_MESSAGES/django.po`da umuman yo'q msgid** (masalan "Zoom / Meeting URL",
-   "Postponement Reason", "PDF File" va h.k. — bular shifokor funksiyasiga aloqasi yo'q,
-   men bu safar faqat o'zim qo'shgan satrlarni to'liq tarjima qildim). Bu — sayt bo'ylab
-   to'liq tarjima auditi kerak bo'lgan alohida, kattaroq ish; foydalanuvchi alohida
-   so'rasa qo'lga olinadi.
+6. ~~**`locale/tr/`** — turkcha tarjima fayllari mavjud...~~ **HAL QILINDI
+   (3.20-band, 2026-09-12)**: foydalanuvchi turkchani ham to'liq qo'llab-quvvatlash
+   kerakligini tasdiqladi. Endi `tr` to'liq tarjima qilingan, 224 ta buzilgan
+   yozuv tuzatilgan.
+7. ~~**`apps/events` ichida ~111 ta ... yo'q msgid**~~ **HAL QILINDI
+   (3.20-band, 2026-09-12)**: butun loyiha bo'ylab (faqat `apps/events` emas)
+   to'liq tarjima auditi o'tkazildi, 487 ta yetishmayotgan matn barcha 4 tilga
+   qo'shildi. **QOLDIQ XAVF**: bu audit faqat "yetishmayotgan" (butunlay yo'q)
+   yozuvlarni topdi. `tr.po`da tasodifan yana ikkita **sifat xatosi** (noto'g'ri
+   ma'noli, lekin "yo'q" yoki "buzilgan" emas tarjima — masalan "Parol" →
+   "Şartlı tahliye") vizual tekshiruv orqali topilib tuzatildi. Bu degani —
+   `tr.po`da (va ehtimol boshqa tillarda ham, kamroq ehtimol bilan) shunga
+   o'xshash, avtomatik dasturiy tekshiruv topa olmaydigan boshqa semantik xato
+   tarjimalar qolgan bo'lishi mumkin. To'liq ishonch uchun malakali tarjimon
+   tomonidan qo'lda proofreading talab qilinadi — bu alohida, katta ish.
 8. **Shifokor "band" bo'lishi hozircha faqat `StaffUnavailability` orqali tekshiriladi**
    — agar shifokor allaqachon boshqa tadbirga ham `attending_doctors` sifatida
    biriktirilgan bo'lsa-yu, lekin band vaqt sifatida belgilamagan bo'lsa, bu

@@ -24,7 +24,7 @@
 
 <div class="notifications-list" style="background: var(--color-surface); border-radius: 12px; border: 1px solid var(--color-border); overflow: hidden;">
     {% for notif in notifications %}
-        <div class="notification-item {% if not notif.is_read %}unread{% endif %}" style="display: flex; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--color-border); background: {% if not notif.is_read %}var(--color-surface-2){% else %}transparent{% endif %}; transition: background 0.2s;">
+        <div class="notification-item {% if notif.pk in newly_read_ids %}unread{% endif %}" style="display: flex; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--color-border); background: {% if notif.pk in newly_read_ids %}var(--color-surface-2){% else %}transparent{% endif %}; transition: background 0.2s;">
             <div class="notification-icon" style="flex-shrink: 0; margin-top: 4px; color: {% if notif.severity == 'info' %}var(--primary-color, #2563EB){% elif notif.severity == 'warning' %}var(--warning-color, #D97706){% else %}var(--danger-color, #DC2626){% endif %};">
                 {% if notif.severity == 'info' %}
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -37,7 +37,7 @@
             <div class="notification-content" style="flex: 1;">
                 <h3 style="margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--color-text);">
                     {{ notif.title }}
-                    {% if not notif.is_read %}
+                    {% if notif.pk in newly_read_ids %}
                         <span style="display: inline-block; width: 8px; height: 8px; background: var(--primary-color, #2563EB); border-radius: 50%; margin-left: 6px; vertical-align: middle;"></span>
                     {% endif %}
                 </h3>
@@ -49,16 +49,6 @@
                     {% endif %}
                 </div>
             </div>
-            {% if not notif.is_read %}
-            <div class="notification-actions">
-                <form method="post" action="{% url 'notifications:mark-read' pk=notif.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-ghost" aria-label="{% trans 'O\'qilgan deb belgilash' %}" style="background: transparent; border: none; color: var(--color-text-dim); cursor: pointer; padding: 4px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    </button>
-                </form>
-            </div>
-            {% endif %}
         </div>
     {% empty %}
         <div style="padding: 40px 20px; text-align: center; color: var(--color-text-muted);">

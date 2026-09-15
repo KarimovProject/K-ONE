@@ -54,12 +54,6 @@ class DoctorRegistrationForm(UserCreationForm):
         help_text=_("e.g. UZ, RU, EN"),
         widget=forms.TextInput(attrs={"class": "auth-input"}),
     )
-    license_number = forms.CharField(
-        label=_("License / ID number"),
-        max_length=64,
-        required=False,
-        widget=forms.TextInput(attrs={"class": "auth-input"}),
-    )
     bio = forms.CharField(
         label=_("Short bio"),
         required=False,
@@ -102,7 +96,6 @@ class DoctorRegistrationForm(UserCreationForm):
                 position=self.cleaned_data["position"],
                 phone=self.cleaned_data["phone"],
                 languages=self.cleaned_data["languages"],
-                license_number=self.cleaned_data["license_number"],
                 bio=self.cleaned_data["bio"],
                 photo=self.cleaned_data.get("photo") or None,
             )

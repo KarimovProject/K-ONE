@@ -125,7 +125,11 @@ class EventStep3Form(forms.Form):
         label=_("Speaker Doctors"),
         queryset=doctors(),
         required=False,
-        widget=forms.SelectMultiple(attrs={"class": "select-multiple"}),
+        # A native <select multiple> requires holding Ctrl/Cmd to pick more
+        # than one option — an easy-to-miss convention that silently drops a
+        # doctor's selection when the user just clicks normally. Checkboxes
+        # remove that failure mode entirely.
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "checkbox-multiple"}),
     )
 
     def __init__(self, *args, **kwargs):
@@ -193,6 +197,16 @@ class EventUpdateForm(forms.ModelForm):
         # attending_doctors field.
         self.fields["responsible_employee"].queryset = selectable_staff(exclude_doctors=True)
         self.fields["management_responsible"].queryset = selectable_staff(exclude_doctors=True)
+        # Same reasoning as EventStep3Form: a native <select multiple> is an
+        # easy-to-miss Ctrl/Cmd-click convention that silently drops a
+        # doctor's selection. The widget must be swapped in BEFORE the
+        # queryset is assigned below — ModelMultipleChoiceField.queryset's
+        # setter populates widget.choices on whichever widget is attached at
+        # that moment, so assigning a new widget afterwards leaves it with
+        # no choices at all (an empty, unusable checkbox list).
+        self.fields["attending_doctors"].widget = forms.CheckboxSelectMultiple(
+            attrs={"class": "checkbox-multiple"}
+        )
         self.fields["attending_doctors"].queryset = doctors()
 
     class Meta:

@@ -27,8 +27,11 @@
       {% endfor %}
     </form>
 
-    <a class="icon-button notification-button" href="{% url 'notifications:list' %}" aria-label="{% trans 'Notifications' %}">
+    <a class="icon-button notification-button" href="{% url 'notifications:list' %}" aria-label="{% trans 'Notifications' %}" data-testid="notification-bell">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      {% if unread_notification_count %}
+        <span class="notification-badge" data-testid="notification-unread-badge">{% if unread_notification_count > 9 %}9+{% else %}{{ unread_notification_count }}{% endif %}</span>
+      {% endif %}
     </a>
 
     <details class="user-dropdown-menu">

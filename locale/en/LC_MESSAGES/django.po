@@ -3377,3 +3377,1267 @@ msgstr ""
 
 msgid "Check-in is not enabled for this event."
 msgstr "Check-in is not enabled for this event."
+
+msgid "Sizda yangi bildirishnomalar yo'q"
+msgstr "You have no new notifications"
+
+msgid "Bugun uchun uchrashuvlar yo'q"
+msgstr "No meetings scheduled for today"
+
+msgid "Public page %(status)s."
+msgstr "Public page %(status)s."
+
+msgid "Event Planning Wizard — Step %(step)d of 5"
+msgstr "Event Planning Wizard — Step %(step)d of 5"
+
+msgid "Event Approved"
+msgstr "Event Approved"
+
+msgid "Postponed"
+msgstr "Postponed"
+
+msgid "Publication Updated"
+msgstr "Publication Updated"
+
+msgid "Delegation Visit"
+msgstr "Delegation Visit"
+
+msgid "%(resource)s was deleted."
+msgstr "%(resource)s was deleted."
+
+msgid "Batafsil ko'rish"
+msgstr "View details"
+
+msgid "Only PDF files are allowed."
+msgstr "Only PDF files are allowed."
+
+msgid "Delete organization"
+msgstr "Delete organization"
+
+msgid "Internal Notes"
+msgstr "Internal Notes"
+
+msgid "check-in enabled"
+msgstr "check-in enabled"
+
+msgid "Cancel Event “%(title)s”"
+msgstr "Cancel Event “%(title)s”"
+
+msgid "public token"
+msgstr "public token"
+
+msgid "Report range cannot exceed two years."
+msgstr "Report range cannot exceed two years."
+
+msgid "speaker"
+msgstr "speaker"
+
+msgid "Create %(var)s"
+msgstr "Create %(var)s"
+
+msgid "e.g. Senior Researcher"
+msgstr "e.g. Senior Researcher"
+
+msgid "Summary"
+msgstr "Summary"
+
+msgid "Utilization %"
+msgstr "Utilization %"
+
+msgid "capacity"
+msgstr "capacity"
+
+msgid "requires management approval"
+msgstr "requires management approval"
+
+msgid "The uploaded file is not a valid PDF document."
+msgstr "The uploaded file is not a valid PDF document."
+
+msgid "Event '%(title)s' approved via priority override."
+msgstr "Event '%(title)s' approved via priority override."
+
+msgid "program item"
+msgstr "program item"
+
+msgid "Event “%(title)s” successfully rescheduled."
+msgstr "Event “%(title)s” successfully rescheduled."
+
+msgid "Telegram Connected"
+msgstr "Telegram Connected"
+
+msgid "Event Postponed"
+msgstr "Event Postponed"
+
+msgid "Check-in open."
+msgstr "Check-in open."
+
+msgid "disabled"
+msgstr "disabled"
+
+msgid ""
+"Explain state-level emergency rationale justifying venue displacement..."
+msgstr ""
+"Explain state-level emergency rationale justifying venue displacement..."
+
+msgid "reviewed by"
+msgstr "reviewed by"
+
+msgid "Event Cancelled"
+msgstr "Event Cancelled"
+
+msgid "Emergency override justification is mandatory."
+msgstr "Emergency override justification is mandatory."
+
+msgid "Publication status"
+msgstr "Publication status"
+
+msgid "expected attendees"
+msgstr "expected attendees"
+
+msgid "End date"
+msgstr "End date"
+
+msgid "Kiosk"
+msgstr "Kiosk"
+
+msgid "program intro"
+msgstr "program intro"
+
+msgid "No file was uploaded."
+msgstr "No file was uploaded."
+
+msgid "End date must not precede start date."
+msgstr "End date must not precede start date."
+
+msgid "last used at"
+msgstr "last used at"
+
+msgid "Telegram Reminder Failed"
+msgstr "Telegram Reminder Failed"
+
+msgid "timestamp"
+msgstr "timestamp"
+
+msgid "Display Token Created"
+msgstr "Display Token Created"
+
+msgid "event attendances"
+msgstr "event attendances"
+
+msgid "start date"
+msgstr "start date"
+
+msgid "Rejection Rationale"
+msgstr "Rejection Rationale"
+
+msgid "Provide clear rationale and feedback for rejection..."
+msgstr "Provide clear rationale and feedback for rejection..."
+
+msgid "Venue utilization"
+msgstr "Venue utilization"
+
+msgid "organization"
+msgstr "organization"
+
+msgid "display tokens"
+msgstr "display tokens"
+
+msgid "Only the responsible employee or admin can submit."
+msgstr "Only the responsible employee or admin can submit."
+
+msgid "An override reason is mandatory."
+msgstr "An override reason is mandatory."
+
+msgid "Cancelled or completed events cannot be postponed."
+msgstr "Cancelled or completed events cannot be postponed."
+
+msgid "name in Uzbek"
+msgstr "name in Uzbek"
+
+msgid "organization type"
+msgstr "organization type"
+
+msgid ""
+"Event conflicts with existing reservations. Requires priority override."
+msgstr ""
+"Event conflicts with existing reservations. Requires priority override."
+
+msgid "Full (Show Event Details)"
+msgstr "Full (Show Event Details)"
+
+msgid "Program PDF uploaded successfully."
+msgstr "Program PDF uploaded successfully."
+
+msgid "Skipped"
+msgstr "Skipped"
+
+msgid "Postponement Reason"
+msgstr "Postponement Reason"
+
+msgid "Check-in close time must be after open time."
+msgstr "Check-in close time must be after open time."
+
+msgid "Rejected"
+msgstr "Rejected"
+
+msgid "public page enabled"
+msgstr "public page enabled"
+
+msgid "Event Resubmitted"
+msgstr "Event Resubmitted"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "Telegram Disconnected"
+msgstr "Telegram Disconnected"
+
+msgid "Event Approval Request"
+msgstr "Event Approval Request"
+
+msgid "Create sponsor"
+msgstr "Create sponsor"
+
+msgid "Uploaded file is not a valid PDF document."
+msgstr "Uploaded file is not a valid PDF document."
+
+msgid "Provide rationale for postponing this event..."
+msgstr "Provide rationale for postponing this event..."
+
+msgid "chat ID"
+msgstr "chat ID"
+
+msgid "Public Token Rotated"
+msgstr "Public Token Rotated"
+
+msgid "Maintain sponsor identity and contact records for later event use."
+msgstr "Maintain sponsor identity and contact records for later event use."
+
+msgid "display token"
+msgstr "display token"
+
+msgid "Upload a JPG, PNG, or WebP image."
+msgstr "Upload a JPG, PNG, or WebP image."
+
+msgid "Attendee '%(name)s' checked in manually."
+msgstr "Attendee '%(name)s' checked in manually."
+
+msgid "Edit event type"
+msgstr "Edit event type"
+
+msgid "Event Created"
+msgstr "Event Created"
+
+msgid ""
+"Yangi ro'yxatdan o'tgan hisoblarni (masalan, shifokorlarni) shu yerdan "
+"tasdiqlang. Kutilayotgan arizalar soni: %(var)s."
+msgstr ""
+"Approve newly registered accounts (e.g. doctors) here. Pending applications:"
+" %(var)s."
+
+msgid "allows emergency override"
+msgstr "allows emergency override"
+
+msgid "Event “%(title)s” resubmitted for approval."
+msgstr "Event “%(title)s” resubmitted for approval."
+
+msgid ""
+"Only super admins and international admins can execute emergency overrides."
+msgstr ""
+"Only super admins and international admins can execute emergency overrides."
+
+msgid "Event “%(title)s” approved successfully."
+msgstr "Event “%(title)s” approved successfully."
+
+msgid "Maintain halls and rooms available to international events."
+msgstr "Maintain halls and rooms available to international events."
+
+msgid "Hidden (Show Occupied Only)"
+msgstr "Hidden (Show Occupied Only)"
+
+msgid "Under Review"
+msgstr "Under Review"
+
+msgid "email"
+msgstr "email"
+
+msgid "color"
+msgstr "color"
+
+msgid "Telegram Test Sent"
+msgstr "Telegram Test Sent"
+
+msgid ""
+"Your event “%(title)s” was rejected by %(reviewer)s. Reason: %(reason)s"
+msgstr ""
+"Your event “%(title)s” was rejected by %(reviewer)s. Reason: %(reason)s"
+
+msgid "Invalid or disabled display token."
+msgstr "Invalid or disabled display token."
+
+msgid "created by"
+msgstr "created by"
+
+msgid "Tizimga kirish"
+msgstr "Sign in"
+
+msgid "Bugungi Uchrashuvlar"
+msgstr "Today's Meetings"
+
+msgid "Banner Regenerated"
+msgstr "Banner Regenerated"
+
+msgid "Delete sponsor"
+msgstr "Delete sponsor"
+
+msgid "Program PDF Uploaded"
+msgstr "Program PDF Uploaded"
+
+msgid "attendee_organization"
+msgstr "attendee_organization"
+
+msgid "Telegram channel settings"
+msgstr "Telegram channel settings"
+
+msgid ""
+"Are you sure you want to postpone <strong>%(var)s</strong>? The event status"
+" will be set to Postponed and staff will be notified."
+msgstr ""
+"Are you sure you want to postpone <strong>%(var)s</strong>? The event status"
+" will be set to Postponed and staff will be notified."
+
+msgid "Submitted"
+msgstr "Submitted"
+
+msgid "Available minutes"
+msgstr "Available minutes"
+
+msgid "Image size must not exceed 5 MB."
+msgstr "Image size must not exceed 5 MB."
+
+msgid "Starts in %(hours)d hours %(minutes)d minutes"
+msgstr "Starts in %(hours)d hours %(minutes)d minutes"
+
+msgid "Barchasini o'qilgan deb belgilash"
+msgstr "Mark all as read"
+
+msgid "Publishing"
+msgstr "Publishing"
+
+msgid "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
+msgstr "You are currently at another meeting. Its time "
+
+msgid "Publication Created"
+msgstr "Publication Created"
+
+msgid "Hozircha rejalashtirilgan ochiq uchrashuvlar mavjud emas."
+msgstr "There are no scheduled open meetings yet."
+
+msgid "Displaced Events"
+msgstr "Displaced Events"
+
+msgid "event attendance"
+msgstr "event attendance"
+
+msgid "organizations"
+msgstr "organizations"
+
+msgid "program PDF"
+msgstr "program PDF"
+
+msgid "Display Disabled"
+msgstr "Display Disabled"
+
+msgid "Edit sponsor"
+msgstr "Edit sponsor"
+
+msgid "is active"
+msgstr "is active"
+
+msgid "Cancel “%(var)s”?"
+msgstr "Cancel “%(var)s”?"
+
+msgid "Publication Cancelled"
+msgstr "Publication Cancelled"
+
+msgid "This Week"
+msgstr "This Week"
+
+msgid "No conflicting events to override."
+msgstr "No conflicting events to override."
+
+msgid "Edit venue"
+msgstr "Edit venue"
+
+msgid "Event Rescheduled"
+msgstr "Event Rescheduled"
+
+msgid "Event Submitted for Approval"
+msgstr "Event Submitted for Approval"
+
+msgid "Current language"
+msgstr "Current language"
+
+msgid "Program item title cannot be empty."
+msgstr "Program item title cannot be empty."
+
+msgid "The numeric Telegram chat ID of the channel or group "
+msgstr "The numeric Telegram chat ID of the channel or group "
+
+msgid "IEMS TV Wallboard"
+msgstr "IEMS TV Wallboard"
+
+msgid "%(resource)s was %(action)s successfully."
+msgstr "%(resource)s was %(action)s successfully."
+
+msgid "You do not have permission to manage event attendance."
+msgstr "You do not have permission to manage event attendance."
+
+msgid "end date"
+msgstr "end date"
+
+msgid "rejection reason"
+msgstr "rejection reason"
+
+msgid "PDF size must not exceed 10 MB."
+msgstr "PDF size must not exceed 10 MB."
+
+msgid "Publication Retried"
+msgstr "Publication Retried"
+
+msgid "Speaker added successfully."
+msgstr "Speaker added successfully."
+
+msgid "displaced by event"
+msgstr "displaced by event"
+
+msgid "Event Resubmitted for Approval"
+msgstr "Event Resubmitted for Approval"
+
+msgid "Event “%(title)s” has been corrected and resubmitted by %(user)s."
+msgstr "Event “%(title)s” has been corrected and resubmitted by %(user)s."
+
+msgid "Event Updated"
+msgstr "Event Updated"
+
+msgid "updated"
+msgstr "updated"
+
+msgid "Telegram reminders enabled"
+msgstr "Telegram reminders enabled"
+
+msgid "Only the responsible employee or admin can resubmit."
+msgstr "Only the responsible employee or admin can resubmit."
+
+msgid "You do not have permission to export this report."
+msgstr "You do not have permission to export this report."
+
+msgid "Program PDF Replaced"
+msgstr "Program PDF Replaced"
+
+msgid "Custom Date Range"
+msgstr "Custom Date Range"
+
+msgid "website"
+msgstr "website"
+
+msgid "Cannot override event '%(title)s' which has equal or higher priority."
+msgstr "Cannot override event '%(title)s' which has equal or higher priority."
+
+msgid "Working end must be later than working start."
+msgstr "Working end must be later than working start."
+
+msgid "You do not have permission to view event attendance."
+msgstr "You do not have permission to view event attendance."
+
+msgid "short name"
+msgstr "short name"
+
+msgid "Display Enabled"
+msgstr "Display Enabled"
+
+msgid "title"
+msgstr "title"
+
+msgid "Custom range requires both dates."
+msgstr "Custom range requires both dates."
+
+msgid "You can mark yourself busy at most %(limit)d times per year. "
+msgstr "You can mark yourself busy at most %(limit)d times per year. "
+
+msgid "PDF Report Exported"
+msgstr "PDF Report Exported"
+
+msgid "Event “%(title)s” updated."
+msgstr "Event “%(title)s” updated."
+
+msgid "e.g. Tashkent State Medical University"
+msgstr "e.g. Tashkent State Medical University"
+
+msgid "Approval Center"
+msgstr "Approval Center"
+
+msgid "full name"
+msgstr "full name"
+
+msgid "O'qilgan deb belgilash"
+msgstr "Mark as read"
+
+msgid "Last name"
+msgstr "Last name"
+
+msgid "Audit Log"
+msgstr "Audit Log"
+
+msgid "attendee identifier hash"
+msgstr "attendee identifier hash"
+
+msgid "Provide brief rationale for event cancellation..."
+msgstr "Provide brief rationale for event cancellation..."
+
+msgid "event banner image"
+msgstr "event banner image"
+
+msgid "Publication Scheduled"
+msgstr "Publication Scheduled"
+
+msgid "%(var)s-yil uchun ishlatilgan: %(var)s / %(var)s"
+msgstr "Used for %(var)s: %(var)s / %(var)s"
+
+msgid "bio"
+msgstr "bio"
+
+msgid "emergency justification"
+msgstr "emergency justification"
+
+msgid "Seminar"
+msgstr "Seminar"
+
+msgid "Starts in %(var)s minutes"
+msgstr "Starts in %(var)s minutes"
+
+msgid "%(var)s minutes remaining"
+msgstr "%(var)s minutes remaining"
+
+msgid "Invalid file. Only PDF documents up to 10 MB are allowed."
+msgstr "Invalid file. Only PDF documents up to 10 MB are allowed."
+
+msgid "status"
+msgstr "status"
+
+msgid "Starts in %(minutes)d minutes"
+msgstr "Starts in %(minutes)d minutes"
+
+msgid "\"Faol\" belgisini yoqib, saqlang."
+msgstr "Turn on the \"Active\" flag and save."
+
+msgid "audit log entries"
+msgstr "audit log entries"
+
+msgid "name in Russian"
+msgstr "name in Russian"
+
+msgid "XLSX Report Exported"
+msgstr "XLSX Report Exported"
+
+msgid "Agenda item added successfully."
+msgstr "Agenda item added successfully."
+
+msgid "Edit organization"
+msgstr "Edit organization"
+
+msgid "reviewed at"
+msgstr "reviewed at"
+
+msgid "Invitation"
+msgstr "Invitation"
+
+msgid "target URL"
+msgstr "target URL"
+
+msgid "checked_in_at"
+msgstr "checked_in_at"
+
+msgid "Now in progress — Ends in %(minutes)d minutes"
+msgstr "Now in progress — Ends in %(minutes)d minutes"
+
+msgid "First name"
+msgstr "First name"
+
+msgid "check-in method"
+msgstr "check-in method"
+
+msgid "logo"
+msgstr "logo"
+
+msgid "Cannot save as Planned: Expected attendees (%(attendees)d) "
+msgstr "Cannot save as Planned: Expected attendees (%(attendees)d) "
+
+msgid "QR Code Generated"
+msgstr "QR Code Generated"
+
+msgid "action"
+msgstr "action"
+
+msgid "Reject Event — %(title)s"
+msgstr "Reject Event — %(title)s"
+
+msgid "A rejection reason is mandatory."
+msgstr "A rejection reason is mandatory."
+
+msgid "You do not have permission to view reports."
+msgstr "You do not have permission to view reports."
+
+msgid "description"
+msgstr "description"
+
+msgid "Meeting"
+msgstr "Meeting"
+
+msgid "created"
+msgstr "created"
+
+msgid "Your event '%(title)s' was displaced by a higher priority event. "
+msgstr "Your event '%(title)s' was displaced by a higher priority event. "
+
+msgid "title / position"
+msgstr "title / position"
+
+msgid "You do not have permission to view the Leadership Dashboard."
+msgstr "You do not have permission to view the Leadership Dashboard."
+
+msgid "Delete Event “%(title)s”"
+msgstr "Delete Event “%(title)s”"
+
+msgid "Reschedule Event — %(title)s"
+msgstr "Reschedule Event — %(title)s"
+
+msgid "Event completed"
+msgstr "Event completed"
+
+msgid "Program PDF document removed."
+msgstr "Program PDF document removed."
+
+msgid "target representation"
+msgstr "target representation"
+
+msgid "Event is not pending approval."
+msgstr "Event is not pending approval."
+
+msgid "Agenda item removed."
+msgstr "Agenda item removed."
+
+msgid "Your event “%(title)s” scheduled for %(date)s (%(start)s - %(end)s) "
+msgstr "Your event “%(title)s” scheduled for %(date)s (%(start)s - %(end)s) "
+
+msgid "Control the reusable categories available to future event workflows."
+msgstr "Control the reusable categories available to future event workflows."
+
+msgid "Publication platform"
+msgstr "Publication platform"
+
+msgid "photo"
+msgstr "photo"
+
+msgid "Registration Import"
+msgstr "Registration Import"
+
+msgid "public profile enabled"
+msgstr "public profile enabled"
+
+msgid "Symposium"
+msgstr "Symposium"
+
+msgid "location"
+msgstr "location"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Program PDF Removed"
+msgstr "Program PDF Removed"
+
+msgid "Starts in %(days)d days"
+msgstr "Starts in %(days)d days"
+
+msgid "Public Page Enabled"
+msgstr "Public Page Enabled"
+
+msgid "severity"
+msgstr "severity"
+
+msgid ""
+"Only events in Draft, Planned or Rejected status can be submitted for "
+"approval."
+msgstr ""
+"Only events in Draft, Planned or Rejected status can be submitted for "
+"approval."
+
+msgid "Local organization"
+msgstr "Local organization"
+
+msgid "Ready for approval"
+msgstr "Ready for approval"
+
+msgid "The uploaded file content is not a supported image."
+msgstr "The uploaded file content is not a supported image."
+
+msgid "Conference"
+msgstr "Conference"
+
+msgid "Event “%(title)s” rejected."
+msgstr "Event “%(title)s” rejected."
+
+msgid "Instagram"
+msgstr "Instagram"
+
+msgid "program items"
+msgstr "program items"
+
+msgid "All priorities"
+msgstr "All priorities"
+
+msgid "working start"
+msgstr "working start"
+
+msgid "Telegram Event Notification Sent"
+msgstr "Telegram Event Notification Sent"
+
+msgid "address"
+msgstr "address"
+
+msgid "submitted at"
+msgstr "submitted at"
+
+msgid "Public QR"
+msgstr "Public QR"
+
+msgid "target ID"
+msgstr "target ID"
+
+msgid "Error updating program details."
+msgstr "Error updating program details."
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Please correct the errors in the configuration form."
+msgstr "Please correct the errors in the configuration form."
+
+msgid "Event Displaced by Emergency"
+msgstr "Event Displaced by Emergency"
+
+msgid "Postpone Event — %(title)s"
+msgstr "Postpone Event — %(title)s"
+
+msgid "Program Source Changed"
+msgstr "Program Source Changed"
+
+msgid "Only events pending approval can be approved."
+msgstr "Only events pending approval can be approved."
+
+msgid "Telegram channel"
+msgstr "Telegram channel"
+
+msgid "contact person"
+msgstr "contact person"
+
+msgid "Roles and permissions"
+msgstr "Roles and permissions"
+
+msgid "Emergency Announcement"
+msgstr "Emergency Announcement"
+
+msgid "Event Title"
+msgstr "Event Title"
+
+msgid "File size exceeds maximum allowed limit of 10 MB."
+msgstr "File size exceeds maximum allowed limit of 10 MB."
+
+msgid "Staff Manual"
+msgstr "Staff Manual"
+
+msgid "Program details updated successfully."
+msgstr "Program details updated successfully."
+
+msgid "Tanlangan vaqtda ushbu zal band. Boshqa vaqt yoki zalni tanlang."
+msgstr ""
+"This hall is booked at the selected time. Choose a different time or hall."
+
+msgid "label"
+msgstr "label"
+
+msgid "Display Token Rotated"
+msgstr "Display Token Rotated"
+
+msgid "Your event '%(title)s' has been approved via priority override "
+msgstr "Your event '%(title)s' has been approved via priority override "
+
+msgid ""
+"You are about to reject <strong>%(var)s</strong>. This action requires a "
+"mandatory rationale."
+msgstr ""
+"You are about to reject <strong>%(var)s</strong>. This action requires a "
+"mandatory rationale."
+
+msgid "Metric"
+msgstr "Metric"
+
+msgid "check-in opens at"
+msgstr "check-in opens at"
+
+msgid "Only PDF files (.pdf) are allowed."
+msgstr "Only PDF files (.pdf) are allowed."
+
+msgid "Check-in configuration updated."
+msgstr "Check-in configuration updated."
+
+msgid "program notes"
+msgstr "program notes"
+
+msgid "Registration URL"
+msgstr "Registration URL"
+
+msgid "name in English"
+msgstr "name in English"
+
+msgid "Event “%(title)s” cancelled."
+msgstr "Event “%(title)s” cancelled."
+
+msgid "You do not have permission to export attendance data."
+msgstr "You do not have permission to export attendance data."
+
+msgid "display name / location"
+msgstr "display name / location"
+
+msgid "attendee_name"
+msgstr "attendee_name"
+
+msgid "Occupied by “%(title)s” (%(start)s – %(end)s)."
+msgstr "Occupied by “%(title)s” (%(start)s – %(end)s)."
+
+msgid "%(venue)s is available."
+msgstr "%(venue)s is available."
+
+msgid "High"
+msgstr "High"
+
+msgid "Program PDF Document"
+msgstr "Program PDF Document"
+
+msgid "Emergency Justification"
+msgstr "Emergency Justification"
+
+msgid "Emergency override executed! %(count)d event(s) displaced."
+msgstr "Emergency override executed! %(count)d event(s) displaced."
+
+msgid "IEMS Leadership Report"
+msgstr "IEMS Leadership Report"
+
+msgid "check-in closes at"
+msgstr "check-in closes at"
+
+msgid "speakers"
+msgstr "speakers"
+
+msgid "organizing organizations"
+msgstr "organizing organizations"
+
+msgid "Override Conflict for \"%(title)s\""
+msgstr "Override Conflict for \"%(title)s\""
+
+msgid "Publication Approved"
+msgstr "Publication Approved"
+
+msgid "display enabled"
+msgstr "display enabled"
+
+msgid "Cancellation Reason"
+msgstr "Cancellation Reason"
+
+msgid "working end"
+msgstr "working end"
+
+msgid "management responsible"
+msgstr "management responsible"
+
+msgid "Your event “%(title)s” has been approved by %(reviewer)s."
+msgstr "Your event “%(title)s” has been approved by %(reviewer)s."
+
+msgid "e.g. Abdullayev Jasur"
+msgstr "e.g. Abdullayev Jasur"
+
+msgid "notifications"
+msgstr "notifications"
+
+msgid "Event “%(title)s” submitted for management approval."
+msgstr "Event “%(title)s” submitted for management approval."
+
+msgid "e.g., International Oncology Conference"
+msgstr "e.g., International Oncology Conference"
+
+msgid "event type"
+msgstr "event type"
+
+msgid "audit log entry"
+msgstr "audit log entry"
+
+msgid "Zoom / Meeting URL"
+msgstr "Zoom / Meeting URL"
+
+msgid "Emergency Override Executed"
+msgstr "Emergency Override Executed"
+
+msgid "Too many login attempts. Please try again later."
+msgstr "Too many login attempts. Please try again later."
+
+msgid "Telegram Reminder Scheduled"
+msgstr "Telegram Reminder Scheduled"
+
+msgid "active"
+msgstr "active"
+
+msgid "city"
+msgstr "city"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "country"
+msgstr "country"
+
+msgid "venues"
+msgstr "venues"
+
+msgid "Only events pending approval can override others."
+msgstr "Only events pending approval can override others."
+
+msgid "Now in progress — Ends in %(hours)d hours %(minutes)d minutes"
+msgstr "Now in progress — Ends in %(hours)d hours %(minutes)d minutes"
+
+msgid "Sent"
+msgstr "Sent"
+
+msgid "CRITICAL: Event Displaced by Emergency Override"
+msgstr "CRITICAL: Event Displaced by Emergency Override"
+
+msgid "phone"
+msgstr "phone"
+
+msgid "speaker name override"
+msgstr "speaker name override"
+
+msgid "Only events pending approval can be rejected."
+msgstr "Only events pending approval can be rejected."
+
+msgid "planned date"
+msgstr "planned date"
+
+msgid "event"
+msgstr "event"
+
+msgid "Event Displaced"
+msgstr "Event Displaced"
+
+msgid "venue"
+msgstr "venue"
+
+msgid "icon"
+msgstr "icon"
+
+msgid "Summary of event objectives and agenda..."
+msgstr "Summary of event objectives and agenda..."
+
+msgid ""
+"You are about to approve <strong>%(var)s</strong> via priority override. "
+"This is a high-risk action."
+msgstr ""
+"You are about to approve <strong>%(var)s</strong> via priority override. "
+"This is a high-risk action."
+
+msgid "Event Approved (Override)"
+msgstr "Event Approved (Override)"
+
+msgid "Management Responsible Person"
+msgstr "Management Responsible Person"
+
+msgid "Speaker updated successfully."
+msgstr "Speaker updated successfully."
+
+msgid "checked in at"
+msgstr "checked in at"
+
+msgid "Program Item Added"
+msgstr "Program Item Added"
+
+msgid "event types"
+msgstr "event types"
+
+msgid "is read"
+msgstr "is read"
+
+msgid "updated at"
+msgstr "updated at"
+
+msgid "Free until %(var)s"
+msgstr "Free until %(var)s"
+
+msgid "Page %(var)s of %(var)s"
+msgstr "Page %(var)s of %(var)s"
+
+msgid "CSV Report Exported"
+msgstr "CSV Report Exported"
+
+msgid "checkin_method"
+msgstr "checkin_method"
+
+msgid "responsible employee"
+msgstr "responsible employee"
+
+msgid "message"
+msgstr "message"
+
+msgid "All platforms"
+msgstr "All platforms"
+
+msgid "Program Item Removed"
+msgstr "Program Item Removed"
+
+msgid "Registration submitted. An administrator will review and activate "
+msgstr "Registration submitted. An administrator will review and activate "
+
+msgid "Publication Failed"
+msgstr "Publication Failed"
+
+msgid "Enter a color in #RRGGBB format."
+msgstr "Enter a color in #RRGGBB format."
+
+msgid "sort order"
+msgstr "sort order"
+
+msgid "Event “%(title)s” has been postponed."
+msgstr "Event “%(title)s” has been postponed."
+
+msgid "Create organization"
+msgstr "Create organization"
+
+msgid "Your event “%(title)s” has been successfully rescheduled "
+msgstr "Your event “%(title)s” has been successfully rescheduled "
+
+msgid "Event “%(title)s” saved successfully as %(status)s."
+msgstr "Event “%(title)s” saved successfully as %(status)s."
+
+msgid "Generated"
+msgstr "Generated"
+
+msgid "Delete “%(var)s”?"
+msgstr "Delete “%(var)s”?"
+
+msgid "enabled"
+msgstr "enabled"
+
+msgid "Delete venue"
+msgstr "Delete venue"
+
+msgid "Approval performance"
+msgstr "Approval performance"
+
+msgid "This Month"
+msgstr "This Month"
+
+msgid "Banner Generated"
+msgstr "Banner Generated"
+
+msgid "Booked minutes"
+msgstr "Booked minutes"
+
+msgid "This event page is not currently published or unavailable."
+msgstr "This event page is not currently published or unavailable."
+
+msgid "Public token rotated successfully."
+msgstr "Public token rotated successfully."
+
+msgid ""
+"Expected attendees (%(attendees)d) exceeds venue capacity (%(capacity)d)."
+msgstr ""
+"Expected attendees (%(attendees)d) exceeds venue capacity (%(capacity)d)."
+
+msgid "payload"
+msgstr "payload"
+
+msgid "Displaced by Emergency"
+msgstr "Displaced by Emergency"
+
+msgid "Emergency Requested"
+msgstr "Emergency Requested"
+
+msgid "Publication Published"
+msgstr "Publication Published"
+
+msgid "name"
+msgstr "name"
+
+msgid "updated by"
+msgstr "updated by"
+
+msgid "recipient"
+msgstr "recipient"
+
+msgid "PDF File"
+msgstr "PDF File"
+
+msgid "Tizimdagi barcha yangilik va ogohlantirishlar"
+msgstr "All system news and alerts"
+
+msgid "Display / TV Visibility"
+msgstr "Display / TV Visibility"
+
+msgid "notes"
+msgstr "notes"
+
+msgid "Error adding agenda item."
+msgstr "Error adding agenda item."
+
+msgid "display visibility"
+msgstr "display visibility"
+
+msgid "Ongoing"
+msgstr "Ongoing"
+
+msgid "Only rejected events can be resubmitted."
+msgstr "Only rejected events can be resubmitted."
+
+msgid "Telegram Reminder Sent"
+msgstr "Telegram Reminder Sent"
+
+msgid "Value"
+msgstr "Value"
+
+msgid "Foreign organization"
+msgstr "Foreign organization"
+
+msgid "Event “%(title)s” submitted for management review by %(user)s."
+msgstr "Event “%(title)s” submitted for management review by %(user)s."
+
+msgid "role / title"
+msgstr "role / title"
+
+msgid "QR Code Printed"
+msgstr "QR Code Printed"
+
+msgid "Please complete all required fields before saving."
+msgstr "Please complete all required fields before saving."
+
+msgid "sponsor"
+msgstr "sponsor"
+
+msgid "Create venue"
+msgstr "Create venue"
+
+msgid "Event Rejected"
+msgstr "Event Rejected"
+
+msgid "Critical Alert"
+msgstr "Critical Alert"
+
+msgid "This Quarter"
+msgstr "This Quarter"
+
+msgid "Program Item Updated"
+msgstr "Program Item Updated"
+
+msgid "Event time (%(start)s - %(end)s) is outside "
+msgstr "Event time (%(start)s - %(end)s) is outside "
+
+msgid "Event Planned"
+msgstr "Event Planned"
+
+msgid "Please provide a valid attendee name for manual check-in."
+msgstr "Please provide a valid attendee name for manual check-in."
+
+msgid "code"
+msgstr "code"
+
+msgid "priority"
+msgstr "priority"
+
+msgid "Emergency Override — %(title)s"
+msgstr "Emergency Override — %(title)s"
+
+msgid "notification"
+msgstr "notification"
+
+msgid "This Year"
+msgstr "This Year"
+
+msgid "Invalid program source mode."
+msgstr "Invalid program source mode."
+
+msgid "Generic (Show 'Private Meeting')"
+msgstr "Generic (Show 'Private Meeting')"
+
+msgid "program source"
+msgstr "program source"
+
+msgid "Create event type"
+msgstr "Create event type"
+
+msgid "The uploaded image is damaged or unsafe."
+msgstr "The uploaded image is damaged or unsafe."
+
+msgid "Emergency"
+msgstr "Emergency"
+
+msgid ""
+"Rejecting this event will change its status to Rejected. The responsible "
+"employee will be notified. A rationale must be provided."
+msgstr ""
+"Rejecting this event will change its status to Rejected. The responsible "
+"employee will be notified. A rationale must be provided."
+
+msgid "Partner organization"
+msgstr "Partner organization"
+
+msgid "sponsors"
+msgstr "sponsors"
+
+msgid "Delete event type"
+msgstr "Delete event type"
+
+msgid "Maintain local, foreign, and partner organization records."
+msgstr "Maintain local, foreign, and partner organization records."
+
+msgid "Hozircha sizni ma'ruzachi sifatida belgilangan tadbir yo'q."
+msgstr "You have no events assigned as a speaker yet."
+
+msgid "Ma'ruzachi bo'lgan tadbirlarim"
+msgstr "My Speaker-Assigned Events"
+
+msgid "Profilga qaytish"
+msgstr "Back to profile"
+
+msgid ""
+"Sizni ma'ruzachi shifokor sifatida belgilangan barcha tadbirlar ro'yxati."
+msgstr "A list of all events where you're assigned as a speaker doctor."
+
+msgid "Speaker-assigned events"
+msgstr "Speaker-assigned events"
+
+msgid "You've been assigned as a speaker"
+msgstr "You've been assigned as a speaker"
+
+msgid ""
+"You have been assigned as a speaker doctor for the event “%(title)s” on "
+"%(date)s (%(start)s–%(end)s) at %(venue)s."
+msgstr ""
+"You have been assigned as a speaker doctor for the event “%(title)s” on "
+"%(date)s (%(start)s–%(end)s) at %(venue)s."
+
+msgid "Sizda %(var)s ta o'qilmagan bildirishnoma bor."
+msgstr "You have %(var)s unread notifications."
+
+msgid "Yangi bildirishnomalar"
+msgstr "New notifications"

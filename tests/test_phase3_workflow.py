@@ -3,6 +3,7 @@ from datetime import date, time, timedelta
 import pytest
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.urls import reverse
+from django.utils import translation
 from rest_framework import status
 
 from apps.accounts.models import User
@@ -96,7 +97,8 @@ def test_submit_event_flow(workflow_setup):
     event = workflow_setup["draft_event"]
     actor = workflow_setup["resp_user"]
 
-    submit_event_for_approval(event, actor)
+    with translation.override("uz"):
+        submit_event_for_approval(event, actor)
 
     event.refresh_from_db()
     assert event.status == Event.Status.PENDING_APPROVAL
@@ -105,7 +107,7 @@ def test_submit_event_flow(workflow_setup):
     # Check notification created for management
     notif = Notification.objects.filter(recipient=workflow_setup["mgmt_user"]).first()
     assert notif is not None
-    assert "submitted" in notif.message.lower() or "approval" in notif.title.lower()
+    assert "yuborildi" in notif.message.lower() or "tasdiqlash" in notif.title.lower()
 
     # Check audit log
     audit = AuditEventLog.objects.filter(target_id=str(event.pk), action="event.submitted").first()
@@ -116,10 +118,10 @@ def test_submit_event_flow(workflow_setup):
 @pytest.mark.django_db
 def test_approve_event_flow(workflow_setup):
     event = workflow_setup["draft_event"]
-    submit_event_for_approval(event, workflow_setup["resp_user"])
-
     mgmt = workflow_setup["mgmt_user"]
-    approve_event(event, mgmt, notes="Looks great")
+    with translation.override("uz"):
+        submit_event_for_approval(event, workflow_setup["resp_user"])
+        approve_event(event, mgmt, notes="Looks great")
 
     event.refresh_from_db()
     assert event.status == Event.Status.APPROVED
@@ -130,7 +132,7 @@ def test_approve_event_flow(workflow_setup):
     # Notification to responsible employee
     notif = Notification.objects.filter(recipient=workflow_setup["resp_user"]).first()
     assert notif is not None
-    assert "approved" in notif.title.lower()
+    assert "tasdiqlandi" in notif.title.lower()
 
     # Audit log
     audit = AuditEventLog.objects.filter(target_id=str(event.pk), action="event.approved").first()

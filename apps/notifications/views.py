@@ -39,6 +39,25 @@ class NotificationListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Notification.objects.filter(recipient=self.request.user)
 
+    def get(self, request, *args, **kwargs):
+        # Opening the list is itself "seen" — clears the topbar bell badge
+        # without requiring the user to click each notification one by one.
+        # The ids are captured before the update so this page render can
+        # still highlight what was unread a moment ago.
+        self.newly_read_ids = set(
+            Notification.objects.filter(recipient=request.user, is_read=False).values_list(
+                "pk", flat=True
+            )
+        )
+        if self.newly_read_ids:
+            Notification.objects.filter(pk__in=self.newly_read_ids).update(is_read=True)
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["newly_read_ids"] = getattr(self, "newly_read_ids", set())
+        return context
+
     def post(self, request):
         if "mark_all_read" in request.POST:
             Notification.objects.filter(recipient=request.user, is_read=False).update(is_read=True)

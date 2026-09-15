@@ -478,3 +478,131 @@ class TestDoctorsExcludedFromResponsiblePickers:
         assert doctor not in form.fields["responsible_employee"].queryset
         assert doctor not in form.fields["management_responsible"].queryset
         assert doctor in form.fields["attending_doctors"].queryset
+
+    def test_attending_doctors_checkbox_widget_actually_has_choices(self, doctor, event):
+        """Regression guard: swapping the field's widget to
+        CheckboxSelectMultiple AFTER assigning its queryset leaves the new
+        widget with an empty choice list (Django populates widget.choices
+        only at the moment queryset is set) — rendering a checkbox list
+        with nothing in it. The widget must be set before the queryset."""
+        form = EventUpdateForm(instance=event)
+        widget_choices = list(form.fields["attending_doctors"].widget.choices)
+        assert len(widget_choices) == 1
+        assert widget_choices[0][1] == doctor.username
+
+
+@pytest.mark.django_db
+class TestDoctorAssignmentNotification:
+    """A doctor assigned as a speaker must be told — in-app and by email —
+    since previously nothing informed them at all."""
+
+    def test_assigning_a_doctor_creates_notification_and_email(self, client, doctor, event):
+        from django.core import mail
+
+        from apps.notifications.models import Notification
+
+        doctor.email = "karimov@example.test"
+        doctor.save(update_fields=["email"])
+
+        client.force_login(event.responsible_employee)
+        res = client.post(
+            reverse("events:edit", kwargs={"pk": event.pk}),
+            data={
+                "title": event.title,
+                "event_type": event.event_type_id,
+                "description": "",
+                "venue": event.venue_id,
+                "planned_date": event.planned_date,
+                "start_time": event.start_time,
+                "end_time": event.end_time,
+                "responsible_employee": event.responsible_employee_id,
+                "management_responsible": event.management_responsible_id,
+                "attending_doctors": [doctor.pk],
+                "status": Event.Status.DRAFT,
+                "priority": Event.Priority.NORMAL,
+                "expected_attendees": 1,
+            },
+        )
+        assert res.status_code == 302
+
+        notif = Notification.objects.filter(recipient=doctor).first()
+        assert notif is not None
+        assert event.title in notif.message
+
+        assert len(mail.outbox) == 1
+        assert mail.outbox[0].to == [doctor.email]
+        assert event.title in mail.outbox[0].body
+
+    def test_reassigning_the_same_doctor_does_not_duplicate_notification(
+        self, client, doctor, event
+    ):
+        from apps.notifications.models import Notification
+
+        event.attending_doctors.add(doctor)
+        client.force_login(event.responsible_employee)
+        client.post(
+            reverse("events:edit", kwargs={"pk": event.pk}),
+            data={
+                "title": event.title,
+                "event_type": event.event_type_id,
+                "description": "",
+                "venue": event.venue_id,
+                "planned_date": event.planned_date,
+                "start_time": event.start_time,
+                "end_time": event.end_time,
+                "responsible_employee": event.responsible_employee_id,
+                "management_responsible": event.management_responsible_id,
+                "attending_doctors": [doctor.pk],
+                "status": Event.Status.DRAFT,
+                "priority": Event.Priority.NORMAL,
+                "expected_attendees": 1,
+            },
+        )
+        assert Notification.objects.filter(recipient=doctor).count() == 0
+
+    def test_doctor_without_email_still_gets_in_app_notification(self, client, doctor, event):
+        from apps.notifications.models import Notification
+
+        assert doctor.email == ""
+        client.force_login(event.responsible_employee)
+        client.post(
+            reverse("events:edit", kwargs={"pk": event.pk}),
+            data={
+                "title": event.title,
+                "event_type": event.event_type_id,
+                "description": "",
+                "venue": event.venue_id,
+                "planned_date": event.planned_date,
+                "start_time": event.start_time,
+                "end_time": event.end_time,
+                "responsible_employee": event.responsible_employee_id,
+                "management_responsible": event.management_responsible_id,
+                "attending_doctors": [doctor.pk],
+                "status": Event.Status.DRAFT,
+                "priority": Event.Priority.NORMAL,
+                "expected_attendees": 1,
+            },
+        )
+        assert Notification.objects.filter(recipient=doctor).exists()
+
+
+@pytest.mark.django_db
+class TestDoctorAssignedEventsView:
+    def test_profile_shows_speaker_events_count(self, client, doctor, event):
+        event.attending_doctors.add(doctor)
+        client.force_login(doctor)
+        res = client.get(reverse("profile"))
+        assert res.status_code == 200
+        assert "1" in res.content.decode()
+
+    def test_assigned_events_page_lists_the_event(self, client, doctor, event):
+        event.attending_doctors.add(doctor)
+        client.force_login(doctor)
+        res = client.get(reverse("doctor-assigned-events"))
+        assert res.status_code == 200
+        assert event.title in res.content.decode()
+
+    def test_non_doctor_cannot_access_assigned_events_page(self, client, event):
+        client.force_login(event.responsible_employee)
+        res = client.get(reverse("doctor-assigned-events"))
+        assert res.status_code == 403

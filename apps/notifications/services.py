@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.core.mail import send_mail
+
 from apps.accounts.models import User
 from apps.notifications.models import Notification
 
@@ -40,6 +43,24 @@ def notify_users(
                 )
             )
     return created
+
+
+def send_notification_email(recipient: User, subject: str, message: str) -> bool:
+    """Best-effort email delivery — never raises, so a misconfigured or
+    unreachable mail server can never block the action that triggered it."""
+    if not recipient.email:
+        return False
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[recipient.email],
+            fail_silently=True,
+        )
+        return True
+    except Exception:
+        return False
 
 
 def get_unread_count(user: User) -> int:

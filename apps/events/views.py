@@ -41,6 +41,8 @@ from apps.events.forms import (
 from apps.events.models import Event, EventProgramItem, EventType, Speaker
 from apps.events.selectors import active_event_types, base_event_queryset
 from apps.events.services.conflicts import validate_and_lock_event_reservation
+from apps.notifications.models import Notification
+from apps.notifications.services import notify_users, send_notification_email
 from apps.organizations.selectors import active_organizations
 from apps.venues.selectors import active_venues
 from apps.venues.services.live_status import all_venues_live_status
@@ -67,6 +69,40 @@ def busy_attending_doctor_errors(doctors, planned_date, start_time, end_time) ->
             % {"doctor": doctor_name, "reason": reason}
         )
     return errors
+
+
+def notify_assigned_doctors(event, doctors) -> None:
+    """Tells each newly assigned speaker doctor about their assignment —
+    an in-app notification plus a best-effort email, since neither channel
+    should block the other or the save that triggered this."""
+    doctors = [d for d in doctors if d and d.pk]
+    if not doctors:
+        return
+
+    title = _("You've been assigned as a speaker")
+    message = _(
+        "You have been assigned as a speaker doctor for the event "
+        "“%(title)s” on %(date)s (%(start)s–%(end)s) at %(venue)s."
+    ) % {
+        "title": event.title,
+        "date": event.planned_date,
+        "start": event.start_time.strftime("%H:%M"),
+        "end": event.end_time.strftime("%H:%M"),
+        "venue": event.venue.localized_name,
+    }
+    # Doctors have no capability to open the internal event-detail page,
+    # so the notification points at their own assigned-events list instead.
+    target_url = reverse("doctor-assigned-events")
+
+    notify_users(
+        doctors,
+        title=title,
+        message=message,
+        severity=Notification.Severity.INFO,
+        target_url=target_url,
+    )
+    for doctor in doctors:
+        send_notification_email(doctor, subject=str(title), message=str(message))
 
 
 class EventTypeContextMixin(MasterDataContextMixin):
@@ -302,6 +338,7 @@ class EventUpdateView(LoginRequiredMixin, CapabilityRequiredMixin, UpdateView):
     def form_valid(self, form):
         event = form.save(commit=False)
         event.updated_by = self.request.user
+        previously_attending_doctor_ids = set(event.attending_doctors.values_list("pk", flat=True))
 
         # Run conflict check if PLANNED
         if event.status == Event.Status.PLANNED:
@@ -332,6 +369,12 @@ class EventUpdateView(LoginRequiredMixin, CapabilityRequiredMixin, UpdateView):
 
         event.save()
         form.save_m2m()
+
+        newly_assigned_doctors = event.attending_doctors.exclude(
+            pk__in=previously_attending_doctor_ids
+        )
+        if newly_assigned_doctors.exists():
+            notify_assigned_doctors(event, newly_assigned_doctors)
 
         log_audit_event("event.updated", actor=self.request.user, target=event)
         messages.success(self.request, _("Event “%(title)s” updated.") % {"title": event.title})

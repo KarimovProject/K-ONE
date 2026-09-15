@@ -107,6 +107,12 @@
             <dt>{% trans "Management events" %}</dt>
             <dd>{{ management_count }}</dd>
           </div>
+          {% if user.role == 'doctor' %}
+          <div>
+            <dt>{% trans "Speaker-assigned events" %}</dt>
+            <dd><a href="{% url 'doctor-assigned-events' %}">{{ speaker_events_count }}</a></dd>
+          </div>
+          {% endif %}
         </dl>
       </div>
 

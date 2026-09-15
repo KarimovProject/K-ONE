@@ -8,6 +8,7 @@ from django.views.generic import RedirectView
 from apps.accounts.views import (
     AvailabilityDeleteView,
     AvailabilityListView,
+    DoctorAssignedEventsView,
     DoctorRegisterView,
     ProfileView,
     UserManagementListView,
@@ -54,6 +55,11 @@ urlpatterns = [
         "users/<int:pk>/toggle-active/",
         UserToggleActiveView.as_view(),
         name="user-toggle-active",
+    ),
+    path(
+        "profile/assigned-events/",
+        DoctorAssignedEventsView.as_view(),
+        name="doctor-assigned-events",
     ),
     path("profile/availability/", AvailabilityListView.as_view(), name="doctor-availability"),
     path(

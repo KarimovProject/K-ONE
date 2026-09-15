@@ -47,6 +47,8 @@ class ProfileView(LoginRequiredMixin, UpdateView):
                 ),
             }
         )
+        if user.role == User.Role.DOCTOR:
+            context["speaker_events_count"] = user.attending_events.count()
         return context
 
 
@@ -83,6 +85,27 @@ class DoctorRegisterView(CreateView):
             ),
         )
         return response
+
+
+class DoctorAssignedEventsView(LoginRequiredMixin, ListView):
+    template_name = "accounts/assigned_events.html"
+    context_object_name = "events"
+    paginate_by = 20
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.role != User.Role.DOCTOR:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.request.user.attending_events.select_related("venue").order_by(
+            "-planned_date", "-start_time"
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nav_key"] = "profile"
+        return context
 
 
 class AvailabilityListView(LoginRequiredMixin, ListView):
