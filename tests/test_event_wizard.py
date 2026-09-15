@@ -42,6 +42,45 @@ class TestEventWizard:
         assert res.status_code == status.HTTP_200_OK
         assert "1-qadam" in res.content.decode()
 
+    def test_step_2_page_has_no_premature_validation_errors(self, client, wizard_setup):
+        """Visiting step 2 for the first time (right after completing step 1)
+        must show a clean, untouched form — not "this field is required" on
+        every field before the user has typed anything."""
+        client.force_login(wizard_setup["user"])
+        s1_data = {
+            "current_step": 1,
+            "action": "next",
+            "step1-title": "International Medical Forum",
+            "step1-event_type": wizard_setup["etype"].pk,
+            "step1-description": "Forum overview",
+            "step1-expected_attendees": 100,
+            "step1-priority": Event.Priority.NORMAL,
+        }
+        client.post(reverse("events:wizard"), data=s1_data)
+
+        res = client.get(reverse("events:wizard"), {"step": 2})
+        assert res.status_code == status.HTTP_200_OK
+        assert "to'ldirilishi shart" not in res.content.decode()
+
+    def test_going_back_to_a_completed_step_prefills_without_errors(self, client, wizard_setup):
+        client.force_login(wizard_setup["user"])
+        s1_data = {
+            "current_step": 1,
+            "action": "next",
+            "step1-title": "International Medical Forum",
+            "step1-event_type": wizard_setup["etype"].pk,
+            "step1-description": "Forum overview",
+            "step1-expected_attendees": 100,
+            "step1-priority": Event.Priority.NORMAL,
+        }
+        client.post(reverse("events:wizard"), data=s1_data)
+
+        res = client.get(reverse("events:wizard"), {"step": 1})
+        assert res.status_code == status.HTTP_200_OK
+        content = res.content.decode()
+        assert "to'ldirilishi shart" not in content
+        assert "International Medical Forum" in content
+
     def test_wizard_session_persistence_and_submission(self, client, wizard_setup):
         client.force_login(wizard_setup["user"])
 

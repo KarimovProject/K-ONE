@@ -34,13 +34,14 @@ SESSION_KEY = "event_wizard_data"
 class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
     required_capability = Capability.CREATE_OWN_EVENTS
 
-    def get_step_forms(self, data=None):
+    def get_step_forms(self, data=None, initial_by_step=None):
+        initial_by_step = initial_by_step or {}
         return {
-            1: EventStep1Form(data=data, prefix="step1"),
-            2: EventStep2Form(data=data, prefix="step2"),
-            3: EventStep3Form(data=data, prefix="step3"),
-            4: EventStep4Form(data=data, prefix="step4"),
-            5: EventStep5Form(data=data, prefix="step5"),
+            1: EventStep1Form(data=data, prefix="step1", initial=initial_by_step.get(1)),
+            2: EventStep2Form(data=data, prefix="step2", initial=initial_by_step.get(2)),
+            3: EventStep3Form(data=data, prefix="step3", initial=initial_by_step.get(3)),
+            4: EventStep4Form(data=data, prefix="step4", initial=initial_by_step.get(4)),
+            5: EventStep5Form(data=data, prefix="step5", initial=initial_by_step.get(5)),
         }
 
     def get_session_data(self, request) -> dict[str, Any]:
@@ -61,15 +62,18 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
 
         wizard_data = self.get_session_data(request)
 
-        # Pre-fill forms from session if available
-        initial_data = {}
-        for step in range(1, 6):
-            step_key = f"step{step}"
-            if step_key in wizard_data:
-                for k, v in wizard_data[step_key].items():
-                    initial_data[f"{step_key}-{k}"] = v
+        # Pre-fill each step's form from session data (e.g. when the user
+        # clicks "Back" to a step they already completed) via `initial`,
+        # never `data` — a bound form validates immediately on render, which
+        # would show "this field is required" errors before the user has
+        # even seen the page.
+        initial_by_step = {
+            step: wizard_data[f"step{step}"]
+            for step in range(1, 6)
+            if f"step{step}" in wizard_data
+        }
 
-        form = self.get_step_forms(initial_data if initial_data else None)[current_step]
+        form = self.get_step_forms(initial_by_step=initial_by_step)[current_step]
 
         context = self.build_context(request, current_step, form, wizard_data)
         return render(request, f"events/wizard/step_{current_step}.html", context)

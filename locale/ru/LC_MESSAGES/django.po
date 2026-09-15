@@ -5117,3 +5117,6 @@ msgstr "У вас пока нет мероприятий в роли докла�
 
 msgid "Upcoming assigned meetings"
 msgstr "Предстоящие назначенные встречи"
+
+msgid "Attendees"
+msgstr "Участники"

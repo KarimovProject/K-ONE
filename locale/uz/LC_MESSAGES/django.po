@@ -3730,7 +3730,7 @@ msgstr "Nashrlar"
 
 #: template:0
 msgid "Attendees"
-msgstr "& Qatnashuvchilar@ info: whatsthis"
+msgstr "Qatnashuvchilar"
 
 #: template:0
 msgid "Back to Event"

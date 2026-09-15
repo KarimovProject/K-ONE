@@ -285,6 +285,10 @@ select option {
   color: var(--color-text-primary);
 }
 
+input[type="text"], input[type="search"], input[type="date"],
+input[type="email"], input[type="password"], input[type="number"],
+input[type="datetime-local"], input[type="time"], input[type="url"],
+input[type="tel"],
 select, textarea, .form-control, .input-control, .search-input, .select-control {
   font-family: var(--font-sans);
   font-size: var(--text-base);
@@ -307,10 +311,37 @@ input[type="text"]:focus, input[type="search"]:focus,
 input[type="date"]:focus, input[type="email"]:focus,
 input[type="password"]:focus, input[type="number"]:focus,
 input[type="datetime-local"]:focus, input[type="time"]:focus,
+input[type="url"]:focus, input[type="tel"]:focus,
 select:focus, textarea:focus, .form-control:focus, .input-control:focus {
   border-color: var(--color-border-focus);
   box-shadow: var(--shadow-focus);
   background: var(--color-surface-2);
+}
+
+/* Native date/time picker indicator — recolor to match the brand instead
+   of the browser's default grey/black icon, and give it a visible
+   hover/click affordance. */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  opacity: 0.6;
+  transition: opacity var(--duration-micro) var(--ease-out), background var(--duration-micro) var(--ease-out);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  background: var(--color-cobalt-subtle);
+}
+
+input[type="date"]::-webkit-datetime-edit,
+input[type="time"]::-webkit-datetime-edit,
+input[type="datetime-local"]::-webkit-datetime-edit {
+  color: var(--color-text-primary);
 }
 
 input::placeholder, textarea::placeholder {

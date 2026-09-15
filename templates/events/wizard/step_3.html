@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<form class="data-form wizard-form" method="post" action="{% url 'events:wizard' %}">
+<form class="wizard-form" method="post" action="{% url 'events:wizard' %}">
   {% csrf_token %}
   <input type="hidden" name="current_step" value="3">
 
@@ -35,7 +35,7 @@
   </div>
 
   <div class="form-actions wizard-actions">
-    <button class="btn-neutral compact" type="submit" name="action" value="back">← {% trans "Back" %}</button>
+    <button class="btn-neutral compact" type="submit" name="action" value="back" formnovalidate>← {% trans "Back" %}</button>
     <button class="btn-primary compact" type="submit" name="action" value="next">{% trans "Next: Partners & Sponsors →" %}</button>
   </div>
 </form>

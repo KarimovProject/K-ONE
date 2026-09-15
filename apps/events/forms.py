@@ -149,17 +149,20 @@ class EventStep3Form(forms.Form):
 
 
 class EventStep4Form(forms.Form):
+    # Same reasoning as EventStep3Form.attending_doctors: a native
+    # <select multiple> needs Ctrl/Cmd-click to pick more than one option,
+    # an easy-to-miss convention that silently drops a selection.
     organizing_organizations = forms.ModelMultipleChoiceField(
         label=_("Organizing Organizations"),
         queryset=active_organizations(),
         required=False,
-        widget=forms.SelectMultiple(attrs={"class": "select-multiple"}),
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "checkbox-multiple"}),
     )
     sponsors = forms.ModelMultipleChoiceField(
         label=_("Sponsors"),
         queryset=active_sponsors(),
         required=False,
-        widget=forms.SelectMultiple(attrs={"class": "select-multiple"}),
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "checkbox-multiple"}),
     )
 
 
