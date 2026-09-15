@@ -3,8 +3,10 @@ from datetime import date
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, ListView, UpdateView, View
 
@@ -17,6 +19,7 @@ from apps.accounts.forms import (
 from apps.accounts.models import StaffUnavailability, User
 from apps.accounts.rbac import Capability, CapabilityRequiredMixin
 from apps.accounts.selectors import is_admin_privileged, manageable_users
+from apps.events.models import Event
 from config.rate_limit import clear_rate_limit, is_rate_limited
 
 
@@ -44,6 +47,17 @@ class ProfileView(LoginRequiredMixin, UpdateView):
                 "telegram_connected": bool(
                     getattr(user, "telegram_connection", None)
                     and user.telegram_connection.is_active
+                ),
+                "upcoming_assigned_events": (
+                    Event.objects.filter(
+                        Q(responsible_employee=user)
+                        | Q(management_responsible=user)
+                        | Q(attending_doctors=user)
+                    )
+                    .filter(planned_date__gte=timezone.localdate())
+                    .distinct()
+                    .select_related("venue", "event_type")
+                    .order_by("planned_date", "start_time")
                 ),
             }
         )
@@ -87,25 +101,71 @@ class DoctorRegisterView(CreateView):
         return response
 
 
-class DoctorAssignedEventsView(LoginRequiredMixin, ListView):
-    template_name = "accounts/assigned_events.html"
+class MyEventsListView(LoginRequiredMixin, ListView):
+    """Shared base for the three "my events" pages linked from the profile
+    KPI tiles. Splits the user's events into a past section (most recent
+    first) and an upcoming section (soonest first) shown below it."""
+
+    template_name = "accounts/event_relation_list.html"
     context_object_name = "events"
-    paginate_by = 20
+    relation_field = ""
+    page_heading = ""
+    page_description = ""
+    empty_message = ""
+
+    def get_queryset(self):
+        return getattr(self.request.user, self.relation_field).select_related(
+            "venue", "event_type"
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        today = timezone.localdate()
+        events = list(context[self.context_object_name])
+        context["past_events"] = sorted(
+            (event for event in events if event.planned_date < today),
+            key=lambda event: (event.planned_date, event.start_time),
+            reverse=True,
+        )
+        context["upcoming_events"] = sorted(
+            (event for event in events if event.planned_date >= today),
+            key=lambda event: (event.planned_date, event.start_time),
+        )
+        context.update(
+            {
+                "nav_key": "profile",
+                "page_heading": self.page_heading,
+                "page_description": self.page_description,
+                "empty_message": self.empty_message,
+            }
+        )
+        return context
+
+
+class ResponsibleEventsListView(MyEventsListView):
+    relation_field = "responsible_events"
+    page_heading = _("Assigned events")
+    page_description = _("All events where you are the responsible employee.")
+    empty_message = _("You are not currently responsible for any events.")
+
+
+class ManagementEventsListView(MyEventsListView):
+    relation_field = "management_events"
+    page_heading = _("Management events")
+    page_description = _("All events where you are the management responsible.")
+    empty_message = _("You are not currently the management responsible for any events.")
+
+
+class DoctorAssignedEventsView(MyEventsListView):
+    relation_field = "attending_events"
+    page_heading = _("Speaker-assigned events")
+    page_description = _("All events where you are assigned as a speaker doctor.")
+    empty_message = _("You don't have any speaker-assigned events yet.")
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated and request.user.role != User.Role.DOCTOR:
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
-
-    def get_queryset(self):
-        return self.request.user.attending_events.select_related("venue").order_by(
-            "-planned_date", "-start_time"
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["nav_key"] = "profile"
-        return context
 
 
 class AvailabilityListView(LoginRequiredMixin, ListView):

@@ -4641,3 +4641,36 @@ msgstr "You have %(var)s unread notifications."
 
 msgid "Yangi bildirishnomalar"
 msgstr "New notifications"
+
+msgid "Change photo"
+msgstr "Change photo"
+
+msgid "Remove photo"
+msgstr "Remove photo"
+
+msgid "Past"
+msgstr "Past"
+
+msgid "No past events"
+msgstr "No past events"
+
+msgid "All events where you are the responsible employee."
+msgstr "All events where you are the responsible employee."
+
+msgid "You are not currently responsible for any events."
+msgstr "You are not currently responsible for any events."
+
+msgid "All events where you are the management responsible."
+msgstr "All events where you are the management responsible."
+
+msgid "You are not currently the management responsible for any events."
+msgstr "You are not currently the management responsible for any events."
+
+msgid "All events where you are assigned as a speaker doctor."
+msgstr "All events where you are assigned as a speaker doctor."
+
+msgid "You don't have any speaker-assigned events yet."
+msgstr "You don't have any speaker-assigned events yet."
+
+msgid "Upcoming assigned meetings"
+msgstr "Upcoming assigned meetings"

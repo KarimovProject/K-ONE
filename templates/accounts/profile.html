@@ -12,33 +12,46 @@
     </div>
   </div>
 
-  <div class="profile-layout-3zone">
-    <!-- LEFT: Identity Card -->
-    <div class="profile-zone-card identity-zone">
-      <div class="profile-avatar">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </div>
-      <h2 class="profile-name">{{ user.get_full_name|default:user.username }}</h2>
-      <span class="profile-username">@{{ user.username }}</span>
-      <div class="profile-badges">
-        <span class="status-badge active">{{ user|localized_role }}</span>
-      </div>
-      {% if user.last_login %}
-      <div class="profile-meta">
-        <small>{% trans "Last login" %}</small>
-        <span>{{ user.last_login|date:"d.m.Y H:i" }}</span>
-      </div>
-      {% endif %}
-    </div>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="profile-layout-3zone">
+      <!-- LEFT: Identity Card -->
+      <div class="profile-zone-card identity-zone">
+        <label class="profile-avatar-wrap" for="id_avatar" title="{% trans 'Change photo' %}">
+          {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="{{ user.get_full_name|default:user.username }}" class="profile-avatar-img" id="avatar-preview">
+          {% else %}
+            <span class="profile-avatar-img profile-avatar-initials" id="avatar-preview-initials">{{ user.initials }}</span>
+            <img src="" alt="" class="profile-avatar-img" id="avatar-preview" hidden>
+          {% endif %}
+          <span class="profile-avatar-edit-badge" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </span>
+          {{ form.avatar }}
+        </label>
+        {% for error in form.avatar.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        {% if user.avatar %}
+        <label class="remove-avatar-check" for="{{ form.remove_avatar.id_for_label }}">
+          {{ form.remove_avatar }} {% trans "Remove photo" %}
+        </label>
+        {% endif %}
 
-    <!-- CENTER: Account Information -->
-    <div class="profile-zone-card account-zone">
-      <h3>{% trans "Hisob ma'lumotlari" %}</h3>
-      <form method="post" class="data-form" novalidate>
-        {% csrf_token %}
+        <h2 class="profile-name">{{ user.get_full_name|default:user.username }}</h2>
+        <span class="profile-username">@{{ user.username }}</span>
+        <div class="profile-badges">
+          <span class="status-badge active">{{ user|localized_role }}</span>
+        </div>
+        {% if user.last_login %}
+        <div class="profile-meta">
+          <small>{% trans "Last login" %}</small>
+          <span>{{ user.last_login|date:"d.m.Y H:i" }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- CENTER: Account Information -->
+      <div class="profile-zone-card account-zone">
+        <h3>{% trans "Hisob ma'lumotlari" %}</h3>
         <div class="form-grid">
           <div class="form-field">
             <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
@@ -75,48 +88,93 @@
             {% trans "Saqlash" %}
           </button>
         </div>
-      </form>
-    </div>
-
-    <!-- RIGHT: Security / access -->
-    <div class="profile-zone-card security-zone">
-      <h3>{% trans "Xavfsizlik va ruxsatlar" %}</h3>
-      <p class="text-muted text-sm" style="margin-bottom: var(--space-4);">
-        {% trans "Role and permissions are managed centrally by system administrators." %}
-      </p>
-
-      <div class="security-list">
-        <div class="security-item">
-          <span>{% trans "Staff Status" %}</span>
-          <strong>{% if user.is_staff %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</strong>
-        </div>
-        <div class="security-item">
-          <span>{% trans "Superuser" %}</span>
-          <strong>{% if user.is_superuser %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</strong>
-        </div>
       </div>
 
-      <div class="activity-summary" style="margin-top: var(--space-5);">
-        <h4 style="font-size: var(--text-sm); font-weight: var(--weight-bold); margin-bottom: var(--space-3); color: var(--color-text-title);">{% trans "Activity Summary" %}</h4>
-        <dl class="activity-dl-compact">
-          <div>
-            <dt>{% trans "Assigned events" %}</dt>
-            <dd>{{ assigned_count }}</dd>
-          </div>
-          <div>
-            <dt>{% trans "Management events" %}</dt>
-            <dd>{{ management_count }}</dd>
-          </div>
+      <!-- RIGHT: Activity KPI summary -->
+      <div class="profile-zone-card kpi-zone">
+        <h3>{% trans "Activity Summary" %}</h3>
+        <div class="profile-kpi-grid">
+          <a class="metric-tile metric-tile--cobalt metric-tile--link" href="{% url 'responsible-events' %}">
+            <span class="metric-tile__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </span>
+            <div class="metric-tile__content">
+              <span class="metric-tile__label">{% trans "Assigned events" %}</span>
+              <span class="metric-tile__value">{{ assigned_count }}</span>
+            </div>
+          </a>
+
+          <a class="metric-tile metric-tile--amber metric-tile--link" href="{% url 'management-events' %}">
+            <span class="metric-tile__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            <div class="metric-tile__content">
+              <span class="metric-tile__label">{% trans "Management events" %}</span>
+              <span class="metric-tile__value">{{ management_count }}</span>
+            </div>
+          </a>
+
           {% if user.role == 'doctor' %}
-          <div>
-            <dt>{% trans "Speaker-assigned events" %}</dt>
-            <dd><a href="{% url 'doctor-assigned-events' %}">{{ speaker_events_count }}</a></dd>
-          </div>
+          <a class="metric-tile metric-tile--cyan metric-tile--link" href="{% url 'doctor-assigned-events' %}">
+            <span class="metric-tile__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+            </span>
+            <div class="metric-tile__content">
+              <span class="metric-tile__label">{% trans "Speaker-assigned events" %}</span>
+              <span class="metric-tile__value">{{ speaker_events_count }}</span>
+            </div>
+          </a>
           {% endif %}
-        </dl>
+        </div>
       </div>
+    </div>
+  </form>
 
+  {% if upcoming_assigned_events %}
+  <div class="profile-zone-card" style="margin-top: var(--space-4);">
+    <h3>{% trans "Upcoming assigned meetings" %}</h3>
+    <div class="workspace-event-list">
+      {% for event in upcoming_assigned_events %}
+      <div class="workspace-event-row">
+        <div class="event-row-time">
+          <span class="date">{{ event.planned_date|date:"d.m.Y" }}</span>
+          <span class="time">{{ event.start_time|time:"H:i" }}–{{ event.end_time|time:"H:i" }}</span>
+        </div>
+        <div class="event-row-info">
+          <span class="title">{{ event.title }}</span>
+          <span class="meta">
+            {{ event.venue.localized_name }}
+            <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span>
+          </span>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
+  {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function () {
+    var input = document.getElementById("id_avatar");
+    var img = document.getElementById("avatar-preview");
+    var initials = document.getElementById("avatar-preview-initials");
+    var removeCheckbox = document.getElementById("id_remove_avatar");
+    if (!input || !img) return;
+    input.addEventListener("change", function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        img.src = e.target.result;
+        img.hidden = false;
+        if (initials) initials.hidden = true;
+        if (removeCheckbox) removeCheckbox.checked = false;
+      };
+      reader.readAsDataURL(file);
+    });
+  })();
+</script>
 {% endblock %}

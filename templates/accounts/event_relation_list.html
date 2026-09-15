@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ page_heading }} · K-ONE{% endblock %}
+
+{% block content %}
+<div class="workspace-page">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">{% trans "Profil" %}</span>
+      <h1>{{ page_heading }}</h1>
+      <p class="text-muted">{{ page_description }}</p>
+    </div>
+    <div class="page-actions">
+      <a class="btn btn--ghost" href="{% url 'profile' %}">← {% trans "Profilga qaytish" %}</a>
+    </div>
+  </div>
+
+  {% if past_events or upcoming_events %}
+
+    <div class="profile-zone-card" style="grid-column: 1 / -1; margin-bottom: var(--space-4);">
+      <h3>{% trans "Past" %}</h3>
+      {% if past_events %}
+        <div class="workspace-event-list">
+          {% for event in past_events %}
+          <div class="workspace-event-row">
+            <div class="event-row-time">
+              <span class="date">{{ event.planned_date|date:"d.m.Y" }}</span>
+              <span class="time">{{ event.start_time|time:"H:i" }}–{{ event.end_time|time:"H:i" }}</span>
+            </div>
+            <div class="event-row-info">
+              <span class="title">{{ event.title }}</span>
+              <span class="meta">
+                {{ event.venue.localized_name }}
+                <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span>
+              </span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted text-sm">{% trans "No past events." %}</p>
+      {% endif %}
+    </div>
+
+    <div class="profile-zone-card" style="grid-column: 1 / -1;">
+      <h3>{% trans "Upcoming" %}</h3>
+      {% if upcoming_events %}
+        <div class="workspace-event-list">
+          {% for event in upcoming_events %}
+          <div class="workspace-event-row">
+            <div class="event-row-time">
+              <span class="date">{{ event.planned_date|date:"d.m.Y" }}</span>
+              <span class="time">{{ event.start_time|time:"H:i" }}–{{ event.end_time|time:"H:i" }}</span>
+            </div>
+            <div class="event-row-info">
+              <span class="title">{{ event.title }}</span>
+              <span class="meta">
+                {{ event.venue.localized_name }}
+                <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span>
+              </span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted text-sm">{% trans "No upcoming events." %}</p>
+      {% endif %}
+    </div>
+
+  {% else %}
+    <div class="profile-zone-card" style="grid-column: 1 / -1;">
+      <p class="text-muted text-sm">{{ empty_message }}</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

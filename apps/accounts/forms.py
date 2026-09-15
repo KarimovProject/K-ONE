@@ -8,15 +8,33 @@ from apps.accounts.models import DoctorProfile, StaffUnavailability, User
 
 
 class ProfileForm(forms.ModelForm):
+    remove_avatar = forms.BooleanField(label=_("Remove current photo"), required=False)
+
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "preferred_language")
+        fields = ("first_name", "last_name", "email", "preferred_language", "avatar")
         labels = {
             "first_name": _("First name"),
             "last_name": _("Last name"),
             "email": _("Email"),
             "preferred_language": _("Preferred language"),
+            "avatar": _("Profile photo"),
         }
+        widgets = {
+            "avatar": forms.FileInput(
+                attrs={"accept": "image/png,image/jpeg,image/webp", "id": "id_avatar"}
+            ),
+        }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get("remove_avatar") and not self.files.get("avatar"):
+            if instance.avatar:
+                instance.avatar.delete(save=False)
+            instance.avatar = None
+        if commit:
+            instance.save()
+        return instance
 
 
 class DoctorRegistrationForm(UserCreationForm):

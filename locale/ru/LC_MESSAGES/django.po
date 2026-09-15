@@ -5081,3 +5081,39 @@ msgstr "У вас %(var)s непрочитанных уведомлений."
 
 msgid "Yangi bildirishnomalar"
 msgstr "Новые уведомления"
+
+msgid "Change photo"
+msgstr "Изменить фото"
+
+msgid "Remove photo"
+msgstr "Удалить фото"
+
+msgid "Past"
+msgstr "Прошедшие"
+
+msgid "No past events"
+msgstr "Прошедших мероприятий нет"
+
+msgid "All events where you are the responsible employee."
+msgstr "Все мероприятия, где вы назначены ответственным сотрудником."
+
+msgid "You are not currently responsible for any events."
+msgstr ""
+"На данный момент вы не назначены ответственным ни за одно мероприятие."
+
+msgid "All events where you are the management responsible."
+msgstr "Все мероприятия, где вы назначены ответственным от руководства."
+
+msgid "You are not currently the management responsible for any events."
+msgstr ""
+"На данный момент вы не назначены ответственным от руководства ни за одно "
+"мероприятие."
+
+msgid "All events where you are assigned as a speaker doctor."
+msgstr "Все мероприятия, где вы назначены врачом-докладчиком."
+
+msgid "You don't have any speaker-assigned events yet."
+msgstr "У вас пока нет мероприятий в роли докладчика."
+
+msgid "Upcoming assigned meetings"
+msgstr "Предстоящие назначенные встречи"

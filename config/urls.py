@@ -10,7 +10,9 @@ from apps.accounts.views import (
     AvailabilityListView,
     DoctorAssignedEventsView,
     DoctorRegisterView,
+    ManagementEventsListView,
     ProfileView,
+    ResponsibleEventsListView,
     UserManagementListView,
     UserToggleActiveView,
 )
@@ -60,6 +62,16 @@ urlpatterns = [
         "profile/assigned-events/",
         DoctorAssignedEventsView.as_view(),
         name="doctor-assigned-events",
+    ),
+    path(
+        "profile/responsible-events/",
+        ResponsibleEventsListView.as_view(),
+        name="responsible-events",
+    ),
+    path(
+        "profile/management-events/",
+        ManagementEventsListView.as_view(),
+        name="management-events",
     ),
     path("profile/availability/", AvailabilityListView.as_view(), name="doctor-availability"),
     path(

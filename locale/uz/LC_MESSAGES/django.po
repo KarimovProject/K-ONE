@@ -5442,3 +5442,36 @@ msgstr "Sizda %(var)s ta o'qilmagan bildirishnoma bor."
 
 msgid "Yangi bildirishnomalar"
 msgstr "Yangi bildirishnomalar"
+
+msgid "Change photo"
+msgstr "Rasmni o‘zgartirish"
+
+msgid "Remove photo"
+msgstr "Rasmni olib tashlash"
+
+msgid "Past"
+msgstr "O‘tgan"
+
+msgid "No past events"
+msgstr "O‘tgan tadbirlar yo‘q"
+
+msgid "All events where you are the responsible employee."
+msgstr "Siz mas'ul xodim etib belgilangan barcha tadbirlar."
+
+msgid "You are not currently responsible for any events."
+msgstr "Hozircha sizga biriktirilgan tadbir yo‘q."
+
+msgid "All events where you are the management responsible."
+msgstr "Siz rahbariyat mas'uli etib belgilangan barcha tadbirlar."
+
+msgid "You are not currently the management responsible for any events."
+msgstr "Hozircha siz rahbariyat mas'uli etib belgilangan tadbir yo‘q."
+
+msgid "All events where you are assigned as a speaker doctor."
+msgstr "Sizni ma'ruzachi shifokor sifatida belgilangan barcha tadbirlar."
+
+msgid "You don't have any speaker-assigned events yet."
+msgstr "Hozircha sizni ma'ruzachi sifatida belgilangan tadbir yo‘q."
+
+msgid "Upcoming assigned meetings"
+msgstr "Yaqinlashayotgan biriktirilgan uchrashuvlar"

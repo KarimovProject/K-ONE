@@ -29,11 +29,21 @@ class User(AbstractUser):
         choices=Language.choices,
         default=Language.UZBEK,
     )
+    avatar = models.ImageField(
+        _("avatar"), upload_to="avatars/%Y/%m/", blank=True, validators=[validate_image_upload]
+    )
 
     def has_capability(self, capability: str) -> bool:
         from apps.accounts.rbac import user_has_capability
 
         return user_has_capability(self, capability)
+
+    @property
+    def initials(self) -> str:
+        letters = (self.first_name[:1] + self.last_name[:1]).strip().upper()
+        if letters:
+            return letters
+        return (self.username[:2] or "?").upper()
 
 
 class DoctorProfile(models.Model):

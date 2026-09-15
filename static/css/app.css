@@ -604,7 +604,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-md);
-  background: var(--color-ink);
+  background: var(--gradient-primary);
   color: var(--color-text-inverse);
   display: flex;
   align-items: center;
@@ -613,6 +613,13 @@ body {
   font-size: var(--text-sm);
   font-family: var(--font-sans);
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.user-block .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .user-copy {
