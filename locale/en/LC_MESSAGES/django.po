@@ -4702,3 +4702,24 @@ msgstr "Busy times"
 
 msgid "Busy time slot added for %(doctor)s."
 msgstr "Busy time slot added for %(doctor)s."
+
+msgid "Headline"
+msgstr "Headline"
+
+msgid "Short description"
+msgstr "Short description"
+
+msgid "Caption"
+msgstr "Caption"
+
+msgid "Banner template"
+msgstr "Banner template"
+
+msgid "Include QR code"
+msgstr "Include QR code"
+
+msgid "Include sponsors"
+msgstr "Include sponsors"
+
+msgid "Scheduled for"
+msgstr "Scheduled for"

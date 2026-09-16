@@ -1,5 +1,6 @@
 from django import forms
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from apps.publications.models import Publication
 
@@ -18,6 +19,17 @@ class PublicationForm(forms.ModelForm):
             "include_sponsors",
             "scheduled_for",
         )
+        labels = {
+            "platform": _("Platform"),
+            "language": _("Language"),
+            "headline": _("Headline"),
+            "short_description": _("Short description"),
+            "caption": _("Caption"),
+            "banner_template": _("Banner template"),
+            "include_qr": _("Include QR code"),
+            "include_sponsors": _("Include sponsors"),
+            "scheduled_for": _("Scheduled for"),
+        }
         widgets = {
             "short_description": forms.Textarea(attrs={"rows": 3}),
             "caption": forms.Textarea(attrs={"rows": 8}),

@@ -5504,3 +5504,24 @@ msgstr "Band vaqtlari"
 
 msgid "Busy time slot added for %(doctor)s."
 msgstr "%(doctor)s uchun band vaqt qo'shildi."
+
+msgid "Headline"
+msgstr "Sarlavha"
+
+msgid "Short description"
+msgstr "Qisqacha tavsif"
+
+msgid "Caption"
+msgstr "Izoh matni"
+
+msgid "Banner template"
+msgstr "Banner shabloni"
+
+msgid "Include QR code"
+msgstr "QR kodni qo'shish"
+
+msgid "Include sponsors"
+msgstr "Homiylarni qo'shish"
+
+msgid "Scheduled for"
+msgstr "Rejalashtirilgan vaqti"

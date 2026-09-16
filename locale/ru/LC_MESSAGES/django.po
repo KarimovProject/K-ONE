@@ -5149,3 +5149,24 @@ msgstr "Периоды занятости"
 
 msgid "Busy time slot added for %(doctor)s."
 msgstr "Период занятости добавлен для %(doctor)s."
+
+msgid "Headline"
+msgstr "Заголовок"
+
+msgid "Short description"
+msgstr "Краткое описание"
+
+msgid "Caption"
+msgstr "Текст подписи"
+
+msgid "Banner template"
+msgstr "Шаблон баннера"
+
+msgid "Include QR code"
+msgstr "Добавить QR-код"
+
+msgid "Include sponsors"
+msgstr "Добавить спонсоров"
+
+msgid "Scheduled for"
+msgstr "Запланировано на"

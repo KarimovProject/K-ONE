@@ -1,6 +1,55 @@
-{% extends "base.html" %}{% load i18n %}
+{% extends "base.html" %}
+{% load i18n %}
+
 {% block title %}{% trans "Publication composer" %} · K-ONE{% endblock %}
+
 {% block content %}
-<div class="page-heading"><div><p class="eyebrow">{{ event.title }}</p><h1>{% trans "Publication composer" %}</h1><p>{% trans "Use approved event facts and entered copy. K-ONE does not invent official wording." %}</p></div></div>
-<div class="composer-layout" data-testid="publication-composer"><form method="post" class="data-form composer-form">{% csrf_token %}{{ form.as_p }}<div class="form-actions"><a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a><button class="btn-primary compact" type="submit">{% trans "Save draft" %}</button></div></form><aside class="platform-preview" aria-live="polite"><p class="eyebrow">{% trans "Platform preview" %}</p><div class="preview-media">K-ONE<br><small>1080 × 1350 / 1280 × 720</small></div><h2>{% trans "Preview after saving" %}</h2><p>{% trans "Generate the banner and exact platform caption from the saved draft." %}</p><div class="instagram-note">{% trans "Instagram feed caption links are not presented as clickable. Event access is provided through the banner QR." %}</div></aside></div>
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">{{ event.title }}</p>
+    <h1>{% trans "Publication composer" %}</h1>
+    <p>{% trans "Use approved event facts and entered copy. K-ONE does not invent official wording." %}</p>
+  </div>
+</div>
+
+<div class="composer-layout" data-testid="publication-composer">
+  <form method="post" class="composer-form" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="form-alert" role="alert">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="form-grid">
+      {% for field in form %}
+        <div class="form-field{% if field.errors %} has-error{% endif %}{% if field.field.widget.input_type == 'checkbox' %} form-field--checkbox{% endif %}">
+          {% if field.field.widget.input_type == 'checkbox' %}
+            {{ field }}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% else %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true">*</span>{% endif %}</label>
+            {{ field }}
+          {% endif %}
+          {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+          {% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="form-actions">
+      <a class="btn-neutral" href="{% url 'events:detail' pk=event.pk %}">{% trans "Cancel" %}</a>
+      <button class="btn-primary compact" type="submit">{% trans "Save draft" %}</button>
+    </div>
+  </form>
+
+  <aside class="platform-preview" aria-live="polite">
+    <p class="eyebrow">{% trans "Platform preview" %}</p>
+    <div class="preview-media">
+      <strong>K-ONE</strong>
+      <small>1080 × 1350 / 1280 × 720</small>
+    </div>
+    <h2>{% trans "Preview after saving" %}</h2>
+    <p>{% trans "Generate the banner and exact platform caption from the saved draft." %}</p>
+    <div class="instagram-note">{% trans "Instagram feed caption links are not presented as clickable. Event access is provided through the banner QR." %}</div>
+  </aside>
+</div>
 {% endblock %}

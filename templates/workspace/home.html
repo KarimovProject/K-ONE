@@ -168,7 +168,7 @@
                 </div>
               </div>
               <div class="agenda-status-cell">
-                <span class="status-pill status-{{ event.status|lower }}">{{ event.get_status_display }}</span>
+                <span class="status-badge {{ event.status }}">{{ event.get_status_display }}</span>
               </div>
               <div class="agenda-arrow-cell">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
