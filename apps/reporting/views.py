@@ -98,14 +98,19 @@ class PublicLiveVenuesView(TemplateView):
 
 class PublicDashboardAPIView(View):
     def get(self, request):
-        if is_rate_limited(request, "public-dashboard", 180, 60):
+        # Multiple public displays/kiosks often sit behind the same office
+        # IP and poll every 10s, so the old 180/60s cap could be exhausted
+        # by legitimate multi-screen usage alone. This is an unauthenticated,
+        # read-only endpoint, so a more generous cap still guards against
+        # abuse without starving normal shared-IP usage.
+        if is_rate_limited(request, "public-dashboard", 600, 60):
             return JsonResponse({"error": "Too many requests"}, status=429)
         return JsonResponse(public_dashboard_data())
 
 
 class PublicVenuesAPIView(View):
     def get(self, request):
-        if is_rate_limited(request, "public-venues", 180, 60):
+        if is_rate_limited(request, "public-venues", 600, 60):
             return JsonResponse({"error": "Too many requests"}, status=429)
         return JsonResponse({"venues": public_venue_statuses()})
 

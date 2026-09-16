@@ -5,7 +5,11 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-14 (bildirishnoma qo'ng'irog'ida qizil belgi + 5 soniyalik toast xabar qo'shildi)
+Oxirgi yangilanish: 2026-09-16 (profil sahifasi qayta qurildi — rasm yuklash,
+KPI, tadbirlar ro'yxati; 5 bosqichli wizard dizayni + 2 ta haqiqiy bug tuzatildi;
+shifokor band vaqtini o'chirish admin-only qilindi; loyiha bo'ylab CSS/tarjima
+auditi; public dashboard HOZIR chizig'i va rate-limit bug'lari — tafsilot
+3.25–3.31-bo'limlarda)
 
 ---
 
@@ -1100,6 +1104,201 @@ qilishi, "yangi o'qilgan" ajratib ko'rsatish saqlanishi).
 `ruff check` va `manage.py check` — toza. `app.css?v=31.0`, server qayta
 ishga tushirildi.
 
+### 3.25 Bajarildi — Profil sahifasi qayta ishlab chiqildi: rasm yuklash, KPI ko'rinishi (2026-09-15/16)
+
+Foydalanuvchi profil sahifasi "oddiy" ko'rinishidan shikoyat qildi. Sabab
+aniqlandi: sahifa shablonida ishlatilgan asosiy klasslarning (`profile-layout-3zone`,
+`security-item` va h.k.) **hech biri CSS'da umuman yozilmagan edi** — bu shu
+sessiya davomida qayta-qayta uchragan tizimli muammoning birinchi ko'rinishi.
+
+- **`User.avatar`** (`ImageField`) qo'shildi — migratsiya `0003_user_avatar`.
+  Profil sahifasida rasmga bosib yuklash, JS orqali darhol oldindan ko'rish,
+  "Rasmni olib tashlash" katagi. Rasm yo'q bo'lsa — ism bosh harflaridan
+  (`User.initials`) rangli doira avtomatik chiqadi. Tepadagi panel (topbar)da
+  ham xuddi shu rasm/initials ko'rinadi.
+- "Xodim maqomi" va "Superfoydalanuvchi" qatorlari (foydasiz, oddiy
+  foydalanuvchiga hech narsa bermaydigan) butunlay olib tashlandi.
+- "Faoliyat xulosasi" oddiy matn ro'yxatidan bosh sahifada ishlatiladigan
+  `.metric-tile` KPI-plitka komponentiga o'tkazildi (mavjud komponentni
+  qayta ishlatish — yangi CSS yozish shart bo'lmadi).
+- To'liq CSS yozildi: `profile-layout-3zone`, `identity-zone`,
+  `profile-avatar-wrap/-edit-badge`, `security-zone`, `kpi-zone` va h.k.
+- **Tekshiruv**: 5 ta yangi test (`tests/test_profile_avatar.py`), Playwright
+  orqali to'liq oqim (yuklash→oldindan ko'rish→saqlash→o'chirish) tasdiqlandi.
+
+### 3.26 Bajarildi — "Faoliyat xulosasi" KPI plitkalari haqiqiy tadbirlar ro'yxatiga ulandi (2026-09-15)
+
+Foydalanuvchi: KPI plitkalaridagi sonlar (Biriktirilgan/Boshqaruv/Ma'ruzachi
+tadbirlar) ortida haqiqiy ro'yxat bo'lishi kerak, o'tgan va yangi (kelayotgan)
+tadbirlar alohida ko'rinsin.
+
+- `apps/accounts/views.py::MyEventsListView` — umumiy bazaviy klass, 3 marta
+  meros qilingan: `ResponsibleEventsListView`, `ManagementEventsListView`,
+  `DoctorAssignedEventsView` (oxirgisi — eski, faqat shifokorlar uchun bo'lgan
+  sahifaning yangi dizaynga o'tkazilgan versiyasi). Har biri tadbirlarni
+  **"O'tgan"** (yaqin o'tgandan boshlab) va **"Tez orada"** (yaqin
+  kelajakdan boshlab) bo'limlariga ajratib ko'rsatadi, `workspace-event-row`
+  komponenti bilan (sana/vaqt/zal/holat belgisi).
+- Yangi shablon: `templates/accounts/event_relation_list.html` (uchalasi
+  uchun umumiy, eski `assigned_events.html` o'chirildi).
+- Yangi URL'lar: `responsible-events`, `management-events` (`doctor-assigned-events`
+  saqlanib qoldi, endi shu umumiy bazaga asoslanadi).
+- **Tekshiruv**: `tests/test_profile_event_lists.py` (8 test), jami 368 test.
+
+### 3.27 Bajarildi — Profil sahifasida "Yaqinlashayotgan biriktirilgan uchrashuvlar" (2026-09-15/16)
+
+Foydalanuvchi aniqlashtirdi: 3.26-banddagi alohida sahifalar yaxshi, lekin
+profil sahifasining o'zida — uchta box (Shaxsiy/Hisob/KPI)dan **pastda**,
+bo'sh joyda — faqat foydalanuvchiga **har qanday tarzda biriktirilgan**
+(mas'ul xodim, boshqaruv mas'uli YOKI ma'ruzachi shifokor) **yangi/kelayotgan**
+tadbirlar ro'yxati chiqishi kerak edi.
+
+- `ProfileView.get_context_data()`ga `upcoming_assigned_events` qo'shildi —
+  `Q(responsible_employee=user) | Q(management_responsible=user) |
+  Q(attending_doctors=user)` orqali uchala turdagi biriktirishni birlashtirib,
+  faqat kelajakdagilarini ko'rsatadi. Boshida faqat `responsible_employee`
+  tekshirilgan edi — foydalanuvchi haqiqiy holatda sinab ko'rib
+  ("men admindan yaratdim, shifokorni ma'ruzachi qilib biriktirdim, nega
+  shifokor profilida ko'rinmayapti?") aniqladi, keyin kengaytirildi.
+- **Tekshiruv**: 4 ta yangi test, jami 370 test.
+
+### 3.28 Tuzatildi — 5 bosqichli tadbir yaratish wizardi: dizayn + 2 ta haqiqiy bug (2026-09-16)
+
+Eng katta tuzatish shu sessiyada. Ikkita **funksional** bug topildi (dizayndan
+ham muhimroq edi):
+
+1. **Soxta "to'ldirilishi shart" xatolari**: `apps/events/wizard.py::get()`
+   har bir bosqich formasini SESSIYADAGI OLDINGI bosqichlar ma'lumoti bilan
+   `data=` (bog'langan/bound) qilib qurar edi — hatto joriy bosqichning o'z
+   maydonlari bo'sh bo'lsa ham forma "bog'langan" hisoblanib, DARHOL barcha
+   majburiy maydonlar uchun xato ko'rsatardi, foydalanuvchi hali hech narsa
+   kiritmasidan oldin. Tuzatish: `get_step_forms()` endi `initial=` orqali
+   oldindan to'ldiradi (`data=` faqat haqiqiy POST validatsiyasida ishlatiladi).
+2. **"Orqaga" tugmasi bosilmasdi**: u ham `type="submit"` edi, brauzerning
+   HTML5 validatsiyasi joriy bosqichda bo'sh majburiy maydon bo'lsa TUGMANI
+   BOSISHGA HAM to'sqinlik qilardi. Har bir "Orqaga" tugmasiga
+   `formnovalidate` qo'shildi.
+
+**Dizayn tuzatishlari** (xuddi profil sahifasidagi kabi — CSS klasslari
+yozilmagan edi): bosqichlar ko'rsatkichi (`is-active`/`is-complete` ↔ CSS'da
+`.active`/`.completed` nomuvofiqligi), `<form class="data-form wizard-form">`
+ikkita grid-klassni bir vaqtda tashib yurgani (sarlavha/xato/tugmalarni ham
+tasodifiy grid katakchalariga sochib yuborishi mumkin edi — `data-form`
+olib tashlandi), `.wizard-form`, `.form-alert`, `.availability-card/-indicator`,
+`.capacity-warning-box`, `.review-summary-card/.summary-grid` — hammasi
+yozildi. Sana/vaqt inputlari (`<input type="date/time">`) BUTUN SAYT
+bo'ylab asosiy CSS qoidasiga umuman kiritilmagan ekan (faqat rang, chegara/
+balandlik/burchak yo'q) — bu global tuzatildi (`components.css`), shu bilan
+boshqa joylardagi shunga o'xshash "xunuk" sana/vaqt maydonlari ham avtomatik
+tuzaldi. 4-bosqichdagi (Tashkilotlar/Homiylar) noqulay ko'p-tanlov ro'yxati
+checkbox ro'yxatiga almashtirildi (3-bosqichdagi shifokorlar bilan bir xil
+yechim). Bonusda: "Qatnashuvchilar" so'zi o'zbekchada butunlay buzilgan
+tarjima bilan chiqayotgan edi (`"& Qatnashuvchilar@ info: whatsthis"`) — tuzatildi.
+
+**Tekshiruv**: jami 370 test (2 ta yangi regressiya testi soxta-xato bugi
+uchun), Playwright orqali 5 bosqichning barchasi to'liq sinovdan o'tkazildi.
+
+### 3.29 Bajarildi — Shifokorning band vaqtini o'chirish faqat administratorga (2026-09-16)
+
+Foydalanuvchi: shifokor o'zi belgilagan band vaqtni o'zi o'chira olar edi —
+bu tizimni chetlab o'tish imkonini berardi (band deb belgilab, tekshiruvdan
+oldin o'chirib qo'yish). So'rov: o'chirish tugmasini olib tashlash, faqat
+administrator o'chira/qo'sha olsin.
+
+- Shifokorning o'z sahifasidan (`/profile/availability/`) o'chirish tugmasi
+  **va orqa tomondagi ruxsat ham** olib tashlandi (faqat tugmani yashirish
+  emas — `AvailabilityDeleteView` butunlay o'chirildi, to'g'ridan-to'g'ri
+  so'rov yuborib ham o'chira olmaydi).
+- Yangi: `AdminDoctorAvailabilityView` + `AdminAvailabilityDeleteView`
+  (`Capability.MANAGE_USERS` bilan himoyalangan) — `/users/<pk>/availability/`.
+  `/users/` sahifasida har bir shifokor qatoriga "Band vaqtlari" havolasi
+  qo'shildi. Administrator qo'shgan yangi band vaqtga **yillik 4 talik
+  cheklov qo'llanilmaydi** (o'zi ataylab qo'shayotgani uchun).
+- Shifokorning o'zi band vaqt **qo'shish** huquqi saqlanib qoldi — faqat
+  o'chirish administratorga o'tkazildi.
+- **Tekshiruv**: eski "o'chirish orqali kvota bo'shatish" testlari yangi
+  xatti-harakatga moslab qayta yozildi, jami 373 test.
+
+### 3.30 Bajarildi — Loyiha bo'ylab qo'shimcha dizayn auditi (2026-09-16)
+
+Foydalanuvchi so'rovi bo'yicha ("boshqa yaxshilash kerak bo'lgan joylar
+bormi?") fon-agent orqali butun loyiha CSS-klass qamrovi tekshirildi.
+Ko'pgina sahifalar (bosh sahifa, ochiq/public sahifalar, rahbariyat paneli,
+TV devor ekrani, bildirishnomalar) aslida yaxshi holatda ekani aniqlandi —
+avtomatik audit signal bergan bo'lsa ham, qo'lda skrinshot orqali tekshirilib,
+ko'pi yolg'on signal ekani (JS orqali render qilinadigan qism, boshqa klass
+nomi bilan allaqachon ishlagan) aniqlandi. Haqiqiy topilmalar:
+
+- **`venues/live_status.html`** (`/master-data/venues/live-status/`) —
+  haqiqatan ham CHIROYSIZ edi: hech qanday kartochka, faqat matn oqimi
+  (`status-card`, `venue-code-badge`, `live-indicator` va h.k. — hech biri
+  CSS'da yo'q edi). To'liq qayta qurildi — rangli chap-chegarali kartochkalar.
+- **`publications/form.html`** (nashr tayyorlash) — `{{ form.as_p }}` orqali
+  chizilar edi, bu APP'NING BUTUN DIZAYN TIZIMINI CHETLAB O'TARDI: natijada
+  forma maydonlari **inglizcha, tarjima qilinmagan** holda chiqardi
+  ("Platform:", "Include qr:" va h.k. — `Publication` modelida `verbose_name`
+  berilmagani uchun Django avtomatik, tarjimasiz label yaratgan edi).
+  `PublicationForm.Meta.labels` qo'shildi (uz/ru/en tarjima bilan), shablon
+  standart `form-grid`/`form-field` naqshiga o'tkazildi, o'ng tomondagi
+  "Platforma ko'rinishi" paneli uchun CSS yozildi.
+- **`publications/list.html`** — yuqoridagi son ko'rsatkichlari (Qoralama/
+  Tayyor/...) oddiy matn qatorlari edi — KPI-plitka ko'rinishiga o'tkazildi.
+- **`workspace/home.html`** — "Yaqinlashayotgan tadbirlar" ro'yxatidagi holat
+  belgisi (`status-pill status-{{status}}`) CSS'da yo'q edi — allaqachon
+  mavjud, yaxshi ishlaydigan `status-badge` komponentiga almashtirildi.
+- **Public dashboard**: "Zallar Faolligi"/"Haftalik Faollik" vidjetlarining
+  yuklanish skeleti (`.widget-loading`, uch nuqta) CSS'siz — ma'lumot
+  kelmaguncha butunlay ko'rinmas edi. Kichik pulsatsiya animatsiyasi qo'shildi.
+
+**Tekshiruv**: 373 test o'zgarishsiz o'tdi (yangi test qo'shilmadi — faqat
+CSS/shablon/forma o'zgarishlari), har bir sahifa Playwright orqali skrinshotda
+tasdiqlandi.
+
+### 3.31 Tuzatildi — Public dashboard "HOZIR" chizig'i va "Zallar/Haftalik" vidjetlari (2026-09-16)
+
+Foydalanuvchi: bosh sahifadagi joriy vaqtni ko'rsatuvchi chiziq sahifa
+ochilganda **noto'g'ri joyda** turadi, faqat biroz vaqtdan keyin to'g'rilanadi;
+boshqa sahifaga o'tib qaytib kelsa yana xato ko'rinadi. "Zallar Faolligi" va
+"Haftalik Faollik" vidjetlari ham umuman ko'rsatmay qoldi.
+
+**Ildiz sabab 1 (haqiqiy bug)**: `static/js/public-dashboard.js`da
+`updateRealtimeTimeline()` (HOZIR chizig'ini joylashtiruvchi funksiya) FAQAT
+`renderTimeline()` ichida chaqirilardi — bu esa serverdan `/api/public/dashboard/`
+javobi kelgandan KEYIN ishga tushardi. Sahifa yuklangan zahoti (tarmoq
+javobidan oldin) chiziq CSS default holatida — chap chetda (08:00 belgisida)
+turardi. Agar bugun tadbir bo'lmasa, funksiya UMUMAN chaqirilmasdi (erta
+`return`). Tuzatish: `updateRealtimeTimeline()` endi skript yuklangan zahoti,
+tarmoq so'rovidan mustaqil ravishda, DARHOL chaqiriladi.
+
+**Ildiz sabab 2 (haqiqiy bug — vidjetlar ko'rinmay qolishi)**: server
+loglarini tekshirganda `/api/public/dashboard/` **429 (Too Many Requests)**
+qaytarayotgani aniqlandi — sabab: shu sessiya davomida qilingan ko'plab
+Playwright avtomatik tekshiruvlari (`config/rate_limit.py`, IP bo'yicha,
+180 so'rov/60 soniya) chegarani to'ldirib qo'ygan edi (haqiqiy son: 309).
+Bundan tashqari, `refresh()` funksiyasi `!res.ok` holatida **jim** qaytib
+ketardi (na konsolga yozuv, na qayta urinish) — shuning uchun vaqtinchalik
+429 xatosi ham vidjetlarni ABADIY bo'sh holatda qoldirishi mumkin edi.
+Bitta umumiy ofis IP orti(dagi bir nechta ekran/kiosk)dan foydalanishda ham
+xuddi shu muammo real hayotda takrorlanishi mumkin edi.
+
+- `apps/reporting/views.py`: `public-dashboard` va `public-venues`
+  cheklovlari 180/60'dan **600/60**ga oshirildi (bu — autentifikatsiyasiz,
+  faqat o'qish uchun ochiq endpoint, xavfsizlik nuqtai nazaridan xatarsiz).
+- `public-dashboard.js::refresh()`: endi 429 kelsa `console.warn` bilan
+  ogohlantiradi va 5 soniyadan keyin bitta qo'shimcha urinish qiladi
+  (10 soniyalik navbatdagi davrni kutib o'tirmasdan).
+
+**Tekshiruv**: `manage.py check`, 373 test o'tdi, Redis keshida haqiqiy
+hisoblagich (`309`) to'g'ridan-to'g'ri tekshirilib sabab tasdiqlandi, yangi
+limit ostida `/api/public/dashboard/` 200 qaytarishi va HOZIR chizig'i
+sahifa yuklangan zahoti to'g'ri joyda turishi Playwright skrinshotida
+tasdiqlandi.
+
+**Eslatma**: shu sessiya davomida (3.25–3.31) `goals.md` **vaqtida
+yangilanmagan** — foydalanuvchi to'g'ridan-to'g'ri so'ragandan keyin bir
+yo'la, orqaga qarab yozildi. Keyingi safar har bir muhim o'zgarishdan so'ng
+darhol yangilash kerak (6-bo'limdagi qoidaga muvofiq).
+
 ---
 
 ## 4. E'tibor talab qiladigan narsalar / texnik qarz
@@ -1169,15 +1368,29 @@ ishga tushirildi.
       natijani tasdiqlaydi, kerak bo'lsa qo'shimcha iteratsiya bo'ladi.
 - [ ] Sayt bo'ylab qolgan 52/51/37 bo'sh msgstr (uz/ru/en, dashboard/calendar'ga
       aloqasi yo'q) — alohida so'rov bilan qaraladi.
-- [ ] Public dashboard qayta qurilishini yakunlash va test qilish (joriy commit qilinmagan
-      o'zgarishlar).
+- [x] Public dashboard qayta qurilishi, HOZIR chizig'i va rate-limit bug'lari
+      tuzatildi (2026-09-15/16 — 3.25–3.31-bo'limlar).
 - [ ] `apps/approvals` app'ining kelajagi haqida qaror: to'ldirish, birlashtirish yoki
       olib tashlash.
-- [ ] `ALLOWED_HOSTS` xavfsizlik nazarda tutilganini production konfiguratsiyasida
-      tasdiqlash.
+- [ ] `ALLOWED_HOSTS`dagi `"*"` — foydalanuvchi tomonidan ataylab, bitta tarmoqdagi
+      qurilmalar loyihani ko'ra olishi uchun qo'yilgan (tasdiqlangan, 2026-09-15).
+      Production'ga chiqarilganda tashqi internetdan ochiq bo'lmasligi hali ham
+      alohida tekshirilishi kerak.
 - [ ] `scripts/` papkasini tozalash/tartibga solish bo'yicha qaror.
+- [ ] 3.30-bandda topilgan CSS-klass muammosi loyihaning KO'P joyida uchragan
+      (profil, wizard, venue-status, publications) — lekin bosh sahifa
+      (`workspace/home.html`)dagi `exec-panel--timeline/--agenda/--rooms/--intelligence`
+      kabi ba'zi klasslar hali ham CSS'da yo'q (vizual ta'siri hozircha
+      sezilmagan, chunki bazaviy `.exec-panel` yetarli ko'rinadi — lekin
+      kelajakda shu modifikatorlarga bog'liq stil qo'shilsa, avval CSS'da
+      aniqlanishi kerak).
+- [ ] Rahbariyat paneli/TV devor ekranining "band" (occupied) holati hali
+      qo'lda sinovdan o'tkazilmagan (bu sessiyada faqat "hammasi bo'sh" holat
+      ko'rilgan) — real band zal bilan vizual tekshiruv tavsiya etiladi.
 - [ ] Har bir yangi funksional so'rov kelganda, ushbu fayl "Amalga oshirilgan ishlar" va
-      "Joriy holat" bo'limlarini yangilab borish.
+      "Joriy holat" bo'limlarini **darhol** (keyingi so'rovga o'tishdan oldin)
+      yangilab borish — 3.25–3.31-bo'limlar bu safar orqaga qarab, foydalanuvchi
+      eslatgandan keyin yozildi.
 
 ---
 

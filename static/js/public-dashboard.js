@@ -151,6 +151,11 @@
         });
     };
 
+    // Position the marker immediately from the client clock — don't wait on
+    // the first API response (which may be slow, rate-limited, or empty),
+    // otherwise the line sits at the 08:00 edge until data finally arrives.
+    updateRealtimeTimeline();
+
     const renderTimeline = (events, venues) => {
         if (!tracksContainer) return;
         if (loadingState) loadingState.hidden = true;
@@ -384,11 +389,21 @@
     // =========================================================================
     // 6. DATA POLLING & BINDING
     // =========================================================================
+    let retryTimer = null;
     const refresh = async () => {
       if (!API_URL) return;
       try {
         const res = await fetch(API_URL, { headers: { Accept: 'application/json' } });
-        if (!res.ok) return;
+        if (!res.ok) {
+          console.warn('Dashboard poll failed with status', res.status);
+          // A rate-limited response (429) would otherwise leave the widgets
+          // stuck until the next 10s tick; retry a bit sooner once instead
+          // of waiting out the full interval.
+          if (res.status === 429 && !retryTimer) {
+            retryTimer = setTimeout(() => { retryTimer = null; refresh(); }, 5000);
+          }
+          return;
+        }
         const data = await res.json();
 
         // 1. Numbers
