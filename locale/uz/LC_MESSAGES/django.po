@@ -5475,3 +5475,32 @@ msgstr "Hozircha sizni ma'ruzachi sifatida belgilangan tadbir yo‘q."
 
 msgid "Upcoming assigned meetings"
 msgstr "Yaqinlashayotgan biriktirilgan uchrashuvlar"
+
+msgid "Band vaqtlarni boshqarish"
+msgstr "Band vaqtlarni boshqarish"
+
+msgid "%(name)s — band vaqtlar"
+msgstr "%(name)s — band vaqtlar"
+
+msgid ""
+"Shifokorning band vaqtlarini shu yerda qo'shishingiz yoki o'chirishingiz "
+"mumkin. Bu sahifa faqat administratorlar uchun."
+msgstr ""
+"Shifokorning band vaqtlarini shu yerda qo'shishingiz yoki o'chirishingiz "
+"mumkin. Bu sahifa faqat administratorlar uchun."
+
+msgid "Foydalanuvchilarga qaytish"
+msgstr "Foydalanuvchilarga qaytish"
+
+msgid ""
+"Band vaqtni o'chirish yoki o'zgartirish kerak bo'lsa, administratorga "
+"murojaat qiling."
+msgstr ""
+"Band vaqtni o'chirish yoki o'zgartirish kerak bo'lsa, administratorga "
+"murojaat qiling."
+
+msgid "Band vaqtlari"
+msgstr "Band vaqtlari"
+
+msgid "Busy time slot added for %(doctor)s."
+msgstr "%(doctor)s uchun band vaqt qo'shildi."

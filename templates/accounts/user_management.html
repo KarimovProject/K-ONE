@@ -29,16 +29,21 @@
             <span class="status-badge" style="margin-left:8px;">{% trans "Kutilmoqda" %}</span>
           {% endif %}
         </span>
-        <form method="post" action="{% url 'user-toggle-active' u.pk %}">
-          {% csrf_token %}
-          {% if u.pk == request.user.pk %}
-            <span class="text-muted text-sm">{% trans "Siz" %}</span>
-          {% else %}
-            <button class="btn {% if u.is_active %}btn--ghost{% else %}btn-primary{% endif %}" type="submit">
-              {% if u.is_active %}{% trans "Bloklash" %}{% else %}{% trans "Faollashtirish" %}{% endif %}
-            </button>
+        <span style="display:flex; gap:var(--space-2); align-items:center;">
+          {% if u.role == 'doctor' %}
+            <a class="btn btn--ghost" href="{% url 'admin-doctor-availability' u.pk %}">{% trans "Band vaqtlari" %}</a>
           {% endif %}
-        </form>
+          <form method="post" action="{% url 'user-toggle-active' u.pk %}">
+            {% csrf_token %}
+            {% if u.pk == request.user.pk %}
+              <span class="text-muted text-sm">{% trans "Siz" %}</span>
+            {% else %}
+              <button class="btn {% if u.is_active %}btn--ghost{% else %}btn-primary{% endif %}" type="submit">
+                {% if u.is_active %}{% trans "Bloklash" %}{% else %}{% trans "Faollashtirish" %}{% endif %}
+              </button>
+            {% endif %}
+          </form>
+        </span>
       </div>
       {% empty %}
       <p class="text-muted text-sm">{% trans "Foydalanuvchilar topilmadi." %}</p>

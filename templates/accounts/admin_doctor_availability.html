@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Band vaqtlarim" %} · K-ONE{% endblock %}
+{% block title %}{% trans "Band vaqtlarni boshqarish" %} · K-ONE{% endblock %}
 
 {% block content %}
 <div class="workspace-page">
   <div class="page-heading">
     <div>
-      <span class="eyebrow">{% trans "Profil" %}</span>
-      <h1>{% trans "Band vaqtlarim" %}</h1>
-      <p class="text-muted">{% trans "Bu yerda band bo'lgan sana va vaqt oralig'ini sababi bilan belgilang. Sizni tadbirga ma'ruzachi shifokor sifatida belgilashda tizim bu ma'lumotdan foydalanadi." %}</p>
-      <p class="text-muted text-sm">
-        {% blocktrans %}{{ current_year }}-yil uchun ishlatilgan: {{ slots_used_this_year }} / {{ slots_limit_per_year }}{% endblocktrans %}
-      </p>
+      <span class="eyebrow">{% trans "Foydalanuvchilar" %}</span>
+      <h1>{% blocktrans with name=doctor.get_full_name|default:doctor.username %}{{ name }} — band vaqtlar{% endblocktrans %}</h1>
+      <p class="text-muted">{% trans "Shifokorning band vaqtlarini shu yerda qo'shishingiz yoki o'chirishingiz mumkin. Bu sahifa faqat administratorlar uchun." %}</p>
+    </div>
+    <div class="page-actions">
+      <a class="btn btn--ghost" href="{% url 'user-management' %}">← {% trans "Foydalanuvchilarga qaytish" %}</a>
     </div>
   </div>
 
@@ -50,7 +50,6 @@
           <div class="form-field" style="grid-column: 1 / -1;">
             <label for="{{ form.reason.id_for_label }}">{{ form.reason.label }}<span aria-hidden="true"> *</span></label>
             {{ form.reason }}
-            <small class="text-muted text-sm">{% trans "Majburiy — band bo'lish sababini qisqacha yozing." %}</small>
             {% for error in form.reason.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
           </div>
         </div>
@@ -70,12 +69,13 @@
           {% for slot in slots %}
           <div class="security-item">
             <span>{{ slot.start_date|date:"d.m.Y" }} {{ slot.start_time|time:"H:i" }} — {{ slot.end_date|date:"d.m.Y" }} {{ slot.end_time|time:"H:i" }} · {{ slot.reason }}</span>
+            <form method="post" action="{% url 'admin-doctor-availability-delete' slot.pk %}">
+              {% csrf_token %}
+              <button class="btn btn--ghost" type="submit" aria-label="{% trans 'O\'chirish' %}">{% trans "O'chirish" %}</button>
+            </form>
           </div>
           {% endfor %}
         </div>
-        <p class="text-muted text-sm" style="margin-top: var(--space-3);">
-          {% trans "Band vaqtni o'chirish yoki o'zgartirish kerak bo'lsa, administratorga murojaat qiling." %}
-        </p>
       {% else %}
         <p class="text-muted text-sm">{% trans "Hozircha band vaqt belgilanmagan." %}</p>
       {% endif %}

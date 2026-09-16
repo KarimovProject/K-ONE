@@ -4674,3 +4674,31 @@ msgstr "You don't have any speaker-assigned events yet."
 
 msgid "Upcoming assigned meetings"
 msgstr "Upcoming assigned meetings"
+
+msgid "Band vaqtlarni boshqarish"
+msgstr "Manage busy times"
+
+msgid "%(name)s — band vaqtlar"
+msgstr "%(name)s — busy times"
+
+msgid ""
+"Shifokorning band vaqtlarini shu yerda qo'shishingiz yoki o'chirishingiz "
+"mumkin. Bu sahifa faqat administratorlar uchun."
+msgstr ""
+"You can add or remove the doctor's busy time slots here. This page is admin-"
+"only."
+
+msgid "Foydalanuvchilarga qaytish"
+msgstr "Back to users"
+
+msgid ""
+"Band vaqtni o'chirish yoki o'zgartirish kerak bo'lsa, administratorga "
+"murojaat qiling."
+msgstr ""
+"Contact an administrator if a busy time slot needs to be removed or changed."
+
+msgid "Band vaqtlari"
+msgstr "Busy times"
+
+msgid "Busy time slot added for %(doctor)s."
+msgstr "Busy time slot added for %(doctor)s."

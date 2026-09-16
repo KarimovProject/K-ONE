@@ -6,7 +6,8 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 
 from apps.accounts.views import (
-    AvailabilityDeleteView,
+    AdminAvailabilityDeleteView,
+    AdminDoctorAvailabilityView,
     AvailabilityListView,
     DoctorAssignedEventsView,
     DoctorRegisterView,
@@ -75,9 +76,14 @@ urlpatterns = [
     ),
     path("profile/availability/", AvailabilityListView.as_view(), name="doctor-availability"),
     path(
-        "profile/availability/<int:pk>/delete/",
-        AvailabilityDeleteView.as_view(),
-        name="doctor-availability-delete",
+        "users/<int:pk>/availability/",
+        AdminDoctorAvailabilityView.as_view(),
+        name="admin-doctor-availability",
+    ),
+    path(
+        "users/availability/<int:pk>/delete/",
+        AdminAvailabilityDeleteView.as_view(),
+        name="admin-doctor-availability-delete",
     ),
     path("accounts/register/", DoctorRegisterView.as_view(), name="register"),
     path("accounts/login/", ThrottledLoginView.as_view(), name="login"),

@@ -206,12 +206,60 @@ class AvailabilityListView(LoginRequiredMixin, ListView):
         return self.render_to_response(context)
 
 
-class AvailabilityDeleteView(LoginRequiredMixin, View):
+class AdminDoctorAvailabilityView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):
+    """Admin-only management of a specific doctor's busy/unavailability
+    slots. Doctors can still add their own slots (AvailabilityListView),
+    but may no longer delete them — that self-service loophole let a
+    doctor mark themselves busy and then un-mark it right before a
+    conflict check, defeating the whole point of the record. Only staff
+    with MANAGE_USERS can remove a slot here, or add one on the doctor's
+    behalf without the yearly self-service cap applying."""
+
+    required_capability = Capability.MANAGE_USERS
+    model = StaffUnavailability
+    template_name = "accounts/admin_doctor_availability.html"
+    context_object_name = "slots"
+
+    def get_doctor(self):
+        return get_object_or_404(User, pk=self.kwargs["pk"], role=User.Role.DOCTOR)
+
+    def get_queryset(self):
+        return StaffUnavailability.objects.filter(user=self.get_doctor())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nav_key"] = "users"
+        context["doctor"] = self.get_doctor()
+        context.setdefault("form", StaffUnavailabilityForm())
+        return context
+
+    def post(self, request, *args, **kwargs):
+        doctor = self.get_doctor()
+        form = StaffUnavailabilityForm(request.POST)
+        if form.is_valid():
+            slot = form.save(commit=False)
+            slot.user = doctor
+            slot.save()
+            messages.success(
+                request,
+                _("Busy time slot added for %(doctor)s.")
+                % {"doctor": doctor.get_full_name() or doctor.username},
+            )
+            return redirect("admin-doctor-availability", pk=doctor.pk)
+        self.object_list = self.get_queryset()
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+
+class AdminAvailabilityDeleteView(LoginRequiredMixin, CapabilityRequiredMixin, View):
+    required_capability = Capability.MANAGE_USERS
+
     def post(self, request, pk, *args, **kwargs):
-        slot = get_object_or_404(StaffUnavailability, pk=pk, user=request.user)
+        slot = get_object_or_404(StaffUnavailability, pk=pk)
+        doctor_pk = slot.user_id
         slot.delete()
         messages.success(request, _("Busy time slot removed."))
-        return redirect("doctor-availability")
+        return redirect("admin-doctor-availability", pk=doctor_pk)
 
 
 class UserManagementListView(LoginRequiredMixin, CapabilityRequiredMixin, ListView):

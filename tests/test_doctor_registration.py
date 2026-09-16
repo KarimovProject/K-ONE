@@ -182,10 +182,6 @@ class TestAvailabilitySelfService:
         assert slot.start_date == date(2026, 11, 1)
         assert slot.end_date == date(2026, 11, 3)
 
-        res = client.post(reverse("doctor-availability-delete", args=[slot.pk]))
-        assert res.status_code == 302
-        assert not StaffUnavailability.objects.filter(pk=slot.pk).exists()
-
     def test_reason_is_required(self, client, doctor):
         client.force_login(doctor)
         res = client.post(
@@ -284,38 +280,12 @@ class TestAvailabilitySelfService:
         assert res.status_code == 302
         assert StaffUnavailability.objects.filter(user=doctor, start_date__year=2027).count() == 1
 
-    def test_deleting_a_slot_frees_up_the_yearly_quota(self, client, doctor):
-        client.force_login(doctor)
-        slots = [
-            StaffUnavailability.objects.create(
-                user=doctor,
-                start_date=date(2026, month, 1),
-                start_time=time(9, 0),
-                end_date=date(2026, month, 1),
-                end_time=time(11, 0),
-                reason=f"slot {month}",
-            )
-            for month in (1, 3, 5, 7)
-        ]
-        client.post(reverse("doctor-availability-delete", args=[slots[0].pk]))
-
-        res = client.post(
-            reverse("doctor-availability"),
-            data={
-                "start_date": "2026-09-01",
-                "start_time": "09:00",
-                "end_date": "2026-09-01",
-                "end_time": "11:00",
-                "reason": "Now there's room",
-            },
-        )
-        assert res.status_code == 302
-        assert StaffUnavailability.objects.filter(user=doctor, start_date__year=2026).count() == 4
-
-    def test_doctor_cannot_delete_another_doctors_slot(self, client, doctor):
-        other = User.objects.create_user(username="dr.other", password="x", role=User.Role.DOCTOR)
+    def test_doctor_cannot_delete_own_slot(self, client, doctor):
+        """Doctors could previously mark themselves busy and then un-mark it
+        right before a conflict check, defeating the point of the record.
+        Deletion is now admin-only (AdminAvailabilityDeleteView)."""
         slot = StaffUnavailability.objects.create(
-            user=other,
+            user=doctor,
             start_date=date(2026, 11, 1),
             start_time=time(9, 0),
             end_date=date(2026, 11, 1),
@@ -323,7 +293,8 @@ class TestAvailabilitySelfService:
             reason="x",
         )
         client.force_login(doctor)
-        client.post(reverse("doctor-availability-delete", args=[slot.pk]))
+        res = client.post(reverse("admin-doctor-availability-delete", args=[slot.pk]))
+        assert res.status_code == 403
         assert StaffUnavailability.objects.filter(pk=slot.pk).exists()
 
     def test_non_doctor_cannot_access_availability_page(self, client):
@@ -332,6 +303,82 @@ class TestAvailabilitySelfService:
         )
         client.force_login(staff)
         res = client.get(reverse("doctor-availability"))
+        assert res.status_code == 403
+
+
+@pytest.mark.django_db
+class TestAdminDoctorAvailability:
+    def test_admin_can_view_and_add_a_slot(self, client, doctor):
+        admin = User.objects.create_user(
+            username="ops.admin", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        client.force_login(admin)
+        res = client.get(reverse("admin-doctor-availability", args=[doctor.pk]))
+        assert res.status_code == 200
+
+        res = client.post(
+            reverse("admin-doctor-availability", args=[doctor.pk]),
+            data={
+                "start_date": "2026-11-01",
+                "start_time": "09:00",
+                "end_date": "2026-11-01",
+                "end_time": "11:00",
+                "reason": "Added by admin",
+            },
+        )
+        assert res.status_code == 302
+        assert StaffUnavailability.objects.filter(user=doctor, reason="Added by admin").exists()
+
+    def test_admin_add_is_not_limited_by_the_yearly_cap(self, client, doctor):
+        admin = User.objects.create_user(
+            username="ops.admin2", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        for month in (1, 3, 5, 7):
+            StaffUnavailability.objects.create(
+                user=doctor,
+                start_date=date(2026, month, 1),
+                start_time=time(9, 0),
+                end_date=date(2026, month, 1),
+                end_time=time(11, 0),
+                reason=f"slot {month}",
+            )
+        client.force_login(admin)
+        res = client.post(
+            reverse("admin-doctor-availability", args=[doctor.pk]),
+            data={
+                "start_date": "2026-09-01",
+                "start_time": "09:00",
+                "end_date": "2026-09-01",
+                "end_time": "11:00",
+                "reason": "A 5th slot added by admin",
+            },
+        )
+        assert res.status_code == 302
+        assert StaffUnavailability.objects.filter(user=doctor, start_date__year=2026).count() == 5
+
+    def test_admin_can_delete_a_slot(self, client, doctor):
+        admin = User.objects.create_user(
+            username="ops.admin3", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        slot = StaffUnavailability.objects.create(
+            user=doctor,
+            start_date=date(2026, 11, 1),
+            start_time=time(9, 0),
+            end_date=date(2026, 11, 1),
+            end_time=time(11, 0),
+            reason="x",
+        )
+        client.force_login(admin)
+        res = client.post(reverse("admin-doctor-availability-delete", args=[slot.pk]))
+        assert res.status_code == 302
+        assert not StaffUnavailability.objects.filter(pk=slot.pk).exists()
+
+    def test_non_admin_staff_cannot_access_admin_availability_page(self, client, doctor):
+        staff = User.objects.create_user(
+            username="staff.member2", password="x", role=User.Role.RESPONSIBLE_EMPLOYEE
+        )
+        client.force_login(staff)
+        res = client.get(reverse("admin-doctor-availability", args=[doctor.pk]))
         assert res.status_code == 403
 
 

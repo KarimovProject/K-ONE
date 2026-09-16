@@ -5120,3 +5120,32 @@ msgstr "Предстоящие назначенные встречи"
 
 msgid "Attendees"
 msgstr "Участники"
+
+msgid "Band vaqtlarni boshqarish"
+msgstr "Управление занятостью"
+
+msgid "%(name)s — band vaqtlar"
+msgstr "%(name)s — занятые периоды"
+
+msgid ""
+"Shifokorning band vaqtlarini shu yerda qo'shishingiz yoki o'chirishingiz "
+"mumkin. Bu sahifa faqat administratorlar uchun."
+msgstr ""
+"Здесь вы можете добавлять или удалять периоды занятости врача. Эта страница "
+"доступна только администраторам."
+
+msgid "Foydalanuvchilarga qaytish"
+msgstr "Вернуться к пользователям"
+
+msgid ""
+"Band vaqtni o'chirish yoki o'zgartirish kerak bo'lsa, administratorga "
+"murojaat qiling."
+msgstr ""
+"Если нужно удалить или изменить период занятости, обратитесь к "
+"администратору."
+
+msgid "Band vaqtlari"
+msgstr "Периоды занятости"
+
+msgid "Busy time slot added for %(doctor)s."
+msgstr "Период занятости добавлен для %(doctor)s."
