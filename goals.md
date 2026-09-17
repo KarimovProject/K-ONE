@@ -5,11 +5,12 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-16 (profil sahifasi qayta qurildi — rasm yuklash,
-KPI, tadbirlar ro'yxati; 5 bosqichli wizard dizayni + 2 ta haqiqiy bug tuzatildi;
-shifokor band vaqtini o'chirish admin-only qilindi; loyiha bo'ylab CSS/tarjima
-auditi; public dashboard HOZIR chizig'i va rate-limit bug'lari — to'liq tafsilot
-`docs/CHANGELOG.md`dagi 3.25–3.31-bo'limlarda)
+Oxirgi yangilanish: 2026-09-17 (ma'ruzachilar sidebar bug'i, taqvim
+CSS/lokalizatsiya, "Band shifokorlar" bo'limi qo'shildi; so'ngra taqvim
+faylida ikkita CSS sintaksis xatosi (yopilmagan `@media` bloklari) topilib
+tuzatildi — bu strelka iconkasi va boshqa desktop uslublarining ishlamay
+qolishining haqiqiy sababi edi; nav pill va filtr paneli tuzatildi — to'liq
+tafsilot `docs/CHANGELOG.md`dagi 3.25–3.33-bo'limlarda)
 
 ---
 
@@ -90,6 +91,17 @@ muvaffaqiyatsizliklar tuzatilgan).
   chizig'i va rate-limit muammosi).
 - **Tarjima (uz/ru/en/tr)** — loyiha bo'ylab to'liq audit o'tkazilgan,
   yetishmayotgan va buzilgan yozuvlar tuzatilgan.
+- **Ma'ruzachilar sahifasi** — sidebar'da noto'g'ri bo'lim yoritilishi
+  (`nav_key` bug'i) tuzatildi.
+- **"Band shifokorlar" bo'limi** — public dashboard'ga rahbariyat uchun
+  yangi KPI-uslubidagi bo'lim qo'shildi (qaysi shifokor hozir/bugun/shu
+  hafta band va sababi).
+- **Taqvim** — FullCalendar "uz" lokali uchun qo'lda oy/hafta nomlari,
+  nav pill (4-bo'lim uchun "yopishib qolish" bug'i), strelka iconkasi
+  (asl sabab: `calendar.css`da ikkita joyda yopilmagan `@media` bloki,
+  bu butun bir CSS bo'limini tasodifan faqat mobil rejimga
+  cheklab qo'ygan edi) va filtr panelining ikki qatorga bo'linib
+  ketishi tuzatildi.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).

@@ -155,6 +155,22 @@ def test_sidebar_named_links_render_and_resolve(client):
         assert client.get(url).status_code == 200, route_name
 
 
+@pytest.mark.django_db
+def test_speaker_pages_highlight_the_speakers_sidebar_item_not_events():
+    """SpeakerListView/Create/Update used to hardcode nav_key="events",
+    so the sidebar highlighted "Tadbirlar" while viewing "Ma'ruzachilar"."""
+    client = Client()
+    client.force_login(create_super_admin())
+
+    res = client.get(reverse("events:speaker-list"))
+    assert res.status_code == 200
+    assert res.context["nav_key"] == "speakers"
+
+    res = client.get(reverse("events:speaker-create"))
+    assert res.status_code == 200
+    assert res.context["nav_key"] == "speakers"
+
+
 def test_local_settings_isolate_http_acceptance_cookies():
     from config.settings import local
 

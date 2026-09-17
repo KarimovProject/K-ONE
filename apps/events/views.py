@@ -1158,7 +1158,7 @@ class SpeakerListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["nav_key"] = "events"
+        context["nav_key"] = "speakers"
         context["page_title"] = _("Speakers Directory")
         return context
 
@@ -1168,6 +1168,11 @@ class SpeakerCreateView(LoginRequiredMixin, CreateView):
     form_class = SpeakerForm
     template_name = "events/speaker_form.html"
     success_url = reverse_lazy("events:speaker-list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nav_key"] = "speakers"
+        return context
 
     def form_valid(self, form):
         messages.success(self.request, _("Speaker added successfully."))
@@ -1226,6 +1231,11 @@ class SpeakerUpdateView(LoginRequiredMixin, UpdateView):
     form_class = SpeakerForm
     template_name = "events/speaker_form.html"
     success_url = reverse_lazy("events:speaker-list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["nav_key"] = "speakers"
+        return context
 
     def form_valid(self, form):
         messages.success(self.request, _("Speaker updated successfully."))

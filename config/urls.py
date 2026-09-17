@@ -28,6 +28,7 @@ from apps.events.views import (
 from apps.organizations.urls import organization_patterns, sponsor_patterns
 from apps.reporting.views import (
     LeadershipDashboardView,
+    PublicBusyDoctorsView,
     PublicCalendarAPIView,
     PublicCalendarView,
     PublicDashboardAPIView,
@@ -48,6 +49,7 @@ urlpatterns = [
     path("dashboard/calendar/", PublicCalendarView.as_view(), name="public-calendar"),
     path("venues/", RedirectView.as_view(pattern_name="venues:list", permanent=False)),
     path("venues/live/", PublicLiveVenuesView.as_view(), name="public-live-venues"),
+    path("doctors/busy/", PublicBusyDoctorsView.as_view(), name="public-busy-doctors"),
     path("api/public/dashboard/", PublicDashboardAPIView.as_view(), name="public-dashboard-api"),
     path("api/public/calendar/", PublicCalendarAPIView.as_view(), name="public-calendar-api"),
     path("api/public/venues/", PublicVenuesAPIView.as_view(), name="public-venues-api"),

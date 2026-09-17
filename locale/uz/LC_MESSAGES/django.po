@@ -5525,3 +5525,31 @@ msgstr "Homiylarni qo'shish"
 
 msgid "Scheduled for"
 msgstr "Rejalashtirilgan vaqti"
+
+msgid "Band shifokorlar"
+msgstr "Band shifokorlar"
+
+msgid "RAHBARIYAT UCHUN KO'RINISH"
+msgstr "RAHBARIYAT UCHUN KO'RINISH"
+
+msgid ""
+"Qaysi ma'ruzachi shifokorlar hozir yoki yaqin kunlarda qatnasha olmasligi va"
+" sababi."
+msgstr ""
+"Qaysi ma'ruzachi shifokorlar hozir yoki yaqin kunlarda qatnasha olmasligi va"
+" sababi."
+
+msgid "Hozir band"
+msgstr "Hozir band"
+
+msgid "Bugun band"
+msgstr "Bugun band"
+
+msgid "Bu hafta band"
+msgstr "Bu hafta band"
+
+msgid "Sababi"
+msgstr "Sababi"
+
+msgid "Hozircha band shifokor yo'q"
+msgstr "Hozircha band shifokor yo'q"

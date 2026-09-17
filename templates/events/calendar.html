@@ -80,12 +80,23 @@
   </div>
 </div>
 
-<!-- FullCalendar JS & CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css">
+<!-- FullCalendar JS. Note: the `fullcalendar` meta-package has no separate
+     CSS file (v6 injects its own styles via JS) and no `locales-all`
+     bundle — per-locale files live under @fullcalendar/core/locales/. -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-<link rel="stylesheet" href="{% static 'css/calendar.css' %}?v=27.3">
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/uz.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/ru.global.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/calendar.css' %}?v=27.4">
 <style>
   .fc-day-today { background-color: var(--color-status-active-bg) !important; }
+
+  /* The shared .command-filter-form is capped at max-width:720px for the
+     typical 1-2 dropdown list-page toolbar. This page has three dropdowns
+     plus two action buttons, which overflows that cap and wraps onto an
+     ugly second row — let it use the full toolbar row width instead. */
+  .calendar-toolbar-row .command-filter-form {
+    max-width: none;
+  }
 </style>
 
 <script>
@@ -93,6 +104,39 @@
     const calendarEl = document.getElementById("calendar-container");
     const lang = document.documentElement.lang || "uz";
     const localeMap = { uz: "uz", ru: "ru", en: "en" };
+
+    // FullCalendar's own bundled "uz" locale only defines buttonText — it
+    // has no month/weekday names or title format at all, so without this
+    // override the toolbar falls back to a broken-looking ICU format like
+    // "2026 M09" and English weekday headers (Sun, Mon, ...). Supply our
+    // own names, matching the ones already used by the public calendar.
+    const MONTH_NAMES = {
+      uz: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
+      ru: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+      en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    };
+    const WEEKDAY_SHORT = {
+      uz: ["Yak", "Dush", "Sesh", "Chor", "Pay", "Jum", "Shan"],
+      ru: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+      en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    };
+    const monthNames = MONTH_NAMES[lang] || MONTH_NAMES.uz;
+    const weekdayShort = WEEKDAY_SHORT[lang] || WEEKDAY_SHORT.uz;
+
+    function formatCalendarTitle(view) {
+      const start = view.currentStart;
+      if (view.type === "dayGridMonth") {
+        return `${monthNames[start.getMonth()]} ${start.getFullYear()}`;
+      }
+      if (view.type === "timeGridDay") {
+        return `${start.getDate()} ${monthNames[start.getMonth()]} ${start.getFullYear()}`;
+      }
+      const endInclusive = new Date(view.currentEnd.getTime() - 86400000);
+      if (start.getMonth() === endInclusive.getMonth()) {
+        return `${start.getDate()}–${endInclusive.getDate()} ${monthNames[start.getMonth()]} ${start.getFullYear()}`;
+      }
+      return `${start.getDate()} ${monthNames[start.getMonth()]} – ${endInclusive.getDate()} ${monthNames[endInclusive.getMonth()]} ${start.getFullYear()}`;
+    }
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: "dayGridMonth",
@@ -111,6 +155,13 @@
         week: "{% trans 'Week' %}",
         day: "{% trans 'Day' %}",
         list: "{% trans 'List' %}"
+      },
+      dayHeaderContent: function (arg) {
+        return weekdayShort[arg.date.getDay()];
+      },
+      datesSet: function (arg) {
+        const titleEl = calendarEl.querySelector(".fc-toolbar-title");
+        if (titleEl) titleEl.textContent = formatCalendarTitle(arg.view);
       },
       events: function (info, successCallback, failureCallback) {
         const venue = document.getElementById("filter-venue").value;

@@ -573,7 +573,7 @@
     flex-direction: column;
     align-items: stretch;
   }
-  
+}
 
 /* ==========================================================================
    FULLCALENDAR REFINED ENTERPRISE STYLING (Phase 22)
@@ -663,6 +663,33 @@
   box-shadow: var(--shadow-xs) !important;
   transition: all var(--duration-fast) !important;
 }
+
+/* FullCalendar's built-in prev/next icons are an embedded icon font
+   (loaded as a data: URI), which the site's CSP (font-src has no `data:`)
+   blocks — the buttons rendered as empty squares. Replace the glyph with
+   a plain chevron character instead of loosening the CSP. */
+.fc .fc-icon {
+  font-size: 0 !important;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
+}
+
+.fc .fc-icon-chevron-left::before,
+.fc .fc-icon-chevron-right::before {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans), sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1;
+}
+
+.fc .fc-icon-chevron-left::before { content: "\2039"; }
+.fc .fc-icon-chevron-right::before { content: "\203a"; }
 
 .fc .fc-prev-button:hover,
 .fc .fc-next-button:hover,
@@ -1052,12 +1079,6 @@
 .tippy-box[data-theme~='light-border'] > .tippy-backdrop {
   background-color: white;
 }
-
-@media (min-width: 769px) {
-  
-
-@media (max-width: 768px) {
-  
 
 .calendar-filters.premium-filters {
   display: flex;

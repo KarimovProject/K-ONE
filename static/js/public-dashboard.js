@@ -440,6 +440,8 @@
     refresh();
 
     // Start Realtime Timeline Ticker
-    setInterval(updateRealtimeTimeline, 60000); // 1 minute interval for slider
+    // Every 1s (matches the live clock's own tick) so the line advances
+    // smoothly instead of visibly "jumping" once a minute.
+    setInterval(updateRealtimeTimeline, 1000);
 
 })();

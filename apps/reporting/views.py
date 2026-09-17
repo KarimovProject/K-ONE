@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import TemplateView
 
-from apps.accounts.models import User
+from apps.accounts.models import StaffUnavailability, User
 from apps.accounts.rbac import Capability, user_has_capability
 from apps.audit.services import log_audit_event
 from apps.reporting.exports import csv_response, pdf_response, xlsx_response
@@ -93,6 +93,48 @@ class PublicLiveVenuesView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["venues"] = public_venue_statuses()
+        return context
+
+
+class PublicBusyDoctorsView(TemplateView):
+    """Leadership-facing view of which speaker doctors are currently or
+    soon unavailable, and why — sits alongside the other public dashboard
+    tabs (Boshqaruv/Taqvim/Jonli)."""
+
+    template_name = "public/busy_doctors.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        today = timezone.localdate()
+        now_naive = timezone.localtime().replace(tzinfo=None)
+        week_end = today + timedelta(days=7)
+
+        slots = list(
+            StaffUnavailability.objects.filter(end_date__gte=today)
+            .select_related("user", "user__doctor_profile")
+            .order_by("start_date", "start_time")
+        )
+
+        busy_now_count = 0
+        busy_today_count = 0
+        busy_week_count = 0
+        for slot in slots:
+            slot.is_busy_now = slot.start_datetime <= now_naive <= slot.end_datetime
+            if slot.is_busy_now:
+                busy_now_count += 1
+            if slot.start_date <= today <= slot.end_date:
+                busy_today_count += 1
+            if slot.start_date <= week_end and slot.end_date >= today:
+                busy_week_count += 1
+
+        context.update(
+            {
+                "slots": slots,
+                "busy_now_count": busy_now_count,
+                "busy_today_count": busy_today_count,
+                "busy_week_count": busy_week_count,
+            }
+        )
         return context
 
 

@@ -51,6 +51,10 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           {% trans "Jonli" %}
         </a>
+        <a href="{% url 'public-busy-doctors' %}" class="premium-segment-btn {% if request.resolver_match.url_name == 'public-busy-doctors' %}active{% endif %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle><line x1="17" y1="8" x2="22" y2="13"></line><line x1="22" y1="8" x2="17" y2="13"></line></svg>
+          {% trans "Band shifokorlar" %}
+        </a>
         <div class="nav-indicator"></div>
       </nav>
     </div>

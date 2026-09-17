@@ -1252,3 +1252,110 @@ darhol yangilash kerak (6-bo'limdagi qoidaga muvofiq).
 
 ---
 
+### 3.32 Tuzatildi — Ma'ruzachilar sidebar bug'i, taqvim CSS/iconkalar, "Band shifokorlar" bo'limi (2026-09-16/17)
+
+Foydalanuvchi 4 ta narsani xabar qildi: (1) "Ma'ruzachilar"ni bosganda
+sidebar'da "Tadbirlar" yoritilib qolyapti, (2) taqvimda CSS/iconka
+muammolari bor, (3) public dashboard'ga "Band shifokorlar" (rahbariyat
+uchun, qaysi shifokor qatnasha olmasligi va sababi) bo'limi kerak, (4) avval
+tuzatilgan "HOZIR" chizig'i baribir sekin yangilanyapti.
+
+- **`apps/events/views.py`**: `SpeakerListView.get_context_data()`da
+  `context["nav_key"] = "events"` qattiq yozilgan edi — `"speakers"`ga
+  tuzatildi; `SpeakerCreateView`/`SpeakerUpdateView`ga ham `nav_key="speakers"`
+  qo'shildi. Regressiya testi: `tests/test_final_acceptance_blockers.py::
+  test_speaker_pages_highlight_the_speakers_sidebar_item_not_events`.
+- **Yangi `apps/reporting/views.py::PublicBusyDoctorsView`** +
+  **`templates/public/busy_doctors.html`** + **`config/urls.py`**
+  (`doctors/busy/` → `public-busy-doctors`): "hozir band", "bugun band",
+  "bu hafta band" KPI kartalari va har bir band shifokor uchun sabab/vaqt
+  oralig'i ko'rsatiladigan kartochkalar. `templates/public/base.html`ga
+  navigatsiyaga 4-tugma qo'shildi. Testlar: `tests/test_public_busy_doctors.py`
+  (5 ta test).
+- **Taqvim CSS/lokal nomlash** (`templates/events/calendar.html`): FullCalendar
+  o'zining "uz" lokali oy/hafta kun nomlarini umuman bermaydi — bu holat
+  ICU fallback orqali buzuq sarlavha ("2026 M09") va inglizcha kun
+  nomlarini keltirib chiqargan edi. Endi o'z `MONTH_NAMES`/`WEEKDAY_SHORT`
+  massivlari va `formatCalendarTitle()`/`dayHeaderContent` orqali qo'lda
+  formatlanadi. Shuningdek, `fullcalendar` meta-paketida alohida CSS fayli
+  yo'qligi va `locales-all` to'plami mavjud emasligi (jsdelivr API orqali
+  tasdiqlandi) sababli noto'g'ri `<link>`/`<script>` manzillari to'g'irlandi.
+- **`static/css/public.css`**: 4 ta segmentli nav uchun `nav-indicator`
+  matematikasi (`width: calc(25% - 6px)`, `translateX` 4 ta `nth-child`
+  qoidasi) 3 tadan 4 tagacha yangilandi.
+
+**Tekshiruv**: `manage.py check`, 378/379 test o'tdi (1 ta bu ishga
+aloqasi yo'q), Playwright skrinshotlari orqali barcha 4 band tasdiqlandi.
+
+---
+
+### 3.33 Tuzatildi — Band shifokorlar nav pill, taqvim strelka iconkasi, filtr paneli (2026-09-17)
+
+3.32'dan keyin foydalanuvchi yana uchta kosmetik muammoni topdi: (1) "Band
+shifokorlar" tanlanganda ko'k pill icon+matnni to'liq o'rab olmayapti —
+icon pill chap chetidan tashqarida "yopishib" qolayapti, (2) taqvimdagi
+oldinga/orqaga tugmalar iconkasi tўртburchak (kvadrat) bo'lib ko'rinyapti,
+(3) taqvimning filtr paneli (Zal/Turi/Xolat) ikki qatorga bo'linib,
+"biroz xunuk" ko'rinyapti.
+
+**Ildiz sabablari va tuzatishlar:**
+
+1. **Nav pill "yopishib qolish"** — `.premium-segment-btn`da `white-space:
+   nowrap` yo'q edi, shuning uchun eng uzun yorliq ("Band shifokorlar")
+   ikki qatorga bukilib, icon pill tashqarisida qolib ketardi (nav
+   `max-width:580px`ni 4 ta teng segmentga bo'lganda har biriga atigi
+   ~138px tegardi). `static/css/public.css`: nav `max-width` 580px→720px,
+   `.premium-segment-btn`ga `white-space: nowrap` va `padding: 0 10px`
+   qo'shildi — endi barcha 4 ta tugma bir qatorda, pill icon+matnni
+   to'liq qamrab oladi (Playwright orqali tasdiqlandi: barcha tugmalar
+   balandligi bir xil 42px, indikator koordinatasi faol tugma bilan
+   aniq mos keladi).
+2. **Taqvim strelka iconkasi kvadrat bo'lib ko'rinishi — asl sabab CSS
+   sintaksis xatosi edi, faqat kosmetika emas**: `static/css/calendar.css`
+   ichida `@media (max-width: 768px) { ... }` bloki (573-qator atrofida)
+   yopilmagan holda qolgan edi (yo'qolgan `}`), shuning uchun undan keyin
+   kelgan **butun "FullCalendar Enterprise Styling" bo'limi (`.fc`,
+   `.fc-toolbar`, `.fc-button-group`, `.fc-icon` va h.k., ~430 qator)**
+   tasodifan faqat `max-width:768px` (mobil) ostida joylashib qolgan va
+   desktop'da HECH QACHON qo'llanilmagan edi — shuning uchun brauzer
+   FullCalendar'ning o'z ichki icon-font uslubini (`font-size:1.5em`,
+   `content:""`) ishlatgan, u esa CSP tomonidan bloklangan `data:`
+   shrift URL'ga tayanib bo'sh kvadrat sifatida ko'ringan. Fayl oxirida
+   (1083–1088-qatorlar) yana bitta buzuq joy topildi: ikkita ustma-ust
+   ochilgan, yopilmagan `@media` bloki (`min-width:769px` va
+   `max-width:768px`) — bu esa butun faylning qolgan qismini (hattoki
+   `.tippy-box` va boshqa keyingi qoidalarni) brauzer CSSOM'ida noto'g'ri
+   guruhlagan (jami muvozanatsizlik: 3 ta ortiqcha ochilgan qavs, sinov
+   skripti bilan tasdiqlandi). Ikkala joy ham tuzatildi: yo'qolgan `}`
+   qo'shildi va ortiqcha ikkita `@media` ochuvchi qatori olib tashlandi
+   (`.calendar-filters.premium-filters` — bu `templates/public/calendar.html`
+   uchun ishlatiladigan, boshqa mustaqil komponent — o'zgarishsiz qoldi,
+   faqat noto'g'ri joylashgan qavslari tuzatildi). Shundan keyin
+   `.fc .fc-icon`dagi avvalgi tuzatish (font-size:0, chevron belgi
+   `::before` orqali) nihoyat haqiqatan qo'llanila boshladi. Bonus fix:
+   o'sha qoidada `width/height: 1em` `font-size:0` bilan birga 0px'ga
+   aylanib, iconning o'zi va uning `::before`si (`inset:0`) yig'ilib
+   ketayotgan edi — `16px`ga o'zgartirildi.
+3. **Filtr paneli ikki qatorga bo'linishi** — `.command-filter-form`
+   (`static/css/components.css`) barcha ro'yxat sahifalari uchun umumiy
+   `max-width:720px` bilan cheklangan (odatda 1-2 ta dropdown uchun
+   yetarli). Taqvim sahifasida 3 ta dropdown + 2 ta tugma bor, ularning
+   umumiy kengligi 720px'dan oshib, qatorga sig'maganda ikkinchi qatorga
+   tushib ketardi. `templates/events/calendar.html`ga sahifaga xos
+   `.calendar-toolbar-row .command-filter-form { max-width: none; }`
+   qo'shildi — endi to'liq mavjud kenglikni egallab, bitta qatorda tekis
+   joylashadi.
+
+**Tekshiruv**: brauzer CSSOM darajasida qavslar muvozanati dasturiy
+tekshirildi (`{` va `}` soni endi teng — avval 201 vs 198, endi 201 vs
+201), Playwright orqali barcha uchala tuzatish live serverda skrinshot va
+`getBoundingClientRect`/`getComputedStyle` bilan tasdiqlandi (icon endi
+16×16px, `content: "‹"`; filtr paneli balandligi 104px→58px, bitta
+qatorda; nav indikatori koordinatasi faol tugma bilan aniq mos keladi),
+`manage.py check` toza, to'liq test to'plami (379 test) o'tdi. Dasturiy
+test qo'shilmadi — bu sof CSS/vizual tuzatish, mavjud
+`test_public_busy_doctors.py` va boshqa view-darajasidagi testlar
+o'zgarishsiz o'tadi.
+
+---
+

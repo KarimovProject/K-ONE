@@ -4723,3 +4723,30 @@ msgstr "Include sponsors"
 
 msgid "Scheduled for"
 msgstr "Scheduled for"
+
+msgid "Band shifokorlar"
+msgstr "Busy doctors"
+
+msgid "RAHBARIYAT UCHUN KO'RINISH"
+msgstr "LEADERSHIP VIEW"
+
+msgid ""
+"Qaysi ma'ruzachi shifokorlar hozir yoki yaqin kunlarda qatnasha olmasligi va"
+" sababi."
+msgstr ""
+"Which speaker doctors can't attend right now or in the coming days, and why."
+
+msgid "Hozir band"
+msgstr "Busy now"
+
+msgid "Bugun band"
+msgstr "Busy today"
+
+msgid "Bu hafta band"
+msgstr "Busy this week"
+
+msgid "Sababi"
+msgstr "Reason"
+
+msgid "Hozircha band shifokor yo'q"
+msgstr "No busy doctors right now"

@@ -167,7 +167,7 @@ html {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), var(--color-nav-shadow);
   gap: 4px;
   width: 100%;
-  max-width: 440px;
+  max-width: 720px;
 }
 
 .public-main-nav.premium-segmented-nav .premium-segment-btn {
@@ -180,12 +180,14 @@ html {
   min-width: 0;
   flex: 1;
   height: 42px;
+  padding: 0 10px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--color-text-muted);
   text-decoration: none !important;
   border-radius: 100px;
+  white-space: nowrap;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -226,7 +228,7 @@ html {
   top: 6px;
   bottom: 6px;
   left: 6px;
-  width: calc(33.333% - 6.66px);
+  width: calc(25% - 6px);
   background: linear-gradient(135deg, #145CFF 0%, #16BCEB 100%);
   border-radius: 100px;
   box-shadow: 0 4px 14px rgba(20, 92, 255, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
@@ -235,10 +237,11 @@ html {
   pointer-events: none;
 }
 
-/* Transforms for active states */
+/* Transforms for active states (4 segments) */
 .public-main-nav.premium-segmented-nav .premium-segment-btn:nth-child(1).active ~ .nav-indicator { transform: translateX(0); }
 .public-main-nav.premium-segmented-nav .premium-segment-btn:nth-child(2).active ~ .nav-indicator { transform: translateX(calc(100% + 4px)); }
 .public-main-nav.premium-segmented-nav .premium-segment-btn:nth-child(3).active ~ .nav-indicator { transform: translateX(calc(200% + 8px)); }
+.public-main-nav.premium-segmented-nav .premium-segment-btn:nth-child(4).active ~ .nav-indicator { transform: translateX(calc(300% + 12px)); }
 
 .public-header__actions {
   display: flex;

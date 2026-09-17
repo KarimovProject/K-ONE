@@ -5170,3 +5170,31 @@ msgstr "Добавить спонсоров"
 
 msgid "Scheduled for"
 msgstr "Запланировано на"
+
+msgid "Band shifokorlar"
+msgstr "Занятые врачи"
+
+msgid "RAHBARIYAT UCHUN KO'RINISH"
+msgstr "ДЛЯ РУКОВОДСТВА"
+
+msgid ""
+"Qaysi ma'ruzachi shifokorlar hozir yoki yaqin kunlarda qatnasha olmasligi va"
+" sababi."
+msgstr ""
+"Какие врачи-докладчики сейчас или в ближайшие дни не смогут участвовать, и "
+"по какой причине."
+
+msgid "Hozir band"
+msgstr "Сейчас заняты"
+
+msgid "Bugun band"
+msgstr "Заняты сегодня"
+
+msgid "Bu hafta band"
+msgstr "Заняты на этой неделе"
+
+msgid "Sababi"
+msgstr "Причина"
+
+msgid "Hozircha band shifokor yo'q"
+msgstr "Пока нет занятых врачей"
