@@ -19,6 +19,8 @@ celerybeat-schedule*
 celerybeat-*
 backups/
 restore-media/
+qa_screenshots/
+scratch_py_missing.json
 
 # Phase 25 generated audit files
 tests/visual_baseline/**/*.png

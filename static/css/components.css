@@ -400,6 +400,16 @@ select {
   margin-top: var(--space-4);
 }
 
+.form-field.has-error input,
+.form-field.has-error select,
+.form-field.has-error textarea,
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+  border-color: var(--color-danger, #DC2626) !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
+
 .form-field--checkbox {
   flex-direction: row;
   align-items: center;

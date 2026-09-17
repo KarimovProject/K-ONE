@@ -19,6 +19,8 @@ class ProductionSecurityHeadersMiddleware:
             "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
             "connect-src 'self'; form-action 'self'",
         )
-        if request.path.startswith(("/event/", "/api/v1/public/", "/display/")):
+        if request.path.startswith(
+            ("/event/", "/api/v1/public/", "/display/", "/doctors/busy/", "/api/public/")
+        ):
             response["Cache-Control"] = "private, no-store, max-age=0"
         return response

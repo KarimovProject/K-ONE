@@ -4589,3 +4589,31 @@ msgstr "%(var)s okunmamış bildiriminiz var."
 
 msgid "Yangi bildirishnomalar"
 msgstr "Yeni bildirimler"
+
+msgid "Band shifokorlar"
+msgstr "Meşgul doktorlar"
+
+msgid "Bu hafta band"
+msgstr "Bu hafta meşgul"
+
+msgid "Bugun band"
+msgstr "Bugün meşgul"
+
+msgid "Hozir band"
+msgstr "Şu anda meşgul"
+
+msgid "Hozircha band shifokor yo'q"
+msgstr "Şu anda meşgul doktor yok"
+
+msgid ""
+"Qaysi ma'ruzachi shifokorlar hozir yoki yaqin kunlarda qatnasha olmasligi va"
+" sababi."
+msgstr ""
+"Hangi konuşmacı doktorların şu anda veya önümüzdeki günlerde katılamayacağı "
+"ve nedeni."
+
+msgid "RAHBARIYAT UCHUN KO'RINISH"
+msgstr "YÖNETİM GÖRÜNÜMÜ"
+
+msgid "Sababi"
+msgstr "Nedeni"

@@ -1359,3 +1359,65 @@ o'zgarishsiz o'tadi.
 
 ---
 
+### 3.34 Bajarildi — To'liq loyiha auditi va topilgan kamchiliklarni tuzatish (2026-09-17)
+
+Foydalanuvchi loyihani topshirishdan oldin "ipidan ignasigacha" to'liq audit
+so'radi — bog'liqliklar, sozlamalar, migratsiyalar, testlar, statik fayllar,
+tarjimalar, xavfsizlik va repo tozaligi. Audit natijasida topilgan va
+tuzatilgan narsalar:
+
+1. **Turkcha tarjimada 8 ta yangi satr yo'q edi** (3.32'da qo'shilgan "Band
+   shifokorlar" sahifasi uchun) — bu shu sessiyaning o'z regressiyasi edi.
+   `locale/tr/LC_MESSAGES/django.po`ga ru/en tarjimalaridan aniq ma'no olib
+   8 ta yozuv qo'shildi, barcha 4 tilning `.mo` fayllari qayta kompilyatsiya
+   qilindi (`polib` orqali, gettext vositalari bu Windows muhitida yo'q).
+2. **`.has-error` klassi hech qayerda stillanmagan edi** — wizard 1-5
+   qadam, event tahrirlash, nashr formasi, master-data formalarida xato
+   maydon `has-error` klassini olardi, lekin chegarasi vizual jihatdan
+   o'zgarmasdi (faqat pastdagi qizil matn ko'rinardi).
+   `static/css/components.css`ga `.form-field.has-error input/select/
+   textarea` va `.form-group.has-error ...` uchun qizil chegara + soya
+   qo'shildi. Test: `client.post` orqali bo'sh formani yuborib, javobda
+   `has-error` klassi borligi va CSS qoidasi mos kelishi tasdiqlandi.
+3. **Yangi "Band shifokorlar" sahifasida `Cache-Control: no-store` yo'q
+   edi** — shifokorning shaxsiy sababi umumiy/kiosk kompyuterda keshda
+   qolishi mumkin edi. `config/middleware.py::
+   ProductionSecurityHeadersMiddleware`dagi maxfiy-sahifalar ro'yxatiga
+   `/doctors/busy/` va `/api/public/` prefikslari qo'shildi. Playwright
+   orqali ikkalasi ham endi `private, no-store, max-age=0` qaytarishi
+   tasdiqlandi.
+4. **`requirements/base.txt`da `psycopg[binary]` versiyasiz edi** —
+   reproducibility uchun xavfli (build vaqtida boshqa versiya kelishi
+   mumkin). O'rnatilgan haqiqiy versiyaga (`3.3.5`) mahkamlandi.
+5. **Repo tozaligi**: `scratch_py_missing.json` (39KB, eski tarjima-audit
+   debug-artefakti) butunlay o'chirildi; `qa_screenshots/` (18MB, 66 ta
+   tarixiy QA skrinshot) git kuzatuvidan chiqarildi (`git rm --cached`) —
+   fayllar diskda qoladi, lekin endi commit qilinmaydi. Ikkalasi ham
+   `.gitignore`ga qo'shildi. Bir nechta 0-baytli tasodifiy fayl (`3.13`,
+   `button` va h.k. — terminal buyruqlaridan qolgan xato) ham tozalandi.
+
+**Audit davomida tasdiqlangan, MUAMMO TOPILMAGAN sohalar**: Python/JS
+sintaksis (barcha fayl), Django `check`, migratsiyalar (yetishmayotgan/
+qo'llanilmagan yo'q), to'liq test to'plami (379/379), CSS qavslar balansi
+(barcha 13 fayl), shablonlardagi barcha `{% static %}` va `{% url %}`
+havolalari (110 ta nom — hammasi ro'yxatdan o'tgan), xavfsizlik naqshlari
+(`|safe`, `mark_safe`, xom SQL, `eval`/`exec`/`pickle`, `csrf_exempt` —
+birortasi yo'q), fayl yuklash validatsiyasi (kengaytma+hajm+content-type+
+magic-byte+PIL dekod), CSP sarlavhasi, `pip check`, tarjima bo'sh/fuzzy
+yozuvlar. Django 5.2.16 va Pillow 12.3.0 — ikkalasi ham veb-qidiruv orqali
+tasdiqlangan eng so'nggi xavfsizlik-tuzatilgan versiyalar.
+
+**Ochiq qoldirilgan (foydalanuvchi qarori kerak, kod o'zgarishi emas)**:
+`en.po`da 95 ta, `tr.po`da qolgan ~125 ta (yangi 8 tadan tashqari)
+o'zbekcha/inglizcha manba-satr tarjima qilinmagan — bular eski, oldindan
+mavjud fazalardan qolgan, katta hajmli va sifatli tarjimon ishi talab
+qiladigan alohida vazifa (`goals.md` 4-bo'lim, band 7ga qarang);
+`scripts/` papkasidagi 188 ta bir martalik skript arxivlash masalasi
+hamon ochiq.
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (379 test)
+o'tdi, Playwright orqali `.has-error` va `Cache-Control` tuzatishlari
+jonli serverda tasdiqlandi, `pip check` ziddiyatsiz.
+
+---
+

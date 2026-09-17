@@ -5,12 +5,12 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-17 (ma'ruzachilar sidebar bug'i, taqvim
-CSS/lokalizatsiya, "Band shifokorlar" bo'limi qo'shildi; so'ngra taqvim
-faylida ikkita CSS sintaksis xatosi (yopilmagan `@media` bloklari) topilib
-tuzatildi — bu strelka iconkasi va boshqa desktop uslublarining ishlamay
-qolishining haqiqiy sababi edi; nav pill va filtr paneli tuzatildi — to'liq
-tafsilot `docs/CHANGELOG.md`dagi 3.25–3.33-bo'limlarda)
+Oxirgi yangilanish: 2026-09-17 (topshirishdan oldin to'liq loyiha auditi
+o'tkazildi — tr tarjima regressiyasi, `.has-error` stil kamchiligi,
+`Cache-Control` bo'shlig'i, versiyasiz dependency, repo tozaligi tuzatildi;
+bundan oldin: ma'ruzachilar sidebar bug'i, taqvim CSS/lokalizatsiya, "Band
+shifokorlar" bo'limi, taqvimdagi CSS sintaksis xatosi, nav pill va filtr
+paneli — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.34-bo'limlarda)
 
 ---
 
@@ -102,6 +102,12 @@ muvaffaqiyatsizliklar tuzatilgan).
   bu butun bir CSS bo'limini tasodifan faqat mobil rejimga
   cheklab qo'ygan edi) va filtr panelining ikki qatorga bo'linib
   ketishi tuzatildi.
+- **To'liq loyiha auditi (topshirishdan oldin)** — tr tarjimadagi 8 ta
+  yangi satr regressiyasi, `.has-error` forma-xato stilining butunlay
+  yo'qligi, yangi "Band shifokorlar" sahifasida `Cache-Control: no-store`
+  yo'qligi, `psycopg[binary]` versiyasiz ekanligi, repo'da 18MB tarixiy
+  QA skrinshot va eski debug-artefakt (`scratch_py_missing.json`)
+  saqlanib qolgani — barchasi topilib tuzatildi.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).
