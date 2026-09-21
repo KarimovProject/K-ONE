@@ -1569,3 +1569,57 @@ matni skrinshotda ko'rsatilgandek to'g'ri chiqishi tekshirildi.
 
 ---
 
+### 3.38 Tuzatildi — Filtr qidiruv oynasi iconka bilan yopishib qolgan, "Barcha holatlar" o'rniga "Barcha xonalar" chiqishi (2026-09-21)
+
+Foydalanuvchi: "filtr qilish oynasi g'alati bo'lib qolgan, yozish
+joyida lupachaning iconkasi bilan yopishib ketgan va ba'zi filtrlar
+to'g'ri ishlamayotgandek." Bu **ikkita mustaqil, aralashib ketgan bug**
+ekan:
+
+1. **CSS specificity bug** — `static/css/components.css`da "FORMS &
+   INPUTS" bo'limidagi umumiy `input[type="search"]`/`input[type="date"]`
+   qoidasi (elementga bog'langan atribut selektor, specificity (0,1,1))
+   pastroqdagi `.command-search-input`/`.command-date-input` klass
+   selektoridan (0,1,0) KUCHLIROQ edi — shuning uchun qidiruv maydonining
+   `padding-left: 36px` (iconkaga joy qoldirish uchun) `padding: 0
+   var(--space-3)`ga qisqarib, matn iconka ustiga "yopishib" qolardi;
+   shu bilan birga oddiy pill dizayn o'rniga qattiq chegara/orqa fon
+   qaytib kelardi. Bu — `master_data/filters.html` orqali Tashkilotlar,
+   Homiylar, Zallar, Tadbir turlari sahifalarida, shuningdek
+   `events/event_list.html` va `events/approval_center.html`da
+   qo'llaniladi — foydalanuvchining "har xil bo'limlarda" degani aynan
+   shunga to'g'ri keladi. Tuzatish: `.command-search-input` va
+   `.command-date-input` qoidalari ota-ona klass bilan birga
+   (`.command-search-wrap .command-search-input`,
+   `.command-filter-form .command-date-input`) yozildi — bu specificity'ni
+   (0,2,0)ga oshirib, umumiy qoidadan g'olib chiqadi.
+2. **Tarjima korruptsiyasi (haqiqiy "filtr noto'g'ri ishlayapti" hissi
+   shundan kelib chiqqan)** — `locale/uz/LC_MESSAGES/django.po`da UCH TA
+   yozuv, manba matni (`msgid`) allaqachon o'zbekcha bo'lishiga
+   qaramay, BUTUNLAY BOSHQA (lekin baribir o'zbekcha) matnga
+   tarjima qilingan edi — avtomatik/ommaviy tarjima vositasining
+   noto'g'ri "fuzzy match"i natijasi (xuddi shu turdagi muammo avval
+   `tr.po`da ham topilgan edi, 3.20-bandga qarang):
+   - `"Barcha holatlar"` (All statuses) → **`"Barcha xonalar"`** (All
+     rooms) bo'lib chiqqan — shuning uchun Tashkilotlar/Zallar/Tadbirlar
+     sahifasidagi status filtri "Barcha xonalar" deb noto'g'ri ko'rsatilardi.
+   - `"Barcha tadbirlar yagona tizimda"` (K-ONE shiori, 6 ta shablonda
+     ishlatiladi: login, register, sidebar va h.k.) → **`"Barcha
+     qurilmalar yagona tizimda"`** bo'lib chiqqan.
+   - Zallar sahifasi tavsifidagi bitta jumla ham grammatik jihatdan
+     buzilgan edi ("zallarining" → "uchrashuvlarining zal").
+   Uchalasi ham dasturiy audit orqali topildi (uz.po'da `msgid == msgstr`
+   bo'lishi kutiladigan, lekin bo'lmagan yozuvlarni skanerlash) va
+   ru/ru/en/tr tarjimalari bilan tekshirilib (ular hammasi to'g'ri edi —
+   faqat uz.po buzilgan edi), identity qiymatga qaytarildi. Bonus: xuddi
+   shu skanerlash `"Operatsion holatda"` → `"Operation holatda"` (aralash
+   til) yozuvini ham topdi, u ham tuzatildi.
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (388 test)
+o'tdi, Playwright orqali Tashkilotlar va Tadbirlar sahifalarida qidiruv
+maydonining `padding-left` (36px), border/orqa fon va status filtrining
+to'g'ri "Barcha holatlar" matni bilan chiqishi skrinshot orqali
+tasdiqlandi.
+
+---
+

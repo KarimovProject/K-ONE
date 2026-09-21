@@ -2280,7 +2280,7 @@ msgstr ""
 
 #: template:0
 msgid "Operatsion holatda"
-msgstr "Operation holatda"
+msgstr "Operatsion holatda"
 
 #: template:0
 msgid "Confirm Reschedule"
@@ -2304,7 +2304,7 @@ msgstr "PDF yuklash"
 
 #: template:0
 msgid "Barcha holatlar"
-msgstr "Barcha xonalar"
+msgstr "Barcha holatlar"
 
 #: template:0
 msgid "Bot configured"
@@ -3146,7 +3146,7 @@ msgstr "Keyingi: Ko'rib chiqish va yuborish →"
 
 #: template:0
 msgid "Barcha tadbirlar yagona tizimda"
-msgstr "Barcha qurilmalar yagona tizimda"
+msgstr "Barcha tadbirlar yagona tizimda"
 
 #: template:0
 msgid "Planned Date"
@@ -3459,7 +3459,7 @@ msgid ""
 "Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va "
 "navbatdagi dasturlari."
 msgstr ""
-"Barcha faol kongress va uchrashuvlarining zal real vaqtdagi bandligi va "
+"Barcha faol kongress va uchrashuv zallarining real vaqtdagi bandligi va "
 "navbatdagi dasturlari."
 
 #: template:0

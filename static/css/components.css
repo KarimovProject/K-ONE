@@ -555,7 +555,13 @@ select {
   pointer-events: none;
 }
 
-.command-search-input {
+/* Specificity note: the generic `input[type="search"]`/`input[type="date"]`
+   rules above (FORMS & INPUTS) have higher specificity (0,1,1) than a
+   plain class selector (0,1,0) and would otherwise win, collapsing the
+   left padding these need to clear the search icon and reintroducing a
+   boxed border/background — hence the extra `.command-search-wrap`/
+   `.command-filter-form` parent qualifier on every rule below. */
+.command-search-wrap .command-search-input {
   width: 100%;
   height: 38px;
   padding-left: 36px;
@@ -569,11 +575,11 @@ select {
   transition: background var(--duration-fast);
 }
 
-.command-search-input:hover {
+.command-search-wrap .command-search-input:hover {
   background: var(--color-surface-hover);
 }
 
-.command-search-input:focus {
+.command-search-wrap .command-search-input:focus {
   background: var(--color-surface-2);
   box-shadow: var(--shadow-focus);
   outline: none;
@@ -586,7 +592,7 @@ select {
   flex-shrink: 0;
 }
 
-.command-date-input {
+.command-filter-form .command-date-input {
   height: 38px;
   padding: 0 12px;
   background: transparent;
@@ -599,8 +605,8 @@ select {
   transition: background var(--duration-fast);
 }
 
-.command-date-input:hover { background: var(--color-surface-hover); }
-.command-date-input:focus { background: var(--color-surface-2); box-shadow: var(--shadow-focus); outline: none; }
+.command-filter-form .command-date-input:hover { background: var(--color-surface-hover); }
+.command-filter-form .command-date-input:focus { background: var(--color-surface-2); box-shadow: var(--shadow-focus); outline: none; }
 
 .command-filter-actions {
   display: flex;

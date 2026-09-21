@@ -5,12 +5,12 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (tasdiqlanmagan hisob bilan kirishga
-urinilganda "arizangiz ko'rib chiqilmoqda" aniq xabari qo'shildi —
-shu jarayonda login.html'dagi qattiq kodlangan xato-matn bug'i ham
-topilib tuzatildi; bundan oldin: ro'yxatdan o'tgandan keyingi tasdiqlash
-sahifasi, telefon/email validatsiyasi, topshirishdan oldingi to'liq
-audit — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.37-bo'limlarda)
+Oxirgi yangilanish: 2026-09-21 (barcha ro'yxat sahifalaridagi qidiruv
+filtri iconka bilan yopishib qolishi (CSS specificity bug) va
+"Barcha holatlar" o'rniga "Barcha xonalar" chiqishi (uz.po tarjima
+korruptsiyasi) tuzatildi; bundan oldin: tasdiqlanmagan hisob bilan
+kirishda aniq xabar, ro'yxatdan o'tish tasdiqlash sahifasi, telefon/email
+validatsiyasi — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.38-bo'limlarda)
 
 ---
 
@@ -128,6 +128,16 @@ muvaffaqiyatsizliklar tuzatilgan).
   matn chiqishi) ham topilib tuzatildi. Yangi `User.approved_at`
   maydoni "hech qachon tasdiqlanmagan" va "avval tasdiqlangan, keyin
   o'chirilgan" holatlarni farqlaydi.
+- **Ro'yxat sahifalari filtri** — ikkita mustaqil bug: (1) qidiruv
+  maydonining `padding-left`i umumiy `input[type="search"]` qoidasi
+  tomonidan bosib qolinib, matn lupacha iconkasi ustiga yopishib
+  qolardi (CSS specificity muammosi — endi ota-ona klass bilan
+  scope qilindi); (2) `uz.po`da "Barcha holatlar" tarjimasi tasodifan
+  "Barcha xonalar" bo'lib qolgan edi (avtomatik tarjima vositasining
+  xato fuzzy-match natijasi) — status filtri barcha ro'yxat
+  sahifalarida noto'g'ri nom bilan chiqardi. Shu skanerlash orqali
+  yana ikkita shunga o'xshash uz.po korruptsiyasi (K-ONE shiori va
+  "Operatsion holatda" yozuvi) ham topilib tuzatildi.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).
