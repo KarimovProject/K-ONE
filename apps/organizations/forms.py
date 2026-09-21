@@ -26,6 +26,7 @@ class OrganizationForm(forms.ModelForm):
         widgets = {
             "notes": forms.Textarea(attrs={"rows": 4}),
             "logo": forms.ClearableFileInput(attrs={"accept": "image/jpeg,image/png,image/webp"}),
+            "phone": forms.TextInput(attrs={"type": "tel", "inputmode": "tel"}),
         }
 
 
@@ -49,4 +50,5 @@ class SponsorForm(forms.ModelForm):
             "description": forms.Textarea(attrs={"rows": 4}),
             "notes": forms.Textarea(attrs={"rows": 4}),
             "logo": forms.ClearableFileInput(attrs={"accept": "image/jpeg,image/png,image/webp"}),
+            "phone": forms.TextInput(attrs={"type": "tel", "inputmode": "tel"}),
         }

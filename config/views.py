@@ -3,10 +3,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
+from apps.accounts.forms import PendingApprovalAwareLoginForm
 from config.rate_limit import clear_rate_limit, is_rate_limited
 
 
 class ThrottledLoginView(auth_views.LoginView):
+    authentication_form = PendingApprovalAwareLoginForm
+
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username", "").strip().lower()[:150]
         if is_rate_limited(request, "login", 10, 300, username):

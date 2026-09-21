@@ -5,12 +5,12 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-17 (topshirishdan oldin to'liq loyiha auditi
-o'tkazildi — tr tarjima regressiyasi, `.has-error` stil kamchiligi,
-`Cache-Control` bo'shlig'i, versiyasiz dependency, repo tozaligi tuzatildi;
-bundan oldin: ma'ruzachilar sidebar bug'i, taqvim CSS/lokalizatsiya, "Band
-shifokorlar" bo'limi, taqvimdagi CSS sintaksis xatosi, nav pill va filtr
-paneli — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.34-bo'limlarda)
+Oxirgi yangilanish: 2026-09-21 (tasdiqlanmagan hisob bilan kirishga
+urinilganda "arizangiz ko'rib chiqilmoqda" aniq xabari qo'shildi —
+shu jarayonda login.html'dagi qattiq kodlangan xato-matn bug'i ham
+topilib tuzatildi; bundan oldin: ro'yxatdan o'tgandan keyingi tasdiqlash
+sahifasi, telefon/email validatsiyasi, topshirishdan oldingi to'liq
+audit — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.37-bo'limlarda)
 
 ---
 
@@ -108,6 +108,26 @@ muvaffaqiyatsizliklar tuzatilgan).
   yo'qligi, `psycopg[binary]` versiyasiz ekanligi, repo'da 18MB tarixiy
   QA skrinshot va eski debug-artefakt (`scratch_py_missing.json`)
   saqlanib qolgani — barchasi topilib tuzatildi.
+- **Telefon/email validatsiyasi** — telefon maydoni (registratsiya,
+  tashkilot, homiy formalari) avval hech qanday format tekshiruvisiz edi;
+  endi faqat raqam/`+ - ( )` qabul qiladi, 9-15 raqam oralig'ini talab
+  qiladi, mobil klaviaturani raqamli qiladi va yozish jarayonida harflarni
+  avtomatik tozalaydi. Registratsiya sahifasida xato maydon endi qizil
+  chegara bilan ajratiladi (avval faqat matn ko'rinardi).
+- **Ro'yxatdan o'tish tasdiqlash sahifasi** — haqiqiy bug tufayli
+  (`base.html`dagi `{% if messages %}` faqat autentifikatsiyadan o'tgan
+  foydalanuvchilar uchun ishlardi) "arizangiz adminga yuborildi" xabari
+  hech qachon ko'rinmasdi. Endi alohida sahifa: ✓ belgisi, foydalanuvchi
+  nomi va 3 bosqichli tushuntirish ("ariza yuborildi → admin ko'rib
+  chiqmoqda → tizimga kirasiz").
+- **Tasdiqlanmagan hisob bilan kirish** — to'g'ri login/parol, lekin
+  hali faollashtirilmagan hisob uchun endi aniq "arizangiz ko'rib
+  chiqilmoqda" xabari chiqadi (avval umumiy "login/parol noto'g'ri"
+  xabari bilan bir xil edi). Shu jarayonda `login.html`da xato matnining
+  qattiq kodlangani (forma xatosi mazmunidan qat'iy nazar doim bir xil
+  matn chiqishi) ham topilib tuzatildi. Yangi `User.approved_at`
+  maydoni "hech qachon tasdiqlanmagan" va "avval tasdiqlangan, keyin
+  o'chirilgan" holatlarni farqlaydi.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).

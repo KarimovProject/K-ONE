@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% get_current_language as CURRENT_LANGUAGE %}
+
+{% block title %}K-ONE — {% trans "Ariza yuborildi" %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}?v=27.21">
+<style>
+  .submitted-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+  .submitted-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(16, 185, 129, 0.12);
+    margin-bottom: 8px;
+    animation: submittedPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .submitted-icon-wrap svg { color: #10B981; }
+  @keyframes submittedPop {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  .submitted-username {
+    font-weight: 700;
+    color: var(--color-cobalt, #2563EB);
+  }
+  .submitted-steps {
+    width: 100%;
+    text-align: left;
+    margin: 28px 0 8px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .submitted-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .submitted-step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    background: #EEF4FA;
+    color: #2563EB;
+  }
+  .submitted-steps li.is-done .submitted-step-num {
+    background: #10B981;
+    color: #fff;
+  }
+  .submitted-step-title {
+    font-weight: 600;
+    color: #0F172A;
+    font-size: 14.5px;
+    margin: 0 0 2px;
+  }
+  .submitted-step-desc {
+    font-size: 13.5px;
+    color: #64748B;
+    margin: 0;
+  }
+  [data-theme="dark"] .submitted-step-num { background: #1E293B; color: #93C5FD; }
+  [data-theme="dark"] .submitted-step-title { color: #F1F5F9; }
+  [data-theme="dark"] .submitted-step-desc { color: #94A3B8; }
+</style>
+{% endblock %}
+
+{% block unauthenticated_content %}
+<section class="auth-brand-panel" aria-hidden="true">
+  <div class="auth-brand-inner">
+    <div class="auth-brand-logo-wrap">
+      <img src="{% static 'img/k-one/k-one-official-transparent.png' %}" alt="K-ONE" class="auth-brand-logo" width="230" height="230">
+    </div>
+    <p class="auth-brand-tagline">{% trans "Barcha tadbirlar yagona tizimda" %}</p>
+    <p class="auth-brand-desc">{% trans "Xalqaro tadbirlarga shifokor sifatida qatnashish uchun ro'yxatdan o'ting. Arizangiz administrator tomonidan ko'rib chiqiladi." %}</p>
+  </div>
+</section>
+
+<section class="auth-form-panel">
+  <div class="auth-form-inner">
+    <div class="auth-toolbar">
+      <form class="auth-lang-switch" action="{% url 'set_language' %}" method="post" aria-label="{% trans 'Language' %}">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+        {% for code, name in LANGUAGES %}
+          <button name="language" value="{{ code }}" type="submit"{% if code == CURRENT_LANGUAGE %} class="is-active" aria-current="true"{% endif %}>{{ code|upper }}</button>
+        {% endfor %}
+      </form>
+      <button type="button" class="auth-theme-toggle" id="auth-theme-toggle" aria-label="{% trans 'Mavzuni o\'zgartirish' %}" data-theme-toggle>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+
+    <div class="submitted-card">
+      <div class="submitted-icon-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+
+      <div class="auth-form-header" style="margin-bottom: 0;">
+        <h1 class="auth-form-title">{% trans "Arizangiz qabul qilindi!" %}</h1>
+        <p class="auth-form-subtitle">{% trans "Ro'yxatdan o'tish arizangiz muvaffaqiyatli qabul qilindi." %}</p>
+        {% if username %}
+        <p class="auth-form-subtitle submitted-username">
+          {% blocktrans %}Foydalanuvchi nomi: {{ username }}{% endblocktrans %}
+        </p>
+        {% endif %}
+      </div>
+
+      <ol class="submitted-steps">
+        <li class="is-done">
+          <span class="submitted-step-num">✓</span>
+          <div>
+            <p class="submitted-step-title">{% trans "Ariza yuborildi" %}</p>
+            <p class="submitted-step-desc">{% trans "Ma'lumotlaringiz tizimga qabul qilindi." %}</p>
+          </div>
+        </li>
+        <li>
+          <span class="submitted-step-num">2</span>
+          <div>
+            <p class="submitted-step-title">{% trans "Administrator ko'rib chiqmoqda" %}</p>
+            <p class="submitted-step-desc">{% trans "Xalqaro bo'lim administratori arizangizni tekshiradi va hisobingizni faollashtiradi." %}</p>
+          </div>
+        </li>
+        <li>
+          <span class="submitted-step-num">3</span>
+          <div>
+            <p class="submitted-step-title">{% trans "Tizimga kirasiz" %}</p>
+            <p class="submitted-step-desc">{% trans "Hisobingiz faollashtirilgach, login va parolingiz bilan kirishingiz mumkin bo'ladi." %}</p>
+          </div>
+        </li>
+      </ol>
+
+      <a class="auth-submit-btn" href="{% url 'login' %}" style="text-decoration: none; margin-top: 8px;">
+        {% trans "Tizimga kirish sahifasiga qaytish" %}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <p class="auth-security-note" style="margin-top: 18px;">
+        {% trans "Hisobingiz qachon faollashtirilishini bilmoqchimisiz? Administrator bilan bog'laning." %}
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var root = document.documentElement;
+  var stored = null;
+  try { stored = localStorage.getItem('kone-theme'); } catch(e) {}
+  var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var initial = stored || (systemDark ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var themeBtn = document.getElementById('auth-theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function() {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('kone-theme', next); } catch(e) {}
+      });
+    }
+  });
+})();
+</script>
+{% endblock %}

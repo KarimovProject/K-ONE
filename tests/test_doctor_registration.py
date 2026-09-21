@@ -32,12 +32,33 @@ class TestDoctorRegistration:
     def test_registration_creates_inactive_doctor_with_profile(self, client):
         res = client.post(reverse("register"), data=REGISTER_DATA)
         assert res.status_code == 302
+        assert res.url == reverse("register-submitted")
         user = User.objects.get(username="dr.aliyeva")
         assert user.role == User.Role.DOCTOR
         assert user.is_active is False
         profile = DoctorProfile.objects.get(user=user)
         assert profile.specialty == "Oncology"
         assert profile.workplace == "Republican Oncology Center"
+
+    def test_submitted_page_greets_the_new_applicant_by_username(self, client):
+        client.post(reverse("register"), data=REGISTER_DATA)
+        res = client.get(reverse("register-submitted"))
+        assert res.status_code == 200
+        content = res.content.decode()
+        assert "dr.aliyeva" in content
+        assert "Arizangiz qabul qilindi" in content
+
+    def test_submitted_page_still_works_without_a_pending_session(self, client):
+        res = client.get(reverse("register-submitted"))
+        assert res.status_code == 200
+        assert "Arizangiz qabul qilindi" in res.content.decode()
+
+    def test_submitted_page_redirects_authenticated_users_to_dashboard(self, client):
+        user = User.objects.create_user(username="already.in", password="x")
+        client.force_login(user)
+        res = client.get(reverse("register-submitted"))
+        assert res.status_code == 302
+        assert res.url == reverse("dashboard")
 
     def test_inactive_doctor_cannot_authenticate(self, client):
         client.post(reverse("register"), data=REGISTER_DATA)
@@ -59,6 +80,24 @@ class TestDoctorRegistration:
         assert res.status_code == 200
         assert "already taken" in res.content.decode() or "band" in res.content.decode()
         assert not DoctorProfile.objects.filter(user__username="dr.aliyeva").exists()
+
+    def test_phone_with_letters_is_rejected(self, client):
+        data = {**REGISTER_DATA, "phone": "call me maybe"}
+        res = client.post(reverse("register"), data=data)
+        assert res.status_code == 200
+        assert not User.objects.filter(username="dr.aliyeva").exists()
+
+    def test_phone_too_short_is_rejected(self, client):
+        data = {**REGISTER_DATA, "phone": "+998"}
+        res = client.post(reverse("register"), data=data)
+        assert res.status_code == 200
+        assert not User.objects.filter(username="dr.aliyeva").exists()
+
+    def test_malformed_email_is_rejected(self, client):
+        data = {**REGISTER_DATA, "email": "not-an-email"}
+        res = client.post(reverse("register"), data=data)
+        assert res.status_code == 200
+        assert not User.objects.filter(username="dr.aliyeva").exists()
 
 
 @pytest.mark.django_db

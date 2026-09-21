@@ -5553,3 +5553,68 @@ msgstr "Sababi"
 
 msgid "Hozircha band shifokor yo'q"
 msgstr "Hozircha band shifokor yo'q"
+
+msgid "Enter a valid phone number using only digits, spaces, and + - ( )."
+msgstr ""
+"Faqat raqamlar, bo'shliq va + - ( ) belgilaridan foydalanib to'g'ri telefon "
+"raqamini kiriting."
+
+msgid "Phone number must contain between 9 and 15 digits."
+msgstr "Telefon raqami 9 dan 15 tagacha raqamdan iborat bo'lishi kerak."
+
+msgid "Ariza yuborildi"
+msgstr "Ariza yuborildi"
+
+msgid "Arizangiz qabul qilindi!"
+msgstr "Arizangiz qabul qilindi!"
+
+msgid "Ro'yxatdan o'tish arizangiz muvaffaqiyatli qabul qilindi."
+msgstr "Ro'yxatdan o'tish arizangiz muvaffaqiyatli qabul qilindi."
+
+msgid "Foydalanuvchi nomi: %(username)s"
+msgstr "Foydalanuvchi nomi: %(username)s"
+
+msgid "Ma'lumotlaringiz tizimga qabul qilindi."
+msgstr "Ma'lumotlaringiz tizimga qabul qilindi."
+
+msgid "Administrator ko'rib chiqmoqda"
+msgstr "Administrator ko'rib chiqmoqda"
+
+msgid ""
+"Xalqaro bo'lim administratori arizangizni tekshiradi va hisobingizni "
+"faollashtiradi."
+msgstr ""
+"Xalqaro bo'lim administratori arizangizni tekshiradi va hisobingizni "
+"faollashtiradi."
+
+msgid "Tizimga kirasiz"
+msgstr "Tizimga kirasiz"
+
+msgid ""
+"Hisobingiz faollashtirilgach, login va parolingiz bilan kirishingiz mumkin "
+"bo'ladi."
+msgstr ""
+"Hisobingiz faollashtirilgach, login va parolingiz bilan kirishingiz mumkin "
+"bo'ladi."
+
+msgid "Tizimga kirish sahifasiga qaytish"
+msgstr "Tizimga kirish sahifasiga qaytish"
+
+msgid ""
+"Hisobingiz qachon faollashtirilishini bilmoqchimisiz? Administrator bilan "
+"bog'laning."
+msgstr ""
+"Hisobingiz qachon faollashtirilishini bilmoqchimisiz? Administrator bilan "
+"bog'laning."
+
+msgid ""
+"Arizangiz administrator tomonidan ko'rib chiqilmoqda. Hisobingiz "
+"faollashtirilgach, tizimga kira olasiz."
+msgstr ""
+"Arizangiz administrator tomonidan ko'rib chiqilmoqda. Hisobingiz "
+"faollashtirilgach, tizimga kira olasiz."
+
+msgid ""
+"Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
+msgstr ""
+"Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."

@@ -19,5 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('sidebar-collapsed', isCollapsed);
     });
   }
+
+  // Restrict phone inputs to digits and the common phone punctuation
+  // (+, -, (, ), space) so users can't type letters into a phone field.
+  document.querySelectorAll('input[type="tel"]').forEach((input) => {
+    input.addEventListener('input', () => {
+      const cleaned = input.value.replace(/[^0-9+\-() ]/g, '');
+      if (cleaned !== input.value) {
+        input.value = cleaned;
+      }
+    });
+  });
 });
 

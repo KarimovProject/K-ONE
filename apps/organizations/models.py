@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from config.validators import validate_image_upload
+from config.validators import validate_image_upload, validate_phone_number
 
 
 class Organization(models.Model):
@@ -23,7 +23,9 @@ class Organization(models.Model):
     address = models.CharField(_("address"), max_length=255, blank=True)
     website = models.URLField(_("website"), blank=True)
     email = models.EmailField(_("email"), blank=True)
-    phone = models.CharField(_("phone"), max_length=48, blank=True)
+    phone = models.CharField(
+        _("phone"), max_length=48, blank=True, validators=[validate_phone_number]
+    )
     contact_person = models.CharField(_("contact person"), max_length=160, blank=True)
     logo = models.FileField(
         _("logo"),
@@ -49,7 +51,9 @@ class Sponsor(models.Model):
     description = models.TextField(_("description"), blank=True)
     website = models.URLField(_("website"), blank=True)
     contact_person = models.CharField(_("contact person"), max_length=160, blank=True)
-    phone = models.CharField(_("phone"), max_length=48, blank=True)
+    phone = models.CharField(
+        _("phone"), max_length=48, blank=True, validators=[validate_phone_number]
+    )
     email = models.EmailField(_("email"), blank=True)
     logo = models.FileField(
         _("logo"),

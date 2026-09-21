@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from config.validators import validate_image_upload
+from config.validators import validate_image_upload, validate_phone_number
 
 
 class User(AbstractUser):
@@ -32,6 +32,12 @@ class User(AbstractUser):
     avatar = models.ImageField(
         _("avatar"), upload_to="avatars/%Y/%m/", blank=True, validators=[validate_image_upload]
     )
+    approved_at = models.DateTimeField(
+        _("approved at"),
+        null=True,
+        blank=True,
+        help_text=_("When an administrator first activated this account."),
+    )
 
     def has_capability(self, capability: str) -> bool:
         from apps.accounts.rbac import user_has_capability
@@ -58,7 +64,7 @@ class DoctorProfile(models.Model):
     specialty = models.CharField(_("specialty"), max_length=150)
     workplace = models.CharField(_("workplace"), max_length=200)
     position = models.CharField(_("position / academic degree"), max_length=150, blank=True)
-    phone = models.CharField(_("phone"), max_length=32)
+    phone = models.CharField(_("phone"), max_length=32, validators=[validate_phone_number])
     languages = models.CharField(
         _("languages spoken"), max_length=150, blank=True, help_text=_("e.g. UZ, RU, EN")
     )

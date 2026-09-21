@@ -1,10 +1,53 @@
 from datetime import datetime
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import DoctorProfile, StaffUnavailability, User
+from config.validators import validate_phone_number
+
+
+class PendingApprovalAwareLoginForm(AuthenticationForm):
+    """Otherwise-correct credentials for an inactive account normally get
+    the same generic "invalid login" message as a wrong password — so a
+    doctor waiting for approval had no way to tell their application was
+    even received. If the username/password pair is genuinely correct,
+    say so plainly instead of leaving people guessing."""
+
+    error_messages = {
+        **AuthenticationForm.error_messages,
+        "invalid_login": _("Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."),
+    }
+
+    def clean(self):
+        try:
+            return super().clean()
+        except forms.ValidationError:
+            username = self.cleaned_data.get("username")
+            password = self.cleaned_data.get("password")
+            if username and password:
+                try:
+                    user = User._default_manager.get_by_natural_key(username)
+                except User.DoesNotExist:
+                    user = None
+                if user and not user.is_active and user.check_password(password):
+                    if user.approved_at is None:
+                        raise forms.ValidationError(
+                            _(
+                                "Arizangiz administrator tomonidan ko'rib chiqilmoqda. "
+                                "Hisobingiz faollashtirilgach, tizimga kira olasiz."
+                            ),
+                            code="pending_approval",
+                        )
+                    raise forms.ValidationError(
+                        _(
+                            "Hisobingiz faollashtirilmagan. Iltimos, administrator bilan "
+                            "bog'laning."
+                        ),
+                        code="inactive",
+                    )
+            raise
 
 
 class ProfileForm(forms.ModelForm):
@@ -63,7 +106,12 @@ class DoctorRegistrationForm(UserCreationForm):
         widget=forms.TextInput(attrs={"class": "auth-input"}),
     )
     phone = forms.CharField(
-        label=_("Phone"), max_length=32, widget=forms.TextInput(attrs={"class": "auth-input"})
+        label=_("Phone"),
+        max_length=32,
+        validators=[validate_phone_number],
+        widget=forms.TextInput(
+            attrs={"class": "auth-input", "type": "tel", "inputmode": "tel"}
+        ),
     )
     languages = forms.CharField(
         label=_("Languages spoken"),

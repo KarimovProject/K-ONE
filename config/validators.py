@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from django.core.exceptions import ValidationError
@@ -7,6 +8,22 @@ from PIL import Image, UnidentifiedImageError
 MAX_IMAGE_SIZE = 5 * 1024 * 1024
 ALLOWED_IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 ALLOWED_IMAGE_CONTENT_TYPES = {"image/jpeg", "image/png", "image/webp"}
+
+PHONE_SHAPE_RE = re.compile(r"^\+?[0-9\s\-()]+$")
+
+
+def validate_phone_number(value: str) -> None:
+    if not PHONE_SHAPE_RE.match(value):
+        raise ValidationError(
+            _("Enter a valid phone number using only digits, spaces, and + - ( )."),
+            code="invalid_phone_characters",
+        )
+    digits = re.sub(r"\D", "", value)
+    if not (9 <= len(digits) <= 15):
+        raise ValidationError(
+            _("Phone number must contain between 9 and 15 digits."),
+            code="invalid_phone_length",
+        )
 
 
 def _has_valid_image_signature(upload, extension: str) -> bool:

@@ -4617,3 +4617,67 @@ msgstr "YÖNETİM GÖRÜNÜMÜ"
 
 msgid "Sababi"
 msgstr "Nedeni"
+
+msgid "Enter a valid phone number using only digits, spaces, and + - ( )."
+msgstr ""
+"Yalnızca rakamlar, boşluk ve + - ( ) karakterlerini kullanarak geçerli bir "
+"telefon numarası girin."
+
+msgid "Phone number must contain between 9 and 15 digits."
+msgstr "Telefon numarası 9 ile 15 rakam arasında olmalıdır."
+
+msgid "Ariza yuborildi"
+msgstr "Başvuru gönderildi"
+
+msgid "Arizangiz qabul qilindi!"
+msgstr "Başvurunuz alındı!"
+
+msgid "Ro'yxatdan o'tish arizangiz muvaffaqiyatli qabul qilindi."
+msgstr "Kayıt başvurunuz başarıyla alındı."
+
+msgid "Foydalanuvchi nomi: %(username)s"
+msgstr "Kullanıcı adı: %(username)s"
+
+msgid "Ma'lumotlaringiz tizimga qabul qilindi."
+msgstr "Bilgileriniz sisteme kabul edildi."
+
+msgid "Administrator ko'rib chiqmoqda"
+msgstr "Yönetici inceliyor"
+
+msgid ""
+"Xalqaro bo'lim administratori arizangizni tekshiradi va hisobingizni "
+"faollashtiradi."
+msgstr ""
+"Uluslararası Departman yöneticisi başvurunuzu inceleyecek ve hesabınızı "
+"etkinleştirecektir."
+
+msgid "Tizimga kirasiz"
+msgstr "Giriş yapabilirsiniz"
+
+msgid ""
+"Hisobingiz faollashtirilgach, login va parolingiz bilan kirishingiz mumkin "
+"bo'ladi."
+msgstr ""
+"Hesabınız etkinleştirildikten sonra kullanıcı adı ve şifrenizle giriş "
+"yapabileceksiniz."
+
+msgid "Tizimga kirish sahifasiga qaytish"
+msgstr "Giriş sayfasına dön"
+
+msgid ""
+"Hisobingiz qachon faollashtirilishini bilmoqchimisiz? Administrator bilan "
+"bog'laning."
+msgstr ""
+"Hesabınızın ne zaman etkinleştirileceğini mi öğrenmek istiyorsunuz? Yönetici"
+" ile iletişime geçin."
+
+msgid ""
+"Arizangiz administrator tomonidan ko'rib chiqilmoqda. Hisobingiz "
+"faollashtirilgach, tizimga kira olasiz."
+msgstr ""
+"Başvurunuz yönetici tarafından inceleniyor. Hesabınız etkinleştirildiğinde "
+"giriş yapabileceksiniz."
+
+msgid ""
+"Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
+msgstr "Hesabınız etkin değil. Lütfen yönetici ile iletişime geçin."

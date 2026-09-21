@@ -340,6 +340,11 @@
   box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
 }
 
+.auth-field.has-error .auth-input {
+  border-color: #DC2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
 /* Remove yellow autofill */
 .auth-input:-webkit-autofill,
 .auth-input:-webkit-autofill:hover,

@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, ListView, UpdateView, View
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView, View
 
 from apps.accounts.forms import (
     MAX_UNAVAILABILITY_SLOTS_PER_YEAR,
@@ -70,7 +70,7 @@ class DoctorRegisterView(CreateView):
     model = User
     form_class = DoctorRegistrationForm
     template_name = "registration/register.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("register-submitted")
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -91,14 +91,29 @@ class DoctorRegisterView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(
-            self.request,
-            _(
-                "Registration submitted. An administrator will review and activate "
-                "your account before you can sign in."
-            ),
-        )
+        self.request.session["just_registered_username"] = self.object.username
         return response
+
+
+class RegistrationSubmittedView(TemplateView):
+    """A dedicated, unmissable confirmation screen shown right after
+    self-registration. Messages set via the `messages` framework never
+    render on unauthenticated pages (base.html only shows them inside
+    the authenticated shell), so a plain redirect to `login` silently
+    dropped the "your account is pending approval" notice — new doctors
+    had no idea their application had actually gone through."""
+
+    template_name = "registration/register_submitted.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("dashboard")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["username"] = self.request.session.pop("just_registered_username", None)
+        return context
 
 
 class MyEventsListView(LoginRequiredMixin, ListView):
@@ -296,7 +311,11 @@ class UserToggleActiveView(LoginRequiredMixin, CapabilityRequiredMixin, View):
         if is_admin_privileged(target):
             raise PermissionDenied
         target.is_active = not target.is_active
-        target.save(update_fields=["is_active"])
+        update_fields = ["is_active"]
+        if target.is_active and target.approved_at is None:
+            target.approved_at = timezone.now()
+            update_fields.append("approved_at")
+        target.save(update_fields=update_fields)
         if target.is_active:
             messages.success(
                 request,

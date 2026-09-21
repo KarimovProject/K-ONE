@@ -1421,3 +1421,151 @@ jonli serverda tasdiqlandi, `pip check` ziddiyatsiz.
 
 ---
 
+### 3.35 Bajarildi — Telefon va email maydonlariga qat'iy validatsiya (2026-09-20)
+
+Foydalanuvchi: "Registratsiya oynasidagi kataloglarda xatolik bor... raqam
+kiritish oynasida faqat raqam kiritishi kerak... huddi shunday gmail
+kiritish oynasida ham va boshqalarida ham." Tekshiruv shuni ko'rsatdi:
+telefon maydoni (`DoctorProfile.phone`, `Organization.phone`,
+`Sponsor.phone`) oddiy matn maydoni edi — hech qanday format tekshiruvi
+yo'q, foydalanuvchi harflar yozsa ham qabul qilinardi. Email maydonlari
+(`EmailField`) server tomonda allaqachon to'g'ri tekshirilardi, lekin
+registratsiya sahifasida xato maydon vizual ajratilmasdi.
+
+- **`config/validators.py::validate_phone_number`** — yangi validator:
+  faqat raqam, bo'shliq, `+ - ( )` belgilariga ruxsat beradi va
+  raqamlar soni 9–15 oralig'ida bo'lishini tekshiradi.
+  `DoctorProfile.phone`, `Organization.phone`, `Sponsor.phone` model
+  maydonlariga qo'shildi (migratsiyalar yaratildi:
+  `accounts/0004_alter_doctorprofile_phone`,
+  `organizations/0002_alter_organization_phone_alter_sponsor_phone`) va
+  `DoctorRegistrationForm.phone`ga ham qo'lda qo'shildi (bu forma maydoni
+  modeldan avtomatik chiqarilmagani uchun).
+- **Telefon inputlari** endi `type="tel"` va `inputmode="tel"` (mobil
+  qurilmada raqamli klaviatura chiqadi) — registratsiya formasi,
+  Tashkilot/Homiy formalari.
+- **`static/js/app.js`**: barcha `input[type="tel"]` uchun umumiy JS —
+  yozish jarayonida ruxsat etilmagan belgilar (harflar) darhol olib
+  tashlanadi.
+- **`templates/registration/register.html`**: maydon o'rovchisiga
+  `{% if field.errors %} has-error{% endif %}` qo'shildi — avval xato
+  maydon hech qanday vizual belgi olmasdi (faqat pastdagi qizil matn).
+  **`static/css/login.css`**: `.auth-field.has-error .auth-input` uchun
+  qizil chegara qoidasi qo'shildi (3.34-bo'limdagi `.form-field.has-error`
+  qoidasiga o'xshash, lekin auth-sahifalar boshqa CSS-klasslardan
+  foydalangani uchun alohida qo'shildi).
+- Ikkita yangi validator xabari (`Enter a valid phone number...`,
+  `Phone number must contain between 9 and 15 digits.`) barcha 4 tilga
+  (uz/ru/en/tr) tarjima qilindi.
+- **Testlar**: `tests/test_doctor_registration.py`ga 3 ta yangi test
+  qo'shildi — harfli telefon rad etiladi, juda qisqa telefon rad etiladi,
+  noto'g'ri email rad etiladi.
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (382 test,
++3 yangi) o'tdi, Playwright orqali jonli serverda: telefon maydoniga
+harf yozish darhol tozalanishi, noto'g'ri email/telefon bilan yuborilgan
+forma har ikkala maydonni qizil chegara bilan ajratishi va tarjima
+qilingan xabar ko'rsatishi tasdiqlandi (skrinshot orqali vizual
+tekshirildi).
+
+---
+
+### 3.36 Bajarildi — Ro'yxatdan o'tgach nima bo'lganini aniq ko'rsatuvchi sahifa (2026-09-21)
+
+Foydalanuvchi: "kimdir registratsiya qilganda hisobingiz tasdiqlanishi
+uchun adminga yuborildi degan bildirishnoma chiqsin, odamlar nima
+bo'layotganini bilmay qolayapdi." Tekshiruv shuni ko'rsatdi: bu — dizayn
+kamchiligi emas, **haqiqiy bug** edi. `DoctorRegisterView.form_valid()`
+`messages.success(...)` orqali xabar qo'yardi va `login` sahifasiga
+yo'naltirardi, lekin `templates/base.html`da `{% if messages %}` bloki
+FAQAT `{% if user.is_authenticated %}` shoxobchasi ICHIDA joylashgan edi
+(84-90 qatorlar) — login/register kabi autentifikatsiyasiz sahifalar esa
+`{% else %}` shoxobchasidagi `unauthenticated_content` blokidan
+foydalanadi, u yerda xabarlar umuman chiqarilmasdi. Natijada
+ro'yxatdan o'tgan har bir kishi "ariza ketdimi, yo'qmi" bilmay
+qolardi — xabar navbatda session'da qolib, hech qachon ko'rinmasdi.
+
+Oddiy tuzatish (`{% if messages %}`ni `{% else %}` shoxobchasiga ham
+qo'shish) o'rniga, foydalanuvchi taklifiga ko'ra ("o'zing ham fantaziya
+qilsang bo'ladi") **alohida, chalg'itmaydigan tasdiqlash sahifasi**
+yaratildi:
+
+- **`apps/accounts/views.py::RegistrationSubmittedView`** — yangi
+  `TemplateView`. `DoctorRegisterView.success_url` endi `login` emas,
+  balki shu yangi `register-submitted` nomli URLga yo'naltiradi.
+  `form_valid()` endi `messages.success` o'rniga
+  `request.session["just_registered_username"]`ga foydalanuvchi nomini
+  yozadi (bir martalik, `get_context_data`da `.pop()` bilan o'qiladi).
+- **`templates/registration/register_submitted.html`** — login/register
+  sahifalari bilan bir xil vizual uslubda (brand panel + form panel),
+  animatsiyali yashil ✓ belgisi, foydalanuvchi nomi bilan shaxsiylashtir-
+  ilgan sarlavha va 3 bosqichli aniq tushuntirish: (1) Ariza yuborildi
+  ✓ — bajarilgan, (2) Administrator ko'rib chiqmoqda, (3) Tizimga
+  kirasiz — hisobingiz faollashtirilgach. Pastda "Tizimga kirish
+  sahifasiga qaytish" tugmasi.
+- **`config/urls.py`**: `accounts/register/submitted/` →
+  `register-submitted`.
+- Barcha yangi matnlar 4 tilga (uz/ru/en/tr) tarjima qilindi.
+- **Testlar**: `tests/test_doctor_registration.py`ga 3 ta yangi test —
+  muvaffaqiyatli ro'yxatdan o'tish shu sahifaga yo'naltirishi va
+  foydalanuvchi nomini ko'rsatishi, sessiyasiz ham sahifa ishlashi,
+  autentifikatsiyadan o'tgan foydalanuvchi dashboardga qaytarilishi.
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (385 test,
++3 yangi) o'tdi, Playwright orqali to'liq ro'yxatdan o'tish oqimi
+boshidan oxirigacha sinovdan o'tkazildi va skrinshot bilan tasdiqlandi
+(foydalanuvchi nomi bilan va sessiyasiz ikkala holat ham).
+
+---
+
+### 3.37 Bajarildi — Tasdiqlanmagan hisob bilan kirishga urinilganda aniq xabar (2026-09-21)
+
+Foydalanuvchi: "login oynasiga qaytib arizasi hali tasdiqlanmagan login
+parol terilsa arizangiz administrator tomonidan ko'rib chiqilmoqda deb
+chiqsin." Tekshiruv shuni ko'rsatdi: Django standart xatti-harakati
+bo'yicha to'g'ri login/parol kiritilgan, lekin hali faollashtirilmagan
+(`is_active=False`) hisob uchun ham xuddi noto'g'ri parol kiritilgandagi
+kabi **umumiy** "Login yoki parol noto'g'ri" xabari chiqadi — chunki
+`authenticate()` faollashtirilmagan foydalanuvchini "topilmadi" deb
+hisoblaydi, farqlamaydi.
+
+**Bonus topilma**: `templates/registration/login.html`da xato xabari
+QATTIQ KODLANGAN edi (`{% if form.non_field_errors %}` shart sifatida
+ishlatilgan, lekin ICHIDA statik matn chiqarilardi, forma xatosining
+HAQIQIY matni emas) — bu bug bo'lmasa ham, yangi xabarlarni chiqarish
+UCHUN birinchi navbatda tuzatilishi shart edi.
+
+- **`templates/registration/login.html`**: `{{ form.non_field_errors|join:" " }}`
+  ga o'zgartirildi — endi haqiqiy xato matni ko'rsatiladi (avval statik
+  matn qattiq yozilgan edi).
+- **`apps/accounts/models.py`**: yangi `User.approved_at` maydoni (qachon
+  administrator birinchi marta faollashtirgani). Migratsiya mavjud
+  faollashtirilgan foydalanuvchilar uchun buni orqaga to'ldiradi (`date_joined`
+  bilan) — shunda kelajakda ular deaktivatsiya qilinsa, "ariza ko'rib
+  chiqilmoqda" degan noto'g'ri xabar chiqmaydi.
+- **`apps/accounts/views.py::UserToggleActiveView`**: hisobni birinchi
+  marta faollashtirganda `approved_at`ni belgilaydi.
+- **`apps/accounts/forms.py::PendingApprovalAwareLoginForm`** — yangi
+  login formasi: agar login/parol to'g'ri bo'lsa-yu, hisob hali faol
+  bo'lmasa, ikkita holatni ajratadi: (1) `approved_at is None` — hali
+  hech qachon tasdiqlanmagan → "Arizangiz administrator tomonidan ko'rib
+  chiqilmoqda..."; (2) avval tasdiqlangan, keyin deaktivatsiya qilingan →
+  "Hisobingiz faollashtirilmagan. Administrator bilan bog'laning."
+  Noto'g'ri parol bilan urinishda (hisob faol bo'lsin yoki bo'lmasin)
+  hech qanday qo'shimcha ma'lumot oshkor qilinmaydi — faqat standart
+  umumiy xabar (xavfsizlik: parolni "taxmin qilib tekshirish" imkoniyati
+  ochilmasin).
+- **`config/views.py::ThrottledLoginView`**: yangi forma ulandi
+  (`authentication_form = PendingApprovalAwareLoginForm`).
+- Barcha yangi xabarlar 4 tilga tarjima qilindi.
+- **Testlar**: `tests/test_authentication.py`ga 3 ta yangi test —
+  tasdiqlanmagan hisob uchun to'g'ri xabar, avval tasdiqlangan-keyin
+  o'chirilgan hisob uchun boshqa xabar, va noto'g'ri parolda hech narsa
+  oshkor qilinmasligi (xavfsizlik regressiya testi).
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (388 test,
++3 yangi) o'tdi, Playwright orqali jonli serverda tasdiqlangan xabar
+matni skrinshotda ko'rsatilgandek to'g'ri chiqishi tekshirildi.
+
+---
+
