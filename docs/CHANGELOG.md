@@ -1672,3 +1672,44 @@ tekshirilib tasdiqlandi.
 
 ---
 
+### 3.40 Tuzatildi — Dark mode'da login/register'da yozilgan matn ko'rinmay qolishi (2026-09-21, o'z-o'zining regressiyasi)
+
+3.39-bandda `.auth-input`ni `.auth-input-wrap .auth-input` qilib
+scope qilish orqali CSS specificity muammosini tuzatgan edim — bu esa
+kutilmagan yangi bug keltirib chiqardi: dark-mode qoidasi
+(`[data-theme="dark"] .auth-input`) o'sha paytda scope qilinmagan holda
+qolgan edi. Natijada ikkala qoidaning specificity'si TENGLASHIB qoldi
+(ikkalasi ham endi 2 ta klass), va tie-breaker sifatida fayldagi
+KEYINGI qoida (yorug' rejim, chunki fayl tartibida keyinroq joylashgan)
+g'olib chiqa boshladi — hatto dark-mode yoqilgan bo'lsa ham. Natija:
+matn rangi (`#0F172A`, to'q qorong'i) fonga (`rgba(11,20,38,0.5)`, ham
+qorong'i) mos kelib, foydalanuvchi yozgan matni butunlay ko'rinmay
+qolardi.
+
+Foydalanuvchi: "dark mode da login oynasida username yoki parol
+almashib ko'rinmay qolyapdi yozgan bo'lsam ham."
+
+- `static/css/login.css`dagi barcha `[data-theme="dark"] .auth-input`
+  qoidalari `[data-theme="dark"] .auth-input-wrap .auth-input` qilib
+  qayta scope qilindi (specificity 3 klass — yorug' rejimning 2
+  klassidan aniq yuqori) va qo'shimcha xavfsizlik uchun `!important`
+  ham qo'shildi (rang, fon, chegara — matn ko'rinishi uchun eng muhim
+  xususiyatlar).
+- Ikkala sahifa (login va register) real foydalanuvchi harakatini
+  taqlid qilib (tema tugmasini bosish, keyin maydonlarga yozish)
+  Playwright orqali qayta tekshirildi — endi ikkalasida ham yozilgan
+  matn to'liq ko'rinadi (och rangli matn, qorong'i fon).
+
+**Eslatma**: bu — texnik jihatdan mening o'zimning 3.39-banddagi
+tuzatishimning ikkilamchi ta'siri edi, alohida, mustaqil bug emas.
+Kelajakda `.auth-input` kabi ikki (yoki undan ko'p) rejimli
+komponentlarni scope qilishda BARCHA rejim qoidalarini bir vaqtda
+yangilash kerakligini eslatib qo'yish uchun bu yerga yozib qo'yildi.
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (388 test)
+o'tdi, Playwright orqali dark-mode tugmasi bosilib, haqiqiy matn
+kiritilib, skrinshot orqali ikkala maydonda ham matn aniq ko'rinishi
+tasdiqlandi (login va register sahifalarida alohida-alohida).
+
+---
+

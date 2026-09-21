@@ -5,13 +5,13 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (loyiha bo'ylab qo'shimcha audit — xuddi
-shu turdagi CSS specificity bug login/register formalarida, yana bitta
-uz.po korruptsiyasi zal kartalarida topilib tuzatildi; boshqa 5 ta
-filtr sahifasi va asosiy backend list-view'lar tekshirilib, muammo
-topilmadi; bundan oldin: filtr iconka/tarjima bug'lari, tasdiqlanmagan
-hisob bilan kirishda aniq xabar, ro'yxatdan o'tish tasdiqlash sahifasi —
-to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.39-bo'limlarda)
+Oxirgi yangilanish: 2026-09-21 (dark mode'da login/register matni
+ko'rinmay qolish bug'i tuzatildi — bu mening o'z oldingi CSS
+specificity tuzatishimning kutilmagan yon ta'siri edi; bundan oldin:
+loyiha bo'ylab qo'shimcha audit (xuddi shunday CSS/tarjima
+bug'larini boshqa joylarda qidirish), filtr iconka/tarjima bug'lari,
+tasdiqlanmagan hisob bilan kirishda aniq xabar — to'liq tafsilot
+`docs/CHANGELOG.md`dagi 3.25–3.40-bo'limlarda)
 
 ---
 

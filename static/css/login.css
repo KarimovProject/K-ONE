@@ -22,13 +22,17 @@
 [data-theme="dark"] .auth-form-title { color: #F1F5F9; }
 [data-theme="dark"] .auth-form-subtitle { color: #94A3B8; }
 [data-theme="dark"] .auth-field label { color: #CBD5E1; }
-[data-theme="dark"] .auth-input {
-  background: rgba(11, 20, 38, 0.5); 
-  border-color: rgba(255,255,255,0.08);
-  color: #F1F5F9;
+/* Scoped through .auth-input-wrap to outrank the equally-wrapper-scoped
+   light-mode .auth-input-wrap .auth-input rule below — without this the
+   two rules tie on specificity and the later (light) one wins even in
+   dark mode, making typed text invisible (dark text on dark background). */
+[data-theme="dark"] .auth-input-wrap .auth-input {
+  background: rgba(11, 20, 38, 0.5) !important;
+  border-color: rgba(255,255,255,0.08) !important;
+  color: #F1F5F9 !important;
 }
-[data-theme="dark"] .auth-input::placeholder { color: #64748B; }
-[data-theme="dark"] .auth-input:focus { border-color: #2563EB; background: #111C32; }
+[data-theme="dark"] .auth-input-wrap .auth-input::placeholder { color: #64748B !important; }
+[data-theme="dark"] .auth-input-wrap .auth-input:focus { border-color: #2563EB !important; background: #111C32 !important; }
 [data-theme="dark"] .auth-input-icon { color: #64748B; }
 [data-theme="dark"] .auth-password-toggle { color: #64748B; }
 [data-theme="dark"] .auth-password-toggle:hover { color: #94A3B8; }
