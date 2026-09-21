@@ -200,14 +200,14 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 7. ~~**`apps/events` ichida ~111 ta ... yo'q msgid**~~ **HAL QILINDI
    (`docs/CHANGELOG.md` 3.20-band, 2026-09-12)**: butun loyiha bo'ylab (faqat `apps/events` emas)
    to'liq tarjima auditi o'tkazildi, 487 ta yetishmayotgan matn barcha 4 tilga
-   qo'shildi. **QOLDIQ XAVF**: bu audit faqat "yetishmayotgan" (butunlay yo'q)
-   yozuvlarni topdi. `tr.po`da tasodifan yana ikkita **sifat xatosi** (noto'g'ri
-   ma'noli, lekin "yo'q" yoki "buzilgan" emas tarjima — masalan "Parol" →
-   "Şartlı tahliye") vizual tekshiruv orqali topilib tuzatildi. Bu degani —
-   `tr.po`da (va ehtimol boshqa tillarda ham, kamroq ehtimol bilan) shunga
-   o'xshash, avtomatik dasturiy tekshiruv topa olmaydigan boshqa semantik xato
-   tarjimalar qolgan bo'lishi mumkin. To'liq ishonch uchun malakali tarjimon
-   tomonidan qo'lda proofreading talab qilinadi — bu alohida, katta ish.
+   qo'shildi. **`tr.po` semantik audit — QISMAN HAL QILINDI (2026-09-21,
+   `docs/CHANGELOG.md` 3.44-band)**: barcha 1481 ta `tr.po` yozuvi qo'lda (AI
+   fork orqali) o'qib chiqildi, 6 ta aniq false-cognate xato topilib tuzatildi
+   ("Telgraf"→"Telegram", "hoparlör"→"konuşmacı" va h.k.). **QOLDIQ XAVF hali
+   ham bor**: bu audit ham inson-malakali tarjimon darajasidagi kafolat emas,
+   faqat "sezilarli darajada noto'g'ri" xatolarni topa oladi — nozik
+   uslub/registr xatolari uchun hali ham professional proofreading tavsiya
+   etiladi.
 8. **Shifokor "band" bo'lishi hozircha faqat `StaffUnavailability` orqali tekshiriladi**
    — agar shifokor allaqachon boshqa tadbirga ham `attending_doctors` sifatida
    biriktirilgan bo'lsa-yu, lekin band vaqt sifatida belgilamagan bo'lsa, bu

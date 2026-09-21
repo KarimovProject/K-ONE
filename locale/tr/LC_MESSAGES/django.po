@@ -338,7 +338,7 @@ msgid "Internal calendar"
 msgstr "Dahili takvim"
 
 msgid "Telegram settings"
-msgstr "Telgraf ayarları"
+msgstr "Telegram ayarları"
 
 msgid "Profile and language"
 msgstr "Profil ve dil"
@@ -986,7 +986,7 @@ msgid "New Speaker"
 msgstr "Yeni Konuşmacı"
 
 msgid "No speakers found in directory."
-msgstr "Dizinde hoparlör bulunamadı."
+msgstr "Dizinde konuşmacı bulunamadı."
 
 msgid "Full Name"
 msgstr "Tam Ad"
@@ -1028,7 +1028,7 @@ msgid "New Speaker"
 msgstr "Yeni Konuşmacı"
 
 msgid "No speakers found in directory."
-msgstr "Dizinde hoparlör bulunamadı."
+msgstr "Dizinde konuşmacı bulunamadı."
 
 msgid "Full Name"
 msgstr "Ad Soyad"
@@ -1079,7 +1079,7 @@ msgid "New Speaker"
 msgstr "Yeni Konuşmacı"
 
 msgid "No speakers found in directory."
-msgstr "Dizinde hoparlör bulunamadı."
+msgstr "Dizinde konuşmacı bulunamadı."
 
 msgid "Full Name"
 msgstr "Ad Soyad"
@@ -1194,7 +1194,7 @@ msgid "Ma'lumotnomalar"
 msgstr "Referanslar"
 
 msgid "Zallar"
-msgstr "tamamen"
+msgstr "Salonlar"
 
 msgid "Tadbir turlari"
 msgstr "Etkinlik türleri"
@@ -1206,7 +1206,7 @@ msgid "Homiylar"
 msgstr "Sponsorlar"
 
 msgid "Ma'ruzachilar"
-msgstr "Hoparlörler"
+msgstr "Konuşmacılar"
 
 msgid "Nashrlar"
 msgstr "Yayınlar"
@@ -3979,7 +3979,7 @@ msgid "File size exceeds maximum allowed limit of 10 MB."
 msgstr "Dosya boyutu izin verilen 10 MB sınırını aşıyor."
 
 msgid "Staff Manual"
-msgstr "Personel El İle"
+msgstr "Personel (Elle)"
 
 msgid "Program details updated successfully."
 msgstr "Program ayrıntıları başarıyla güncellendi."
@@ -4427,7 +4427,7 @@ msgid "Value"
 msgstr "Değer"
 
 msgid "You cannot change your own active status here."
-msgstr "Kendi etkinlik durumunuzu burada değiştiremezsiniz."
+msgstr "Kendi aktiflik durumunuzu burada değiştiremezsiniz."
 
 msgid "Foreign organization"
 msgstr "Yabancı kuruluş"

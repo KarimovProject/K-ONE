@@ -1904,3 +1904,58 @@ tizim darajasidagi doimiy o'zgarish bo'lgani uchun ataylab kutildi).
 
 ---
 
+### 3.44 Tuzatildi — `tr.po`da 6 ta semantik tarjima xatosi (avtomatik tarjima false-cognate'lari), `compile_po_polib.py`da yana bir loyiha-yo'li bugi (2026-09-21)
+
+**Kontekst**: `goals.md` 4-bo'lim 7-bandda qayd etilgan qoldiq xavf
+("tr.po'da avtomatik dasturiy tekshiruv topa olmaydigan semantik xato
+tarjimalar qolgan bo'lishi mumkin") bo'yicha to'liq qo'lda proofreading
+o'tkazildi — fork subagent orqali barcha 1481 ta `tr.po` yozuvi
+`en.po`dagi manba matn bilan solishtirib o'qildi.
+
+**Topilgan va tuzatilgan 6 ta xato** (barchasi — "false cognate"/noto'g'ri
+avtomatik tarjima, oldin topilgan "Parol"→"Şartlı tahliye" bilan bir xil
+turdagi xato):
+
+1. `"Telegram settings"` → edi `"Telgraf ayarları"` ("telgraf" — eski
+   simli aloqa vositasi, ilova nomi "Telegram" bilan false-cognate) →
+   `"Telegram ayarları"`.
+2. Sidebar "Venues" (`msgid "Zallar"`) → edi `"tamamen"` ("butunlay"
+   degani, mutlaqo bog'liqsiz so'z) → `"Salonlar"`.
+3. `"No speakers found in directory."` (faylda 3 marta takrorlangan) →
+   edi `"Dizinde hoparlör bulunamadı."` ("hoparlör" = karnay/dinamik
+   audio uskunasi, "ma'ruzachi" emas) → `"Dizinde konuşmacı bulunamadı."`
+4. Sidebar "Ma'ruzachilar" → edi `"Hoparlörler"` (xuddi shu
+   karnay/ma'ruzachi chalkashligi) → `"Konuşmacılar"`.
+5. `"You cannot change your own active status here."` → edi
+   `"Kendi etkinlik durumunuzu..."` (`etkinlik` bu faylda 100+ marta
+   "tadbir/event" ma'nosida ishlatilgan, "faol/active" emas — jumla
+   "o'z TADBIR holatingizni" deb o'qilardi) →
+   `"Kendi aktiflik durumunuzu burada değiştiremezsiniz."`
+6. `"Staff Manual"` (`apps/attendance/models.py`dagi `checkin_method`
+   tanlovi — "xodim tomonidan qo'lda kiritish", qo'llanma/hujjat emas) →
+   edi `"Personel El İle"` (grammatik jihatdan to'liqsiz, "elle" so'zi
+   qo'shilmagan bo'lak) → `"Personel (Elle)"` (qo'shni tanlovlar —
+   "Genel QR", "Davet", "Kiosk" — bilan bir xil qisqa yorliq uslubida).
+
+**Qolgan ~1475 yozuv** — audit natijasida boshqa aniq semantik xato
+topilmadi (faqat stilistik farqlar, masalan "panel" vs "pano", bular
+xato emas deb hisoblanib o'tkazib yuborildi).
+
+**Yana bir bug topildi va tuzatildi**: `scripts/compile_po_polib.py`da
+`register-tasks.ps1`dagi bilan **bir xil** loyiha-yo'li xatosi bor edi
+(`D:\Projects\K ONE\locale\...` — ikkinchi ichki `K ONE` papkasi
+yetishmagan, haqiqiysi `D:\Projects\K ONE\K ONE\locale\...`). Bu
+tuzatilmasa, `.po`dan `.mo`ga qayta kompilyatsiya qilib bo'lmasdi.
+
+**Tekshiruv**: `manage.py check` toza. `.mo` fayllar (barcha 4 til)
+qayta kompilyatsiya qilindi — faqat `tr` haqiqatan o'zgardi (boshqalar
+baytma-bayt bir xil qoldi, chunki manba `.po`lari o'zgarmagan).
+
+**Texnik qarz** (`goals.md` 4-bo'lim 7-bandiga eslatma sifatida
+qo'shildi): bu hali ham **to'liq qo'lda, malakali tarjimon tomonidan
+proofreading** o'rnini bosmaydi — AI-audit "sezilarli semantik xato"
+darajasidagi muammolarni topa oladi, lekin nozik uslub/registr
+xatolarini kafolatlab topa olmaydi.
+
+---
+
