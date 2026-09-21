@@ -1824,5 +1824,15 @@ Tuzatishdan keyin `telegram_poll` xatosiz, uzoq muddat ishlab turdi (avval
 service/Docker) ostida ishga tushirish kerak — hozircha buni ta'minlaydigan
 konfiguratsiya yo'q.
 
+**4. Yana bir bug — jarayon transient xatoda butunlay yiqilardi.** #2-band
+tuzatilgandan keyin ham `telegram_poll` bir marta tarmoq xatosi bilan
+yiqildi: `handle()`dagi `try/except` har qanday `TelegramError`ni (shu
+jumladan vaqtinchalik `TelegramTransientError`ni) tutib, butun jarayonni
+`CommandError` bilan to'xtatardi — uzoq ishlaydigan pollingda esa
+vaqti-vaqti bilan tarmoq xatosi bo'lishi kutilgan holat. Tuzatildi:
+`get_updates()`/`send_message()` endi faqat `TelegramTransientError`ni
+tutib, eksponensial backoff bilan (1s → 30s max) qayta urinadi; faqat
+`TelegramPermanentError` (masalan, noto'g'ri token) jarayonni to'xtatadi.
+
 ---
 

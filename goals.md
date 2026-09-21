@@ -155,8 +155,11 @@ muvaffaqiyatsizliklar tuzatilgan).
   `get_updates()` server tomonida 20s long-poll so'rasa-da, client
   soket timeout'i 8s bo'lib qolgan edi — shu sababli har safar yangi
   xabar kelmasa, so'rov darhol xato bilan yiqilardi. Tuzatildi
-  (`_call()`ga ixtiyoriy `timeout` qo'shildi). `telegram_poll` hozircha
-  faqat lokal terminal orqali fon jarayonida ishlayapti.
+  (`_call()`ga ixtiyoriy `timeout` qo'shildi). Yana bir bug topildi:
+  jarayon istalgan vaqtinchalik tarmoq xatosida butunlay yiqilardi —
+  endi `TelegramTransientError` backoff bilan qayta uriniladi, faqat
+  `TelegramPermanentError` jarayonni to'xtatadi. `telegram_poll`
+  hozircha faqat lokal terminal orqali fon jarayonida ishlayapti.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).
