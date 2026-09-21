@@ -70,11 +70,11 @@ class TelegramClient:
     def configured(self) -> bool:
         return bool(self.enabled and self.token)
 
-    def _call(self, method: str, payload: dict[str, Any]) -> Any:
+    def _call(self, method: str, payload: dict[str, Any], timeout: float | None = None) -> Any:
         if not self.configured:
             raise TelegramDisabledError("Telegram integration is disabled")
         data = self.transport.post(
-            f"{self.base_url}/bot{self.token}/{method}", payload, self.timeout
+            f"{self.base_url}/bot{self.token}/{method}", payload, timeout or self.timeout
         )
         if not data.get("ok"):
             code = int(data.get("error_code", 0))
@@ -104,4 +104,6 @@ class TelegramClient:
         payload: dict[str, Any] = {"timeout": timeout, "allowed_updates": ["message"]}
         if offset is not None:
             payload["offset"] = offset
-        return list(self._call("getUpdates", payload) or [])
+        # Telegram long-polls server-side for up to `timeout` seconds, so the
+        # client socket timeout must exceed it or every empty poll times out.
+        return list(self._call("getUpdates", payload, timeout=timeout + 5) or [])
