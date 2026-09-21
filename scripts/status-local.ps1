@@ -3,7 +3,7 @@ param()
 
 $ErrorActionPreference = "Continue"
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$lanIP = "10.34.12.2"
+$lanIP = "10.34.12.152"
 $port = 8012
 $baseUrl = "http://${lanIP}:${port}"
 
@@ -62,7 +62,7 @@ try {
     $service.Connect()
     $rootFolder = $service.GetFolder("\")
 
-    $tasks = @("IEMS Web", "IEMS Celery Worker", "IEMS Celery Beat")
+    $tasks = @("IEMS Web", "IEMS Celery Worker", "IEMS Celery Beat", "IEMS Telegram Poll")
     foreach ($taskName in $tasks) {
         try {
             $task = $rootFolder.GetTask($taskName)

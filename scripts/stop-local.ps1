@@ -8,7 +8,7 @@ Write-Host "==============================================" -ForegroundColor Yel
 Write-Host " Stopping IEMS Local/LAN Services             " -ForegroundColor Yellow
 Write-Host "==============================================" -ForegroundColor Yellow
 
-$taskNames = @("IEMS Web", "IEMS Celery Worker", "IEMS Celery Beat")
+$taskNames = @("IEMS Web", "IEMS Celery Worker", "IEMS Celery Beat", "IEMS Telegram Poll")
 
 try {
     $service = New-Object -ComObject("Schedule.Service")

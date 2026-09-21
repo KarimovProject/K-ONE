@@ -5,10 +5,16 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (Telegram bot integratsiyasi real token bilan
-yoqildi (@docker_manajer_bot) va `client.py`dagi `getUpdates` timeout bug'i
-tuzatildi — production uchun `telegram_poll` supervised process hali
-sozlanmagan, texnik qarzga qo'shildi); bundan oldin: public dashboard'da
+Oxirgi yangilanish: 2026-09-21 (Telegram kanal integratsiyasi uchidan-uchigacha
+sinaldi — guruhga ulandi, lekin rasmli avtomatik post `IEMS_BASE_URL`ning
+eskirgan LAN IP'iga (`10.34.12.2` → haqiqiysi `10.34.12.152`) bog'liqligi
+sababli ishlamadi; shu jarayonda `register-tasks.ps1`dagi loyiha-yo'li bugi
+tuzatildi, barcha deploy skriptlaridagi eski IP yangilandi, `telegram_poll`
+uchun 4-chi Windows Scheduled Task tayyorlandi (hali faollashtirilmagan) —
+tafsilot `docs/CHANGELOG.md` 3.43-bo'limda); bundan oldin: Telegram bot
+integratsiyasi real token bilan yoqildi (@docker_manajer_bot) va
+`client.py`dagi `getUpdates` timeout bug'i tuzatildi; bundan oldin: public
+dashboard'da
 dark mode uzun sahifalarda ochiq fon chizig'i tuzatildi (`.public-shell`ning
 mavjud bo'lmagan CSS o'zgaruvchisi); shifokorlar uchun ishlatib bo'lmaydigan
 Tadbirlar/Taqvim/Hisobotlar bo'limlari sidebar va bosh sahifadan
@@ -180,10 +186,11 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 3. **Root papkada vaqtinchalik/runtime fayllar bor:** `celerybeat-lan.pid`,
    `waitress.log`, `scratch_py_missing.json`, `scratch/`. Bularning `.gitignore`da
    to'g'ri qoplanganini tekshirish kerak (`.gitignore` ham hozir o'zgartirilmoqda).
-4. **`scripts/` papkasi 100+ bir martalik skriptlar bilan to'lib ketgan**
-   (`capture_phase27_*`, `verify_phase*`, `apply_*`, `fix_*`) — bular tarixiy vizual-QA
-   ishlari, asosiy runtime'ga aloqasi yo'q. Kelajakda arxivlash yoki `scripts/archive/`ga
-   ko'chirish mumkin (foydalanuvchi tasdiqlasa).
+4. ~~**`scripts/` papkasi 100+ bir martalik skriptlar bilan to'lib ketgan**~~
+   **HAL QILINDI (2026-09-21)**: 170 ta tarixiy bir martalik skript
+   `scripts/archive/`ga ko'chirildi (`git mv`, tarix saqlangan). Faqat
+   hali foydali vositalar qoldi: `compile_po*.py`, `scan_py_i18n.py`,
+   `load_phase10.py`, `update_user.py` va barcha `.ps1` operatsion skriptlar.
 5. **`static/css/workspace_corrupted.css`** nomli fayl commit tarixida o'chirilgan holat
    ko'rinadi (Phase 2 diffida `-451` qator) — bu fayl endi mavjud emasligini tasdiqlash kerak.
 6. ~~**`locale/tr/`** — turkcha tarjima fayllari mavjud...~~ **HAL QILINDI
@@ -229,13 +236,29 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     yo'q. Agar kelajakda butun tizim uchun dark mode kerak bo'lsa, bu —
     katta, alohida ish (barcha ichki sahifalar CSS'ini qayta ko'rib
     chiqishni talab qiladi), hozircha so'ralmagan.
-12. **`telegram_poll` production'da supervised process ostida emas** —
-    `manage.py telegram_poll` (`/start` linking xabarlarini qabul qilish
-    uchun yagona yo'l) faqat lokal terminal fon jarayoni sifatida
-    ishlayapti (2026-09-21 holatiga ko'ra). Windows'da xizmat sifatida
-    (NSSM/Task Scheduler) yoki Docker'ga o'tilsa alohida konteyner
-    komandasi sifatida avtomatik qayta ishga tushadigan qilib
-    sozlanishi kerak — hozircha so'ralmagan.
+12. **`telegram_poll` production'da supervised process ostida emas — QISMAN
+    HAL QILINDI (2026-09-21, `docs/CHANGELOG.md` 3.43-band)**:
+    `scripts/register-tasks.ps1`ga "IEMS Telegram Poll" nomli 4-chi
+    Windows Scheduled Task qo'shildi (Web/Worker/Beat bilan bir xil
+    naqsh). **Hali faollashtirilmagan** — foydalanuvchi
+    `register-tasks.ps1`ni o'zi keyinroq ishga tushirishni so'radi.
+13. **`manage.py`/`config/wsgi.py`/`config/celery.py` — barchasi
+    `DJANGO_SETTINGS_MODULE`ni `config.settings.local`ga
+    `setdefault` qiladi** (2026-09-21 topildi). Yangi Scheduled Tasklar
+    hech qanday environment o'zgaruvchisi belgilamaydi, demak ular ham
+    (nomida "production" bo'lsa-da) aslida **`local` sozlamalar**da
+    ishlaydi, faqat `.env`dagi qiymatlarga (`DJANGO_DEBUG` va h.k.)
+    tayanadi. Bu chalkash va production xavfsizlik sozlamalari
+    (`DEBUG=False`, xavfsizlik header'lari) amalda ishlamasligi mumkinligini
+    anglatadi. Hal qilish yo'li (masalan, Scheduled Task XML'ga
+    `<Environment>` bloki qo'shish orqali `DJANGO_SETTINGS_MODULE=
+    config.settings.production` majburlash) — foydalanuvchi bilan
+    kelishilishi kerak, hali so'ralmagan.
+14. **Eskirgan LAN IP (`10.34.12.2`) tarixiy bir martalik QA/screenshot
+    skriptlarida hali ham uchraydi** (`scripts/capture_*`,
+    `scripts/verify_phase27_*` va h.k., 2026-09-21 aniqlandi) — bular
+    runtime'ga aloqasi yo'q, 4-band (scripts/ tozalash)ga bog'liq,
+    ataylab tuzatilmadi.
 
 ---
 

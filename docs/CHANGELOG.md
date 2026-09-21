@@ -1836,3 +1836,71 @@ tutib, eksponensial backoff bilan (1s → 30s max) qayta urinadi; faqat
 
 ---
 
+### 3.43 Tuzatildi — `register-tasks.ps1`dagi loyiha yo'li bugi, eskirgan LAN IP barcha deploy skriptlarida, `telegram_poll` uchun 4-chi Scheduled Task qo'shildi (2026-09-21)
+
+**Kontekst**: Telegram integratsiyasini uchidan-uchigacha sinash chog'ida
+kanal postiga rasm yuborish "Bad Request: wrong type of the web page
+content" xatosi bilan qulaganini aniqlashda, sabab sifatida
+`IEMS_BASE_URL=http://10.34.12.2:8012` — bu mashinaning **eskirgan** LAN
+IP manzili ekani topildi (haqiqiy joriy IP DHCP orqali `10.34.12.152`ga
+o'zgargan; `.2` boshqa bir qurilmaga tegishli bo'lib qolgan).
+
+**1. `scripts/register-tasks.ps1`da ikkita mustaqil bug topildi:**
+- `$projectRoot = "D:\Projects\K ONE"` — lekin haqiqiy loyiha
+  (`manage.py`, `.venv`) `D:\Projects\K ONE\K ONE` (ichki, bir xil nomli
+  papka)da joylashgan. Bu tuzatilmasa, barcha 4 ta scheduled task
+  `pythonw.exe`ni topa olmasdi (noto'g'ri yo'l).
+- "IEMS Web" vazifasi `--listen=10.34.12.2:8012` ga qattiq bog'langan edi
+  — DHCP IP o'zgarsa yana ishlamay qoladi. `--listen=0.0.0.0:8012`ga
+  (barcha interfeys) o'zgartirildi — DHCP o'zgarishlariga chidamli.
+- Worker/Beat logfile yo'llari ham `D:\Projects\K ONE\logs\...` (noto'g'ri,
+  yuqoridagi bug bilan bir xil sabab) edi — `D:\Projects\K ONE\K ONE\logs\...`
+  ga tuzatildi.
+
+**2. Yangi 4-chi vazifa qo'shildi**: "IEMS Telegram Poll"
+(`manage.py telegram_poll`) — `goals.md` 4-bo'lim 12-banddagi texnik
+qarzni ("telegram_poll production'da supervised process ostida emas")
+yopadi. Worker/Beat bilan bir xil naqsh: Logon trigger, 3 marta
+RestartOnFailure, ExecutionTimeLimit cheklovsiz.
+
+**3. Bir xil eskirgan IP (`10.34.12.2`) yana uch joyda topildi va
+tuzatildi**: `scripts/start-local.ps1`, `scripts/status-local.ps1`
+($lanIP o'zgaruvchisi `10.34.12.152`ga), `scripts/run-web.ps1` (default
+bind `0.0.0.0:8012`ga). `start-local.ps1`/`stop-local.ps1`/
+`status-local.ps1`dagi `$taskNames`/`$tasks` ro'yxatlariga yangi
+"IEMS Telegram Poll" qo'shildi. `.env`dagi `IEMS_BASE_URL` ham
+`http://10.34.12.152:8012`ga yangilandi.
+
+**Eslatma**: tarixiy bir martalik QA/screenshot skriptlarida
+(`scripts/capture_*`, `scripts/verify_phase27_*` va h.k.) ham eski IP
+uchraydi — ular ataylab tuzatilmadi, chunki runtime'ga aloqasi yo'q va
+`goals.md` 4-bo'lim 4-bandidagi arxivlash qaroriga bog'liq.
+
+**`ALLOWED_HOSTS` tekshiruvi (goals.md 4-bo'lim 2-band) — xavf yo'q
+deb tasdiqlandi**: `config/settings/production.py`da
+`ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")` — default qiymatsiz,
+ya'ni `.env`da berilmasa Django ishga tushmay xato beradi (fail-loud).
+`"*"` fallback faqat `base.py`da, faqat `production.py` uni override
+qilmagan holatlar uchun. Joriy `.env`da ham aniq hostlar ro'yxati bor.
+Kod o'zgarishi talab qilinmadi.
+
+**Diqqat — yangi topilgan, hali hal qilinmagan savol**: `manage.py`,
+`config/wsgi.py`, `config/celery.py` — uchalasi ham
+`os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")`
+ishlatadi. `setdefault` faqat OS darajasida oldindan boshqa qiymat
+o'rnatilmagan bo'lsa ishlaydi — yangi scheduled tasklar hech qanday
+`DJANGO_SETTINGS_MODULE` environment o'zgaruvchisini belgilamaydi, demak
+ular ham **`local` sozlamalar** ostida ishlaydi (`production.py` emas),
+faqat `.env`dagi qiymatlarga (`DJANGO_DEBUG=true` va h.k.) tayanadi.
+Bu — chalkash va potentsial xavfli holat (masalan, "production" deb
+nomlangan vazifa aslida `DEBUG=True` bilan ishlashi mumkin). `goals.md`
+4-bo'limiga yangi band sifatida qo'shildi — foydalanuvchi bilan
+kelishilishi kerak.
+
+**Holat**: skriptlar faqat tuzatildi/tayyorlandi, **hali ro'yxatdan
+o'tkazilmadi va ishga tushirilmadi** — foydalanuvchi buni keyinroq o'zi
+bajarishni so'radi (`register-tasks.ps1`ni real ishga tushirish
+tizim darajasidagi doimiy o'zgarish bo'lgani uchun ataylab kutildi).
+
+---
+

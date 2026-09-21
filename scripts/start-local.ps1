@@ -5,7 +5,7 @@ $ErrorActionPreference = "Stop"
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $scriptsDir = Join-Path $projectRoot "scripts"
 $logDirectory = Join-Path $projectRoot "logs"
-$lanIP = "10.34.12.2"
+$lanIP = "10.34.12.152"
 $port = 8012
 $baseUrl = "http://${lanIP}:${port}"
 
@@ -29,7 +29,7 @@ $service = New-Object -ComObject("Schedule.Service")
 $service.Connect()
 $rootFolder = $service.GetFolder("\")
 
-$taskNames = @("IEMS Web", "IEMS Celery Worker", "IEMS Celery Beat")
+$taskNames = @("IEMS Web", "IEMS Celery Worker", "IEMS Celery Beat", "IEMS Telegram Poll")
 $needRegister = $false
 foreach ($name in $taskNames) {
     try {

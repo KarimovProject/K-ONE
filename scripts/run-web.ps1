@@ -11,7 +11,7 @@ if (-not (Test-Path $python) -or -not (Test-Path $waitress)) {
 }
 
 if (-not $Bind) {
-    $Bind = "10.34.12.2:8012"
+    $Bind = "0.0.0.0:8012"
 }
 
 Write-Host "IEMS URL: http://$Bind/"
