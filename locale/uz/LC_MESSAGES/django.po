@@ -5618,3 +5618,15 @@ msgid ""
 "Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
 msgstr ""
 "Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
+
+msgid "Attendee"
+msgstr "Ishtirokchi"
+
+msgid "Check-in method"
+msgstr "Ro'yxatga olish usuli"
+
+msgid "Checked in at"
+msgstr "Kelgan vaqti"
+
+msgid "Busy staff"
+msgstr "Band xodimlar"

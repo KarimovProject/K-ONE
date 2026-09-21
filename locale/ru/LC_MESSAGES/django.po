@@ -5261,3 +5261,15 @@ msgstr ""
 msgid ""
 "Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
 msgstr "Ваш аккаунт не активирован. Пожалуйста, свяжитесь с администратором."
+
+msgid "Attendee"
+msgstr "Участник"
+
+msgid "Check-in method"
+msgstr "Способ регистрации"
+
+msgid "Checked in at"
+msgstr "Время прихода"
+
+msgid "Busy staff"
+msgstr "Занятые сотрудники"

@@ -5,7 +5,11 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (Telegram kanal integratsiyasi uchidan-uchigacha
+Oxirgi yangilanish: 2026-09-21 (Hisobotlar bo'limining Excel eksportiga
+oy bo'yicha guruhlash, "Attendees" (ishtirokchilar) va "Busy staff" (band
+xodimlar) varaqlari qo'shildi — mavjud eksport tugmasi/infratuzilmasi
+kengaytirildi, yangi tugma qo'shilmadi; tafsilot `docs/CHANGELOG.md`
+3.45-bo'limda); bundan oldin: Telegram kanal integratsiyasi uchidan-uchigacha
 sinaldi — guruhga ulandi, lekin rasmli avtomatik post `IEMS_BASE_URL`ning
 eskirgan LAN IP'iga (`10.34.12.2` → haqiqiysi `10.34.12.152`) bog'liqligi
 sababli ishlamadi; shu jarayonda `register-tasks.ps1`dagi loyiha-yo'li bugi
@@ -166,6 +170,18 @@ muvaffaqiyatsizliklar tuzatilgan).
   endi `TelegramTransientError` backoff bilan qayta uriniladi, faqat
   `TelegramPermanentError` jarayonni to'xtatadi. `telegram_poll`
   hozircha faqat lokal terminal orqali fon jarayonida ishlayapti.
+- **Telegram guruh/kanal integratsiyasi va deploy skript bug'lari** —
+  `TelegramChannelSettings` orqali guruhga xabar yuborish sinaldi va
+  ishlayotgani tasdiqlandi; rasmli avtomatik post `IEMS_BASE_URL`ning
+  eskirgan LAN IP'iga bog'liqligi sababli ishlamadi (hal qilinmagan,
+  4-bo'lim). Shu jarayonda `register-tasks.ps1` va
+  `compile_po_polib.py`da bir xil turdagi loyiha-yo'li bugi topilib
+  tuzatildi, 170 ta tarixiy skript arxivlandi, `tr.po`da 6 ta semantik
+  tarjima xatosi tuzatildi.
+- **Hisobotlar — Excel eksportiga oy/ishtirokchi/band-xodim varaqlari
+  qo'shildi** — mavjud eksport tugmasi (`/reports/`) endi "Attendees"
+  va "Busy staff" varaqlarini ham chiqaradi, "Events" varag'iga "Month"
+  ustuni qo'shildi (`docs/CHANGELOG.md` 3.45-band).
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).

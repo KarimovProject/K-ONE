@@ -321,6 +321,8 @@ def test_xlsx_has_professional_sheets(client, report_data):
     assert workbook.sheetnames == [
         "Summary",
         "Events",
+        "Attendees",
+        "Busy staff",
         "Venues",
         "Attendance",
         "Approvals",

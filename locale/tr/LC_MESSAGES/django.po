@@ -4681,3 +4681,15 @@ msgstr ""
 msgid ""
 "Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
 msgstr "Hesabınız etkin değil. Lütfen yönetici ile iletişime geçin."
+
+msgid "Attendee"
+msgstr "Katılımcı"
+
+msgid "Check-in method"
+msgstr "Giriş yöntemi"
+
+msgid "Checked in at"
+msgstr "Giriş zamanı"
+
+msgid "Busy staff"
+msgstr "Meşgul personel"

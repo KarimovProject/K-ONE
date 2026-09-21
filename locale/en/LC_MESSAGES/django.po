@@ -4811,3 +4811,15 @@ msgstr ""
 msgid ""
 "Hisobingiz faollashtirilmagan. Iltimos, administrator bilan bog'laning."
 msgstr "Your account is not active. Please contact the administrator."
+
+msgid "Attendee"
+msgstr "Attendee"
+
+msgid "Check-in method"
+msgstr "Check-in method"
+
+msgid "Checked in at"
+msgstr "Checked in at"
+
+msgid "Busy staff"
+msgstr "Busy staff"

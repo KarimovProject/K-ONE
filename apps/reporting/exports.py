@@ -13,10 +13,13 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
+from apps.accounts.models import StaffUnavailability
+
 
 def _event_rows(events):
     return [
         [
+            event.planned_date.strftime("%Y-%m"),
             event.title,
             event.planned_date,
             event.start_time.strftime("%H:%M"),
@@ -29,6 +32,44 @@ def _event_rows(events):
     ]
 
 
+def _attendee_rows(events):
+    rows = []
+    for event in events.prefetch_related("attendances"):
+        for attendance in event.attendances.all():
+            rows.append(
+                [
+                    event.planned_date.strftime("%Y-%m"),
+                    event.title,
+                    event.planned_date,
+                    attendance.attendee_name,
+                    attendance.attendee_organization,
+                    attendance.attendee_role,
+                    attendance.get_checkin_method_display(),
+                    timezone.localtime(attendance.checked_in_at).strftime("%Y-%m-%d %H:%M"),
+                ]
+            )
+    return rows
+
+
+def _busy_staff_rows(start, end):
+    slots = (
+        StaffUnavailability.objects.filter(start_date__lte=end, end_date__gte=start)
+        .select_related("user")
+        .order_by("start_date", "start_time")
+    )
+    return [
+        [
+            slot.user.get_full_name() or slot.user.username,
+            slot.start_date,
+            slot.start_time.strftime("%H:%M"),
+            slot.end_date,
+            slot.end_time.strftime("%H:%M"),
+            slot.reason,
+        ]
+        for slot in slots
+    ]
+
+
 def csv_response(events, report, kind="events"):
     response = HttpResponse(content_type="text/csv; charset=utf-8")
     response["Content-Disposition"] = 'attachment; filename="iems-report-events.csv"'
@@ -37,6 +78,7 @@ def csv_response(events, report, kind="events"):
     datasets = {
         "events": (
             [
+                _("Month"),
                 _("Event"),
                 _("Date"),
                 _("Time"),
@@ -118,6 +160,7 @@ def xlsx_response(events, report):
     ]
     _sheet(workbook, _("Summary"), [_("Metric"), _("Value")], summary_rows)
     headers = [
+        _("Month"),
         _("Event"),
         _("Date"),
         _("Time"),
@@ -127,6 +170,27 @@ def xlsx_response(events, report):
         _("Checked in"),
     ]
     _sheet(workbook, _("Events"), headers, _event_rows(events))
+    _sheet(
+        workbook,
+        _("Attendees"),
+        [
+            _("Month"),
+            _("Event"),
+            _("Date"),
+            _("Attendee"),
+            _("Organization"),
+            _("Role"),
+            _("Check-in method"),
+            _("Checked in at"),
+        ],
+        _attendee_rows(events),
+    )
+    _sheet(
+        workbook,
+        _("Busy staff"),
+        [_("Staff"), _("Start date"), _("Start time"), _("End date"), _("End time"), _("Reason")],
+        _busy_staff_rows(report["start"], report["end"]),
+    )
     _sheet(
         workbook,
         _("Venues"),

@@ -1959,3 +1959,42 @@ xatolarini kafolatlab topa olmaydi.
 
 ---
 
+### 3.45 Qo'shildi — Hisobotlar bo'limidagi Excel eksportiga oy bo'yicha guruhlash, ishtirokchilar va band xodimlar varaqlari (2026-09-21)
+
+**Kontekst**: foydalanuvchi "hisobot bo'limiga Excel'ga eksport qiladigan
+tugma qo'shish" so'rovi bilan keldi. Tekshirilganda `/reports/` sahifasida
+Excel/CSV/PDF eksport tugmasi **allaqachon mavjud** ekani aniqlandi
+(`apps/reporting/exports.py`, `reporting:xlsx` URL) — lekin u faqat
+umumlashtirilgan statistika (Summary/Events/Venues/Attendance/Approvals/
+Publications) chiqarardi, oy bo'yicha guruhlash, haqiqiy ishtirokchi
+ismlari yoki band xodimlar ro'yxati yo'q edi. Shu bo'shliqni to'ldirish
+maqsad qilindi (mavjud tugma/infratuzilma qayta ishlatildi, yangi
+tugma/endpoint qo'shilmadi).
+
+**O'zgarishlar (`apps/reporting/exports.py`):**
+1. **"Events" (Tadbirlar) varag'iga "Month" (Oy) ustuni qo'shildi**
+   (`event.planned_date.strftime("%Y-%m")`, birinchi ustun) — CSV
+   "events" eksportiga ham. Endi tanlangan davr (oy/chorak/yil/maxsus)
+   ichidagi har bir tadbir qaysi oyga tegishli ekani ko'rinadi.
+2. **Yangi "Attendees" (Qatnashuvchilar) varag'i** — `EventAttendance`
+   modelidan har bir tadbirning haqiqiy ishtirokchilari (F.I.Sh,
+   tashkilot, lavozim, ro'yxatga olish usuli, kelgan vaqti), oy va
+   tadbir bo'yicha guruhlangan qatorlar.
+3. **Yangi "Busy staff" (Band xodimlar) varag'i** — `StaffUnavailability`
+   modelidan tanlangan davr bilan kesishgan barcha band bo'lish
+   yozuvlari (xodim, boshlanish/tugash sana-vaqti, sababi).
+
+**Testlar**: `tests/test_phase9_reporting.py::test_xlsx_has_professional_sheets`
+yangi varaq ro'yxatini (`Summary, Events, Attendees, Busy staff, Venues,
+Attendance, Approvals, Publications`) tekshiradigan qilib yangilandi.
+To'liq test to'plami (389 test, e2e/human_acceptance/visual_baseline
+bundan mustasno) o'tadi.
+
+**Tarjima**: 4 ta yangi matn (`"Attendee"`, `"Check-in method"`,
+`"Checked in at"`, `"Busy staff"`) barcha 4 tilga (uz/ru/en/tr)
+`polib` orqali qo'shildi (GNU gettext `msguniq` bu muhitda o'rnatilmagan
+bo'lgani uchun `manage.py makemessages` ishlatilmadi), `.mo` fayllar
+qayta kompilyatsiya qilindi.
+
+---
+
