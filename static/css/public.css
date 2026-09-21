@@ -60,7 +60,13 @@ html {
   font-family: var(--font-sans);
   margin: 0;
   padding: 0;
-  background: var(--color-surface-base, #F7F9FC);
+  /* --color-surface-base was never defined in tokens.css, so this always
+     fell back to the light literal below — invisible while the fixed,
+     viewport-height .public-atmosphere layer covers the first screen,
+     but exposed as a light band on any page taller than one viewport
+     (e.g. 5+ venue cards) even in dark mode. --color-canvas is the
+     token that's actually defined for both themes. */
+  background: var(--color-canvas, #F7F9FC);
   color: var(--color-text-main);
   min-height: 100vh;
   display: flex;

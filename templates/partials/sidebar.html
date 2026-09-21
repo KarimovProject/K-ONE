@@ -13,14 +13,16 @@
       <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="home" %}</span>
       <span>{% trans "Bosh sahifa" %}</span>
     </a>
-    <a class="nav-item sidebar-nav-item{% if nav_key == 'events' %} is-active{% endif %}" href="{% url 'events:list' %}" {% if nav_key == 'events' %}aria-current="page"{% endif %}>
-      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar-days" %}</span>
-      <span>{% trans "Tadbirlar" %}</span>
-    </a>
-    <a class="nav-item sidebar-nav-item{% if nav_key == 'calendar' %} is-active{% endif %}" href="{% url 'calendar' %}" {% if nav_key == 'calendar' %}aria-current="page"{% endif %}>
-      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar" %}</span>
-      <span>{% trans "Taqvim" %}</span>
-    </a>
+    {% if user.role != 'doctor' %}
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'events' %} is-active{% endif %}" href="{% url 'events:list' %}" {% if nav_key == 'events' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar-days" %}</span>
+        <span>{% trans "Tadbirlar" %}</span>
+      </a>
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'calendar' %} is-active{% endif %}" href="{% url 'calendar' %}" {% if nav_key == 'calendar' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="calendar" %}</span>
+        <span>{% trans "Taqvim" %}</span>
+      </a>
+    {% endif %}
 
     {% if user.is_superuser or user.role == 'super_admin' or user.role == 'management_responsible' or user.role == 'international_admin' %}
       <span class="nav-section">{% trans "Operatsiya" %}</span>
@@ -72,22 +74,24 @@
       </a>
     {% endif %}
 
-    <span class="nav-section">{% trans "Tahlil" %}</span>
-    {% if user.is_superuser or user.role == 'super_admin' or user.role == 'international_admin' or user.role == 'leadership_viewer' or user.role == 'management_responsible' %}
-      <a class="nav-item sidebar-nav-item{% if nav_key == 'leadership' %} is-active{% endif %}" href="{% url 'leadership-dashboard' %}" {% if nav_key == 'leadership' %}aria-current="page"{% endif %}>
-        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="shield-check" %}</span>
-        <span>{% trans "Rahbariyat paneli" %}</span>
+    {% if user.role != 'doctor' %}
+      <span class="nav-section">{% trans "Tahlil" %}</span>
+      {% if user.is_superuser or user.role == 'super_admin' or user.role == 'international_admin' or user.role == 'leadership_viewer' or user.role == 'management_responsible' %}
+        <a class="nav-item sidebar-nav-item{% if nav_key == 'leadership' %} is-active{% endif %}" href="{% url 'leadership-dashboard' %}" {% if nav_key == 'leadership' %}aria-current="page"{% endif %}>
+          <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="shield-check" %}</span>
+          <span>{% trans "Rahbariyat paneli" %}</span>
+        </a>
+      {% endif %}
+      <a class="nav-item sidebar-nav-item{% if nav_key == 'reports' %} is-active{% endif %}" href="{% url 'reporting:dashboard' %}" {% if nav_key == 'reports' %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="report" %}</span>
+        <span>{% trans "Hisobotlar" %}</span>
       </a>
-    {% endif %}
-    <a class="nav-item sidebar-nav-item{% if nav_key == 'reports' %} is-active{% endif %}" href="{% url 'reporting:dashboard' %}" {% if nav_key == 'reports' %}aria-current="page"{% endif %}>
-      <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="report" %}</span>
-      <span>{% trans "Hisobotlar" %}</span>
-    </a>
-    {% if user.is_superuser or user.role == 'super_admin' %}
-      <a class="nav-item sidebar-nav-item{% if nav_key == 'audit' %} is-active{% endif %}" href="{% url 'audit:view-logs' %}" {% if nav_key == 'audit' %}aria-current="page"{% endif %}>
-        <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="activity" %}</span>
-        <span>{% trans "Audit Log" %}</span>
-      </a>
+      {% if user.is_superuser or user.role == 'super_admin' %}
+        <a class="nav-item sidebar-nav-item{% if nav_key == 'audit' %} is-active{% endif %}" href="{% url 'audit:view-logs' %}" {% if nav_key == 'audit' %}aria-current="page"{% endif %}>
+          <span class="nav-icon">{% include "admin/includes/iems_icon.html" with name="activity" %}</span>
+          <span>{% trans "Audit Log" %}</span>
+        </a>
+      {% endif %}
     {% endif %}
 
     <span class="nav-section">{% trans "Shaxsiy" %}</span>

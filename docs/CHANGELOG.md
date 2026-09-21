@@ -1713,3 +1713,73 @@ tasdiqlandi (login va register sahifalarida alohida-alohida).
 
 ---
 
+### 3.41 Tuzatildi — Public dashboard dark mode'da uzun sahifalarda ochiq fon chizig'i; shifokorlar uchun ishlatolmaydigan bo'limlar yashirildi (2026-09-21)
+
+Foydalanuvchi: "Boshqa sahifalarda ham dark mode'ni tekshirib chiq, va
+shu bilan birga oddiy foydalanuvchilar uchun tadbirlar, taqvim va
+hisobotlar bo'limi ham ko'rinib o'tirmasin baribir ishlatolmaydiku
+ularni." Ikkita alohida narsa tekshirildi va tuzatildi:
+
+**1. Public dashboard dark mode bug'i** — `static/css/public.css`dagi
+`.public-shell` (barcha public sahifalarning tashqi qobig'i) fon rangi
+mavjud BO'LMAGAN `--color-surface-base` o'zgaruvchisiga bog'langan edi,
+shuning uchun har doim uning literal fallback qiymatiga
+(`#F7F9FC`, yorug' rang) tushib qolardi — **dark mode yoqilgan bo'lsa
+ham**. Buning ustidagi dekorativ fon qatlami (`.public-atmosphere`,
+`position: fixed`) esa faqat BITTA EKRAN balandligini qoplaydi
+(`inset: 0` — viewport o'lchamida, sahifaning to'liq balandligida emas).
+Natijada: agar sahifa bitta ekrandan uzunroq bo'lsa (masalan, "Jonli
+zallar holati"da 5 ta karta 3 qatorga tushganda), pastki qism yorug'
+fon bilan ko'rinib qolardi — xuddi shifokor topgan "matn ko'rinmay
+qolish" bilan bir xil turdagi, aylanma CSS o'zgaruvchi xatosi.
+Tuzatish: `.public-shell` fon rangi to'g'ri, ikkala rejim uchun ham
+aniqlangan `--color-canvas` o'zgaruvchisiga o'zgartirildi. Boshqa
+barcha public sahifalar (Boshqaruv, Taqvim, Jonli, Band shifokorlar)
+Playwright orqali dark mode'da qayta tekshirilib, matn/fon kontrasti
+hamma joyda to'g'ri ekanligi tasdiqlandi.
+
+**Eslatma**: ichki (autentifikatsiyadan o'tgan) workspace/admin
+qismida (`templates/base.html`) dark mode tugmasi UMUMAN MAVJUD EMAS —
+bu funksiya faqat login/register va public dashboard sahifalarida
+ishlaydi. Bu — "ishlamayapti" emas, balki hali qo'shilmagan funksiya;
+agar kelajakda kerak bo'lsa, alohida katta ish sifatida rejalashtirish
+kerak (butun `workspace.css`/`components.css`ga dark-mode qo'shish).
+
+**2. Shifokorlar uchun ishlatolmaydigan bo'limlar yashirildi** —
+tekshiruv shuni ko'rsatdi: `apps/accounts/rbac.py::ROLE_CAPABILITIES`
+lug'atida **DOCTOR roli umuman yo'q** — shuning uchun shifokor
+hech qanday capability'ga ega emas (`VIEW_MASTER_DATA` yo'q, demak
+Tadbirlar/Taqvim/Tadbir tafsilotlari), va `apps/reporting/selectors.py::
+allowed_report_sections`da ham DOCTOR alohida ko'rsatilmagan (bo'sh
+to'plam qaytadi, demak Hisobotlar ham). Bu degani: shifokor bu
+havolalarni bossa, **403 Permission Denied** oladi — lekin ular
+sidebar'da va bosh sahifada hech qanday tekshiruvsiz hammaga bab-baravar
+ko'rsatilardi.
+- `templates/partials/sidebar.html`: "Tadbirlar", "Taqvim" (Ish maydoni
+  bo'limida) va butun "Tahlil" bo'limi (Rahbariyat paneli, Hisobotlar,
+  Audit Log sarlavhasi bilan birga) endi `{% if user.role != 'doctor' %}`
+  bilan o'ralgan.
+- `templates/workspace/home.html`: bosh sahifadagi "Barcha tadbirlar"
+  havolasi (`events:list`ga, `VIEW_MASTER_DATA` talab qiladi) va
+  "+ Yangi tadbir" CTA tugmasi (`events:wizard`ga, `CREATE_OWN_EVENTS`
+  talab qiladi — DOCTOR bunga ham ega emas) xuddi shunday yashirildi.
+  "Zallar holati" panelidagi "Barchasi →" havolasi (`venues:list`)
+  allaqachon to'g'ri o'ralgan ekan (tekshirilib tasdiqlandi).
+- **Test**: `tests/test_final_acceptance_blockers.py::
+  test_doctor_sidebar_and_dashboard_hide_links_they_cannot_use` — shifokor
+  hisobi bilan bosh sahifaga kirib, bu 4 ta havola (`events:list`,
+  `calendar`, `reporting:dashboard`, `events:wizard`) HTML'da yo'qligini
+  va to'g'ridan-to'g'ri ochilsa 403 qaytarishini tasdiqlaydi.
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (389 test,
++1 yangi) o'tdi. Playwright orqali haqiqiy shifokor hisobi bilan kirib,
+sidebar'da faqat "Bosh sahifa", "Band vaqtlarim", "Telegram", "Profil"
+qolgani va bosh sahifada "Yangi tadbir"/"Barcha tadbirlar" havolalari
+yo'qligi skrinshot bilan tasdiqlandi. **Eslatma**: bu tekshiruv jarayonida
+shablon o'zgarishi jonli serverda darhol ko'rinmadi (Django test-client
+orqali to'g'ri ekanligi tasdiqlangan bo'lsa-da) — server qayta ishga
+tushirilgach to'g'ri ko'rindi; sababi bu sessiyada avval ham uchragan,
+hali to'liq aniqlanmagan holat (shablon "yopishib qolishi").
+
+---
+

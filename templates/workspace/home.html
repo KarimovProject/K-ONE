@@ -19,12 +19,14 @@
       <h1 class="workspace-exec-title">{% trans "Salom" %}, {{ user.first_name|default:user.username }}</h1>
       <p class="workspace-exec-subtitle">{% trans "Bugungi tadbirlar, zallar va tasdiqlash jarayonlari." %}</p>
     </div>
+    {% if user.role != 'doctor' %}
     <div class="workspace-exec-header__right">
       <a class="btn-primary exec-cta-btn" href="{% url 'events:wizard' %}">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         <span>{% trans "Yangi tadbir" %}</span>
       </a>
     </div>
+    {% endif %}
   </header>
 
   <!-- OPERATIONAL METRICS STRIP (Segmented Rail) -->
@@ -147,10 +149,12 @@
             <span class="exec-panel-eyebrow">{% trans "OPERATSION TAQVIM" %}</span>
             <h2 class="exec-panel-title">{% trans "Yaqinlashayotgan tadbirlar ro'yxati" %}</h2>
           </div>
-          <a class="exec-panel-link" href="{% url 'events:list' %}">
-            <span>{% trans "Barcha tadbirlar" %}</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
+          {% if user.role != 'doctor' %}
+            <a class="exec-panel-link" href="{% url 'events:list' %}">
+              <span>{% trans "Barcha tadbirlar" %}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          {% endif %}
         </header>
 
         <div class="exec-agenda-list">

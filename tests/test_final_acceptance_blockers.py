@@ -156,6 +156,29 @@ def test_sidebar_named_links_render_and_resolve(client):
 
 
 @pytest.mark.django_db
+def test_doctor_sidebar_and_dashboard_hide_links_they_cannot_use(client):
+    """Doctors have no capabilities in ROLE_CAPABILITIES at all, so Events,
+    Calendar, and Reports (all requiring VIEW_MASTER_DATA or the reporting
+    equivalent) 403 for them — the nav must not dangle links to pages a
+    doctor can click but never actually open."""
+    doctor = User.objects.create_user(
+        username="acceptance_doctor", role=User.Role.DOCTOR, is_active=True
+    )
+    client.force_login(doctor)
+
+    dashboard = client.get(reverse("dashboard"))
+    assert dashboard.status_code == 200
+    content = dashboard.content.decode()
+    assert f'href="{reverse("events:list")}"' not in content
+    assert f'href="{reverse("calendar")}"' not in content
+    assert f'href="{reverse("reporting:dashboard")}"' not in content
+    assert f'href="{reverse("events:wizard")}"' not in content
+
+    for route_name in ("events:list", "calendar", "reporting:dashboard", "events:wizard"):
+        assert client.get(reverse(route_name)).status_code == 403, route_name
+
+
+@pytest.mark.django_db
 def test_speaker_pages_highlight_the_speakers_sidebar_item_not_events():
     """SpeakerListView/Create/Update used to hardcode nav_key="events",
     so the sidebar highlighted "Tadbirlar" while viewing "Ma'ruzachilar"."""

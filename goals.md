@@ -5,13 +5,14 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (dark mode'da login/register matni
-ko'rinmay qolish bug'i tuzatildi — bu mening o'z oldingi CSS
-specificity tuzatishimning kutilmagan yon ta'siri edi; bundan oldin:
-loyiha bo'ylab qo'shimcha audit (xuddi shunday CSS/tarjima
-bug'larini boshqa joylarda qidirish), filtr iconka/tarjima bug'lari,
-tasdiqlanmagan hisob bilan kirishda aniq xabar — to'liq tafsilot
-`docs/CHANGELOG.md`dagi 3.25–3.40-bo'limlarda)
+Oxirgi yangilanish: 2026-09-21 (public dashboard'da dark mode uzun
+sahifalarda ochiq fon chizig'i tuzatildi (`.public-shell`ning mavjud
+bo'lmagan CSS o'zgaruvchisi); shifokorlar uchun ishlatib bo'lmaydigan
+Tadbirlar/Taqvim/Hisobotlar bo'limlari sidebar va bosh sahifadan
+yashirildi (DOCTOR roli hech qanday capability'ga ega emasligi
+sababli); bundan oldin: dark mode'da login/register matni ko'rinmay
+qolish bug'i, loyiha bo'ylab qo'shimcha audit, filtr iconka/tarjima
+bug'lari — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.41-bo'limlarda)
 
 ---
 
@@ -139,6 +140,12 @@ muvaffaqiyatsizliklar tuzatilgan).
   sahifalarida noto'g'ri nom bilan chiqardi. Shu skanerlash orqali
   yana ikkita shunga o'xshash uz.po korruptsiyasi (K-ONE shiori va
   "Operatsion holatda" yozuvi) ham topilib tuzatildi.
+- **Public dashboard dark mode + shifokorlar uchun yashirin bo'limlar**
+  — `.public-shell`ning mavjud bo'lmagan CSS o'zgaruvchisiga bog'liq
+  fon rangi (uzun sahifalarda ochiq chiziq qoldirardi) tuzatildi;
+  DOCTOR roli `ROLE_CAPABILITIES`da umuman yo'qligi sababli
+  Tadbirlar/Taqvim/Hisobotlar/"Yangi tadbir" havolalari (403 qaytarardi)
+  sidebar va bosh sahifadan shifokorlar uchun yashirildi.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).
@@ -201,6 +208,13 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     bo'lishi kerak bo'lsa), bu — alohida, foydalanuvchi bilan kelishilishi
     kerak bo'lgan biznes-qoida qarori, chunki hozirgi testlar joriy
     (barcha turlar bir xil) xatti-harakatga tayanadi.
+11. **Dark mode faqat login/register va public dashboard sahifalarida
+    mavjud** — autentifikatsiyadan o'tgan workspace/admin qismida
+    (`templates/base.html`) tema almashtirish tugmasi umuman yo'q va
+    `workspace.css`/`components.css`da `[data-theme="dark"]` qoidalari
+    yo'q. Agar kelajakda butun tizim uchun dark mode kerak bo'lsa, bu —
+    katta, alohida ish (barcha ichki sahifalar CSS'ini qayta ko'rib
+    chiqishni talab qiladi), hozircha so'ralmagan.
 
 ---
 
