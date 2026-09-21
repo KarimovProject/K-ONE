@@ -319,7 +319,11 @@
   z-index: 1;
 }
 
-.auth-input {
+/* Specificity note: components.css's generic input[type="..."] rule
+   (0,1,1) otherwise beats a plain .auth-input class (0,1,0) for
+   border/background/border-radius — scoped through the wrapper so this
+   pill-styled auth input actually wins. */
+.auth-input-wrap .auth-input {
   width: 100%;
   height: 50px;
   min-height: 50px;
@@ -334,8 +338,8 @@
   outline: none;
   transition: border-color 140ms ease, box-shadow 140ms ease;
 }
-.auth-input::placeholder { color: #94A3B8; }
-.auth-input:focus {
+.auth-input-wrap .auth-input::placeholder { color: #94A3B8; }
+.auth-input-wrap .auth-input:focus {
   border-color: #2563EB;
   box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
 }

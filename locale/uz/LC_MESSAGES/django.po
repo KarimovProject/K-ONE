@@ -2397,7 +2397,7 @@ msgstr "1-qadam: Asosiy ma'lumotlar"
 
 #: template:0
 msgid "Hozirda erkin — rejalashtirish mumkin"
-msgstr "Hozirda erkin — mumkin"
+msgstr "Hozirda erkin — rejalashtirish mumkin"
 
 #: template:0
 msgid "Save Program Settings"

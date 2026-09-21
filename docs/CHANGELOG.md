@@ -1623,3 +1623,52 @@ tasdiqlandi.
 
 ---
 
+### 3.39 Bajarildi — Loyiha bo'ylab qo'shimcha audit: shu turdagi CSS/tarjima xatolari boshqa joylarda ham qidirildi (2026-09-21)
+
+Foydalanuvchi 3.38'dagi ikkita bug'dan keyin: "Boshqa bo'limlarni ham
+tekshirib chiq, xatolik bormi. Ham backend ham frontend tomondan."
+Tizimli tarzda ikkala bug SINFI (CSS specificity, uz.po korruptsiyasi)
+boshqa joylarda ham qidirildi:
+
+**CSS specificity — yana bitta joy topildi**: `static/css/login.css`dagi
+`.auth-input` (login/register/register_submitted sahifalaridagi barcha
+matn/parol/email inputlari) xuddi shu sababdan (`input[type="..."]`
+umumiy qoidasi kuchliroq specificity bilan) `border`, `background`,
+`border-radius`ni bosib qo'ygan edi — faqat `padding`da avvaldan
+`!important` borligi sababli vizual jihatdan unchalik sezilmasdi (radius
+12px o'rniga 10px, oq fon o'rniga token fon, #E2E8F0 chegara o'rniga
+boshqa rang — mayda farq). `.auth-input-wrap .auth-input` qilib
+scope qilindi. Loyihadagi BOSHQA barcha `.command-search-input`/
+`.command-date-input`/`.filter-input`/`.filter-select`/`.command-select`
+ishlatilgan 5 ta sahifa (`master_data/filters.html` orqali 4 ta +
+`publications/list.html`, `events/approval_center.html`) alohida-alohida
+Playwright orqali tekshirilib, hammasi 3.38'dagi fix bilan allaqachon
+to'g'irlanganligi tasdiqlandi.
+
+**uz.po korruptsiyasi — yana ikkita joy topildi** (bir xil, msgid allaqachon
+o'zbekcha bo'lsa ham msgstr boshqa matnga aylanib qolgan naqsh):
+- `"Hozirda erkin — rejalashtirish mumkin"` (Zal bo'sh — band qilish
+  mumkin, ochiq zal kartalarida ko'rinadi) → `"Hozirda erkin — mumkin"`
+  bo'lib, "rejalashtirish" so'zi tushib qolgan edi — jumla ma'nosiz
+  bo'lib qolardi.
+- Qolgan ~40 ta "msgid o'zbekcha, msgstr boshqa" holatlar tekshirilib,
+  hammasi haqiqiy va to'g'ri INGLIZCHA→o'zbekcha tarjimalar ekanligi
+  tasdiqlandi (bug emas).
+
+**Backend tomondan tekshirilgan, MUAMMO TOPILMAGAN sohalar**:
+`EventListView`, `EventApprovalListView`, `PublicationListView`,
+`OrganizationListView`/`SponsorListView`/`VenueListView` (barchasi
+`MasterDataListMixin` orqali) — barcha filtr GET-parametrlari (q, status,
+venue, type, priority, platform, language, start_date, end_date) backend
+va shablon orasida to'g'ri mos kelishi tasdiqlandi (xuddi shunga o'xshash
+nom-mos kelmaslik xatosi 3.32'da `nav_key` bilan, 3.38'da tarjima bilan
+topilgan edi — bu safar topilmadi).
+
+**Tekshiruv**: `manage.py check` toza, to'liq test to'plami (388 test)
+o'tdi, Playwright orqali 7 ta ro'yxat/filtr sahifasi (tashkilotlar,
+tadbirlar, zallar, homiylar, tadbir turlari, nashrlar, tasdiqlash markazi)
+va login/register sahifalarining input stillari alohida-alohida
+tekshirilib tasdiqlandi.
+
+---
+

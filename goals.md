@@ -5,12 +5,13 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (barcha ro'yxat sahifalaridagi qidiruv
-filtri iconka bilan yopishib qolishi (CSS specificity bug) va
-"Barcha holatlar" o'rniga "Barcha xonalar" chiqishi (uz.po tarjima
-korruptsiyasi) tuzatildi; bundan oldin: tasdiqlanmagan hisob bilan
-kirishda aniq xabar, ro'yxatdan o'tish tasdiqlash sahifasi, telefon/email
-validatsiyasi — to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.38-bo'limlarda)
+Oxirgi yangilanish: 2026-09-21 (loyiha bo'ylab qo'shimcha audit — xuddi
+shu turdagi CSS specificity bug login/register formalarida, yana bitta
+uz.po korruptsiyasi zal kartalarida topilib tuzatildi; boshqa 5 ta
+filtr sahifasi va asosiy backend list-view'lar tekshirilib, muammo
+topilmadi; bundan oldin: filtr iconka/tarjima bug'lari, tasdiqlanmagan
+hisob bilan kirishda aniq xabar, ro'yxatdan o'tish tasdiqlash sahifasi —
+to'liq tafsilot `docs/CHANGELOG.md`dagi 3.25–3.39-bo'limlarda)
 
 ---
 
