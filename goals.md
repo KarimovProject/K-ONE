@@ -5,9 +5,12 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (public dashboard'da dark mode uzun
-sahifalarda ochiq fon chizig'i tuzatildi (`.public-shell`ning mavjud
-bo'lmagan CSS o'zgaruvchisi); shifokorlar uchun ishlatib bo'lmaydigan
+Oxirgi yangilanish: 2026-09-21 (Telegram bot integratsiyasi real token bilan
+yoqildi (@docker_manajer_bot) va `client.py`dagi `getUpdates` timeout bug'i
+tuzatildi — production uchun `telegram_poll` supervised process hali
+sozlanmagan, texnik qarzga qo'shildi); bundan oldin: public dashboard'da
+dark mode uzun sahifalarda ochiq fon chizig'i tuzatildi (`.public-shell`ning
+mavjud bo'lmagan CSS o'zgaruvchisi); shifokorlar uchun ishlatib bo'lmaydigan
 Tadbirlar/Taqvim/Hisobotlar bo'limlari sidebar va bosh sahifadan
 yashirildi (DOCTOR roli hech qanday capability'ga ega emasligi
 sababli); bundan oldin: dark mode'da login/register matni ko'rinmay
@@ -146,6 +149,14 @@ muvaffaqiyatsizliklar tuzatilgan).
   DOCTOR roli `ROLE_CAPABILITIES`da umuman yo'qligi sababli
   Tadbirlar/Taqvim/Hisobotlar/"Yangi tadbir" havolalari (403 qaytarardi)
   sidebar va bosh sahifadan shifokorlar uchun yashirildi.
+- **Telegram bot integratsiyasi yoqildi** — real token bilan `.env`ga
+  sozlandi (@docker_manajer_bot), `getMe` bilan tasdiqlandi.
+  `apps/notifications/telegram/client.py`da haqiqiy bug topildi:
+  `get_updates()` server tomonida 20s long-poll so'rasa-da, client
+  soket timeout'i 8s bo'lib qolgan edi — shu sababli har safar yangi
+  xabar kelmasa, so'rov darhol xato bilan yiqilardi. Tuzatildi
+  (`_call()`ga ixtiyoriy `timeout` qo'shildi). `telegram_poll` hozircha
+  faqat lokal terminal orqali fon jarayonida ishlayapti.
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).
@@ -215,6 +226,13 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     yo'q. Agar kelajakda butun tizim uchun dark mode kerak bo'lsa, bu —
     katta, alohida ish (barcha ichki sahifalar CSS'ini qayta ko'rib
     chiqishni talab qiladi), hozircha so'ralmagan.
+12. **`telegram_poll` production'da supervised process ostida emas** —
+    `manage.py telegram_poll` (`/start` linking xabarlarini qabul qilish
+    uchun yagona yo'l) faqat lokal terminal fon jarayoni sifatida
+    ishlayapti (2026-09-21 holatiga ko'ra). Windows'da xizmat sifatida
+    (NSSM/Task Scheduler) yoki Docker'ga o'tilsa alohida konteyner
+    komandasi sifatida avtomatik qayta ishga tushadigan qilib
+    sozlanishi kerak — hozircha so'ralmagan.
 
 ---
 

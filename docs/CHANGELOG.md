@@ -1783,3 +1783,46 @@ hali to'liq aniqlanmagan holat (shablon "yopishib qolishi").
 
 ---
 
+### 3.42 Bajarildi va tuzatildi — Telegram bot integratsiyasi yoqildi, `getUpdates` timeout bug'i tuzatildi (2026-09-21)
+
+Foydalanuvchi: "telegram integratsiya" so'rovi bilan boshlandi. Avval mavjud
+kod (`apps/notifications/telegram/*`) review qilindi — xavfsiz va to'g'ri
+qurilgan topildi (token hash'lash, TTL, idempotent delivery, cache lock).
+Keyin foydalanuvchi real bot token berdi va yoqishni so'radi.
+
+**1. Bot yoqildi** — `.env`ga (gitignored, commit qilinmagan)
+`TELEGRAM_BOT_ENABLED=true`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME`
+qo'shildi. Token `getMe` orqali tasdiqlandi: bot @docker_manajer_bot
+("Control Services"). Kanal broadcast (`TELEGRAM_CHANNEL_ENABLED`) hali
+`false` — chat ID berilmagan, kerak bo'lsa alohida so'raladi.
+
+**2. `client.py`dagi haqiqiy bug topilib tuzatildi** — `get_updates()`
+Telegram'dan server tomonida 20 soniyagacha uzoq so'rov (long poll)
+so'raydi, lekin HTTP client'ning soket timeout'i konstruktordan qattiq
+kodlangan 8 soniya edi (`_call()` doim `self.timeout`ni ishlatardi, `get_updates`
+o'zining `timeout` parametrini transport'ga uzatmasdi). Natijada har safar
+yangi xabar kelmasa (odatiy holat), so'rov 8-soniyada client tomonidan
+uzilib, `TelegramTransientError("Telegram network request failed")` bilan
+`manage.py telegram_poll` darhol yiqilardi — bu ehtimol "integratsiya
+ishlamay qoldi" degan asl shikoyatning sababi. Tuzatish: `_call()` endi
+ixtiyoriy `timeout` parametrini qabul qiladi, `get_updates()` esa
+`timeout + 5` soniyalik client-side timeout uzatadi (server-side long-poll
+muddatidan katta bo'lishi kerak).
+
+**3. `manage.py telegram_poll`** fon jarayoni sifatida ishga tushirildi
+(hozircha lokal Windows dev muhitida, terminal orqali — bu komandaning
+o'z docstring'ida ham aytilganidek "local account-linking development"
+uchun mo'ljallangan, production uchun supervised/auto-restart jarayon
+kerak, hali sozlanmagan).
+
+**Tekshiruv**: `manage.py check` toza. Token `getMe` bilan live tasdiqlandi.
+Tuzatishdan keyin `telegram_poll` xatosiz, uzoq muddat ishlab turdi (avval
+8 soniyada har safar yiqilardi).
+
+**Texnik qarz** (`goals.md` 4-bo'limiga ham qo'shildi): production'da
+`telegram_poll`ni doimiy ishlab turadigan supervised process (systemd/Windows
+service/Docker) ostida ishga tushirish kerak — hozircha buni ta'minlaydigan
+konfiguratsiya yo'q.
+
+---
+
