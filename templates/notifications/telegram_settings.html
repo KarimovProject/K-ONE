@@ -51,8 +51,8 @@
           </form>
         </div>
       {% else %}
-        <p>{% trans "Bosing — Telegram yangi oynada ochiladi. U yerda paydo bo'ladigan \"START\" tugmasini bosib, ulanishni yakunlang." %}</p>
-        <form method="post" action="{% url 'notifications:telegram-link' %}" target="_blank">
+        <p>{% trans "Bosing — Telegram ochiladi. U yerda paydo bo'ladigan \"START\" tugmasini bosib, ulanishni yakunlang, so'ng shu sahifaga qayting." %}</p>
+        <form method="post" action="{% url 'notifications:telegram-link' %}">
           {% csrf_token %}
           <button class="btn-primary" type="submit" data-testid="connect-telegram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 4.5 3 11.5l7 2.5 2.5 7 3-4.5 6-12z"/></svg>

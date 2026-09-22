@@ -2146,3 +2146,26 @@ qo'shildi (`test_assigned_responsible_notifies_only_that_employee`,
 test to'plami: 391 ta (2 tasi yangi), barchasi o'tadi.
 
 ---
+### 3.49 Tuzatildi — target="_blank" Telegram ulanishida "qora oyna" osilib qolishi (2026-09-22)
+
+3.48-bandda qo'shilgan `target="_blank"` (yangi tabda ochish) amalda
+foydalanuvchida muammo tug'dirdi: "Ulash" tugmasi bosilgach yangi,
+bo'sh/qora oyna ochilib qoldi, Telegram'ga hech qachon o'tmadi.
+Server-tomonidagi redirect to'g'ri ekani tasdiqlandi
+(`TelegramLinkView` to'g'ri `https://t.me/docker_manajer_bot?start=...`
+manziliga 302 qaytaradi) — muammo faqat brauzerning yangidan ochilgan
+bo'sh tabda tashqi `t.me` protokoliga o'tishni ishonchli boshqara
+olmasligida edi (odatiy holat, ba'zi brauzerlarda uchraydi).
+
+Audit log orqali tasdiqlandi: foydalanuvchining "Uzish" (disconnect)
+amali muvaffaqiyatli ishlagan edi (`telegram.connection_removed`,
+"Test" foydalanuvchisi uchun, 2026-09-22 06:36) — muammo faqat QAYTA
+ulanishda, yangi tab ochilishida bo'lgan.
+
+**Tuzatish**: `templates/notifications/telegram_settings.html`dan
+`target="_blank"` olib tashlandi — endi forma bir xil tabda
+to'g'ridan-to'g'ri Telegram'ga o'tadi (oddiy, ishonchli redirect,
+hech qanday yangi/bo'sh oyna yo'q). Foydalanuvchi Telegram'da
+ulanishni yakunlagach, orqaga qaytish tugmasi bilan IEMS'ga qaytadi.
+
+---
