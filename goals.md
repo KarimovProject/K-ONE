@@ -5,10 +5,13 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-22 (Telegram ulash tugmasidagi
-`target="_blank"` real foydalanuvchi sinovida "qora oyna" osilib
-qolishiga sabab bo'lgani aniqlanib, bir xil tabga qaytarildi —
-`docs/CHANGELOG.md` 3.49-band); bundan oldin: Telegram ulash 1
+Oxirgi yangilanish: 2026-09-22 (Telegram ulash: xom HTTP redirect
+ba'zi brauzer/OS'larda "hech narsa ochilmasligi"ga sabab bo'lgani
+aniqlanib, o'rniga har doim ko'rinadigan/bosiladigan tugmali oraliq
+sahifa qilindi — `docs/CHANGELOG.md` 3.50-band); bundan oldin:
+Telegram ulash tugmasidagi `target="_blank"` real foydalanuvchi
+sinovida "qora oyna" osilib qolishiga sabab bo'lgani aniqlanib, bir
+xil tabga qaytarildi (3.49-band); bundan oldin: Telegram ulash 1
 bosishga tushirildi (oldin ikkinchi, ko'zga tashlanmaydigan tugmani
 bosish kerak edi),
 botga kirganda tushuntirish matni qo'shildi (bot description + jim

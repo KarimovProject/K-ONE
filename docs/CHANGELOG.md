@@ -2169,3 +2169,39 @@ hech qanday yangi/bo'sh oyna yo'q). Foydalanuvchi Telegram'da
 ulanishni yakunlagach, orqaga qaytish tugmasi bilan IEMS'ga qaytadi.
 
 ---
+### 3.50 Tuzatildi — Telegram ulanishida "hech qanday oyna ochilmayapti" (avtomatik redirect ishonchsiz ekan) (2026-09-22)
+
+3.49-bandda `target="_blank"` olib tashlanib, bir xil tabda
+to'g'ridan-to'g'ri `https://t.me/...`ga HTTP redirect qilinadigan
+qilingandi. Foydalanuvchi buni sinab ko'rib, "umuman yangi oyna
+ochilmayapti" deb xabar qildi. Server-tomon tekshirildi — redirect
+to'g'ri chiqib turibdi (`POST /notifications/telegram/link/` → `302`
+→ to'g'ri `t.me` manzili), lekin brauzer/OS darajasida bu avtomatik
+"handoff" ba'zi holatlarda (Telegram Desktop ilovasi ro'yxatdan
+o'tmagan yoki protokol ulanishi yo'q) sezilarli hech narsa
+qilmasdan "yutilib" ketishi mumkin ekan — foydalanuvchiga hech qanday
+signal, hech qanday bosiladigan narsa qolmaydi.
+
+**Tuzatish — ishonchli, har doim ko'rinadigan yechim**: xom HTTP
+redirect o'rniga endi `TelegramLinkView.post()` maxsus oraliq sahifa
+render qiladi (`templates/notifications/telegram_open.html`):
+- `<meta http-equiv="refresh">` orqali avtomatik o'tishga harakat
+  qiladi (ishlaydigan brauzerlarda darhol o'tadi, foydalanuvchi
+  sahifani deyarli ko'rmaydi ham),
+- **lekin har doim** katta, aniq ko'rinadigan `<a href="...">` tugmasi
+  ham bor ("Telegram'ni ochish") — bu oddiy HTML havola, brauzer/OS
+  qanday bo'lishidan qat'iy nazar 100% bosiladi va ishlaydi,
+  chunki foydalanuvchining o'zi ongli ravishda bosgan havola
+  (avtomatik JS/redirect emas) — bu OS darajasidagi protokol
+  ruxsatlarini ko'pincha ishonchliroq ishga tushiradi,
+- "Sozlamalarga qaytish" havolasi bilan.
+
+Bu yechim ikkala muammoni ham (3.48'dagi "ko'rinmaydi", 3.49'dagi
+"qora oyna", va bugungi "hech narsa ochilmaydi") bir vaqtda hal
+qiladi: har doim bosiladigan, har doim ko'rinadigan bitta aniq tugma.
+
+**Tekshiruv**: `manage.py check` toza, real so'rov orqali sahifa
+to'g'ri render bo'lishi (meta-refresh + to'g'ri deep-link) tasdiqlandi,
+`test_phase7_telegram.py` (24 test) o'tadi.
+
+---

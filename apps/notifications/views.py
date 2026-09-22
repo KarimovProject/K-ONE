@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -114,11 +114,23 @@ class TelegramLinkView(LoginRequiredMixin, View):
             messages.error(request, _("Telegram integration is not configured."))
             return redirect("notifications:telegram-settings")
         token = create_link_token(request.user)
-        # The form that posts here targets a new browser tab (target="_blank"),
-        # so this redirect opens Telegram directly in that tab — one click
-        # for the user instead of "create link, then notice and click a
-        # second button to actually open it".
-        return redirect(f"https://t.me/{settings.TELEGRAM_BOT_USERNAME}?start={token}")
+        # A raw HTTP redirect straight to t.me was tried and reported as
+        # silently doing nothing for some browser/OS combinations (no
+        # Telegram Desktop association, or the auto-handoff just failing
+        # quietly). Rendering an explicit page with a real, always-clickable
+        # <a href> — plus a best-effort meta-refresh for browsers where the
+        # automatic handoff does work — is more reliable than a bare
+        # redirect and never leaves the user looking at an unexplained blank
+        # screen.
+        return render(
+            request,
+            "notifications/telegram_open.html",
+            {
+                "telegram_link_url": (
+                    f"https://t.me/{settings.TELEGRAM_BOT_USERNAME}?start={token}"
+                )
+            },
+        )
 
 
 class TelegramDisconnectView(LoginRequiredMixin, View):

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Telegram'ni ulash" %} · K-ONE{% endblock %}
+
+{% block content %}
+<meta http-equiv="refresh" content="0; url={{ telegram_link_url }}">
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">{% trans "Shaxsiy sozlamalar" %}</p>
+    <h1>{% trans "Telegram'ni ulash" %}</h1>
+  </div>
+</div>
+
+<div class="detail-grid">
+  <div class="detail-main">
+    <section class="detail-card" data-testid="telegram-open-card">
+      <p>{% trans "Bir necha soniyadan so'ng Telegram avtomatik ochilishi kerak. Agar ochilmasa, quyidagi tugmani bosing:" %}</p>
+      <a class="btn-primary" href="{{ telegram_link_url }}" data-testid="telegram-deep-link" style="font-size: 1.1rem; padding: 1rem 1.5rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 4.5 3 11.5l7 2.5 2.5 7 3-4.5 6-12z"/></svg>
+        {% trans "Telegram'ni ochish" %}
+      </a>
+      <p class="text-muted" style="margin-top: 1rem;">
+        {% trans "Telegram ochilgach, u yerda paydo bo'ladigan \"START\" tugmasini bosing." %}
+      </p>
+      <p style="margin-top: 1.5rem;">
+        <a href="{% url 'notifications:telegram-settings' %}">← {% trans "Sozlamalarga qaytish" %}</a>
+      </p>
+    </section>
+  </div>
+</div>
+{% endblock %}
