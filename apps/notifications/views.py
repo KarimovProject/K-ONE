@@ -98,7 +98,6 @@ class TelegramSettingsView(LoginRequiredMixin, TemplateView):
                 )[:5]
                 if is_admin
                 else [],
-                "telegram_link_url": self.request.session.pop("telegram_link_url", ""),
                 "nav_key": "telegram",
             }
         )
@@ -115,10 +114,11 @@ class TelegramLinkView(LoginRequiredMixin, View):
             messages.error(request, _("Telegram integration is not configured."))
             return redirect("notifications:telegram-settings")
         token = create_link_token(request.user)
-        request.session["telegram_link_url"] = (
-            f"https://t.me/{settings.TELEGRAM_BOT_USERNAME}?start={token}"
-        )
-        return redirect("notifications:telegram-settings")
+        # The form that posts here targets a new browser tab (target="_blank"),
+        # so this redirect opens Telegram directly in that tab — one click
+        # for the user instead of "create link, then notice and click a
+        # second button to actually open it".
+        return redirect(f"https://t.me/{settings.TELEGRAM_BOT_USERNAME}?start={token}")
 
 
 class TelegramDisconnectView(LoginRequiredMixin, View):

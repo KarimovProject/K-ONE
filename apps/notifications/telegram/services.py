@@ -82,28 +82,42 @@ def schedule_due_reminders(now=None) -> int:
     return count
 
 
+def _schedule_delivery(event: Event, action: str, recipient: User, now) -> bool:
+    delivery, created = TelegramDelivery.objects.get_or_create(
+        event=event,
+        recipient_user=recipient,
+        notification_type=action,
+        scheduled_for=now,
+        defaults={
+            "message_text": format_event_notification(
+                event,
+                action,
+                _language(recipient),
+                settings.IEMS_BASE_URL,
+            )
+        },
+    )
+    if created:
+        transaction.on_commit(lambda pk=delivery.pk: _enqueue_delivery(pk))
+    return created
+
+
 def schedule_event_notification(event: Event, action: str, include_admins: bool = False) -> int:
     now = timezone.now().replace(microsecond=0)
-    count = 0
-    for recipient in event_recipients(event, include_admins=include_admins):
-        delivery, created = TelegramDelivery.objects.get_or_create(
-            event=event,
-            recipient_user=recipient,
-            notification_type=action,
-            scheduled_for=now,
-            defaults={
-                "message_text": format_event_notification(
-                    event,
-                    action,
-                    _language(recipient),
-                    settings.IEMS_BASE_URL,
-                )
-            },
-        )
-        if created:
-            count += 1
-            transaction.on_commit(lambda pk=delivery.pk: _enqueue_delivery(pk))
-    return count
+    recipients = event_recipients(event, include_admins=include_admins)
+    return sum(_schedule_delivery(event, action, recipient, now) for recipient in recipients)
+
+
+def schedule_responsible_assignment(event: Event) -> int:
+    """Notify only the responsible employee — not management_responsible,
+    who wasn't the one assigned — that they're now responsible for `event`."""
+    if not event.responsible_employee:
+        return 0
+    now = timezone.now().replace(microsecond=0)
+    created = _schedule_delivery(
+        event, "assigned_responsible", event.responsible_employee, now
+    )
+    return int(created)
 
 
 def _enqueue_delivery(delivery_id: int) -> None:

@@ -250,6 +250,55 @@ def test_emergency_notifies_staff_and_international_admins(phase7_data):
     assert all("justification" not in item.message_text.lower() for item in deliveries)
 
 
+def test_assigned_responsible_notifies_only_that_employee(phase7_data):
+    from apps.notifications.telegram.services import schedule_responsible_assignment
+
+    responsible, management, _, event = phase7_data
+    count = schedule_responsible_assignment(event)
+    assert count == 1
+    deliveries = event.telegram_deliveries.filter(notification_type="assigned_responsible")
+    assert deliveries.count() == 1
+    assert deliveries.get().recipient_user == responsible
+    assert not event.telegram_deliveries.filter(
+        notification_type="assigned_responsible", recipient_user=management
+    ).exists()
+    # A second call for the same recipient is a no-op (get_or_create).
+    assert schedule_responsible_assignment(event) == 0
+
+
+def test_reassigning_responsible_employee_notifies_new_assignee(client, phase7_data):
+    from apps.accounts.models import User
+
+    _, management, admin, event = phase7_data
+    new_responsible = User.objects.create_user(
+        username="p7_new_responsible",
+        password="test-password",
+        role=User.Role.RESPONSIBLE_EMPLOYEE,
+    )
+    client.force_login(admin)
+    post_data = {
+        "title": event.title,
+        "event_type": event.event_type_id,
+        "description": "updated",
+        "venue": event.venue_id,
+        "planned_date": event.planned_date.isoformat(),
+        "start_time": "09:00",
+        "end_time": "10:00",
+        "responsible_employee": new_responsible.pk,
+        "management_responsible": management.pk,
+        "status": Event.Status.APPROVED,
+        "priority": Event.Priority.NORMAL,
+        "expected_attendees": 10,
+    }
+    response = client.post(reverse("events:edit", kwargs={"pk": event.pk}), data=post_data)
+    assert response.status_code == 302
+    event.refresh_from_db()
+    assert event.responsible_employee == new_responsible
+    assert event.telegram_deliveries.filter(
+        notification_type="assigned_responsible", recipient_user=new_responsible
+    ).exists()
+
+
 @override_settings(TELEGRAM_BOT_ENABLED=False, TELEGRAM_BOT_TOKEN="")
 def test_disabled_client_fails_closed():
     from apps.notifications.telegram.client import TelegramDisabledError

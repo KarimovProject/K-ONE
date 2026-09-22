@@ -25,6 +25,7 @@ from apps.events.services.conflicts import (
     validate_and_lock_event_reservation,
 )
 from apps.events.views import busy_attending_doctor_errors, notify_assigned_doctors
+from apps.notifications.telegram.services import schedule_responsible_assignment
 from apps.organizations.models import Organization, Sponsor
 from apps.venues.models import Venue
 
@@ -228,6 +229,8 @@ class EventWizardView(LoginRequiredMixin, CapabilityRequiredMixin, View):
         if attending_doctor_ids:
             event.attending_doctors.set(candidate_doctors)
             notify_assigned_doctors(event, candidate_doctors)
+
+        schedule_responsible_assignment(event)
 
         # Audit logs
         log_audit_event(

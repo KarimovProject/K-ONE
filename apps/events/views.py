@@ -43,6 +43,7 @@ from apps.events.selectors import active_event_types, base_event_queryset
 from apps.events.services.conflicts import validate_and_lock_event_reservation
 from apps.notifications.models import Notification
 from apps.notifications.services import notify_users, send_notification_email
+from apps.notifications.telegram.services import schedule_responsible_assignment
 from apps.organizations.selectors import active_organizations
 from apps.venues.selectors import active_venues
 from apps.venues.services.live_status import all_venues_live_status
@@ -333,6 +334,10 @@ class EventUpdateView(LoginRequiredMixin, CapabilityRequiredMixin, UpdateView):
             or self.request.user.is_superuser
         ):
             raise PermissionDenied
+        # form.save(commit=False) mutates this same instance in place during
+        # is_valid(), so the pre-edit value must be captured here, before
+        # the form ever touches it, to detect a reassignment in form_valid().
+        self._previous_responsible_id = event.responsible_employee_id
         return event
 
     def form_valid(self, form):
@@ -375,6 +380,9 @@ class EventUpdateView(LoginRequiredMixin, CapabilityRequiredMixin, UpdateView):
         )
         if newly_assigned_doctors.exists():
             notify_assigned_doctors(event, newly_assigned_doctors)
+
+        if event.responsible_employee_id != self._previous_responsible_id:
+            schedule_responsible_assignment(event)
 
         log_audit_event("event.updated", actor=self.request.user, target=event)
         messages.success(self.request, _("Event “%(title)s” updated.") % {"title": event.title})

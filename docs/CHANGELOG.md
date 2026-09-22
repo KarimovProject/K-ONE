@@ -2083,3 +2083,66 @@ sozlama edi. `manage.py check` toza, `test_doctor_registration.py`
 
 ---
 
+### 3.48 Qo'shildi va tuzatildi — Telegram ulash 1 bosishga tushirildi, botga kirganda tushuntirish matni, "mas'ul tayinlandi" xabarnomasi (2026-09-22)
+
+**#1 — "Ulash" tugmasi 2 marta bosishni talab qilardi.** Foydalanuvchi
+xabar qildi: tugmani bosgach, hech narsa ko'zga ko'rinmasdan sahifa
+o'zgarardi, va faqat SHUNDAN KEYIN paydo bo'ladigan IKKINCHI
+("Telegram botni ochish") tugmani bosish kerak edi — bu qadam ko'zga
+tashlanmasdi. Tuzatish: `TelegramLinkView.post()` endi to'g'ridan-to'g'ri
+Telegram deep-link'ga (302) redirect qiladi, ikkinchi oraliq sahifa/tugma
+yo'q. Shablon (`telegram_settings.html`)dagi forma `target="_blank"`
+oldi — bitta bosish, yangi tabda Telegram to'g'ridan-to'g'ri ochiladi,
+IEMS sahifasi o'z joyida qoladi. Endi kerak bo'lmagan
+`telegram_link_url` session-o'zgaruvchisi olib tashlandi.
+
+**#2 — botga kirganda "ulash uchun bosing" ko'rsatmasi yo'q edi.**
+Ikki qism:
+- Telegram Bot API (`setMyDescription`/`setMyShortDescription`)
+  orqali botning profil tavsifi sozlandi — endi foydalanuvchi botni
+  birinchi marta ochganda, "START" tugmasidan OLDIN, Telegram
+  o'zi ko'rsatadigan matnda ulash yo'riqnomasi bor (bu kod emas,
+  bir martalik API sozlash — BotFather orqali qo'lda ham
+  o'zgartirish mumkin).
+- `apps/notifications/management/commands/telegram_poll.py`: avval
+  token'siz oddiy `/start` xabari **butunlay jim** o'tkazib yuborilardi
+  (hech qanday javob yo'q edi) — bu haqiqiy bug edi, chalkashlikning
+  asosiy sababi bo'lgan bo'lishi mumkin. Endi bunday holatda foydali
+  yo'riqnoma xabari qaytariladi ("IEMS saytida Sozlamalar → Telegram'ga
+  o'ting..."). Shu yo'l bilan ikkita qattiq kodlangan inglizcha javob
+  matni ("✅ IEMS account connected." va h.k.) ham o'zbekchaga
+  o'girildi (loyihaning asosiy tili bilan izchillik uchun).
+
+**#3 — yangi feature: "Siz mas'ul etib tayinlandingiz" Telegram
+xabarnomasi.** Foydalanuvchi so'radi: kimdir biror tadbirga mas'ul
+qilib tayinlanganda, o'sha shaxsga botdan xabar kelsin.
+`apps/notifications/telegram/services.py`ga `schedule_responsible_assignment(event)`
+qo'shildi — mavjud `schedule_event_notification()`dan farqli o'laroq,
+FAQAT `event.responsible_employee`ga yuboradi (`management_responsible`ga
+emas — u "tayinlangan" emas). Ikki joyga ulandi:
+1. `apps/events/wizard.py` — tadbir yaratilganda (5-bosqichli wizard
+   yakunida).
+2. `apps/events/views.py::EventUpdateView` — tadbir tahrirlanganda
+   `responsible_employee` o'zgargan (qayta tayinlangan) bo'lsagina.
+   Eski qiymatni aniqlash uchun `get_object()`ga izoh bilan qayd
+   qilingan qiyinchilik hal qilindi: `form.save(commit=False)`
+   `self.object`ni JOYIDA o'zgartiradi, shuning uchun eski qiymat
+   `form_valid()` ichida emas, `get_object()`da (forma hali tegmagan
+   paytda) saqlanishi kerak edi.
+`apps/notifications/telegram/formatters.py`ga yangi
+`"assigned_responsible"` EVENT_ACTIONS yozuvi (uz/ru/en) qo'shildi.
+
+**Eslatmalar haqida — kod o'zgarishi TALAB QILINMADI**: foydalanuvchi
+yaqinlashayotgan tadbirlar uchun eslatma ham so'radi, lekin bu tizim
+(`schedule_due_reminders`, `Event.reminder_7d/3d/1d/3h/30m`,
+barchasi default `True`) **Phase 7'dan beri allaqachon to'liq
+ishlaydi** va celery beat orqali har daqiqa tekshiriladi — foydalanuvchi
+buni hali sinamagan bo'lishi mumkin, chunki bot bugun ulandi. Faqat
+tushuntirib berildi, kod tegilmadi.
+
+**Testlar**: `tests/test_phase7_telegram.py`ga 2 ta yangi test
+qo'shildi (`test_assigned_responsible_notifies_only_that_employee`,
+`test_reassigning_responsible_employee_notifies_new_assignee`). To'liq
+test to'plami: 391 ta (2 tasi yangi), barchasi o'tadi.
+
+---

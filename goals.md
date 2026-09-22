@@ -5,8 +5,15 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-22 (Registratsiyada minimal parol uzunligi
-12'dan 8ga tushirildi — `docs/CHANGELOG.md` 3.47-band); bundan oldin:
+Oxirgi yangilanish: 2026-09-22 (Telegram ulash 1 bosishga tushirildi
+(oldin ikkinchi, ko'zga tashlanmaydigan tugmani bosish kerak edi),
+botga kirganda tushuntirish matni qo'shildi (bot description + jim
+qolgan `/start`ga javob), va tadbirga mas'ul tayinlanganda/qayta
+tayinlanganda Telegram orqali xabar boradigan bo'ldi — eslatmalar
+tizimi esa allaqachon Phase 7'dan beri to'liq ishlagani aniqlandi,
+kod tegilmadi; tafsilot `docs/CHANGELOG.md` 3.48-bo'limda); bundan
+oldin: Registratsiyada minimal parol uzunligi 12'dan 8ga tushirildi
+(`docs/CHANGELOG.md` 3.47-band); bundan oldin:
 Hisobotlar: sana oralig'ini tanlab
 bo'lmasligi bugi tuzatildi (`ReportFilterForm.date_range()` `period`
 qiymatidan qat'iy nazar aniq sanalarga ustunlik beradi + JS

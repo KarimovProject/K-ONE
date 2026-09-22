@@ -37,6 +37,11 @@ EVENT_ACTIONS = {
         "ru": "🚨 ЭКСТРЕННОЕ СОБЫТИЕ",
         "en": "🚨 EMERGENCY EVENT",
     },
+    "assigned_responsible": {
+        "uz": "Siz mas'ul etib tayinlandingiz",
+        "ru": "Вы назначены ответственным",
+        "en": "You've been assigned as responsible",
+    },
 }
 
 

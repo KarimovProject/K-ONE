@@ -51,18 +51,14 @@
           </form>
         </div>
       {% else %}
-        {% if telegram_link_url %}
-          <p>{% trans "Ushbu shaxsiy havolani Telegram'da oching. U tez orada eskiradi va faqat bir marta ishlaydi." %}</p>
-          <a class="btn-primary" href="{{ telegram_link_url }}" target="_blank" rel="noopener" data-testid="telegram-deep-link">
+        <p>{% trans "Bosing — Telegram yangi oynada ochiladi. U yerda paydo bo'ladigan \"START\" tugmasini bosib, ulanishni yakunlang." %}</p>
+        <form method="post" action="{% url 'notifications:telegram-link' %}" target="_blank">
+          {% csrf_token %}
+          <button class="btn-primary" type="submit" data-testid="connect-telegram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 4.5 3 11.5l7 2.5 2.5 7 3-4.5 6-12z"/></svg>
-            {% trans "Telegram botni ochish" %}
-          </a>
-        {% else %}
-          <form method="post" action="{% url 'notifications:telegram-link' %}">
-            {% csrf_token %}
-            <button class="btn-primary" type="submit" data-testid="connect-telegram">{% trans "Telegram'ni ulash" %}</button>
-          </form>
-        {% endif %}
+            {% trans "Telegram'ni ulash" %}
+          </button>
+        </form>
       {% endif %}
     </section>
   </div>
