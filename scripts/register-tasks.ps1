@@ -20,6 +20,14 @@ function Register-IemsScheduledTask(
     [string]$Command,
     [string]$Arguments
 ) {
+    # Task Scheduler's XML schema (v1.3) has no <Environment> element, so
+    # DJANGO_SETTINGS_MODULE is forced via a cmd.exe wrapper instead of
+    # relying on manage.py/wsgi.py/celery.py's `local`-defaulting
+    # os.environ.setdefault(). Without this, these tasks silently ran under
+    # config.settings.local in production (DEBUG=True default, no forced
+    # HTTPS/HSTS, insecure cookies).
+    $wrappedCommand = "$env:ComSpec"
+    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& `"$Command`" $Arguments"
     $xml = @"
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
@@ -58,8 +66,8 @@ function Register-IemsScheduledTask(
   </Triggers>
   <Actions Context="Author">
     <Exec>
-      <Command>$Command</Command>
-      <Arguments>$Arguments</Arguments>
+      <Command>$wrappedCommand</Command>
+      <Arguments>$wrappedArguments</Arguments>
       <WorkingDirectory>$projectRoot</WorkingDirectory>
     </Exec>
   </Actions>

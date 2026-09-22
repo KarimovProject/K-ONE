@@ -150,7 +150,7 @@ Sana: 2026-09-22 | Scope: butun repozitoriy | Stack: Django 5.2.16 + DRF 3.17.1 
 - Eksport funksiyalari so'ralgan `kind`dan qat'iy nazar to'liq hisobotni hisoblaydi.
 
 ### [MEDIUM] API'lar orasida xato javob formati izchil emas
-- Soha: API dizayni | Joylashuv: `apps/events/api.py` (`{"error": ...}`) vs `apps/publications/api.py` (DRF `{"detail": ...}`) vs `apps/reporting/api.py` (`{"errors": form.errors}`)
+- Soha: API dizayni | Joylashuv: `apps/events/api.py` (`{"error": ...}`) vs `apps/publications/api.py` (`{"detail": ...}`) vs `apps/reporting/api.py` (`{"errors": form.errors}`)
 - Umumiy `EXCEPTION_HANDLER` yo'q; `apps/events/api.py`dagi keng `except Exception` blogi ichki xato matnini mijozga qaytaradi (ma'lumot sizishi belgisi ham).
 
 ### [MEDIUM] Hech bir ro'yxat endpoint'ida sahifalash sozlanmagan

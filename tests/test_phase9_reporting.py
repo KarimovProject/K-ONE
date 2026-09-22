@@ -25,7 +25,7 @@ from apps.reporting.analytics import (
     venue_analytics,
     workload_analytics,
 )
-from apps.reporting.selectors import filtered_events
+from apps.reporting.selectors import filtered_events, get_workspace_data
 from apps.venues.models import Venue
 
 pytestmark = pytest.mark.django_db
@@ -379,3 +379,73 @@ def test_reception_and_content_report_scope_is_enforced_server_side(client, repo
     assert client.get("/api/v1/reports/publications/").status_code == 200
     assert client.get("/api/v1/reports/attendance/").status_code == 403
     assert client.get("/reports/export/csv/?kind=publications").status_code == 200
+
+
+def test_workspace_room_conflicts_counted_in_memory_without_per_event_queries():
+    # Regression: get_workspace_data() used to run one find_conflicting_events()
+    # query per same-day event; overlap detection is now done in Python
+    # against the already-fetched list, so the SQL query count must not
+    # scale with the number of same-day events (proven below by comparing
+    # a small and a much larger event count).
+    from django.db import connection
+    from django.test.utils import CaptureQueriesContext
+
+    users = get_user_model()
+    admin = users.objects.create_user(
+        "p9_workspace_admin", password="test-password", role=users.Role.SUPER_ADMIN
+    )
+    venue = Venue.objects.create(
+        code="P9-CONFLICT-HALL",
+        name_uz="Ziddiyat zali",
+        name_ru="Зал конфликтов",
+        name_en="Conflict Hall",
+        capacity=100,
+        working_start=time(8),
+        working_end=time(20),
+    )
+    other_venue = Venue.objects.create(
+        code="P9-OTHER-HALL",
+        name_uz="Boshqa zal",
+        name_ru="Другой зал",
+        name_en="Other Hall",
+        capacity=100,
+        working_start=time(8),
+        working_end=time(20),
+    )
+    event_type = EventType.objects.create(
+        code="p9-conflict", name_uz="Konflikt", name_ru="Конфликт", name_en="Conflict"
+    )
+    today = timezone.localdate()
+
+    def make(venue_, start, end, status=Event.Status.APPROVED):
+        return Event.objects.create(
+            title=f"Conflict test {start}-{end}",
+            event_type=event_type,
+            venue=venue_,
+            planned_date=today,
+            start_time=start,
+            end_time=end,
+            responsible_employee=admin,
+            management_responsible=admin,
+            created_by=admin,
+            status=status,
+            expected_attendees=10,
+        )
+
+    make(venue, time(10), time(12))  # overlapping pair #1
+    make(venue, time(11), time(13))  # overlapping pair #2
+    make(venue, time(14), time(15))  # does not overlap with anything
+    make(other_venue, time(10), time(12))  # same time, different venue -> no conflict
+    make(venue, time(10), time(12), status=Event.Status.DRAFT)  # drafts don't count
+
+    with CaptureQueriesContext(connection) as small_run:
+        data = get_workspace_data(admin)
+    assert data["room_conflicts_count"] == 1
+
+    for _ in range(20):
+        make(venue, time(10), time(11), status=Event.Status.COMPLETED)
+
+    with CaptureQueriesContext(connection) as large_run:
+        get_workspace_data(admin)
+
+    assert len(large_run) == len(small_run)

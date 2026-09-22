@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.db.models import Q, QuerySet
 from django.utils import timezone
 
@@ -40,7 +42,12 @@ def filtered_events(filters: dict, start, end, user: User | None = None) -> Quer
         value = filters.get(key)
         if value:
             queryset = queryset.filter(**{lookup: value})
-    if user and user.role == User.Role.RESPONSIBLE_EMPLOYEE and not user.is_superuser:
+    if (
+        user
+        and user.is_authenticated
+        and user.role == User.Role.RESPONSIBLE_EMPLOYEE
+        and not user.is_superuser
+    ):
         queryset = queryset.filter(responsible_employee=user)
     return queryset.distinct()
 
@@ -117,7 +124,6 @@ def get_workspace_data(user: User) -> dict:
         )[:10]
     )
 
-    from apps.events.services.conflicts import find_conflicting_events
     from apps.publications.models import Publication
     from apps.venues.services.live_status import all_venues_live_status
 
@@ -143,6 +149,7 @@ def get_workspace_data(user: User) -> dict:
     active_today_events = list(
         base.filter(planned_date=today).exclude(
             status__in=(
+                Event.Status.DRAFT,
                 Event.Status.CANCELLED,
                 Event.Status.REJECTED,
                 Event.Status.DISPLACED,
@@ -150,19 +157,21 @@ def get_workspace_data(user: User) -> dict:
             )
         )
     )
-    conflicting_pairs = set()
+    # Overlap detection done in-memory against the list already fetched
+    # above instead of issuing one find_conflicting_events() query per
+    # event — same-day event counts are small, so this stays O(n^2) within
+    # each venue group rather than N extra round trips to the database.
+    by_venue: dict[int, list[Event]] = defaultdict(list)
     for event in active_today_events:
-        if not event.venue_id:
-            continue
-        conflicts = find_conflicting_events(
-            venue=event.venue,
-            planned_date=event.planned_date,
-            start_time=event.start_time,
-            end_time=event.end_time,
-            exclude_event_id=event.pk,
-        )
-        for other in conflicts:
-            conflicting_pairs.add(frozenset({event.pk, other.pk}))
+        if event.venue_id:
+            by_venue[event.venue_id].append(event)
+
+    conflicting_pairs = set()
+    for venue_events in by_venue.values():
+        for i, event in enumerate(venue_events):
+            for other in venue_events[i + 1 :]:
+                if event.start_time < other.end_time and other.start_time < event.end_time:
+                    conflicting_pairs.add(frozenset({event.pk, other.pk}))
     room_conflicts_count = len(conflicting_pairs)
 
     return {

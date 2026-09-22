@@ -10,6 +10,8 @@ staticfiles/
 media/*
 !media/.gitkeep
 *.log
+*.log.*
+logs/
 .idea/
 .vscode/
 playwright-report/

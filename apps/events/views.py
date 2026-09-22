@@ -39,7 +39,7 @@ from apps.events.forms import (
     SpeakerForm,
 )
 from apps.events.models import Event, EventProgramItem, EventType, Speaker
-from apps.events.selectors import active_event_types, base_event_queryset
+from apps.events.selectors import active_event_types, base_event_queryset, can_manage_event
 from apps.events.services.conflicts import validate_and_lock_event_reservation
 from apps.notifications.models import Notification
 from apps.notifications.services import notify_users, send_notification_email
@@ -243,19 +243,15 @@ class EventDetailView(LoginRequiredMixin, CapabilityRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        event = self.get_object()
+        event = self.object
         user = self.request.user
 
         is_owner = user == event.responsible_employee or user == event.created_by
-        is_mgmt = (
-            user == event.management_responsible
-            or user_has_capability(user, Capability.APPROVE_EVENTS)
-            or user.is_superuser
+        is_mgmt = user == event.management_responsible or user_has_capability(
+            user, Capability.APPROVE_EVENTS
         )
-        is_admin = user_has_capability(user, Capability.MANAGE_EVENTS) or user.is_superuser
-        is_override_authorized = user.is_superuser or user_has_capability(
-            user, Capability.OVERRIDE_EVENTS
-        )
+        is_admin = user_has_capability(user, Capability.MANAGE_EVENTS)
+        is_override_authorized = user_has_capability(user, Capability.OVERRIDE_EVENTS)
 
         from apps.audit.models import AuditEventLog
         from apps.events.services.conflicts import find_conflicting_events
@@ -331,7 +327,6 @@ class EventUpdateView(LoginRequiredMixin, CapabilityRequiredMixin, UpdateView):
         if not (
             user_has_capability(self.request.user, Capability.MANAGE_EVENTS)
             or event.responsible_employee_id == self.request.user.pk
-            or self.request.user.is_superuser
         ):
             raise PermissionDenied
         # form.save(commit=False) mutates this same instance in place during
@@ -402,7 +397,6 @@ class EventCancelView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
         if not (
             user_has_capability(request.user, Capability.MANAGE_EVENTS)
             or self.event.responsible_employee_id == request.user.pk
-            or request.user.is_superuser
         ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
@@ -463,9 +457,7 @@ class EventDeleteView(
 class EventSubmitApprovalView(LoginRequiredMixin, View):
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = request.user == event.responsible_employee or request.user == event.created_by
-        is_admin = user_has_capability(request.user, Capability.MANAGE_EVENTS)
-        if not (is_owner or is_admin):
+        if not can_manage_event(request.user, event):
             raise PermissionDenied(_("Only the responsible employee or admin can submit."))
 
         try:
@@ -548,20 +540,18 @@ class EventApprovalListView(LoginRequiredMixin, CapabilityRequiredMixin, ListVie
         for event in context["events"]:
             conflicts = []
             if event.status == Event.Status.PENDING_APPROVAL:
-                conflicts_qs = find_conflicting_events(
-                    venue=event.venue,
-                    planned_date=event.planned_date,
-                    start_time=event.start_time,
-                    end_time=event.end_time,
-                    exclude_event_id=str(event.pk),
+                conflicts = list(
+                    find_conflicting_events(
+                        venue=event.venue,
+                        planned_date=event.planned_date,
+                        start_time=event.start_time,
+                        end_time=event.end_time,
+                        exclude_event_id=str(event.pk),
+                    )
                 )
-                if conflicts_qs.exists():
-                    conflicts = list(conflicts_qs)
 
             event.conflicting_events = conflicts
-            event.can_override = self.request.user.is_superuser or user_has_capability(
-                self.request.user, Capability.OVERRIDE_EVENTS
-            )
+            event.can_override = user_has_capability(self.request.user, Capability.OVERRIDE_EVENTS)
             events_with_conflicts.append(event)
 
         context["events"] = events_with_conflicts
@@ -653,9 +643,7 @@ class EventRejectView(LoginRequiredMixin, CapabilityRequiredMixin, FormView):
 class EventResubmitView(LoginRequiredMixin, View):
     def post(self, request, pk):
         event = get_object_or_404(Event, pk=pk)
-        is_owner = request.user == event.responsible_employee or request.user == event.created_by
-        is_admin = user_has_capability(request.user, Capability.MANAGE_EVENTS)
-        if not (is_owner or is_admin):
+        if not can_manage_event(request.user, event):
             raise PermissionDenied(_("Only the responsible employee or admin can resubmit."))
 
         try:
@@ -748,13 +736,7 @@ class EventPostponeView(LoginRequiredMixin, FormView):
 
         self.form_class = EventPostponeForm
         self.event = get_object_or_404(Event, pk=kwargs["pk"])
-        is_owner = (
-            request.user == self.event.responsible_employee or request.user == self.event.created_by
-        )
-        is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
-        )
-        if not (is_owner or is_admin):
+        if not can_manage_event(request.user, self.event):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
@@ -788,13 +770,7 @@ class EventRescheduleView(LoginRequiredMixin, FormView):
 
         self.form_class = EventRescheduleForm
         self.event = get_object_or_404(Event, pk=kwargs["pk"])
-        is_owner = (
-            request.user == self.event.responsible_employee or request.user == self.event.created_by
-        )
-        is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
-        )
-        if not (is_owner or is_admin):
+        if not can_manage_event(request.user, self.event):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
@@ -989,13 +965,7 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         self.event = self.get_object()
-        is_owner = (
-            request.user == self.event.responsible_employee or request.user == self.event.created_by
-        )
-        is_admin = (
-            user_has_capability(request.user, Capability.MANAGE_EVENTS) or request.user.is_superuser
-        )
-        if not (is_owner or is_admin):
+        if not can_manage_event(request.user, self.event):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 

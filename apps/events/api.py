@@ -260,7 +260,6 @@ class VenueAvailabilityAPIView(APIView):
         date_str = request.query_params.get("date")
         start_str = request.query_params.get("start_time")
         end_str = request.query_params.get("end_time")
-        attendees = int(request.query_params.get("expected_attendees", 1))
         exclude_id = request.query_params.get("exclude_event_id")
 
         if not (date_str and start_str and end_str):
@@ -273,9 +272,10 @@ class VenueAvailabilityAPIView(APIView):
             planned_date = datetime.strptime(date_str, "%Y-%m-%d").date()
             start_time = datetime.strptime(start_str, "%H:%M").time()
             end_time = datetime.strptime(end_str, "%H:%M").time()
+            attendees = int(request.query_params.get("expected_attendees", 1))
         except ValueError:
             return Response(
-                {"error": "Invalid date or time format"},
+                {"error": "Invalid date, time, or expected_attendees format"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

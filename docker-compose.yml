@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:17-alpine
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_NAME:-iems}
       POSTGRES_USER: ${DB_USER:-iems}
@@ -15,6 +16,7 @@ services:
 
   redis:
     image: redis:8-alpine
+    restart: unless-stopped
     command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
@@ -28,6 +30,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    restart: unless-stopped
     env_file: .env
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.production
@@ -43,11 +46,18 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health/ready/').status == 200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   worker:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    restart: unless-stopped
     command: celery -A config worker --loglevel=INFO
     env_file: .env
     environment:
@@ -62,11 +72,18 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A config inspect ping -d celery@$$HOSTNAME"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   beat:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    restart: unless-stopped
     command: celery -A config beat --loglevel=INFO
     env_file: .env
     environment:

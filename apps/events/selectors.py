@@ -1,8 +1,20 @@
 from datetime import date
 
+from django.contrib.auth.models import AbstractBaseUser
 from django.db.models import QuerySet
 
+from apps.accounts.rbac import Capability, user_has_capability
 from apps.events.models import Event, EventType
+
+
+def can_manage_event(user: AbstractBaseUser, event: Event) -> bool:
+    """Owner (responsible employee or creator) or anyone with MANAGE_EVENTS
+    (which already covers superusers — see user_has_capability)."""
+    return bool(
+        user == event.responsible_employee
+        or user == event.created_by
+        or user_has_capability(user, Capability.MANAGE_EVENTS)
+    )
 
 
 def active_event_types() -> QuerySet[EventType]:

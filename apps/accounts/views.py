@@ -85,12 +85,11 @@ class DoctorRegisterView(CreateView):
                 {"message": _("Too many registration attempts. Please try again later.")},
                 status=429,
             )
-        response = super().post(request, *args, **kwargs)
-        clear_rate_limit(request, "register")
-        return response
+        return super().post(request, *args, **kwargs)
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        clear_rate_limit(self.request, "register")
         self.request.session["just_registered_username"] = self.object.username
         return response
 

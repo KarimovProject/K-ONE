@@ -21,7 +21,11 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 X_FRAME_OPTIONS = "DENY"
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.dummy.EmailBackend")
-LOGGING["root"] = {"handlers": ["production_console"], "level": LOG_LEVEL}  # noqa: F405
-LOGGING["loggers"]["django.request"]["handlers"] = ["production_console"]  # noqa: F405
+# "file" is kept alongside "production_console" so logs still land somewhere
+# when the process has no attached console/stdout (e.g. native Windows
+# Scheduled Tasks launched via pythonw.exe) — under Docker/gunicorn,
+# production_console (stdout) is what's normally collected.
+LOGGING["root"] = {"handlers": ["production_console", "file"], "level": LOG_LEVEL}  # noqa: F405
+LOGGING["loggers"]["django.request"]["handlers"] = ["production_console", "file"]  # noqa: F405

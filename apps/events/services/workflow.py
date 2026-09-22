@@ -50,34 +50,40 @@ def approve_event(event: Event, actor: User, notes: str = "") -> Event:
     if event.status != Event.Status.PENDING_APPROVAL:
         raise ValidationError(_("Only events pending approval can be approved."))
 
-    conflicts = find_conflicting_events(
-        venue=event.venue,
-        planned_date=event.planned_date,
-        start_time=event.start_time,
-        end_time=event.end_time,
-        exclude_event_id=str(event.pk),
-    )
-    if conflicts.exists():
-        raise ValidationError(
-            _("Event conflicts with existing reservations. Requires priority override.")
-        )
+    with transaction.atomic():
+        # Lock the venue row so a concurrent approve/reschedule/override can't
+        # race past this conflict check before this event's status commits
+        # (matches the locking pattern used by reschedule_event/override_event).
+        locked_venue = Venue.objects.select_for_update().get(pk=event.venue_id)
 
-    event.status = Event.Status.APPROVED
-    event.reviewed_at = timezone.now()
-    event.reviewed_by = actor
-    if notes:
-        event.notes = (event.notes + f"\n\nApproval Note ({actor.username}): {notes}").strip()
-    event.updated_by = actor
-    event.save(
-        update_fields=[
-            "status",
-            "reviewed_at",
-            "reviewed_by",
-            "notes",
-            "updated_by",
-            "updated_at",
-        ]
-    )
+        conflicts = find_conflicting_events(
+            venue=locked_venue,
+            planned_date=event.planned_date,
+            start_time=event.start_time,
+            end_time=event.end_time,
+            exclude_event_id=str(event.pk),
+        )
+        if conflicts.exists():
+            raise ValidationError(
+                _("Event conflicts with existing reservations. Requires priority override.")
+            )
+
+        event.status = Event.Status.APPROVED
+        event.reviewed_at = timezone.now()
+        event.reviewed_by = actor
+        if notes:
+            event.notes = (event.notes + f"\n\nApproval Note ({actor.username}): {notes}").strip()
+        event.updated_by = actor
+        event.save(
+            update_fields=[
+                "status",
+                "reviewed_at",
+                "reviewed_by",
+                "notes",
+                "updated_by",
+                "updated_at",
+            ]
+        )
 
     log_audit_event("event.approved", actor=actor, target=event)
 

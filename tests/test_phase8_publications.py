@@ -31,7 +31,7 @@ from apps.publications.services import (
     publish_publication,
     schedule_publication,
 )
-from apps.publications.tasks import dispatch_scheduled_publications
+from apps.publications.tasks import dispatch_scheduled_publications, publish_publication_task
 from apps.publications.testing import (
     FakeInstagramTransport,
     FakeTelegramChannelTransport,
@@ -318,3 +318,99 @@ def test_publication_ui_localization(client, publication_data, language, expecte
     client.post(reverse("set_language"), {"language": language, "next": "/publications/"})
     response = client.get(reverse("publications:list"))
     assert expected in response.content.decode()
+
+
+def test_publish_task_retries_transient_error_then_succeeds(publication_data, monkeypatch):
+    # Regression: the only prior coverage of publish_publication_task
+    # monkeypatched `.delay` itself, so the task body's except/retry branch
+    # (apps/publications/tasks.py) never actually ran.
+    #
+    # `.apply()` runs the task synchronously but, like a real worker, a
+    # `self.retry()` call raises `celery.exceptions.Retry` to the caller
+    # rather than looping internally — so a real retry is simulated here by
+    # calling `.apply()` a second time, exactly as the worker's message
+    # requeue would.
+    from celery.exceptions import Retry
+
+    admin, _, manager, _, _, _ = publication_data
+    publication = make_publication(publication_data)
+    prepare_publication(publication, admin)
+    approve_publication(publication, manager)
+
+    fake = FakeTelegramChannelTransport(fail_once=True)
+    monkeypatch.setattr("apps.publications.services.TelegramChannelAdapter", lambda: fake)
+
+    with pytest.raises(Retry):
+        publish_publication_task.apply(args=[str(publication.pk)])
+
+    publication.refresh_from_db()
+    assert publication.status == Publication.Status.FAILED
+    assert publication.retry_count == 1
+    assert len(fake.calls) == 1
+
+    result = publish_publication_task.apply(args=[str(publication.pk)])
+
+    assert result.successful()
+    assert result.result == Publication.Status.PUBLISHED
+    assert len(fake.calls) == 2
+    publication.refresh_from_db()
+    assert publication.status == Publication.Status.PUBLISHED
+
+
+def test_publish_task_marks_failed_without_retry_on_permanent_error(publication_data):
+    # TELEGRAM_BOT_ENABLED/TELEGRAM_CHANNEL_ENABLED default to False in test
+    # settings, so the real (non-faked) adapter path raises
+    # PublicationDisabledError, which is non-transient by definition.
+    admin, _, manager, _, _, _ = publication_data
+    publication = make_publication(publication_data)
+    prepare_publication(publication, admin)
+    approve_publication(publication, manager)
+
+    result = publish_publication_task.apply(args=[str(publication.pk)])
+
+    assert result.successful()
+    assert result.result == Publication.Status.FAILED
+    publication.refresh_from_db()
+    assert publication.status == Publication.Status.FAILED
+    assert publication.error_code == "disabled"
+    assert publication.retry_count == 1
+
+
+def test_publish_task_stops_retrying_after_max_retries(publication_data, monkeypatch):
+    admin, _, manager, _, _, _ = publication_data
+    publication = make_publication(publication_data)
+    prepare_publication(publication, admin)
+    approve_publication(publication, manager)
+    publication.retry_count = 3
+    publication.save(update_fields=["retry_count"])
+
+    fake = FakeTelegramChannelTransport(fail_once=True)
+    monkeypatch.setattr("apps.publications.services.TelegramChannelAdapter", lambda: fake)
+
+    result = publish_publication_task.apply(args=[str(publication.pk)])
+
+    assert result.successful()
+    assert result.result == Publication.Status.FAILED
+    assert len(fake.calls) == 1
+    publication.refresh_from_db()
+    assert publication.status == Publication.Status.FAILED
+
+
+def test_publish_task_wraps_unexpected_error_as_failed_instead_of_looping(
+    publication_data, monkeypatch, settings
+):
+    # Regression: a non-PublicationAdapterError exception (e.g. a missing
+    # banner/IEMS_BASE_URL from _banner_url) used to leave the publication
+    # stuck in a retryable status forever instead of being marked FAILED.
+    admin, _, manager, _, _, _ = publication_data
+    publication = make_publication(publication_data)
+    prepare_publication(publication, admin, regenerate_banner=False)
+    approve_publication(publication, manager)
+    settings.IEMS_BASE_URL = ""
+
+    result = publish_publication_task.apply(args=[str(publication.pk)])
+
+    assert result.successful()
+    assert result.result == Publication.Status.FAILED
+    publication.refresh_from_db()
+    assert publication.status == Publication.Status.FAILED

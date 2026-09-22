@@ -35,6 +35,7 @@ def find_conflicting_events(
         end_time__gt=start_time,
     ).exclude(
         status__in=[
+            Event.Status.DRAFT,
             Event.Status.CANCELLED,
             Event.Status.REJECTED,
             Event.Status.DISPLACED,

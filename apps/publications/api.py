@@ -4,9 +4,11 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers, status
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.accounts.rbac import Capability, user_has_capability
 from apps.publications.adapters import PublicationAdapterError
 from apps.publications.models import Publication
 from apps.publications.policies import (
@@ -22,6 +24,13 @@ from apps.publications.services import (
     schedule_publication,
 )
 from config.rate_limit import is_rate_limited
+
+
+class CanViewPublications(BasePermission):
+    message = "You do not have permission to view publications."
+
+    def has_permission(self, request, view) -> bool:
+        return user_has_capability(request.user, Capability.MANAGE_CONTENT)
 
 
 class PublicationSerializer(serializers.ModelSerializer):
@@ -72,8 +81,16 @@ class PublicationListCreateAPIView(ListCreateAPIView):
     queryset = Publication.objects.select_related("event")
     serializer_class = PublicationSerializer
 
+    def get_permissions(self):
+        # POST retains plain IsAuthenticated; the serializer's create()
+        # already enforces per-event authorship via can_prepare().
+        if self.request.method == "POST":
+            return [permission() for permission in (IsAuthenticated,)]
+        return [CanViewPublications()]
+
 
 class PublicationDetailAPIView(RetrieveAPIView):
+    permission_classes = (CanViewPublications,)
     queryset = Publication.objects.select_related("event")
     serializer_class = PublicationSerializer
 

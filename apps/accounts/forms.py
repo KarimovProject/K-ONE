@@ -17,7 +17,9 @@ class PendingApprovalAwareLoginForm(AuthenticationForm):
 
     error_messages = {
         **AuthenticationForm.error_messages,
-        "invalid_login": _("Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."),
+        "invalid_login": _(
+            "Login yoki parol noto'g'ri. Ma'lumotlarni tekshirib qayta urinib ko'ring."
+        ),
     }
 
     def clean(self):
