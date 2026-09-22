@@ -16,38 +16,41 @@ from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, 
 from apps.accounts.models import StaffUnavailability
 
 
-def _event_rows(events):
+def _event_headers():
+    # A function, not a module-level constant: gettext must resolve against
+    # the language active for the current request (see ReportExportView's
+    # translation.override), not whatever was active at import time.
     return [
-        [
-            event.planned_date.strftime("%Y-%m"),
-            event.title,
-            event.planned_date,
-            event.start_time.strftime("%H:%M"),
-            event.venue.localized_name,
-            event.get_status_display(),
-            event.expected_attendees,
-            event.attendances.count(),
-        ]
-        for event in events
+        _("Month"),
+        _("Date"),
+        _("Event"),
+        _("Venue"),
+        _("Responsible"),
+        _("Expected"),
+        _("Checked in"),
+        _("Attendees"),
+        _("Status"),
     ]
 
 
-def _attendee_rows(events):
+def _event_rows(events):
     rows = []
     for event in events.prefetch_related("attendances"):
-        for attendance in event.attendances.all():
-            rows.append(
-                [
-                    event.planned_date.strftime("%Y-%m"),
-                    event.title,
-                    event.planned_date,
-                    attendance.attendee_name,
-                    attendance.attendee_organization,
-                    attendance.attendee_role,
-                    attendance.get_checkin_method_display(),
-                    timezone.localtime(attendance.checked_in_at).strftime("%Y-%m-%d %H:%M"),
-                ]
-            )
+        attendees = event.attendances.all()
+        names = ", ".join(a.attendee_name for a in attendees if a.attendee_name)
+        rows.append(
+            [
+                event.planned_date.strftime("%Y-%m"),
+                event.planned_date,
+                event.title,
+                event.venue.localized_name,
+                event.responsible_employee.get_full_name() or event.responsible_employee.username,
+                event.expected_attendees,
+                len(attendees),
+                names,
+                event.get_status_display(),
+            ]
+        )
     return rows
 
 
@@ -76,19 +79,7 @@ def csv_response(events, report, kind="events"):
     response.write("\ufeff")
     writer = csv.writer(response)
     datasets = {
-        "events": (
-            [
-                _("Month"),
-                _("Event"),
-                _("Date"),
-                _("Time"),
-                _("Venue"),
-                _("Status"),
-                _("Expected attendees"),
-                _("Checked in"),
-            ],
-            _event_rows(events),
-        ),
+        "events": (_event_headers(), _event_rows(events)),
         "venues": (
             [
                 _("Venue"),
@@ -131,95 +122,70 @@ def csv_response(events, report, kind="events"):
     return response
 
 
-def _sheet(workbook, title, headers, rows):
-    sheet = workbook.create_sheet(title=title)
-    sheet.append(headers)
-    for cell in sheet[1]:
+def _append_block(sheet, cursor, title, headers, rows, filterable=False):
+    """Write one titled block (title row + header row + data rows) starting
+    at 1-indexed row `cursor`. Returns the row number to start the next
+    block at (leaves one blank separator row in between)."""
+    title_row = cursor
+    sheet.cell(row=title_row, column=1, value=title).font = Font(bold=True, size=13)
+    header_row = title_row + 1
+    for col, header in enumerate(headers, start=1):
+        cell = sheet.cell(row=header_row, column=col, value=header)
         cell.font = Font(bold=True, color="F8FAFC")
         cell.fill = PatternFill("solid", fgColor="07172F")
-    for row in rows:
-        sheet.append(row)
-    sheet.freeze_panes = "A2"
-    sheet.auto_filter.ref = sheet.dimensions
-    for column in range(1, len(headers) + 1):
-        values = [
-            str(sheet.cell(row=row, column=column).value or "")
-            for row in range(1, sheet.max_row + 1)
-        ]
-        sheet.column_dimensions[get_column_letter(column)].width = min(
-            max(map(len, values)) + 2, 48
+    for row_offset, row in enumerate(rows, start=1):
+        for col, value in enumerate(row, start=1):
+            sheet.cell(row=header_row + row_offset, column=col, value=value)
+    last_row = header_row + len(rows)
+    if filterable and rows:
+        sheet.freeze_panes = f"A{header_row + 1}"
+        sheet.auto_filter.ref = (
+            f"A{header_row}:{get_column_letter(len(headers))}{last_row}"
         )
-    return sheet
+    return last_row + 2  # one blank separator row before the next block
+
+
+def _autosize_columns(sheet, column_count):
+    for column in range(1, column_count + 1):
+        letter = get_column_letter(column)
+        values = [str(cell.value) for cell in sheet[letter] if cell.value is not None]
+        width = max(map(len, values), default=8) + 2
+        sheet.column_dimensions[letter].width = min(width, 48)
 
 
 def xlsx_response(events, report):
     workbook = Workbook()
-    workbook.remove(workbook.active)
-    summary_rows = [
-        [key.replace("_", " ").title(), value] for key, value in report["summary"].items()
-    ]
-    _sheet(workbook, _("Summary"), [_("Metric"), _("Value")], summary_rows)
-    headers = [
-        _("Month"),
-        _("Event"),
-        _("Date"),
-        _("Time"),
-        _("Venue"),
-        _("Status"),
-        _("Expected"),
-        _("Checked in"),
-    ]
-    _sheet(workbook, _("Events"), headers, _event_rows(events))
-    _sheet(
-        workbook,
-        _("Attendees"),
-        [
-            _("Month"),
-            _("Event"),
-            _("Date"),
-            _("Attendee"),
-            _("Organization"),
-            _("Role"),
-            _("Check-in method"),
-            _("Checked in at"),
-        ],
-        _attendee_rows(events),
+    sheet = workbook.active
+    sheet.title = _("Report")
+
+    date_range_label = f"{report['start']:%d.%m.%Y} – {report['end']:%d.%m.%Y}"
+    sheet.cell(row=1, column=1, value=f"{_('Period')}: {date_range_label}").font = Font(
+        bold=True, size=14
     )
-    _sheet(
-        workbook,
+    cursor = 3
+
+    cursor = _append_block(
+        sheet,
+        cursor,
+        _("Events in the selected period"),
+        _event_headers(),
+        _event_rows(events),
+        filterable=True,
+    )
+    cursor = _append_block(
+        sheet,
+        cursor,
         _("Busy staff"),
         [_("Staff"), _("Start date"), _("Start time"), _("End date"), _("End time"), _("Reason")],
         _busy_staff_rows(report["start"], report["end"]),
     )
-    _sheet(
-        workbook,
-        _("Venues"),
-        [_("Venue"), _("Available minutes"), _("Booked minutes"), _("Utilization %"), _("Events")],
-        [
-            [
-                r["name"],
-                r["available_minutes"],
-                r["booked_minutes"],
-                r["utilization"],
-                r["event_count"],
-            ]
-            for r in report["venues"]
-        ],
-    )
-    _sheet(
-        workbook,
-        _("Attendance"),
-        [_("Metric"), _("Value")],
-        [[k, v] for k, v in report["attendance"].items() if not isinstance(v, list)],
-    )
-    _sheet(
-        workbook,
-        _("Approvals"),
-        [_("Metric"), _("Value")],
-        [[k, v] for k, v in report["approvals"].items() if not isinstance(v, dict)],
-    )
-    _sheet(
-        workbook,
+    summary_rows = [
+        [key.replace("_", " ").title(), value] for key, value in report["summary"].items()
+    ]
+    cursor = _append_block(sheet, cursor, _("Summary"), [_("Metric"), _("Value")], summary_rows)
+    _append_block(
+        sheet,
+        cursor,
         _("Publications"),
         [_("Metric"), _("Value")],
         [
@@ -228,6 +194,10 @@ def xlsx_response(events, report):
             if not isinstance(value, dict | list | tuple | set)
         ],
     )
+
+    max_columns = max(len(_event_headers()), 6)
+    _autosize_columns(sheet, max_columns)
+
     output = io.BytesIO()
     workbook.save(output)
     response = HttpResponse(

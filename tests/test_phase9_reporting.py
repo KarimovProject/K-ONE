@@ -318,18 +318,22 @@ def test_xlsx_has_professional_sheets(client, report_data):
         },
     )
     workbook = load_workbook(io.BytesIO(response.content))
-    assert workbook.sheetnames == [
-        "Summary",
-        "Events",
-        "Attendees",
-        "Busy staff",
-        "Venues",
-        "Attendance",
-        "Approvals",
-        "Publications",
-    ]
-    assert workbook["Events"].freeze_panes == "A2"
-    assert workbook["Venues"]["A2"].value == "Reporting Hall"
+    assert workbook.sheetnames == ["Report"]
+    sheet = workbook["Report"]
+    block_titles = {
+        cell.value
+        for row in sheet.iter_rows(min_col=1, max_col=1)
+        for cell in row
+        if isinstance(cell.value, str)
+    }
+    assert {"Events in the selected period", "Busy staff", "Summary", "Publications"}.issubset(
+        block_titles
+    )
+    assert sheet.freeze_panes is not None
+    venue_names = {
+        cell.value for row in sheet.iter_rows() for cell in row if cell.value == "Reporting Hall"
+    }
+    assert venue_names == {"Reporting Hall"}
 
 
 def test_pdf_is_valid_and_nonempty(client, report_data):

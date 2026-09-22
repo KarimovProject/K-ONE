@@ -66,10 +66,11 @@ class ReportFilterForm(forms.Form):
 
     def clean(self):
         cleaned = super().clean()
-        if cleaned.get("period") == self.Period.CUSTOM:
-            start, end = cleaned.get("start_date"), cleaned.get("end_date")
-            if not start or not end:
-                raise forms.ValidationError(_("Custom range requires both dates."))
+        start, end = cleaned.get("start_date"), cleaned.get("end_date")
+        explicit_range = bool(start and end)
+        if cleaned.get("period") == self.Period.CUSTOM and not explicit_range:
+            raise forms.ValidationError(_("Custom range requires both dates."))
+        if explicit_range:
             if end < start:
                 raise forms.ValidationError(_("End date must not precede start date."))
             if end - start > timedelta(days=730):
@@ -78,6 +79,12 @@ class ReportFilterForm(forms.Form):
 
     def date_range(self):
         today = timezone.localdate()
+        start, end = self.cleaned_data.get("start_date"), self.cleaned_data.get("end_date")
+        if start and end:
+            # Explicit dates always win — the period selector is only a
+            # convenience shortcut, so a user who typed real dates should
+            # never have them silently overridden by a stale period choice.
+            return start, end
         period = self.cleaned_data.get("period") or self.Period.MONTH
         if period == self.Period.TODAY:
             return today, today
@@ -96,8 +103,6 @@ class ReportFilterForm(forms.Form):
             return start, following - timedelta(days=1)
         if period == self.Period.YEAR:
             return today.replace(month=1, day=1), today.replace(month=12, day=31)
-        if period == self.Period.CUSTOM:
-            return self.cleaned_data["start_date"], self.cleaned_data["end_date"]
         start = today.replace(day=1)
         following = (
             start.replace(year=start.year + 1, month=1)

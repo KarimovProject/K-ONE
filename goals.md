@@ -5,11 +5,16 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-21 (Hisobotlar bo'limining Excel eksportiga
-oy bo'yicha guruhlash, "Attendees" (ishtirokchilar) va "Busy staff" (band
-xodimlar) varaqlari qo'shildi — mavjud eksport tugmasi/infratuzilmasi
-kengaytirildi, yangi tugma qo'shilmadi; tafsilot `docs/CHANGELOG.md`
-3.45-bo'limda); bundan oldin: Telegram kanal integratsiyasi uchidan-uchigacha
+Oxirgi yangilanish: 2026-09-22 (Hisobotlar: sana oralig'ini tanlab
+bo'lmasligi bugi tuzatildi (`ReportFilterForm.date_range()` `period`
+qiymatidan qat'iy nazar aniq sanalarga ustunlik beradi + JS
+sinxronizatsiya); Excel eksporti foydalanuvchi so'rovi bo'yicha bitta
+varaqqa qayta qurildi — Tadbirlar (sana/xona/davomat/mas'ul bitta
+qatorda) → Band xodimlar → Xulosa → Nashrlar tartibida; tafsilot
+`docs/CHANGELOG.md` 3.46-bo'limda); bundan oldin: Hisobotlar bo'limining
+Excel eksportiga oy bo'yicha guruhlash, "Attendees" (ishtirokchilar) va
+"Busy staff" (band xodimlar) varaqlari qo'shildi (3.45-band); bundan
+oldin: Telegram kanal integratsiyasi uchidan-uchigacha
 sinaldi — guruhga ulandi, lekin rasmli avtomatik post `IEMS_BASE_URL`ning
 eskirgan LAN IP'iga (`10.34.12.2` → haqiqiysi `10.34.12.152`) bog'liqligi
 sababli ishlamadi; shu jarayonda `register-tasks.ps1`dagi loyiha-yo'li bugi
@@ -182,6 +187,11 @@ muvaffaqiyatsizliklar tuzatilgan).
   qo'shildi** — mavjud eksport tugmasi (`/reports/`) endi "Attendees"
   va "Busy staff" varaqlarini ham chiqaradi, "Events" varag'iga "Month"
   ustuni qo'shildi (`docs/CHANGELOG.md` 3.45-band).
+- **Hisobotlar — sana oralig'i bugi tuzatildi, Excel bitta varaqqa
+  qayta qurildi** — foydalanuvchi fikri asosida: sana tanlash endi
+  ishlaydi (real bug edi), Excel endi bitta "Report" varag'ida
+  Tadbirlar → Band xodimlar → Xulosa → Nashrlar tartibida
+  (`docs/CHANGELOG.md` 3.46-band).
 
 Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 `docs/CHANGELOG.md` faylida, xronologik tartibda (3.1 dan boshlab).

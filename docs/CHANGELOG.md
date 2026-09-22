@@ -1998,3 +1998,76 @@ qayta kompilyatsiya qilindi.
 
 ---
 
+### 3.46 Tuzatildi va qayta qurildi — Sana oralig'ini tanlash ishlamasligi (haqiqiy bug), Excel eksporti bitta varaqqa, foydalanuvchi ko'rsatgan tartibda qayta tuzildi (2026-09-22)
+
+**Bug #1 — sana oralig'ini tanlab bo'lmasligi.** Foydalanuvchi filtr
+formasida "Boshlanish sana"/"Tugash sana" maydonlariga sana kiritganda
+hech narsa o'zgarmasligini xabar qildi. Sabab topildi:
+`ReportFilterForm.date_range()` faqat `period == "custom"` bo'lganda
+qo'lda kiritilgan sanalarni ishlatardi; boshqa har qanday `period`
+qiymatida (masalan standart "Bu oy") sanalar butunlay e'tiborga
+olinmasdi — va UI'da "Period" dropdown'ni sanalar bilan sinxronlaydigan
+HECH QANDAY JavaScript yo'q edi (`grep`bilan tasdiqlandi). Ya'ni
+foydalanuvchi sana tanlashi uchun sanalarni kiritish YETARLI EMAS edi,
+alohida "Period"ni ham qo'lda "Maxsus sana oralig'i"ga o'zgartirish
+kerak edi — hech qanday interfeys ipuchi buni ko'rsatmasdi.
+
+**Tuzatish (ikki qatlamli):**
+1. `apps/reporting/forms.py::ReportFilterForm.date_range()` — endi
+   `start_date` va `end_date` ikkalasi ham berilgan bo'lsa, `period`
+   qiymatidan qat'iy nazar ular ustunlik qiladi (`clean()` ham mos
+   ravishda yangilandi — ikkala sana berilganda ular tekshiriladi,
+   faqat `period="custom"`da emas). Eskirgan, endi hech qachon
+   bajarilmaydigan `if period == CUSTOM: return ...` shoxobchasi
+   o'chirildi (o'lik kod).
+2. `templates/reporting/reports_dashboard.html` — kichik JS qo'shildi:
+   `start_date`/`end_date` maydoni o'zgarganda "Period" dropdown
+   avtomatik "Maxsus sana oralig'i"ga o'tkaziladi (vizual izchillik
+   uchun; #1dagi backend tuzatish JS'siz ham to'g'ri ishlaydi).
+
+**Feature — Excel eksporti butunlay qayta tuzildi.** Foydalanuvchi
+oldingi ko'p-varaqli tuzilmadan norozi bo'lib, bitta varaqqa, aniq
+tartibda so'radi: birinchi navbatda tanlangan davrdagi tadbirlar (sana,
+tadbir, xona, davomat, mas'ul), pastida xulosa va nashrlar.
+`apps/reporting/exports.py::xlsx_response()` to'liq qayta yozildi:
+
+- Eski `_sheet()` (har chaqiruvda alohida varaq yaratuvchi) o'rniga
+  yangi `_append_block()` — bitta varaq ichida sarlavha+jadval
+  bloklarini ketma-ket yozadi (blok sarlavhasi qalin matn, keyin
+  sarlavha qatori, keyin ma'lumot, keyin bo'sh ajratuvchi qator).
+- Yagona "Report"/"Hisobot" varag'i, tartib: **davr yorlig'i** →
+  **"Tadbirlar" bloki** (filtrlanadigan/qotirilgan, asosiy blok) →
+  **"Band xodimlar"** → **"Xulosa"** → **"Nashrlar"**.
+- `_event_rows()` qayta yozildi: endi ustunlar **Oy, Sana, Tadbir,
+  Xona, Mas'ul (responsible_employee), Kutilayotgan, Ro'yxatdan
+  o'tgan, Qatnashuvchilar (ism-familiyalar vergul bilan qo'shilgan
+  matn, alohida "Attendees" varag'i o'rniga), Holati** — foydalanuvchi
+  so'ragan "sana/uchrashuv/xona/davomat/mas'ul" hammasi bitta qatorda.
+  Alohida `_attendee_rows()` (normalizatsiya qilingan, bir
+  ishtirokchi — bir qator) endi ishlatilmaydi, o'chirildi — CSV va
+  Excel bir xil `_event_rows()`dan foydalanadi (izchillik).
+- Alohida "Venues" (zal band-foydalanish statistikasi) va
+  "Attendance"/"Approvals" (yig'ma ko'rsatkichlar) bloklari Excel'dan
+  **olib tashlandi** (foydalanuvchi faqat "xulosa, nashrlar"ni pastda
+  qoldirishni so'radi; zal nomi va davomat endi asosiy jadvalda
+  qatorma-qator ko'rinadi, alohida blok keraksiz takror bo'lardi).
+  Bu ma'lumotlar hali ham on-page dashboard'da va PDF eksportida bor —
+  faqat Excel tuzilishi soddalashtirildi.
+- **Real bug**: modul darajasida `_()` (gettext, LAZY EMAS) bilan
+  qurilgan sarlavha ro'yxati yozilayotganda payqaldi va oldini olindi
+  — bunday konstant import vaqtida bir marta baholanadi, so'rov
+  vaqtidagi `?language=` parametriga bog'liq bo'lmay qoladi. Shu
+  sababli sarlavhalar alohida `_event_headers()` FUNKSIYASI ichida
+  qurilgan (har chaqiruvda joriy tilni to'g'ri oladi).
+
+**Tekshiruv**: haqiqiy xlsx generatsiya qilib, `openpyxl` bilan
+o'qib tekshirildi (bitta "Report" varag'i, 4 blok, to'g'ri
+tartib/kontent). UTF-8 belgilar (en dash, o'ng qo'shtirnoq) PowerShell
+orqali bayt darajasida tasdiqlandi (Bash konsolining ko'rsatish
+muammosi haqiqiy fayl buzilishi bilan adashtirilmadi).
+`tests/test_phase9_reporting.py::test_xlsx_has_professional_sheets`
+yangi bitta-varaq tuzilishini tekshiradigan qilib yangilandi. To'liq
+test to'plami (389 ta, o'zgarishsiz) o'tadi.
+
+---
+

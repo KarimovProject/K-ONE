@@ -310,6 +310,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+  // 1b. Picking a custom start/end date should switch the period selector
+  // to "Custom Date Range" automatically — otherwise the typed dates are
+  // silently ignored because the period choice still wins server-side.
+  const periodSelect = document.getElementById("id_period");
+  const startDateInput = document.getElementById("id_start_date");
+  const endDateInput = document.getElementById("id_end_date");
+  if (periodSelect && startDateInput && endDateInput) {
+    const switchToCustom = () => {
+      if (startDateInput.value || endDateInput.value) {
+        periodSelect.value = "custom";
+      }
+    };
+    startDateInput.addEventListener("change", switchToCustom);
+    endDateInput.addEventListener("change", switchToCustom);
+  }
+
   // 2. Chart Presentation Logic
   const bars = document.querySelectorAll("#eventChartBars .chart-bar-col");
   if (bars.length > 0) {
