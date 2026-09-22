@@ -5,7 +5,15 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-22 (Xuddi shu "AnonymousUser'da `.role` yo'q"
+Oxirgi yangilanish: 2026-09-22 (Ultra Review — 8 yo'nalishli production-readiness
+auditi (`REVIEW_REPORT.md`) o'tkazildi, verifikator tomonidan tasdiqlangan barcha
+CRITICAL/HIGH topilmalar tuzatildi: production'da `DJANGO_SETTINGS_MODULE`ning
+majburiy o'rnatilmasligi (eng jiddiy topilma — 4-bo'lim 13-band endi HAL QILINDI),
+`apps/publications` API ruxsat nazorati, DRAFT tadbirlarning zal/vaqtni band
+qilib qo'yishi, ijtimoiy tarmoqqa nashr qilishda ikki marta post qilinish xavfi,
+Docker restart/healthcheck, Waitress statik fayl muammosi (`whitenoise`), GitHub
+Actions CI qo'shildi — tafsilot `docs/CHANGELOG.md` 3.53-bo'limda, 411 ta test
+o'tadi; bundan oldin: Xuddi shu "AnonymousUser'da `.role` yo'q"
 bug turi bo'yicha butun loyiha bo'ylab qidiruv — yana bitta joy
 (`apps/publications` — nashr yaratish/tahrirlash) topilib tuzatildi,
 qolgan barcha joylar tekshirilib xavfsiz deb tasdiqlandi; tafsilot
@@ -112,11 +120,25 @@ tasdiqlaydi:
 
 **Loyiha holati: barqaror, ishlaydigan.** `manage.py check` va to'liq test
 to'plami (`pytest tests/`, e2e/human_acceptance/visual_baseline bundan
-mustasno) doim tekshiriladi — joriy holat: **373 test o'tadi**, 1 ta oldindan
-mavjud, ushbu loyihaga aloqasi yo'q muvaffaqiyatsizlik yo'q (barcha bilingan
-muvaffaqiyatsizliklar tuzatilgan).
+mustasno) doim tekshiriladi — joriy holat: **411 test o'tadi**, ma'lum
+muvaffaqiyatsizlik yo'q. Endi CI ham bor: har push/PR'da GitHub Actions
+orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
-### So'nggi yakunlangan yirik ishlar (2026-09-16 holatiga)
+### So'nggi yakunlangan yirik ishlar (2026-09-22 holatiga)
+
+- **Ultra Review — production-readiness auditi va tuzatishlar**: 8
+  yo'nalishli (xavfsizlik, mantiq, ishlash, API, arxitektura, testlar,
+  DevOps, bog'liqliklar) to'liq audit + verifikatsiya. Eng muhimi:
+  production Windows Scheduled Task'lar `DJANGO_SETTINGS_MODULE`ni hech
+  qachon o'rnatmasdi (production aslida `local` sozlamalarda ishlar edi) —
+  hal qilindi, **faqat `register-tasks.ps1`da**, `run-web.ps1` (lokal dev)
+  ataylab tegilmadi. Boshqa tuzatishlar: publications API ruxsati, DRAFT
+  conflict bugi, publish idempotentligi, Docker restart/healthcheck,
+  statik fayl serveri (`whitenoise`), N+1 so'rovlar, RBAC test kengaytmasi,
+  GitHub Actions CI. To'liq ro'yxat: `docs/CHANGELOG.md` 3.53-bo'lim,
+  hisobot: `REVIEW_REPORT.md`.
+
+### Bundan oldingi yirik ishlar (2026-09-16 holatiga)
 
 - **Shifokor moduli**: ro'yxatdan o'tish, profil, band vaqt boshqaruvi (endi
   o'chirish faqat administratorga — o'z-o'zini "band/erkin" qilib
@@ -296,23 +318,50 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     Windows Scheduled Task qo'shildi (Web/Worker/Beat bilan bir xil
     naqsh). **Hali faollashtirilmagan** — foydalanuvchi
     `register-tasks.ps1`ni o'zi keyinroq ishga tushirishni so'radi.
-13. **`manage.py`/`config/wsgi.py`/`config/celery.py` — barchasi
-    `DJANGO_SETTINGS_MODULE`ni `config.settings.local`ga
-    `setdefault` qiladi** (2026-09-21 topildi). Yangi Scheduled Tasklar
-    hech qanday environment o'zgaruvchisi belgilamaydi, demak ular ham
-    (nomida "production" bo'lsa-da) aslida **`local` sozlamalar**da
-    ishlaydi, faqat `.env`dagi qiymatlarga (`DJANGO_DEBUG` va h.k.)
-    tayanadi. Bu chalkash va production xavfsizlik sozlamalari
-    (`DEBUG=False`, xavfsizlik header'lari) amalda ishlamasligi mumkinligini
-    anglatadi. Hal qilish yo'li (masalan, Scheduled Task XML'ga
-    `<Environment>` bloki qo'shish orqali `DJANGO_SETTINGS_MODULE=
-    config.settings.production` majburlash) — foydalanuvchi bilan
-    kelishilishi kerak, hali so'ralmagan.
+13. ~~**`manage.py`/`config/wsgi.py`/`config/celery.py` — barchasi
+    `DJANGO_SETTINGS_MODULE`ni `config.settings.local`ga `setdefault`
+    qiladi**~~ **HAL QILINDI (2026-09-22, Ultra Review,
+    `docs/CHANGELOG.md` 3.53-band)**: `scripts/register-tasks.ps1`dagi har
+    bir Scheduled Task endi `cmd.exe` wrapper orqali
+    `DJANGO_SETTINGS_MODULE=config.settings.production`ni majburiy
+    o'rnatadi (Task Scheduler XML v1.3'da alohida `<Environment>` elementi
+    yo'qligi sababli). **Muhim**: `manage.py`/`wsgi.py`/`celery.py`dagi
+    `setdefault("...", "local")` o'zi o'zgarmadi (bu — lokal dev uchun
+    to'g'ri sukut) — faqat production launch nuqtasi (Scheduled Task)
+    aniq `production`ni majburlaydi. `scripts/run-web.ps1` (kundalik lokal
+    dev skripti) ataylab tegilmadi. **Yangi ochilgan qatorlar**: shu
+    tuzatish davomida production'da endi haqiqatan `production.py` ishga
+    tushishi mumkinligi sababli, ikkita qo'shimcha muammo ham aniqlanib
+    parallel tuzatildi — production logging (`pythonw.exe` konsolsiz
+    ishlagani uchun loglar yo'qolib qolishi, fayl handler qaytarildi) va
+    `DEBUG=False`da statik fayllar uzatilmasligi (`whitenoise` qo'shildi).
 14. **Eskirgan LAN IP (`10.34.12.2`) tarixiy bir martalik QA/screenshot
     skriptlarida hali ham uchraydi** (`scripts/capture_*`,
     `scripts/verify_phase27_*` va h.k., 2026-09-21 aniqlandi) — bular
     runtime'ga aloqasi yo'q, 4-band (scripts/ tozalash)ga bog'liq,
     ataylab tuzatilmadi.
+15. **`apps/events/views.py` — 1250+ qatorli "god file"** (2026-09-22,
+    Ultra Review arxitektura tahlili). 30+ view klassi, ba'zi joylarda
+    biznes-logika (bildirishnoma matni yaratish) to'g'ridan-to'g'ri view
+    qatlamida. Takrorlangan "owner-or-admin" ruxsat tekshiruvlari
+    `apps.events.selectors.can_manage_event()`ga birlashtirildi, ammo
+    faylning o'zi hali bo'linmagan — bu katta, alohida refaktoring ishi
+    (regressiya xavfi bor), hali so'ralmagan.
+16. **Kelishilmagan sabab bilan repo papkasida vaqti-vaqti bilan bo'sh
+    (0-baytli), tasodifiy nomli fayllar paydo bo'lyapti** (masalan `bool`,
+    `raise`, `restart`, `3.13`, `dict[str`, `{self.action}` — 2026-09-22
+    kuzatildi). Manba — ehtimol `.claude/settings.json`dagi ruflo/claude-flow
+    hook zanjiri (`hook-handler.cjs` yoki unga bog'liq boshqa yordamchi
+    skript), ammo aniq kod joyi topilmadi (yuzaki tekshiruvda
+    `hook-handler.cjs`ning o'zi loyiha ildiziga fayl yozmaydi). Bir marta
+    kuzatilgan holatda: shu jarayonda `scripts/run-web.ps1`ga so'ralmagan
+    `DJANGO_SETTINGS_MODULE=production` qatori va `REVIEW_REPORT.md`ning
+    o'chirilishi ham qayd etildi — demak bu shunchaki bo'sh-fayl-yaratish
+    emas, balki **faol jarayon repo fayllarini ham o'zgartirmoqda**. Chuqur
+    diagnostika hali qilinmadi (uchinchi tomon vositasi, ko'p vaqt talab
+    qiladi); hozircha fayllar qo'lda o'chirilmoqda. Agar takrorlansa —
+    `.claude-flow` daemon ishga tushirilganmi (`daemon status --all`) va
+    qaysi hook aniq ishlayotganini alohida tekshirish tavsiya etiladi.
 
 ---
 
@@ -345,6 +394,13 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
       "Joriy holat" bo'limlarini **darhol** (keyingi so'rovga o'tishdan oldin)
       yangilab borish — 3.25–3.31-bo'limlar bu safar orqaga qarab, foydalanuvchi
       eslatgandan keyin yozildi.
+- [x] Production'da `DJANGO_SETTINGS_MODULE` majburlanmasligi — hal qilindi
+      (2026-09-22, 4-bo'lim 13-band, `docs/CHANGELOG.md` 3.53-band).
+- [ ] `apps/events/views.py`ni (1250+ qator) kichik modullarga bo'lish —
+      4-bo'lim 15-band, katta refaktoring, hali so'ralmagan.
+- [ ] Repo papkasida o'zidan-o'zi paydo bo'layotgan bo'sh axlat fayllar —
+      manba aniqlanmagan (4-bo'lim 16-band), takrorlansa chuqur diagnostika
+      kerak.
 
 ---
 

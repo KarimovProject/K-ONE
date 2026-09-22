@@ -2326,3 +2326,80 @@ regressiya testi qo'shildi. To'liq test to'plami: 395 ta (2 tasi
 yangi), barchasi o'tadi.
 
 ---
+### 3.53 Ultra Review — production-readiness auditi va topilgan bug'larning tuzatilishi (2026-09-22)
+
+8 ta mustaqil yo'nalish (xavfsizlik, to'g'rilik/mantiq, ishlash/DB, API
+dizayni, arxitektura, testlar, DevOps, bog'liqliklar) bo'yicha to'liq
+loyiha auditi o'tkazildi, so'ngra CRITICAL/HIGH topilmalar alohida
+verifikator tomonidan tasdiqlandi (to'liq hisobot: `REVIEW_REPORT.md`,
+repo ildizida). Tasdiqlangan topilmalarning aksariyati shu sessiyada
+tuzatildi:
+
+**CRITICAL — tuzatildi**: Windows Scheduled Task'lar (`scripts/register-tasks.ps1`)
+`DJANGO_SETTINGS_MODULE`ni hech qachon o'rnatmasdi, shuning uchun
+production haqiqatda `config.settings.local`da ishlar edi (`DEBUG=True`
+sukut, xavfsiz bo'lmagan cookie'lar). Endi har bir task `cmd.exe`
+wrapper orqali `DJANGO_SETTINGS_MODULE=config.settings.production`ni
+majburiy o'rnatadi (Task Scheduler XML sxemasida alohida `<Environment>`
+elementi yo'qligi sababli). **Muhim**: `scripts/run-web.ps1` (kundalik
+LOKAL development skripti) ataylab TEGILMADI — bu faqat production
+Scheduled Task'lariga tegishli.
+
+**HIGH — tuzatildi**:
+- `apps/publications` API'sida ruxsat nazorati yo'q edi — endi
+  `MANAGE_CONTENT` capability talab qilinadi (GET uchun; POST o'zining
+  mavjud `can_prepare()` tekshiruvida qoldi).
+- `Event.Status.DRAFT` conflict-detection'dan chetlashtirilmagan edi —
+  qoralama tadbir zal/vaqtni doimiy "band" qilib qo'yishi mumkin edi.
+- `apps/publications/services.py`dagi `publish_publication` — tashqi
+  ijtimoiy tarmoq API chaqiruvi endi DB lock/tranzaksiyadan tashqarida;
+  `PUBLISHING` holati oldindan commit qilinadi, shu bilan qulashda ikki
+  marta post qilinish xavfi kamaydi; kutilmagan xatolar (masalan banner
+  yo'qligi) endi `FAILED`ga aylanadi (avval cheksiz retry qilinardi).
+- `EventDetailView` har bir sahifa yuklashda tadbirni ikki marta
+  so'rardi — tuzatildi.
+- `apps/events/api.py`dagi `expected_attendees` raqamli parametri
+  endi try/except ichida — noto'g'ri qiymatda 500 o'rniga 400.
+- Production logging faqat konsolga (`StreamHandler`) yozardi — Windows
+  Scheduled Task'lar `pythonw.exe` orqali konsolsiz ishlagani uchun
+  loglar yo'qolib qolardi; endi fayl handler ham parallel ishlaydi.
+- `docker-compose.yml`da hech bir servisda `restart:` siyosati va
+  `web`/`worker`da healthcheck yo'q edi — qo'shildi.
+- Native Windows/Docker'da `DEBUG=False` bo'lganda statik fayllar
+  (CSS/JS) uzatilmasdi (Waitress/gunicorn buni o'zi qilmaydi) —
+  `whitenoise` kutubxonasi qo'shildi va sozlandi.
+- `Django` 5.2.16→5.2.17, `djangorestframework` 3.17.1→3.17.2 (e'lon
+  qilingan zaifliklar uchun).
+
+**MEDIUM/kod sifati — tuzatildi**: `apps/events/services/workflow.py`dagi
+`approve_event`ga `transaction.atomic()`+`select_for_update()` qo'shildi
+(boshqa workflow funksiyalari bilan bir xil qulflash naqshi);
+`apps/events/views.py`dagi 5 ta joyda takrorlangan "owner-or-admin"
+ruxsat tekshiruvi yagona `apps.events.selectors.can_manage_event()`ga
+birlashtirildi; 6 ta ortiqcha `or user.is_superuser` tekshiruvi olib
+tashlandi (`user_has_capability` allaqachon superuserni qamraydi);
+`apps/reporting/selectors.py`dagi `get_workspace_data()` — kunlik
+zal-ziddiyat hisoblashi endi tadbir boshiga alohida DB so'rov
+yubormaydi, Python ichida hisoblanadi (so'rovlar soni tadbirlar
+sonidan mustaqil, testda tasdiqlangan); Approval Center'dagi ortiqcha
+`.exists()` chaqiruvi olib tashlandi.
+
+**Yangi**: GitHub Actions CI (`.github/workflows/ci.yml`) — `ruff`,
+`manage.py check`, `makemigrations --check --dry-run`, `pytest` har
+push/PR'da avtomatik ishga tushadi (avval CI umuman yo'q edi).
+
+**Ataylab tegilmagan** (biznes qaror yoki katta refaktoring talab
+qiladi, `goals.md` 4-bo'limiga qo'shildi): `apps/events/views.py`ni
+(1250 qator) kichik modullarga bo'lish; shifokor "band" bo'lish
+tekshiruvida `StaffUnavailability` vs `Event.attending_doctors`
+ziddiyati (allaqachon 4.8-bandda qayd etilgan, o'zgarmadi).
+
+**Testlar**: `apps/publications/tasks.py`dagi `publish_publication_task`
+retry/failure logikasiga 4 ta yangi test qo'shildi (avval faqat
+`.delay()` monkeypatch qilinardi, task tanasi hech qachon sinalmagandi);
+`tests/test_rbac.py` 2 tadan 13 taga kengaytirildi (barcha 7 rol +
+superuser/doctor/inactive/anonymous/noto'g'ri-capability edge case'lari);
+workspace dashboard N+1 tuzatishi uchun regressiya testi qo'shildi.
+To'liq test to'plami: **411 ta, barchasi o'tadi** (16 tasi yangi).
+
+---
