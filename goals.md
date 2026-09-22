@@ -5,7 +5,9 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-22 (Hisobotlar: sana oralig'ini tanlab
+Oxirgi yangilanish: 2026-09-22 (Registratsiyada minimal parol uzunligi
+12'dan 8ga tushirildi — `docs/CHANGELOG.md` 3.47-band); bundan oldin:
+Hisobotlar: sana oralig'ini tanlab
 bo'lmasligi bugi tuzatildi (`ReportFilterForm.date_range()` `period`
 qiymatidan qat'iy nazar aniq sanalarga ustunlik beradi + JS
 sinxronizatsiya); Excel eksporti foydalanuvchi so'rovi bo'yicha bitta

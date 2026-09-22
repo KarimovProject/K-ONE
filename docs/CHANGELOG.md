@@ -2071,3 +2071,15 @@ test to'plami (389 ta, o'zgarishsiz) o'tadi.
 
 ---
 
+### 3.47 O'zgartirildi — Registratsiyada minimal parol uzunligi 12'dan 8ga tushirildi (2026-09-22)
+
+Foydalanuvchi so'roviga ko'ra `config/settings/base.py`dagi
+`AUTH_PASSWORD_VALIDATORS`ning `MinimumLengthValidator` qiymati
+(`min_length`) 12'dan 8ga o'zgartirildi. Bu Django'ning o'rnatilgan
+validatori bo'lgani uchun boshqa hech qanday joyda (frontend/JS,
+tarjima matnlari) qattiq kodlangan "12" topilmadi — yagona manba shu
+sozlama edi. `manage.py check` toza, `test_doctor_registration.py`
+(42 test) o'tadi.
+
+---
+
