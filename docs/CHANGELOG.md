@@ -2205,3 +2205,79 @@ to'g'ri render bo'lishi (meta-refresh + to'g'ri deep-link) tasdiqlandi,
 `test_phase7_telegram.py` (24 test) o'tadi.
 
 ---
+### 3.51 Tuzatildi — Loyiha bo'ylab mobil moslashuvchanlik auditi: public dashboard'dagi jadval (timeline) mobilga sig'masligi, Telegram kanal sozlamalarida anonim foydalanuvchi uchun 500 xatosi (2026-09-22)
+
+**Kontekst**: foydalanuvchi telefonidan kirganda public dashboard oynalari
+mobilga moslanmagani haqida xabar berdi, "butun loyihani tekshir" deb
+so'radi. Playwright orqali (Django sessiyasi to'g'ridan-to'g'ri DB'da
+yaratilib, haqiqiy parolga tegilmasdan) 390×844 (mobil) o'lchamda ~25
+sahifa avtomatik tekshirildi: har bir sahifada haqiqiy sahifa-darajasidagi
+gorizontal scroll bor-yo'qligi va har qanday elementning ko'rinadigan
+oynadan tashqariga chiqib ketishi tekshirildi, so'ng har bir topilma
+skrinshot bilan qo'lda tasdiqlandi (soxta signallarni — masalan ataylab
+gorizontal scroll qilinadigan yorliqlar qatori yoki yopiq holatdagi
+off-canvas drawer'lar — haqiqiy bug'lardan ajratish uchun).
+
+**Bug #1 (asosiy, foydalanuvchi xabar qilgan) — public dashboard'dagi
+"Xronologik Oqim" (soatlik jadval) mobilda matn kesilib, o'qib
+bo'lmaydigan holga kelardi.** Ikki qatlamli sabab topildi:
+
+1. `static/css/public.css`da `@media (max-width: 1024px)` ichida
+   `.executive-layout { grid-template-columns: 1fr; }` — bitta ustunga
+   tushirilardi, lekin bitta `1fr` grid ustuni CSS spetsifikatsiyasi
+   bo'yicha standart holda `minmax(auto, 1fr)`ga teng — ya'ni minimal
+   o'lchami HALI HAM kontentning o'ziga bog'liq, ekran eniga emas. Desktop
+   qoidasi (`minmax(0, 7fr) minmax(0, 3fr)`) buni to'g'ri hal qilgan edi,
+   lekin mobil override'da bu unutilgan (klassik CSS Grid "kichraymaydi"
+   xatosi). Tuzatildi: `minmax(0, 1fr)`.
+2. Bundan tashqari, eski (`templates/workspace/home.html`da ishlatiladigan)
+   `.timeline-scale`/`.timeline-tracks` uchun mobil qoida
+   (`min-width: 640px`) klass nomi bir xil bo'lgani sababli **tasodifan**
+   yangi "Phase 3" public dashboard komponentiga ham (`.timeline-exec-container`
+   ichidagi `.timeline-scale`) ta'sir qilardi — lekin bu yangi komponentda
+   mos `overflow-x: auto` yo'q edi (bazaviy qoidada `overflow: hidden`),
+   shuning uchun ortiqcha kenglik gorizontal scroll o'rniga oddiygina
+   **ko'rinmay qolardi**. Tuzatildi: eski qoida `.timeline-container`
+   ota-onasi bilan scope qilindi (endi faqat workspace'ga tegishli), va
+   Phase 3 komponenti uchun alohida, to'g'ri qoida qo'shildi
+   (`.timeline-exec-container { overflow-x: auto }` + mos `min-width`lar) —
+   endi soatlik jadval mobilda gorizontal surish (swipe) orqali to'liq
+   ko'rinadi, matn kesilmaydi.
+
+**Bug #2 (mobilga aloqasi yo'q, audit jarayonida topildi) — Telegram
+kanal/guruh sozlamalari sahifasi (`/notifications/telegram/channel/`)
+anonim (kirmagan) foydalanuvchi uchun 500 xato bilan qulardi**, login
+sahifasiga yo'naltirish o'rniga. Sabab:
+`TelegramChannelSettingsView.dispatch()` `_is_telegram_admin(request.user)`ni
+`super().dispatch()` (bu yerda `LoginRequiredMixin`ning autentifikatsiya
+tekshiruvi bajariladi) chaqirilishidan OLDIN chaqirar edi;
+`_is_telegram_admin()` esa `user.role`ga to'g'ridan-to'g'ri murojaat
+qilardi — `AnonymousUser`da bunday atribut yo'q
+(`AttributeError: 'AnonymousUser' object has no attribute 'role'`).
+Tuzatildi: `_is_telegram_admin()` endi (`user_has_capability()` bilan bir
+xil naqshda) avval `user.is_authenticated`ni tekshiradi; `dispatch()`
+esa autentifikatsiya qilinmagan foydalanuvchini avval
+`super().dispatch()`ga o'tkazadi (u LoginRequiredMixin orqali login
+sahifasiga yo'naltiradi), faqat autentifikatsiya qilingan-lekin-admin-emas
+holatda `PermissionDenied` (403) qaytaradi.
+
+**Tekshirilgan va MUAMMO TOPILMAGAN sahifalar** (~25 ta): workspace
+dashboard, hisobotlar, tadbirlar ro'yxati/wizard/detail/tasdiqlash,
+zallar, tadbir turlari, tashkilotlar, homiylar, Telegram sozlamalari,
+profil, foydalanuvchilar, ochiq zallar/band shifokorlar, audit jurnal,
+nashrlar, login/registratsiya, shifokor bandligi, taqvim oy/hafta/kun
+ko'rinishlari.
+
+**Soxta signal sifatida rad etilgan (bug emas)**: yuqori navigatsiya
+yorliqlari qatori (`.premium-segment-btn`) — ataylab gorizontal surish
+uchun mo'ljallangan (`overflow-x:auto`, CSS'da tasdiqlangan); taqvimdagi
+tadbir tafsiloti paneli (`.inspector-panel`) — yopiq holatda ekrandan
+tashqarida turadi, bosilganda to'g'ri joyga suriladi (skrinshot bilan
+tasdiqlandi).
+
+**Testlar**: `tests/test_phase7_telegram.py`ga 2 ta yangi regressiya
+testi qo'shildi (`test_channel_settings_redirects_anonymous_instead_of_crashing`,
+`test_channel_settings_forbidden_for_non_admin`). To'liq test to'plami:
+393 ta (2 tasi yangi), barchasi o'tadi.
+
+---

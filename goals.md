@@ -5,7 +5,14 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-22 (Telegram ulash: xom HTTP redirect
+Oxirgi yangilanish: 2026-09-22 (Loyiha bo'ylab mobil moslashuvchanlik
+auditi: public dashboard'dagi soatlik jadval mobilda matn kesilib
+qolishi (CSS Grid `1fr` vs `minmax(0,1fr)` xatosi + klass nomi
+to'qnashuvi) tuzatildi; audit jarayonida Telegram kanal sozlamalari
+sahifasining anonim foydalanuvchi uchun 500 xato bilan qulashi ham
+topilib tuzatildi (mobilga aloqasi yo'q, lekin muhim xavfsizlik/barqarorlik
+bugi) — ~25 sahifa tekshirilib, boshqa muammo topilmadi; tafsilot
+`docs/CHANGELOG.md` 3.51-bo'limda); bundan oldin: Telegram ulash: xom HTTP redirect
 ba'zi brauzer/OS'larda "hech narsa ochilmasligi"ga sabab bo'lgani
 aniqlanib, o'rniga har doim ko'rinadigan/bosiladigan tugmali oraliq
 sahifa qilindi — `docs/CHANGELOG.md` 3.50-band); bundan oldin:

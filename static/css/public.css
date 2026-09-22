@@ -853,8 +853,8 @@ html {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .timeline-scale,
-  .timeline-tracks {
+  .timeline-container .timeline-scale,
+  .timeline-container .timeline-tracks {
     min-width: 640px;
   }
 }
@@ -1436,10 +1436,28 @@ html {
 
 @media (max-width: 1024px) {
   .executive-kpi-rail { grid-template-columns: repeat(2, 1fr); }
-  .executive-layout { grid-template-columns: 1fr; }
+  /* A bare `1fr` track still defaults to `minmax(auto, 1fr)` — its minimum
+     stays the content's intrinsic size, so a wide child (like the hourly
+     timeline) forces the whole grid track wider than the viewport instead
+     of shrinking to it. `minmax(0, 1fr)` is required to actually let it
+     shrink; the desktop rule above already gets this right. */
+  .executive-layout { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
   .executive-kpi-rail { grid-template-columns: 1fr; }
   .executive-hero { flex-direction: column; align-items: flex-start; gap: 16px; }
   .executive-hero__right { align-items: flex-start; }
+  /* The hourly timeline (08:00-18:00) needs real horizontal space to stay
+     legible — squeezing it to the viewport width makes the hour labels and
+     event capsules illegibly cramped. Scroll horizontally instead of
+     clipping: .timeline-exec-container's base rule is `overflow: hidden`,
+     which was silently cutting off everything past ~390px on phones. */
+  .timeline-exec-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .timeline-exec-container .timeline-scale,
+  .timeline-exec-container .timeline-lanes-wrapper {
+    min-width: 640px;
+  }
 }

@@ -25,6 +25,12 @@ from apps.notifications.telegram.linking import create_link_token
 
 
 def _is_telegram_admin(user) -> bool:
+    # AnonymousUser has no `.role`, so this must short-circuit before
+    # touching it — a caller that checks this ahead of LoginRequiredMixin's
+    # own auth check (see TelegramChannelSettingsView.dispatch()) would
+    # otherwise crash with AttributeError instead of redirecting to login.
+    if not user.is_authenticated:
+        return False
     return bool(
         user.is_superuser
         or user.role in (User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN)
@@ -163,7 +169,11 @@ class TelegramChannelSettingsView(LoginRequiredMixin, FormView):
     form_class = TelegramChannelSettingsForm
 
     def dispatch(self, request, *args, **kwargs):
-        if not _is_telegram_admin(request.user):
+        # An anonymous visitor must fall through to LoginRequiredMixin's own
+        # check (inside super().dispatch()) so they get redirected to login,
+        # not an immediate 403 — the admin check only makes sense once we
+        # already know there's an authenticated user to check.
+        if request.user.is_authenticated and not _is_telegram_admin(request.user):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 

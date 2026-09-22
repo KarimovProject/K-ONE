@@ -250,6 +250,23 @@ def test_emergency_notifies_staff_and_international_admins(phase7_data):
     assert all("justification" not in item.message_text.lower() for item in deliveries)
 
 
+def test_channel_settings_redirects_anonymous_instead_of_crashing(client):
+    # Regression: _is_telegram_admin() used to read user.role directly,
+    # which crashed with AttributeError for AnonymousUser (no such
+    # attribute) instead of redirecting to login.
+    response = client.get(reverse("notifications:telegram-channel-settings"))
+    assert response.status_code == 302
+    assert response.url.startswith(reverse("login"))
+
+
+def test_channel_settings_forbidden_for_non_admin(client, phase7_data):
+    responsible, _, _, _ = phase7_data
+    client.force_login(responsible)
+    assert (
+        client.get(reverse("notifications:telegram-channel-settings")).status_code == 403
+    )
+
+
 def test_assigned_responsible_notifies_only_that_employee(phase7_data):
     from apps.notifications.telegram.services import schedule_responsible_assignment
 
