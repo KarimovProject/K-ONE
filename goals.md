@@ -5,7 +5,12 @@
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 > Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
-Oxirgi yangilanish: 2026-09-22 (Loyiha bo'ylab mobil moslashuvchanlik
+Oxirgi yangilanish: 2026-09-22 (Xuddi shu "AnonymousUser'da `.role` yo'q"
+bug turi bo'yicha butun loyiha bo'ylab qidiruv — yana bitta joy
+(`apps/publications` — nashr yaratish/tahrirlash) topilib tuzatildi,
+qolgan barcha joylar tekshirilib xavfsiz deb tasdiqlandi; tafsilot
+`docs/CHANGELOG.md` 3.52-bo'limda); bundan oldin: Loyiha bo'ylab mobil
+moslashuvchanlik
 auditi: public dashboard'dagi soatlik jadval mobilda matn kesilib
 qolishi (CSS Grid `1fr` vs `minmax(0,1fr)` xatosi + klass nomi
 to'qnashuvi) tuzatildi; audit jarayonida Telegram kanal sozlamalari

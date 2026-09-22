@@ -250,6 +250,30 @@ def test_rbac_policy(publication_data):
     assert can_publish(admin) and can_publish(content) and not can_publish(manager)
 
 
+def test_policies_reject_anonymous_user_instead_of_crashing():
+    # Regression: `user.is_superuser or user.role in (...)` crashed with
+    # AttributeError for AnonymousUser (no `.role`) instead of just
+    # returning False, because `is_superuser` is False so `or` fell
+    # through to the unguarded `.role` access.
+    from django.contrib.auth.models import AnonymousUser
+
+    anon = AnonymousUser()
+    assert can_prepare(anon) is False
+    assert can_approve(anon) is False
+    assert can_publish(anon) is False
+
+
+def test_create_and_edit_views_redirect_anonymous_instead_of_crashing(client, publication_data):
+    _, _, _, _, _, event = publication_data
+    publication = make_publication(publication_data)
+    create_response = client.get(reverse("publications:create", args=[event.pk]))
+    assert create_response.status_code == 302
+    assert create_response.url.startswith(reverse("login"))
+    edit_response = client.get(reverse("publications:edit", args=[publication.pk]))
+    assert edit_response.status_code == 302
+    assert edit_response.url.startswith(reverse("login"))
+
+
 def test_ui_security_and_draft_event_block(client, publication_data, settings):
     admin, _, _, _, viewer, event = publication_data
     settings.TELEGRAM_BOT_TOKEN = "must-not-appear"

@@ -68,7 +68,11 @@ class PublicationCreateView(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.event = get_object_or_404(Event, pk=kwargs["event_pk"], status__in=ELIGIBLE_STATUSES)
-        if not can_prepare(request.user, self.event):
+        # An anonymous request must fall through to LoginRequiredMixin's own
+        # check (inside super().dispatch()) so it gets redirected to login
+        # instead of an immediate 403 — can_prepare() only makes sense to
+        # evaluate once there's an authenticated user to check.
+        if request.user.is_authenticated and not can_prepare(request.user, self.event):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
@@ -102,10 +106,16 @@ class PublicationUpdateView(LoginRequiredMixin, UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if not can_prepare(request.user, self.object.event) or self.object.status not in (
-            Publication.Status.DRAFT,
-            Publication.Status.READY,
-            Publication.Status.FAILED,
+        # See PublicationCreateView.dispatch() above: anonymous requests
+        # must fall through to LoginRequiredMixin's redirect, not 403.
+        if request.user.is_authenticated and (
+            not can_prepare(request.user, self.object.event)
+            or self.object.status
+            not in (
+                Publication.Status.DRAFT,
+                Publication.Status.READY,
+                Publication.Status.FAILED,
+            )
         ):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)

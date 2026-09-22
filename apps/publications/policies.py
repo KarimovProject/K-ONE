@@ -17,6 +17,11 @@ def ensure_event_publishable(event: Event) -> None:
 
 
 def can_prepare(user: User, event: Event | None = None) -> bool:
+    # AnonymousUser has no `.role` — `is_superuser` is False for it, so the
+    # `or` below would otherwise fall through to `.role` and raise
+    # AttributeError instead of just returning False.
+    if not user.is_authenticated:
+        return False
     if user.is_superuser or user.role in (
         User.Role.SUPER_ADMIN,
         User.Role.INTERNATIONAL_ADMIN,
@@ -31,6 +36,8 @@ def can_prepare(user: User, event: Event | None = None) -> bool:
 
 
 def can_approve(user: User) -> bool:
+    if not user.is_authenticated:
+        return False
     return bool(
         user.is_superuser
         or user.role
@@ -43,6 +50,8 @@ def can_approve(user: User) -> bool:
 
 
 def can_publish(user: User) -> bool:
+    if not user.is_authenticated:
+        return False
     return bool(
         user.is_superuser
         or user.role

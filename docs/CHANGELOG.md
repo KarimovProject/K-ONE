@@ -2281,3 +2281,48 @@ testi qo'shildi (`test_channel_settings_redirects_anonymous_instead_of_crashing`
 393 ta (2 tasi yangi), barchasi o'tadi.
 
 ---
+### 3.52 Tuzatildi — Xuddi shu turdagi bug yana bir joyda: `apps/publications`da anonim foydalanuvchi uchun 500 xato (2026-09-22)
+
+3.51-bandda topilgan naqsh (`AnonymousUser`da `.role` yo'qligi sababli
+qulash) bo'yicha butun loyiha bo'ylab tizimli qidiruv o'tkazildi (har bir
+`dispatch()` override, ruxsat helper funksiyalari, context processor,
+middleware, shablon filtri, DRF permission klasslari — barcha 10 ta
+app bo'ylab).
+
+**Topilgan va tuzatilgan**: `apps/publications/policies.py`dagi
+`can_prepare()`, `can_approve()`, `can_publish()` — uchalasi ham
+`user.is_superuser or user.role in (...)` shaklida edi.
+`AnonymousUser.is_superuser` — `False`, shuning uchun `or` ifodasi
+`.role`ga o'tib, `AttributeError` bilan qulardi. Bu
+`PublicationCreateView.dispatch()` va `PublicationUpdateView.dispatch()`
+orqali chaqirilardi (`super().dispatch()`dan OLDIN, xuddi 3.51-bandagi
+`TelegramChannelSettingsView` bilan bir xil naqsh) — ya'ni
+`/publications/events/<id>/new/` yoki `/publications/<id>/edit/`ga
+kirgan har qanday anonim tashrifchi login sahifasiga yo'naltirish
+o'rniga 500 xato ko'rardi.
+
+**Tuzatish**: uchala policy funksiyasiga ham
+`if not user.is_authenticated: return False` qo'shildi
+(`user_has_capability()`dagi mavjud xavfsiz naqshga mos), va ikkala
+view'ning `dispatch()`i anonim so'rovni avval `super().dispatch()`ga
+(LoginRequiredMixin orqali login'ga yo'naltirish) o'tkazadigan qilib
+qayta tartiblandi.
+
+**Boshqa barcha joylar tekshirildi va xavfsiz deb tasdiqlandi**
+(o'zgartirish talab qilinmadi): accounts/events/notifications/reporting
+ilovalaridagi barcha `dispatch()`lar; `is_admin_privileged`,
+`allowed_report_sections`, davomat/rahbariyat ruxsat funksiyalari —
+barchasi allaqachon `is_authenticated`/`is_active`ni avval tekshiradi;
+`unread_notifications` context processor; `AdminAuditLogMiddleware`;
+`localized_role` shablon filtri (ko'rinishidan xavfli, lekin
+`base.html`da butun autentifikatsiyalangan qism
+`{% if user.is_authenticated %}` bilan o'ralgan, shuning uchun anonim
+holatda hech qachon bajarilmaydi); barcha DRF `APIView`lar (global
+`DEFAULT_PERMISSION_CLASSES = [IsAuthenticated]` yoki aniq
+`permission_classes` bilan himoyalangan).
+
+**Testlar**: `tests/test_phase8_publications.py`ga 2 ta yangi
+regressiya testi qo'shildi. To'liq test to'plami: 395 ta (2 tasi
+yangi), barchasi o'tadi.
+
+---
