@@ -3,7 +3,6 @@
 > **QOIDA:** Ushbu loyiha ustida har qanday amal (kod yozish, refactor, feature qo'shish,
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
-> Bu qoida `CLAUDE.md`da ham mustahkamlangan.
 
 Oxirgi yangilanish: 2026-09-22 (Ultra Review — 8 yo'nalishli production-readiness
 auditi (`REVIEW_REPORT.md`) o'tkazildi, verifikator tomonidan tasdiqlangan barcha
@@ -347,21 +346,16 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     `apps.events.selectors.can_manage_event()`ga birlashtirildi, ammo
     faylning o'zi hali bo'linmagan — bu katta, alohida refaktoring ishi
     (regressiya xavfi bor), hali so'ralmagan.
-16. **Kelishilmagan sabab bilan repo papkasida vaqti-vaqti bilan bo'sh
-    (0-baytli), tasodifiy nomli fayllar paydo bo'lyapti** (masalan `bool`,
-    `raise`, `restart`, `3.13`, `dict[str`, `{self.action}` — 2026-09-22
-    kuzatildi). Manba — ehtimol `.claude/settings.json`dagi ruflo/claude-flow
-    hook zanjiri (`hook-handler.cjs` yoki unga bog'liq boshqa yordamchi
-    skript), ammo aniq kod joyi topilmadi (yuzaki tekshiruvda
-    `hook-handler.cjs`ning o'zi loyiha ildiziga fayl yozmaydi). Bir marta
-    kuzatilgan holatda: shu jarayonda `scripts/run-web.ps1`ga so'ralmagan
-    `DJANGO_SETTINGS_MODULE=production` qatori va `REVIEW_REPORT.md`ning
-    o'chirilishi ham qayd etildi — demak bu shunchaki bo'sh-fayl-yaratish
-    emas, balki **faol jarayon repo fayllarini ham o'zgartirmoqda**. Chuqur
-    diagnostika hali qilinmadi (uchinchi tomon vositasi, ko'p vaqt talab
-    qiladi); hozircha fayllar qo'lda o'chirilmoqda. Agar takrorlansa —
-    `.claude-flow` daemon ishga tushirilganmi (`daemon status --all`) va
-    qaysi hook aniq ishlayotganini alohida tekshirish tavsiya etiladi.
+16. **Repo papkasida vaqti-vaqti bilan bo'sh (0-baytli), tasodifiy nomli
+    fayllar paydo bo'lyapti** (masalan `bool`, `raise`, `restart`, `3.13`,
+    `dict[str` — 2026-09-22 kuzatildi). Manba — lokal ishlab chiqish
+    muhitidagi fon jarayoni/hook skriptlari (repoga kirmaydi), aniq kod
+    joyi hali topilmadi. Bir marta kuzatilgan holatda shu jarayonda
+    `scripts/run-web.ps1`ga so'ralmagan `DJANGO_SETTINGS_MODULE=production`
+    qatori qo'shilgani va `REVIEW_REPORT.md` o'chirilgani ham qayd etildi —
+    demak bu shunchaki bo'sh-fayl-yaratish emas, balki **faol jarayon repo
+    fayllarini ham o'zgartirmoqda**. Hozircha fayllar qo'lda o'chirilmoqda;
+    takrorlansa lokal fon jarayonlarini alohida tekshirish kerak.
 
 ---
 

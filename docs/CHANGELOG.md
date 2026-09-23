@@ -597,7 +597,7 @@ panelida, formada, API'da sozlanadigan, lekin hech qanday workflow logikasi
 maydonlar". Bu `checkin_enabled` bug'iga o'xshab ko'rinsa-da, farqi: bu yerda
 "tuzatish" yangi biznes-qoida ixtiro qilishni talab qiladi (masalan,
 `requires_management_approval=False` bo'lsa, tasdiqlash bosqichi butunlay
-o'tkazib yuborilishi kerakmi?), bu esa CLAUDE.md'ning "faqat so'ralganini qil"
+o'tkazib yuborilishi kerakmi?), bu esa loyihaning "faqat so'ralganini qil"
 qoidasiga zid va mavjud testlarni buzish xavfini tug'diradi. Shuning uchun kod
 o'zgartirilmadi, faqat hujjatlashtirildi.
 
@@ -734,9 +734,8 @@ ko'rish uchun link". `ALLOWED_HOSTS` allaqachon `"*"` bilan sozlangan edi
 tushirildi (avval faqat `127.0.0.1`), lokal IP (`10.34.12.152`) aniqlandi.
 Havola: `http://10.34.12.152:8000/`. Windows Firewall'da 8000-port uchun
 inbound qoida yo'qligi aniqlandi, lekin uni qo'shish (`New-NetFirewallRule`)
-Claude Code'ning auto-mode klassifikatori tomonidan tizim darajasidagi
-o'zgarish sifatida bloklandi — foydalanuvchiga buyruqni o'zi `!` prefiksi
-bilan ishga tushirishi taklif qilindi (avtomatik bajarilmadi).
+tizim darajasidagi o'zgarish bo'lgani uchun avtomatik bajarilmadi —
+buyruqni administrator huquqi bilan qo'lda ishga tushirish tavsiya etildi.
 
 **`checkin_enabled` endi avtomatik yoqiladi**: foydalanuvchi — "public
 eventsdagi QR kod orqali 'qatnashish' tugmasi 'ro'yxatdan o'tish

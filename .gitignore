@@ -42,9 +42,13 @@ phase*.png
 *.zip
 phase25_*.txt
 
-# Ruflo local secrets and runtime data
+# Local secrets and runtime data
 .env.local
 .env.*.local
-.claude-flow/data/
-.claude-flow/logs/
-.claude-flow/sessions/
+
+# Local developer tooling — kept on disk, not part of the project
+.claude/
+.claude-flow/
+.swarm/
+.mcp.json
+CLAUDE.md
