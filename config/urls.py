@@ -15,6 +15,7 @@ from apps.accounts.views import (
     ProfileView,
     RegistrationSubmittedView,
     ResponsibleEventsListView,
+    UserDeleteView,
     UserManagementListView,
     UserToggleActiveView,
 )
@@ -61,6 +62,11 @@ urlpatterns = [
         "users/<int:pk>/toggle-active/",
         UserToggleActiveView.as_view(),
         name="user-toggle-active",
+    ),
+    path(
+        "users/<int:pk>/delete/",
+        UserDeleteView.as_view(),
+        name="user-delete",
     ),
     path(
         "profile/assigned-events/",

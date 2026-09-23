@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.db.models.deletion import ProtectedError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -295,7 +296,22 @@ class UserManagementListView(LoginRequiredMixin, CapabilityRequiredMixin, ListVi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["nav_key"] = "users"
-        context["pending_count"] = self.get_queryset().filter(is_active=False).count()
+        users = list(context["users"])
+        pending_users = [u for u in users if not u.is_active and u.approved_at is None]
+        blocked_users = [u for u in users if not u.is_active and u.approved_at is not None]
+        active_users = [u for u in users if u.is_active]
+        context.update(
+            {
+                "pending_users": pending_users,
+                "active_users": active_users,
+                "blocked_users": blocked_users,
+                "total_count": len(users),
+                "pending_count": len(pending_users),
+                "active_count": len(active_users),
+                "blocked_count": len(blocked_users),
+                "doctor_count": sum(1 for u in users if u.role == User.Role.DOCTOR),
+            }
+        )
         return context
 
 
@@ -325,4 +341,32 @@ class UserToggleActiveView(LoginRequiredMixin, CapabilityRequiredMixin, View):
                 request,
                 _("%(user)s deactivated.") % {"user": target.get_full_name() or target.username},
             )
+        return redirect("user-management")
+
+
+class UserDeleteView(LoginRequiredMixin, CapabilityRequiredMixin, View):
+    required_capability = Capability.MANAGE_USERS
+
+    def post(self, request, pk, *args, **kwargs):
+        target = get_object_or_404(User, pk=pk)
+        if target.pk == request.user.pk:
+            messages.error(request, _("You cannot delete your own account here."))
+            return redirect("user-management")
+        if is_admin_privileged(target):
+            raise PermissionDenied
+        name = target.get_full_name() or target.username
+        try:
+            target.delete()
+        except ProtectedError:
+            messages.error(
+                request,
+                _(
+                    "%(user)s cannot be deleted — they are referenced by existing event "
+                    "history (e.g. as a responsible or management employee). Deactivate "
+                    "the account instead."
+                )
+                % {"user": name},
+            )
+        else:
+            messages.success(request, _("%(user)s deleted.") % {"user": name})
         return redirect("user-management")

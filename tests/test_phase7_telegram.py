@@ -221,33 +221,35 @@ def test_disconnect_is_post_only_and_scoped(client, phase7_data):
     assert TelegramConnection.objects.filter(user=management).exists()
 
 
-def test_approved_and_rejected_create_immediate_deliveries(phase7_data):
+def test_approved_and_rejected_do_not_send_telegram_notifications(phase7_data):
+    # Only the "assigned as responsible" notification and the scheduled
+    # reminders should reach Telegram — approve/reject/etc. status changes
+    # are surfaced via the in-app notification bell (send_notification)
+    # instead, not as extra Telegram messages.
     _, management, _, event = phase7_data
     event.status = Event.Status.PENDING_APPROVAL
     event.save(update_fields=["status"])
     approve_event(event, management)
-    assert event.telegram_deliveries.filter(notification_type="approved").count() == 2
+    assert not event.telegram_deliveries.exists()
     event.status = Event.Status.PENDING_APPROVAL
     event.save(update_fields=["status"])
     reject_event(event, management, "Needs correction")
-    assert event.telegram_deliveries.filter(notification_type="rejected").count() == 2
+    assert not event.telegram_deliveries.exists()
 
 
-def test_rescheduled_creates_immediate_delivery(phase7_data):
+def test_rescheduled_does_not_send_a_telegram_notification(phase7_data):
     _, _, admin, event = phase7_data
     new_date = event.planned_date + timedelta(days=1)
     reschedule_event(event, admin, new_date, time(9), time(10))
-    assert event.telegram_deliveries.filter(notification_type="rescheduled").count() == 2
+    assert not event.telegram_deliveries.exists()
 
 
-def test_emergency_notifies_staff_and_international_admins(phase7_data):
+def test_emergency_override_does_not_send_a_telegram_notification(phase7_data):
     _, _, admin, event = phase7_data
     event.status = Event.Status.DRAFT
     event.save(update_fields=["status"])
     execute_emergency_override(event, admin, "Authorized test justification")
-    deliveries = event.telegram_deliveries.filter(notification_type="emergency")
-    assert deliveries.filter(recipient_user=admin).exists()
-    assert all("justification" not in item.message_text.lower() for item in deliveries)
+    assert not event.telegram_deliveries.exists()
 
 
 def test_channel_settings_redirects_anonymous_instead_of_crashing(client):

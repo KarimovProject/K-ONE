@@ -174,6 +174,85 @@ class TestUserManagementPage:
         super_user.refresh_from_db()
         assert super_user.is_active is True
 
+    def test_unreferenced_active_user_can_be_deleted(self, client):
+        admin = User.objects.create_user(
+            username="intl.admin6", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        target = User.objects.create_user(
+            username="staff.deletable", password="x", role=User.Role.RESPONSIBLE_EMPLOYEE
+        )
+        client.force_login(admin)
+        res = client.post(reverse("user-delete", args=[target.pk]))
+        assert res.status_code == 302
+        assert not User.objects.filter(pk=target.pk).exists()
+
+    def test_user_referenced_by_event_history_cannot_be_deleted(self, client):
+        admin = User.objects.create_user(
+            username="intl.admin7", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        responsible = User.objects.create_user(
+            username="staff.protected", password="x", role=User.Role.RESPONSIBLE_EMPLOYEE
+        )
+        venue = Venue.objects.create(
+            code="UM-HALL",
+            name_uz="UM",
+            name_ru="UM",
+            name_en="UM",
+            capacity=100,
+            working_start=time(8, 0),
+            working_end=time(20, 0),
+        )
+        etype = EventType.objects.create(code="um-conf", name_uz="C", name_ru="C", name_en="C")
+        Event.objects.create(
+            title="Protected Event",
+            event_type=etype,
+            venue=venue,
+            planned_date=date(2026, 11, 1),
+            start_time=time(9, 0),
+            end_time=time(12, 0),
+            responsible_employee=responsible,
+            management_responsible=admin,
+        )
+        client.force_login(admin)
+
+        res = client.post(reverse("user-delete", args=[responsible.pk]))
+
+        assert res.status_code == 302
+        assert User.objects.filter(pk=responsible.pk).exists()
+
+    def test_cannot_delete_own_account(self, client):
+        admin = User.objects.create_user(
+            username="intl.admin8", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        client.force_login(admin)
+        res = client.post(reverse("user-delete", args=[admin.pk]))
+        assert res.status_code == 302
+        assert User.objects.filter(pk=admin.pk).exists()
+
+    def test_cannot_delete_an_admin_privileged_account(self, client):
+        admin = User.objects.create_user(
+            username="intl.admin9", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        other_admin = User.objects.create_user(
+            username="intl.admin10", password="x", role=User.Role.INTERNATIONAL_ADMIN
+        )
+        client.force_login(admin)
+        res = client.post(reverse("user-delete", args=[other_admin.pk]))
+        assert res.status_code == 403
+        assert User.objects.filter(pk=other_admin.pk).exists()
+
+    def test_non_admin_cannot_delete_a_user(self, client):
+        staff = User.objects.create_user(
+            username="staff.plain2", password="x", role=User.Role.RESPONSIBLE_EMPLOYEE
+        )
+        target = User.objects.create_user(
+            username="staff.target", password="x", role=User.Role.RESPONSIBLE_EMPLOYEE
+        )
+        client.force_login(staff)
+        res = client.post(reverse("user-delete", args=[target.pk]))
+        assert res.status_code == 403
+        assert User.objects.filter(pk=target.pk).exists()
+
 
 @pytest.fixture
 def doctor(db):

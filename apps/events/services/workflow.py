@@ -14,7 +14,6 @@ from apps.events.services.conflicts import (
 )
 from apps.notifications.models import Notification
 from apps.notifications.services import send_notification
-from apps.notifications.telegram.services import schedule_event_notification
 from apps.venues.models import Venue
 
 
@@ -42,7 +41,6 @@ def submit_event_for_approval(event: Event, actor: User) -> Event:
             target_url=f"/events/{event.pk}/",
         )
 
-    schedule_event_notification(event, "submitted")
     return event
 
 
@@ -98,7 +96,6 @@ def approve_event(event: Event, actor: User, notes: str = "") -> Event:
             target_url=f"/events/{event.pk}/",
         )
 
-    schedule_event_notification(event, "approved")
     _auto_prepare_telegram_publication(event, actor)
     return event
 
@@ -174,7 +171,6 @@ def reject_event(event: Event, actor: User, reason: str) -> Event:
             target_url=f"/events/{event.pk}/",
         )
 
-    schedule_event_notification(event, "rejected")
     return event
 
 
@@ -199,7 +195,6 @@ def resubmit_event(event: Event, actor: User) -> Event:
             target_url=f"/events/{event.pk}/",
         )
 
-    schedule_event_notification(event, "resubmitted")
     return event
 
 
@@ -225,7 +220,6 @@ def postpone_event(event: Event, actor: User, reason: str = "") -> Event:
             target_url=f"/events/{event.pk}/",
         )
 
-    schedule_event_notification(event, "postponed")
     return event
 
 
@@ -308,7 +302,6 @@ def reschedule_event(
                 target_url=f"/events/{event.pk}/",
             )
 
-    schedule_event_notification(event, "rescheduled")
     return event
 
 
@@ -414,7 +407,5 @@ def override_event(event: Event, actor: User, reason: str) -> Event:
                 severity=Notification.Severity.INFO,
                 target_url=f"/events/{event.pk}/",
             )
-
-        schedule_event_notification(event, "approved")
 
     return event

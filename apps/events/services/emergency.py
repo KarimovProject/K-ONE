@@ -8,7 +8,6 @@ from apps.events.models import Event
 from apps.events.services.conflicts import find_conflicting_events
 from apps.notifications.models import Notification
 from apps.notifications.services import send_notification
-from apps.notifications.telegram.services import schedule_event_notification
 from apps.venues.models import Venue
 
 
@@ -92,7 +91,6 @@ def execute_emergency_override(
                     severity=Notification.Severity.ALERT,
                     target_url=f"/events/{conf_event.pk}/",
                 )
-            schedule_event_notification(conf_event, "displaced")
 
         # Set target event as PLANNED with EMERGENCY priority
         event.status = Event.Status.PLANNED
@@ -118,7 +116,5 @@ def execute_emergency_override(
                 "displaced_count": len(displaced_events),
             },
         )
-
-        schedule_event_notification(event, "emergency", include_admins=True)
 
         return event, displaced_events

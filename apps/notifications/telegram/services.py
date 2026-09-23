@@ -23,15 +23,8 @@ REMINDERS = {
 ELIGIBLE_STATUSES = (Event.Status.APPROVED, Event.Status.PLANNED)
 
 
-def event_recipients(event: Event, include_admins: bool = False) -> list[User]:
+def event_recipients(event: Event) -> list[User]:
     recipients = [event.responsible_employee, event.management_responsible]
-    if include_admins:
-        recipients.extend(
-            User.objects.filter(
-                is_active=True,
-                role__in=(User.Role.SUPER_ADMIN, User.Role.INTERNATIONAL_ADMIN),
-            )
-        )
     return list({user.pk: user for user in recipients if user}.values())
 
 
@@ -100,12 +93,6 @@ def _schedule_delivery(event: Event, action: str, recipient: User, now) -> bool:
     if created:
         transaction.on_commit(lambda pk=delivery.pk: _enqueue_delivery(pk))
     return created
-
-
-def schedule_event_notification(event: Event, action: str, include_admins: bool = False) -> int:
-    now = timezone.now().replace(microsecond=0)
-    recipients = event_recipients(event, include_admins=include_admins)
-    return sum(_schedule_delivery(event, action, recipient, now) for recipient in recipients)
 
 
 def schedule_responsible_assignment(event: Event) -> int:

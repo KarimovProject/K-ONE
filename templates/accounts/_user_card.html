@@ -1,0 +1,40 @@
+{% load i18n account_ui %}
+<div class="user-card">
+  <span class="user-card__avatar">
+    {% if u.avatar %}<img src="{{ u.avatar.url }}" alt="">{% else %}{{ u.initials }}{% endif %}
+  </span>
+  <div class="user-card__body">
+    <div class="user-card__name-row">
+      <span class="user-card__name">{{ u.get_full_name|default:u.username }}</span>
+      <span class="status-badge {% if status == 'pending' %}pending{% elif status == 'blocked' %}is-inactive{% else %}active{% endif %}">
+        {% if status == "pending" %}{% trans "Kutilmoqda" %}{% elif status == "blocked" %}{% trans "Bloklangan" %}{% else %}{% trans "Faol" %}{% endif %}
+      </span>
+    </div>
+    <div class="user-card__meta">
+      @{{ u.username }} · {{ u|localized_role }}
+      {% if u.doctor_profile %} · {{ u.doctor_profile.specialty }}, {{ u.doctor_profile.workplace }}{% endif %}
+    </div>
+  </div>
+  <div class="user-card__actions">
+    {% if u.role == 'doctor' %}
+      <a class="btn btn--ghost" href="{% url 'admin-doctor-availability' u.pk %}">{% trans "Band vaqtlari" %}</a>
+    {% endif %}
+    {% if u.pk == request.user.pk %}
+      <span class="text-muted text-sm">{% trans "Siz" %}</span>
+    {% else %}
+      <form method="post" action="{% url 'user-toggle-active' u.pk %}">
+        {% csrf_token %}
+        <button class="btn {% if u.is_active %}btn--ghost{% else %}btn-primary{% endif %}" type="submit">
+          {% if u.is_active %}{% trans "Bloklash" %}{% else %}{% trans "Faollashtirish" %}{% endif %}
+        </button>
+      </form>
+      {% if status == "active" %}
+        <form method="post" action="{% url 'user-delete' u.pk %}"
+              onsubmit="return confirm('{% trans "Bu foydalanuvchini butunlay o'chirmoqchimisiz? Bu amalni orqaga qaytarib bo'lmaydi." %}');">
+          {% csrf_token %}
+          <button class="btn btn--danger" type="submit">{% trans "O'chirish" %}</button>
+        </form>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>

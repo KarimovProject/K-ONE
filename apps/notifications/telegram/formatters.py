@@ -17,26 +17,6 @@ OFFSETS = {
     "reminder_30m": {"uz": "30 daqiqa qoldi", "ru": "30 минут", "en": "30 minutes"},
 }
 EVENT_ACTIONS = {
-    "submitted": {
-        "uz": "Tasdiqlashga yuborildi",
-        "ru": "Отправлено на согласование",
-        "en": "Submitted for approval",
-    },
-    "approved": {"uz": "Tasdiqlandi", "ru": "Согласовано", "en": "Approved"},
-    "rejected": {"uz": "Rad etildi", "ru": "Отклонено", "en": "Rejected"},
-    "resubmitted": {"uz": "Qayta yuborildi", "ru": "Отправлено повторно", "en": "Resubmitted"},
-    "postponed": {"uz": "Kechiktirildi", "ru": "Отложено", "en": "Postponed"},
-    "rescheduled": {"uz": "Qayta rejalashtirildi", "ru": "Перенесено", "en": "Rescheduled"},
-    "displaced": {
-        "uz": "Favqulodda tadbir sabab ko‘chirildi",
-        "ru": "Вытеснено срочным событием",
-        "en": "Displaced by an emergency event",
-    },
-    "emergency": {
-        "uz": "🚨 FAVQULODDA TADBIR",
-        "ru": "🚨 ЭКСТРЕННОЕ СОБЫТИЕ",
-        "en": "🚨 EMERGENCY EVENT",
-    },
     "assigned_responsible": {
         "uz": "Siz mas'ul etib tayinlandingiz",
         "ru": "Вы назначены ответственным",
