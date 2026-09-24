@@ -2402,3 +2402,101 @@ workspace dashboard N+1 tuzatishi uchun regressiya testi qo'shildi.
 To'liq test to'plami: **411 ta, barchasi o'tadi** (16 tasi yangi).
 
 ---
+### 3.54 Foydalanuvchilar sahifasi qayta dizayn qilindi, o'chirish qo'shildi; Telegram xabarlari cheklandi (2026-09-23)
+
+**Foydalanuvchilar sahifasi (`/users/`) — KPI ko'rinishidagi dizayn.** Avval
+tekis ro'yxat edi. Endi yuqorida 5 ta KPI kartasi (Jami / Faol / Kutilmoqda /
+Bloklangan / Shifokorlar, mavjud `metric-tile` uslubida) va uchta guruhlangan
+bo'lim: **Kutilayotgan tasdiqlar** (amber), **Faol foydalanuvchilar** (moviy),
+**Bloklangan** (qizil). Har bir foydalanuvchi karta ko'rinishida: avatar (rasm
+yoki bosh harflar), holat belgisi, rol, shifokorlar uchun mutaxassislik/ish
+joyi. Bo'lim sarlavhalari ham ikonkali banner shaklida. Yangi partial:
+`templates/accounts/_user_card.html`.
+
+Shu jarayonda **"Kutilmoqda" va "Bloklangan" holatlari ajratildi**: avval
+`is_active=False` bo'lgan hammasi "Kutilmoqda" deb ko'rsatilardi. Endi mavjud
+`User.approved_at` maydoni orqali "hech qachon tasdiqlanmagan" (kutilmoqda) va
+"avval tasdiqlangan, keyin bloklangan" farqlanadi.
+
+**Foydalanuvchini o'chirish** (`UserDeleteView`, `users/<pk>/delete/`). Tugma
+faqat "Faol foydalanuvchilar" bo'limida ko'rinadi (foydalanuvchi shunday
+so'radi). Himoyalar: o'zini o'chira olmaydi; admin darajasidagi hisoblar
+himoyalangan (403); `Event.responsible_employee`/`management_responsible`
+maydonlari `on_delete=PROTECT` bo'lgani uchun tadbirlar tarixiga bog'langan
+foydalanuvchini Django o'chirishga yo'l qo'ymaydi — `ProtectedError` tutilib,
+xato sahifasi o'rniga tushunarli xabar ko'rsatiladi ("bloklang").
+
+**Telegram xabarlari faqat ikkitasiga cheklandi.** Foydalanuvchi: "faqat mas'ul
+etib tayinlanganini va eslatmani yuborsa bo'ldi". Shu sababli
+`schedule_event_notification()` chaqiruvlari `workflow.py` (submitted,
+approved ×2, rejected, resubmitted, postponed, rescheduled) va
+`emergency.py` (displaced, emergency) fayllaridan olib tashlandi. Endi Telegram
+orqali faqat: (1) mas'ul etib tayinlanganlik xabari, (2) rejalashtirilgan
+eslatmalar (7d/3d/1d/3h/30m) boradi. **Ilova ichidagi bildirishnoma
+(`send_notification`, qo'ng'iroqcha) barcha holatlar uchun avvalgidek ishlaydi**
+— faqat Telegram xabarlari to'xtatildi. Ishlatilmay qolgan kod ham tozalandi:
+`schedule_event_notification()` funksiyasi, `event_recipients()`dagi
+`include_admins` parametri va `EVENT_ACTIONS`dagi 7 ta keraksiz yozuv.
+
+**Testlar**: `publish_publication_task`ning retry/failure yo'liga 4 ta test
+(avval faqat `.delay` monkeypatch qilinardi); `tests/test_rbac.py` 2 tadan 13
+taga kengaytirildi; foydalanuvchi o'chirish uchun 5 ta test; Telegram
+xabarlari bo'yicha 3 ta test yangi xatti-harakatga moslandi. Jami: **416 ta
+test, barchasi o'tadi**.
+
+---
+### 3.55 AI/yordamchi vositalar fayllari repozitoriydan olib tashlandi (2026-09-23)
+
+Foydalanuvchi GitHub'ni ko'rganlar loyihani "faqat sun'iy intellekt qilgan"
+deb baholayotganini aytdi. Loyihaga umuman ta'sir qilmaydigan yordamchi vosita
+fayllari repozitoriydan chiqarildi (`git rm --cached` — **diskda to'liq
+qoladi**): `.claude/` (338 fayl), `.claude-flow/` (8), `.swarm/` (2),
+`.mcp.json`, `CLAUDE.md` — jami **351 fayl**. Barchasi `.gitignore`ga
+qo'shildi. `goals.md` va `docs/CHANGELOG.md`dagi bir nechta shunday havola ham
+olib tashlandi (bu ikki fayl — haqiqiy loyiha hujjatlari, saqlab qolindi).
+
+**Qaror qabul qilinmadi**: git tarixi qayta yozilmadi. Shu sababli eski 34 ta
+commit xabarida `Co-Authored-By` qatori va 3 ta eski commitda `.claude`
+fayllari tarixda ko'rinib turibdi. Foydalanuvchi buni ataylab shunday
+qoldirdi (tarixni qayta yozish barcha commit ID'larini o'zgartiradi).
+Bundan keyingi commitlarga attribution qatori qo'shilmaydi.
+
+---
+### 3.56 Tuzatildi — Public QR check-in: "hali boshlanmagan" ogohlantirishi va sessiyaga bog'liq bo'lmagan "bir vaqtda bitta tadbir" qoidasi (2026-09-24)
+
+Foydalanuvchi ikkita xatti-harakat "avval ishlardi, hozir ishlamayapti" deb
+xabar berdi. **Tekshiruv shuni ko'rsatdiki, ikkala mantiq ham koddan
+yo'qolmagan** — `git log -S` bo'yicha ular yozilganidan beri umuman
+o'zgarmagan (`effective_checkin_opens_at` — `92fcfea`, `active_event_end`
+konflikt tekshiruvi — `7f6b915`). Sabablari boshqa bo'lib chiqdi:
+
+**1. "Hali boshlanmagan" xabari ko'rinmasligi.** Check-in tadbir
+boshlanishidan **60 daqiqa oldin** ochiladi (`start_datetime - 60min`).
+Ya'ni 1 soatdan kam qolganda skaner qilinsa, tizim to'g'ri ishlab odamni
+ro'yxatga olardi va hech narsa demasdi; "Check-in hali ochilmagan" faqat 1
+soatdan ko'p qolganda chiqardi (sinovda tasdiqlandi). Foydalanuvchi bilan
+kelishilgan yechim: **oyna o'zgartirilmadi** (erta kelganlar ro'yxatdan o'ta
+olishi kerak), lekin endi tadbir boshlanmagan bo'lsa sahifada sariq
+ogohlantirish chiqadi: "⏳ Tadbir hali boshlanmagan — HH:MM da boshlanadi".
+Yangi kontekst o'zgaruvchisi: `event_not_started`.
+
+**2. Ikkinchi tadbirga yozilish bloki ishlamasligi.** Bu qoida faqat
+`request.session`da saqlanardi. Sessiya yo'qolsa (masalan, birinchi QR
+Telegram ichidagi brauzerda, ikkinchisi Camera→Chrome orqali ochilsa) qoida
+butunlay ishlamay qolardi. Endi u **bazadan** hisoblanadi
+(`find_ongoing_other_checkin()`): brauzer check-in tokeni bo'yicha, hozir
+davom etayotgan tadbirlar orasida shu brauzer allaqachon ro'yxatdan o'tgani
+bor-yo'qligi tekshiriladi. Sessiya ikkilamchi signal sifatida qoldirildi
+(cookie yo'qolgan, lekin sessiya saqlangan holat uchun).
+
+**Qoldiq cheklov**: public check-in **anonim**, brauzer tokeni yagona
+identifikator. Butunlay boshqa telefon/brauzerdan skaner qilingan odamni
+bog'lab bo'lmaydi — buning uchun check-in'da shaxsni aniqlash (telefon raqami
+yoki login) kerak bo'ladi.
+
+**Testlar**: `tests/test_phase5_attendance.py`ga 4 ta regressiya testi
+qo'shildi (ogohlantirish ko'rinishi/ko'rinmasligi, sessiyasiz konflikt bloki,
+birinchi tadbir tugagach ruxsat berilishi). Jami: **420 ta test, barchasi
+o'tadi**.
+
+---

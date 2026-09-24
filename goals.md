@@ -4,7 +4,16 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-09-22 (Ultra Review — 8 yo'nalishli production-readiness
+Oxirgi yangilanish: 2026-09-24 (Public QR check-in: tadbir boshlanmagan bo'lsa
+sahifada ogohlantirish chiqadigan bo'ldi va "bir vaqtda bitta tadbir" qoidasi
+sessiya o'rniga bazaga bog'landi — ikkala mantiq ham aslida buzilmagan edi,
+sabablari boshqa bo'lib chiqdi, `docs/CHANGELOG.md` 3.56-band; bundan oldin:
+yordamchi vosita fayllari (`.claude/` va h.k., 351 fayl) repozitoriydan
+olib tashlandi, diskda qoldi (3.55-band); bundan oldin: Foydalanuvchilar
+sahifasi KPI ko'rinishida qayta dizayn qilindi, o'chirish funksiyasi qo'shildi
+va Telegram xabarlari faqat "mas'ul tayinlash + eslatma"ga cheklandi
+(3.54-band), 420 ta test o'tadi; bundan oldin: Ultra Review — 8 yo'nalishli
+production-readiness
 auditi (`REVIEW_REPORT.md`) o'tkazildi, verifikator tomonidan tasdiqlangan barcha
 CRITICAL/HIGH topilmalar tuzatildi: production'da `DJANGO_SETTINGS_MODULE`ning
 majburiy o'rnatilmasligi (eng jiddiy topilma — 4-bo'lim 13-band endi HAL QILINDI),
@@ -119,11 +128,35 @@ tasdiqlaydi:
 
 **Loyiha holati: barqaror, ishlaydigan.** `manage.py check` va to'liq test
 to'plami (`pytest tests/`, e2e/human_acceptance/visual_baseline bundan
-mustasno) doim tekshiriladi — joriy holat: **411 test o'tadi**, ma'lum
+mustasno) doim tekshiriladi — joriy holat: **420 test o'tadi**, ma'lum
 muvaffaqiyatsizlik yo'q. Endi CI ham bor: har push/PR'da GitHub Actions
 orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
-### So'nggi yakunlangan yirik ishlar (2026-09-22 holatiga)
+### So'nggi yakunlangan yirik ishlar (2026-09-24 holatiga)
+
+- **Public QR check-in — ikkita xatti-harakat tuzatildi** (3.56-band):
+  tadbir hali boshlanmagan bo'lsa sahifada "⏳ Tadbir hali boshlanmagan —
+  HH:MM da boshlanadi" ogohlantirishi chiqadi (check-in 60 daqiqa oldin
+  ochilishi o'zgartirilmadi); "bir vaqtda bitta tadbir" qoidasi endi
+  sessiya emas, bazadagi yozuvlar + brauzer tokeni asosida ishlaydi.
+  **Muhim**: ikkala mantiq ham aslida buzilmagan edi — foydalanuvchi
+  ko'rgan holat 60 daqiqalik oyna va sessiyaning yo'qolishi bilan
+  izohlandi.
+- **Yordamchi vosita fayllari repozitoriydan olib tashlandi** (3.55-band):
+  `.claude/`, `.claude-flow/`, `.swarm/`, `.mcp.json`, `CLAUDE.md` — 351
+  fayl. **Diskda qoladi**, `.gitignore`da. Commit xabarlariga attribution
+  qatori qo'shilmaydi. Git tarixi ataylab qayta yozilmadi.
+- **Foydalanuvchilar sahifasi (`/users/`) qayta dizayn qilindi** (3.54-band):
+  KPI kartalari + uchta guruhlangan bo'lim (Kutilayotgan/Faol/Bloklangan),
+  karta ko'rinishidagi foydalanuvchilar, "Kutilmoqda" va "Bloklangan"
+  holatlari ajratildi, o'chirish funksiyasi qo'shildi (faqat faol
+  foydalanuvchilar uchun, tadbir tarixiga bog'langanlar himoyalangan).
+- **Telegram xabarlari cheklandi** (3.54-band): endi faqat mas'ul etib
+  tayinlanganlik xabari va rejalashtirilgan eslatmalar boradi. Tasdiqlash
+  bosqichlari (submitted/approved/rejected va h.k.) uchun Telegram xabari
+  yuborilmaydi — ilova ichidagi bildirishnoma ishlaydi.
+
+### Bundan oldingi yirik ishlar (2026-09-22 holatiga)
 
 - **Ultra Review — production-readiness auditi va tuzatishlar**: 8
   yo'nalishli (xavfsizlik, mantiq, ishlash, API, arxitektura, testlar,
@@ -356,6 +389,19 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     demak bu shunchaki bo'sh-fayl-yaratish emas, balki **faol jarayon repo
     fayllarini ham o'zgartirmoqda**. Hozircha fayllar qo'lda o'chirilmoqda;
     takrorlansa lokal fon jarayonlarini alohida tekshirish kerak.
+17. **Public check-in anonim — "bir vaqtda bitta tadbir" qoidasini to'liq
+    kafolatlab bo'lmaydi** (2026-09-24, `docs/CHANGELOG.md` 3.56-band).
+    Qoida endi bazaga bog'langan, lekin yagona identifikator — brauzerdagi
+    `event_checkin_token` cookie'si. Odam QR'ni butunlay boshqa
+    telefon/brauzerdan ochsa, uni avvalgi ro'yxatdan o'tishi bilan bog'lab
+    bo'lmaydi. 100% kafolat uchun check-in'da shaxsni aniqlash (telefon
+    raqami, SMS tasdiq yoki login) joriy etilishi kerak — bu alohida
+    biznes qarori, hali so'ralmagan.
+18. **Git tarixida AI attribution qolgan** (2026-09-23, 3.55-band): 54
+    commitdan 34 tasida `Co-Authored-By` qatori, 3 ta eski commitda esa
+    `.claude` fayllari bor. Foydalanuvchi tarixni qayta yozmaslikka qaror
+    qildi (barcha commit ID'lari o'zgarib ketardi). Kelgusi commitlarga
+    attribution qatori **qo'shilmaydi**.
 
 ---
 
@@ -395,6 +441,13 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 - [ ] Repo papkasida o'zidan-o'zi paydo bo'layotgan bo'sh axlat fayllar —
       manba aniqlanmagan (4-bo'lim 16-band), takrorlansa chuqur diagnostika
       kerak.
+- [ ] Public check-in'da shaxsni aniqlash (telefon raqami / SMS / login) —
+      "bir vaqtda bitta tadbir" qoidasini brauzerdan qat'i nazar ishlatish
+      uchun kerak (4-bo'lim 17-band). Biznes qarori, hali so'ralmagan.
+- [ ] Check-in 60 daqiqa oldin ochilishi shundayligicha qoldirildi
+      (2026-09-24 da foydalanuvchi bilan kelishildi) — agar kelajakda
+      "faqat boshlangandan keyin" kerak bo'lsa,
+      `Event.effective_checkin_opens_at` o'zgartiriladi.
 
 ---
 
