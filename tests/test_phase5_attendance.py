@@ -307,3 +307,100 @@ class TestRBACAndAuditLogging:
         exp_url = reverse("events:attendance-export", kwargs={"pk": approved_event.pk})
         client.get(exp_url)
         assert AuditEventLog.objects.filter(action="attendance.exported").exists()
+
+
+@pytest.mark.django_db
+class TestCheckinTimingAndConflict:
+    """Regressions reported from the field: the public page did not say the
+    event had not started yet, and the "one meeting at a time" rule stopped
+    applying once the browser session was gone."""
+
+    def _make_event(self, venue, etype, user, title, start_delta, duration_min=120):
+        now = timezone.localtime()
+        start = now + start_delta
+        end = start + timedelta(minutes=duration_min)
+        return Event.objects.create(
+            title=title,
+            event_type=etype,
+            venue=venue,
+            planned_date=start.date(),
+            start_time=start.time().replace(microsecond=0),
+            end_time=end.time().replace(microsecond=0),
+            responsible_employee=user,
+            management_responsible=user,
+            created_by=user,
+            status=Event.Status.APPROVED,
+            is_public_enabled=True,
+            checkin_enabled=True,
+            expected_attendees=50,
+        )
+
+    def test_page_says_event_has_not_started_while_checkin_is_already_open(
+        self, client, test_venue, test_event_type, responsible_user
+    ):
+        # Check-in opens 60 minutes early, so an attendee can legitimately
+        # check in before the event starts — the page must still say so.
+        event = self._make_event(
+            test_venue, test_event_type, responsible_user, "Soon", timedelta(minutes=30)
+        )
+        assert event.checkin_status()["eligible"] is True
+
+        url = reverse("public-event-page", kwargs={"public_token": event.public_token})
+        body = client.get(url + "?scan=true").content.decode()
+
+        assert 'data-testid="checkin-not-started"' in body
+
+    def test_no_not_started_notice_once_the_event_is_under_way(
+        self, client, test_venue, test_event_type, responsible_user
+    ):
+        event = self._make_event(
+            test_venue, test_event_type, responsible_user, "Running", timedelta(minutes=-20)
+        )
+        url = reverse("public-event-page", kwargs={"public_token": event.public_token})
+        body = client.get(url + "?scan=true").content.decode()
+
+        assert 'data-testid="checkin-not-started"' not in body
+
+    def test_second_event_is_blocked_even_without_a_session(
+        self, client, test_venue, test_event_type, responsible_user
+    ):
+        first = self._make_event(
+            test_venue, test_event_type, responsible_user, "A", timedelta(minutes=-10)
+        )
+        second = self._make_event(
+            test_venue, test_event_type, responsible_user, "B", timedelta(minutes=-5)
+        )
+        first_url = reverse("public-event-checkin", kwargs={"public_token": first.public_token})
+        assert client.post(first_url).json()["code"] == "success"
+
+        # Same browser cookie, brand-new client => no session at all.
+        fresh = client.__class__()
+        fresh.cookies[CHECKIN_COOKIE_NAME] = client.cookies[CHECKIN_COOKIE_NAME].value
+        second_url = reverse("public-event-checkin", kwargs={"public_token": second.public_token})
+        result = fresh.post(second_url).json()
+
+        assert result["code"] == "conflict"
+        assert result["success"] is False
+
+    def test_next_event_is_allowed_once_the_first_one_has_finished(
+        self, client, test_venue, test_event_type, responsible_user
+    ):
+        first = self._make_event(
+            test_venue, test_event_type, responsible_user, "A", timedelta(minutes=-90)
+        )
+        second = self._make_event(
+            test_venue, test_event_type, responsible_user, "B", timedelta(minutes=-5)
+        )
+        first_url = reverse("public-event-checkin", kwargs={"public_token": first.public_token})
+        client.post(first_url)
+
+        now = timezone.localtime()
+        first.start_time = (now - timedelta(minutes=90)).time().replace(microsecond=0)
+        first.end_time = (now - timedelta(minutes=1)).time().replace(microsecond=0)
+        first.save(update_fields=["start_time", "end_time"])
+
+        fresh = client.__class__()
+        fresh.cookies[CHECKIN_COOKIE_NAME] = client.cookies[CHECKIN_COOKIE_NAME].value
+        second_url = reverse("public-event-checkin", kwargs={"public_token": second.public_token})
+
+        assert fresh.post(second_url).json()["code"] == "success"

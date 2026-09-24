@@ -1,6 +1,6 @@
 import hashlib
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
 from django.db import IntegrityError, transaction
@@ -41,6 +41,42 @@ def is_already_checked_in(event, request) -> tuple[bool, str]:
     return checked_in, token
 
 
+def find_ongoing_other_checkin(event, token: str, now=None):
+    """Returns an event this browser is already checked into that is still
+    running, other than `event` — or None.
+
+    Derived from attendance rows rather than the session, so the "one meeting
+    at a time" rule survives a lost/cleared session (a QR scanned in a
+    different in-app browser still can't be caught: public check-in is
+    anonymous and the browser token is the only identity available).
+    """
+    from apps.events.models import Event
+
+    now = now or timezone.now()
+    # Events are same-day by construction (end_time must be after start_time),
+    # so only today's and yesterday's rows can still be running.
+    candidates = (
+        Event.objects.filter(
+            planned_date__gte=(now - timedelta(days=1)).date(),
+            planned_date__lte=now.date(),
+        )
+        .exclude(pk=event.pk)
+        .only("id", "title", "planned_date", "start_time", "end_time")
+    )
+    running = {
+        hash_attendee_identifier(candidate.pk, token): candidate
+        for candidate in candidates
+        if candidate.end_datetime > now
+    }
+    if not running:
+        return None
+
+    match = EventAttendance.objects.filter(
+        attendee_identifier_hash__in=list(running),
+    ).values_list("attendee_identifier_hash", flat=True).first()
+    return running.get(match) if match else None
+
+
 def process_public_checkin(
     event,
     request,
@@ -73,6 +109,28 @@ def process_public_checkin(
             "new_token": new_token,
         }
 
+    conflict_message = str(
+        _(
+            "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
+            "tugamaguncha yangisiga yozila olmaysiz."
+        )
+    )
+    conflict_response = {
+        "success": False,
+        "code": "conflict",
+        "message": conflict_message,
+        "already_checked_in": False,
+        "token": token,
+        "new_token": new_token,
+    }
+
+    # Primary, durable check: an attendance row for this browser on another
+    # event that is still running.
+    if find_ongoing_other_checkin(event, token) is not None:
+        return conflict_response
+
+    # Secondary check, for a browser that kept its session but lost the
+    # check-in cookie (a fresh token would otherwise look like a new person).
     active_end_iso = request.session.get("active_event_end")
     if active_end_iso:
         try:
@@ -80,19 +138,7 @@ def process_public_checkin(
             if active_end > timezone.now():
                 active_event_id = request.session.get("active_event_id")
                 if str(event.pk) != active_event_id:
-                    return {
-                        "success": False,
-                        "code": "conflict",
-                        "message": str(
-                            _(
-                                "Siz hozirda boshqa uchrashuvdasiz. Uning vaqti "
-                                "tugamaguncha yangisiga yozila olmaysiz."
-                            )
-                        ),
-                        "already_checked_in": False,
-                        "token": token,
-                        "new_token": new_token,
-                    }
+                    return conflict_response
         except ValueError:
             pass
 

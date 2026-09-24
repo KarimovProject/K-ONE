@@ -359,6 +359,17 @@
       color: #ffffff;
       margin-bottom: 0.75rem;
     }
+    .checkin-not-started {
+      display: inline-block;
+      margin: 0 auto 0.85rem;
+      padding: 0.5rem 0.95rem;
+      border-radius: 10px;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #fbbf24;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
     .btn-checkin {
       display: inline-flex;
       align-items: center;
@@ -588,6 +599,11 @@
             </div>
           {% else %}
               <h2 class="attendance-title">{% trans "Tadbirga keldingizmi?" %}</h2>
+              {% if event_not_started %}
+                <p class="checkin-not-started" data-testid="checkin-not-started">
+                  ⏳ {% blocktrans with start=event.start_time|time:"H:i" %}Tadbir hali boshlanmagan — {{ start }} da boshlanadi.{% endblocktrans %}
+                </p>
+              {% endif %}
               <button type="button" class="btn-checkin" id="open-checkin-modal-btn" data-testid="public-checkin-btn"
                       data-eligible="{{ checkin_status.eligible|yesno:'true,false' }}"
                       data-reason="{{ checkin_status.reason }}">

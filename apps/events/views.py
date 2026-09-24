@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import (
@@ -859,7 +860,6 @@ class PublicKioskView(TemplateView):
     template_name = "events/public_kiosk.html"
 
     def get_context_data(self, **kwargs):
-        from django.utils import timezone
         context = super().get_context_data(**kwargs)
         now = timezone.now()
         today = now.date()
@@ -955,6 +955,10 @@ class PublicEventPageView(DetailView):
         context["attendance_count"] = event.attendances.count()
         context["user_checked_in"] = checked_in
         context["scanned"] = self.request.GET.get("scan") == "true"
+        # Check-in opens an hour before the event, so someone can legitimately
+        # check in while it still hasn't started — say so plainly instead of
+        # letting the page imply the event is already under way.
+        context["event_not_started"] = timezone.now() < event.start_datetime
         return context
 
 
