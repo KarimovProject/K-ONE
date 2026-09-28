@@ -16,7 +16,7 @@ function Get-FirstService([string[]]$Names) {
 
 $postgres = Get-Service -Name "*postgres*" -ErrorAction SilentlyContinue | Select-Object -First 1
 if (-not $postgres) { throw "No native PostgreSQL Windows service was found." }
-if ($postgres.Status -ne "Running") { Write-Host "Skipped" }
+if ($postgres.Status -ne "Running") { throw "PostgreSQL service '$($postgres.Name)' is not running." }
 Write-Host "PostgreSQL service: $($postgres.Name) ($($postgres.Status))"
 
 $pgReady = Get-ChildItem "C:\Program Files\PostgreSQL" -Filter pg_isready.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -29,11 +29,17 @@ if (-not $redis) { throw "No supported native Redis or Memurai Windows service w
 if ($redis.Status -ne "Running") { throw "Redis-compatible service '$($redis.Name)' is not running." }
 Write-Host "Redis service: $($redis.Name) ($($redis.Status))"
 
-$redisCli = Get-Command redis-cli.exe -ErrorAction SilentlyContinue
-if (-not $redisCli -and (Test-Path "C:\Program Files\Redis\redis-cli.exe")) {
-    $redisCli = Get-Item "C:\Program Files\Redis\redis-cli.exe"
+$redisCli = $null
+foreach ($cliName in @("redis-cli.exe", "memurai-cli.exe")) {
+    $redisCli = Get-Command $cliName -ErrorAction SilentlyContinue
+    if ($redisCli) { break }
 }
-if (-not $redisCli) { throw "redis-cli.exe was not found." }
+if (-not $redisCli) {
+    foreach ($cliPath in @("C:\Program Files\Redis\redis-cli.exe", "C:\Program Files\Memurai\memurai-cli.exe")) {
+        if (Test-Path $cliPath) { $redisCli = Get-Item $cliPath; break }
+    }
+}
+if (-not $redisCli) { throw "Neither redis-cli.exe nor memurai-cli.exe was found." }
 $redisCliPath = if ($redisCli.Source) { $redisCli.Source } else { $redisCli.FullName }
 $pong = & $redisCliPath -h 127.0.0.1 -p 6379 ping
 if ($pong -ne "PONG") { throw "Redis PING failed: $pong" }

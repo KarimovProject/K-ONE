@@ -134,6 +134,12 @@ orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
 ### So'nggi yakunlangan yirik ishlar (2026-09-24 holatiga)
 
+- **`scripts/check-services.ps1` — Memurai CLI qo'llab-quvvatlandi**
+  (2026-09-28): skript faqat `redis-cli.exe`ni qidirgani uchun Memurai
+  o'rnatilgan mashinada `run-web.ps1` to'xtab qolardi; endi
+  `memurai-cli.exe` (PATH yoki `C:\Program Files\Memurai\`) ham qidiriladi.
+  PostgreSQL servisi to'xtagan bo'lsa, skript endi "Skipped" deb o'tib
+  ketmaydi — aniq xato bilan to'xtaydi.
 - **Public QR check-in — ikkita xatti-harakat tuzatildi** (3.56-band):
   tadbir hali boshlanmagan bo'lsa sahifada "⏳ Tadbir hali boshlanmagan —
   HH:MM da boshlanadi" ogohlantirishi chiqadi (check-in 60 daqiqa oldin
