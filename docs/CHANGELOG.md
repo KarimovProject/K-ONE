@@ -2537,3 +2537,20 @@ o'tadi**.
 barchasi o'tadi**.
 
 ---
+
+### 3.58 Tuzatildi — Ma'ruzachi (Speaker) sahifalari faqat xodimlarga ochiq (2026-09-30)
+
+- `SpeakerListView`/`SpeakerCreateView`/`SpeakerUpdateView` avval faqat
+  login talab qilardi — shifokor akkaunti boshqa ma'ruzachining ismi, rasmi
+  va biosini (ochiq tadbir sahifasida ko'rinadi) o'zgartira olardi. Endi
+  `SpeakerManageMixin` `CREATE_OWN_EVENTS` yoki `MANAGE_CONTENT` qobiliyatini
+  talab qiladi (mas'ul xodim, xalqaro/super admin, kontent menejeri);
+  qolgan rollar 403 oladi. Sidebar havolasi allaqachon faqat adminlarga
+  ko'rinardi.
+- QR rasm endpoint'lari (`qr.png`/`qr.svg`) ko'rib chiqildi va o'zgartirilmadi:
+  tadbir ID'si UUID, QR ichida esa baribir ochiq sahifa havolasi.
+
+9 ta yangi test (`tests/test_speaker_access.py`). Jami: **439 ta test,
+barchasi o'tadi**.
+
+---

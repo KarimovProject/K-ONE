@@ -1,6 +1,5 @@
-
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -12,6 +11,7 @@ from django.views.generic import (
     UpdateView,
 )
 
+from apps.accounts.rbac import Capability, user_has_capability
 from apps.events.forms import (
     EventBannerImageForm,
     EventProgramItemForm,
@@ -147,7 +147,24 @@ class EventProgramEditView(LoginRequiredMixin, DetailView):
         return redirect(reverse("events:program", kwargs={"pk": self.event.pk}))
 
 
-class SpeakerListView(LoginRequiredMixin, ListView):
+class SpeakerManageMixin(LoginRequiredMixin, UserPassesTestMixin):
+    """Speaker profiles are shown on public event pages, so only staff who
+    build events (or manage public content) may list, add or edit them —
+    doctors and read-only roles get a 403."""
+
+    def test_func(self) -> bool:
+        user = self.request.user
+        return user_has_capability(user, Capability.CREATE_OWN_EVENTS) or user_has_capability(
+            user, Capability.MANAGE_CONTENT
+        )
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return super().handle_no_permission()
+        raise PermissionDenied
+
+
+class SpeakerListView(SpeakerManageMixin, ListView):
     model = Speaker
     template_name = "events/speaker_list.html"
     context_object_name = "speakers"
@@ -159,7 +176,7 @@ class SpeakerListView(LoginRequiredMixin, ListView):
         return context
 
 
-class SpeakerCreateView(LoginRequiredMixin, CreateView):
+class SpeakerCreateView(SpeakerManageMixin, CreateView):
     model = Speaker
     form_class = SpeakerForm
     template_name = "events/speaker_form.html"
@@ -175,7 +192,7 @@ class SpeakerCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class SpeakerUpdateView(LoginRequiredMixin, UpdateView):
+class SpeakerUpdateView(SpeakerManageMixin, UpdateView):
     model = Speaker
     form_class = SpeakerForm
     template_name = "events/speaker_form.html"

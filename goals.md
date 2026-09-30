@@ -128,12 +128,15 @@ tasdiqlaydi:
 
 **Loyiha holati: barqaror, ishlaydigan.** `manage.py check` va to'liq test
 to'plami (`pytest tests/`, e2e/human_acceptance/visual_baseline bundan
-mustasno) doim tekshiriladi — joriy holat: **430 test o'tadi**, ma'lum
+mustasno) doim tekshiriladi — joriy holat: **439 test o'tadi**, ma'lum
 muvaffaqiyatsizlik yo'q. Endi CI ham bor: har push/PR'da GitHub Actions
 orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
 ### So'nggi yakunlangan yirik ishlar (2026-09-24 holatiga)
 
+- **Speaker sahifalari faqat xodimlarga (2026-09-30, `docs/CHANGELOG.md`
+  3.58)**: shifokor va boshqa read-only rollar endi ma'ruzachilarni ko'ra,
+  qo'sha va tahrirlay olmaydi (403).
 - **Texnik qarz tozalash (2026-09-28/30, `docs/CHANGELOG.md` 3.57)**:
   `apps/events/views.py` (1224 qator) `apps/events/views/` paketiga bo'lindi
   (core/workflow/public/program/master_data/calendar_views, har biri <500
