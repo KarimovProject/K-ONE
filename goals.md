@@ -304,7 +304,7 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 
 ## 4. E'tibor talab qiladigan narsalar / texnik qarz
 
-1. **`apps/approvals` app deyarli bo'sh** — `models.py` faylida faqat bitta izoh bor:
+1. **HAL QILINDI (2026-09-30)** — app olib tashlandi. Eski tavsif: **`apps/approvals` app deyarli bo'sh** — `models.py` faylida faqat bitta izoh bor:
    *"Approval workflow models are intentionally deferred to Phase 3."* Aslida tasdiqlash
    (approval) logikasi `apps/events` ichida joylashgan. Agar kelajakda `approvals` app'ini
    to'ldirish yoki umuman olib tashlash rejalashtirilsa — bu qaror alohida qabul qilinishi
@@ -444,17 +444,15 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
       palitrasi, tarjimalar (2026-09-10 — tafsilot `docs/CHANGELOG.md` 3.1-bo'limida).
 - [x] Sayt bo'ylab bo'sh msgstr — 2026-09-28 tekshiruvida uz/ru/en/tr'da
       bo'sh yoki fuzzy yozuv qolmagani aniqlandi.
-- [ ] `apps/approvals` (bo'sh app, model/migratsiya yo'q) — olib tashlash
-      tavsiya etiladi (`INSTALLED_APPS`dan ham); 2026-09-28 da ruxsat
-      bloklangani sababli bajarilmadi. `ULTRA_REVIEW_REPORT.md` eskirgan
-      (hal bo'lgan N+1/dependency'larni "qolgan" deb ko'rsatadi) — o'chirish.
+- [x] `apps/approvals` (bo'sh app) repodan va `INSTALLED_APPS`dan olib
+      tashlandi, eskirgan `ULTRA_REVIEW_REPORT.md` o'chirildi (2026-09-30,
+      `docs/CHANGELOG.md` 3.59).
 - [ ] Production'ga chiqishdan oldin: HTTPS reverse proxy (production.py
       `SECURE_SSL_REDIRECT=True` + secure cookie, Scheduled Task esa oddiy
       HTTP'da ishlaydi — hozircha vaqtinchalik `local` rejimda ishlatilmoqda).
 - [x] Public dashboard qayta qurilishi, HOZIR chizig'i va rate-limit bug'lari
       tuzatildi (2026-09-15/16 — `docs/CHANGELOG.md` 3.25–3.31-bo'limlar).
-- [ ] `apps/approvals` app'ining kelajagi haqida qaror: to'ldirish, birlashtirish yoki
-      olib tashlash.
+- [x] `apps/approvals` app'ining kelajagi — olib tashlandi (2026-09-30).
 - [ ] `ALLOWED_HOSTS`dagi `"*"` — foydalanuvchi tomonidan ataylab, bitta tarmoqdagi
       qurilmalar loyihani ko'ra olishi uchun qo'yilgan (tasdiqlangan, 2026-09-15).
       Production'ga chiqarilganda tashqi internetdan ochiq bo'lmasligi hali ham

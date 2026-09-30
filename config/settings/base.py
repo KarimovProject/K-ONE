@@ -31,7 +31,6 @@ LOCAL_APPS = [
     "apps.events",
     "apps.venues",
     "apps.organizations",
-    "apps.approvals",
     "apps.attendance",
     "apps.notifications",
     "apps.publications",

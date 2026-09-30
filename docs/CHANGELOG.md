@@ -2554,3 +2554,12 @@ barchasi o'tadi**.
 barchasi o'tadi**.
 
 ---
+
+### 3.59 O'chirildi — bo'sh `apps/approvals` app va eskirgan review hisoboti (2026-09-30)
+
+- `apps/approvals` (faqat izohli `models.py`, model va migratsiyasi yo'q)
+  repodan va `INSTALLED_APPS`dan olib tashlandi; tasdiqlash workflow'i
+  `apps/events` ichida qoladi. Eskirgan, kuzatilmaydigan
+  `ULTRA_REVIEW_REPORT.md` o'chirildi. 439 ta test o'tadi.
+
+---
