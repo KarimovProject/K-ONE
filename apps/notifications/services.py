@@ -45,22 +45,37 @@ def notify_users(
     return created
 
 
-def send_notification_email(recipient: User, subject: str, message: str) -> bool:
+def deliver_email(address: str, subject: str, message: str) -> bool:
     """Best-effort email delivery — never raises, so a misconfigured or
-    unreachable mail server can never block the action that triggered it."""
-    if not recipient.email:
+    unreachable mail server can never break the caller."""
+    if not address:
         return False
     try:
         send_mail(
             subject=subject,
             message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[recipient.email],
+            recipient_list=[address],
             fail_silently=True,
         )
         return True
     except Exception:
         return False
+
+
+def queue_notification_email(recipient: User, subject: str, message: str) -> bool:
+    """Hands the email to the Celery worker so the request that triggered it
+    doesn't wait on SMTP. If the broker itself is unreachable, falls back to
+    sending inline — slower, but the email is not silently lost."""
+    if not recipient.email:
+        return False
+    from apps.notifications.tasks import send_notification_email_task
+
+    try:
+        send_notification_email_task.delay(recipient.email, subject, message)
+        return True
+    except Exception:
+        return deliver_email(recipient.email, subject, message)
 
 
 def get_unread_count(user: User) -> int:

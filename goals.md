@@ -128,12 +128,25 @@ tasdiqlaydi:
 
 **Loyiha holati: barqaror, ishlaydigan.** `manage.py check` va to'liq test
 to'plami (`pytest tests/`, e2e/human_acceptance/visual_baseline bundan
-mustasno) doim tekshiriladi — joriy holat: **420 test o'tadi**, ma'lum
+mustasno) doim tekshiriladi — joriy holat: **430 test o'tadi**, ma'lum
 muvaffaqiyatsizlik yo'q. Endi CI ham bor: har push/PR'da GitHub Actions
 orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
 ### So'nggi yakunlangan yirik ishlar (2026-09-24 holatiga)
 
+- **Texnik qarz tozalash (2026-09-28/30, `docs/CHANGELOG.md` 3.57)**:
+  `apps/events/views.py` (1224 qator) `apps/events/views/` paketiga bo'lindi
+  (core/workflow/public/program/master_data/calendar_views, har biri <500
+  qator, `__init__` orqali eski importlar saqlangan); shifokor yordamchilari
+  `apps/events/services/doctors.py`ga ko'chirildi (wizard endi view'ga bog'liq
+  emas); shifokor boshqa jonli tadbirga shu vaqtda biriktirilgan bo'lsa ham
+  bloklanadi (4-bo'lim 8-band); tayinlash emaili Celery task'iga o'tkazildi
+  (broker ishlamasa sinxron fallback); `start-local.ps1` LAN IP'ni avtomatik
+  aniqlaydi; `backup/verify-backup/restore.ps1` PostgreSQL 15 yo'liga qattiq
+  bog'langani sababli ishlamas edi — `scripts/pg-tools.ps1` orqali tuzatildi
+  (real backup olinib tekshirildi); `register-tasks.ps1`dagi barcha task
+  XML'lari `&&` escape qilinmagani sababli yaroqsiz edi — tuzatildi, kunlik
+  02:00 backup task qo'shildi. 10 ta yangi test (430 o'tadi).
 - **`scripts/check-services.ps1` — Memurai CLI qo'llab-quvvatlandi**
   (2026-09-28): skript faqat `redis-cli.exe`ni qidirgani uchun Memurai
   o'rnatilgan mashinada `run-web.ps1` to'xtab qolardi; endi
@@ -322,7 +335,9 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
    faqat "sezilarli darajada noto'g'ri" xatolarni topa oladi — nozik
    uslub/registr xatolari uchun hali ham professional proofreading tavsiya
    etiladi.
-8. **Shifokor "band" bo'lishi hozircha faqat `StaffUnavailability` orqali tekshiriladi**
+8. **HAL QILINDI (2026-09-28)** — `apps/events/services/doctors.py` endi
+   boshqa jonli tadbirdagi `attending_doctors` bandligini ham tekshiradi.
+   Eski tavsif: **Shifokor "band" bo'lishi hozircha faqat `StaffUnavailability` orqali tekshiriladi**
    — agar shifokor allaqachon boshqa tadbirga ham `attending_doctors` sifatida
    biriktirilgan bo'lsa-yu, lekin band vaqt sifatida belgilamagan bo'lsa, bu
    ziddiyat hozircha aniqlanmaydi. Kerak bo'lsa, `check_doctor_availability()`ga
@@ -378,7 +393,8 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     `scripts/verify_phase27_*` va h.k., 2026-09-21 aniqlandi) — bular
     runtime'ga aloqasi yo'q, 4-band (scripts/ tozalash)ga bog'liq,
     ataylab tuzatilmadi.
-15. **`apps/events/views.py` — 1250+ qatorli "god file"** (2026-09-22,
+15. **HAL QILINDI (2026-09-28)** — `apps/events/views/` paketiga bo'lindi.
+    Eski tavsif: **`apps/events/views.py` — 1250+ qatorli "god file"** (2026-09-22,
     Ultra Review arxitektura tahlili). 30+ view klassi, ba'zi joylarda
     biznes-logika (bildirishnoma matni yaratish) to'g'ridan-to'g'ri view
     qatlamida. Takrorlangan "owner-or-admin" ruxsat tekshiruvlari
@@ -395,6 +411,14 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
     demak bu shunchaki bo'sh-fayl-yaratish emas, balki **faol jarayon repo
     fayllarini ham o'zgartirmoqda**. Hozircha fayllar qo'lda o'chirilmoqda;
     takrorlansa lokal fon jarayonlarini alohida tekshirish kerak.
+    **SABAB TOPILDI (2026-09-28)**: `.claude/settings.json`dagi hook
+    buyruqlari (`cmd /c "IF EXIST "..." (...)"`) ichma-ich qo'shtirnoq tufayli
+    noto'g'ri tahlil qilinadi, `cmd.exe` interaktiv rejimga tushib hook
+    stdin'idagi JSON'ni buyruq sifatida bajaradi: tool kiritmasidagi `>`
+    fayl yaratadi (`-> int` → `int`), `&`/`&&` esa buyruq ishga tushiradi.
+    **TUZATILDI (2026-09-30)**: hook'lar `cmd /c`siz to'g'ridan-to'g'ri
+    `node "$CLAUDE_PROJECT_DIR/.claude/helpers/..."` qilindi (lokal fayl).
+    Eslatma: eski shaklda hook handler'lar umuman ishga tushmagan.
 17. **Public check-in anonim — "bir vaqtda bitta tadbir" qoidasini to'liq
     kafolatlab bo'lmaydi** (2026-09-24, `docs/CHANGELOG.md` 3.56-band).
     Qoida endi bazaga bog'langan, lekin yagona identifikator — brauzerdagi
@@ -415,8 +439,15 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 
 - [x] Dashboard/Calendar: o'tish animatsiyalari, uz vaqt bugi, til indikatori, rang
       palitrasi, tarjimalar (2026-09-10 — tafsilot `docs/CHANGELOG.md` 3.1-bo'limida).
-- [ ] Sayt bo'ylab qolgan 52/51/37 bo'sh msgstr (uz/ru/en, dashboard/calendar'ga
-      aloqasi yo'q) — alohida so'rov bilan qaraladi.
+- [x] Sayt bo'ylab bo'sh msgstr — 2026-09-28 tekshiruvida uz/ru/en/tr'da
+      bo'sh yoki fuzzy yozuv qolmagani aniqlandi.
+- [ ] `apps/approvals` (bo'sh app, model/migratsiya yo'q) — olib tashlash
+      tavsiya etiladi (`INSTALLED_APPS`dan ham); 2026-09-28 da ruxsat
+      bloklangani sababli bajarilmadi. `ULTRA_REVIEW_REPORT.md` eskirgan
+      (hal bo'lgan N+1/dependency'larni "qolgan" deb ko'rsatadi) — o'chirish.
+- [ ] Production'ga chiqishdan oldin: HTTPS reverse proxy (production.py
+      `SECURE_SSL_REDIRECT=True` + secure cookie, Scheduled Task esa oddiy
+      HTTP'da ishlaydi — hozircha vaqtinchalik `local` rejimda ishlatilmoqda).
 - [x] Public dashboard qayta qurilishi, HOZIR chizig'i va rate-limit bug'lari
       tuzatildi (2026-09-15/16 — `docs/CHANGELOG.md` 3.25–3.31-bo'limlar).
 - [ ] `apps/approvals` app'ining kelajagi haqida qaror: to'ldirish, birlashtirish yoki
@@ -444,9 +475,9 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
       (2026-09-22, 4-bo'lim 13-band, `docs/CHANGELOG.md` 3.53-band).
 - [ ] `apps/events/views.py`ni (1250+ qator) kichik modullarga bo'lish —
       4-bo'lim 15-band, katta refaktoring, hali so'ralmagan.
-- [ ] Repo papkasida o'zidan-o'zi paydo bo'layotgan bo'sh axlat fayllar —
-      manba aniqlanmagan (4-bo'lim 16-band), takrorlansa chuqur diagnostika
-      kerak.
+- [x] Repo papkasida o'zidan-o'zi paydo bo'layotgan bo'sh axlat fayllar —
+      sababi hook'lardagi `cmd /c` edi, 2026-09-30 da tuzatildi (4-bo'lim
+      16-band, `docs/CHANGELOG.md` 3.57).
 - [ ] Public check-in'da shaxsni aniqlash (telefon raqami / SMS / login) —
       "bir vaqtda bitta tadbir" qoidasini brauzerdan qat'i nazar ishlatish
       uchun kerak (4-bo'lim 17-band). Biznes qarori, hali so'ralmagan.

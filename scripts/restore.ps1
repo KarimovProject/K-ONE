@@ -22,10 +22,10 @@ $databaseUser = if ($env:DB_USER) { $env:DB_USER } elseif ($values.DB_USER) { $v
 $databasePassword = if ($env:DB_PASSWORD) { $env:DB_PASSWORD } else { $values.DB_PASSWORD }
 $databaseHost = if ($env:DB_HOST) { $env:DB_HOST } elseif ($values.DB_HOST) { $values.DB_HOST } else { "127.0.0.1" }
 $databasePort = if ($env:DB_PORT) { $env:DB_PORT } elseif ($values.DB_PORT) { $values.DB_PORT } else { "5432" }
-$bin = "C:\Program Files\PostgreSQL\15\bin"
-$createdb = Join-Path $bin "createdb.exe"
-$dropdb = Join-Path $bin "dropdb.exe"
-$pgRestore = Join-Path $bin "pg_restore.exe"
+. (Join-Path $PSScriptRoot "pg-tools.ps1")
+$createdb = Find-PgTool "createdb.exe"
+$dropdb = Find-PgTool "dropdb.exe"
+$pgRestore = Find-PgTool "pg_restore.exe"
 
 $oldPassword = [Environment]::GetEnvironmentVariable("PGPASSWORD", "Process")
 try {

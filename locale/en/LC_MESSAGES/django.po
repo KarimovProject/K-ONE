@@ -4823,3 +4823,12 @@ msgstr "Checked in at"
 
 msgid "Busy staff"
 msgstr "Busy staff"
+
+#: apps/events/services/doctors.py
+#, python-format
+msgid ""
+"%(doctor)s is already assigned to “%(event)s” (%(start)s–%(end)s) at this "
+"time and cannot be assigned"
+msgstr ""
+"%(doctor)s is already assigned to “%(event)s” (%(start)s–%(end)s) at this "
+"time and cannot be assigned"

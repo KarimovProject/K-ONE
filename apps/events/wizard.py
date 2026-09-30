@@ -24,7 +24,7 @@ from apps.events.services.conflicts import (
     check_venue_availability,
     validate_and_lock_event_reservation,
 )
-from apps.events.views import busy_attending_doctor_errors, notify_assigned_doctors
+from apps.events.services.doctors import busy_attending_doctor_errors, notify_assigned_doctors
 from apps.notifications.telegram.services import schedule_responsible_assignment
 from apps.organizations.models import Organization, Sponsor
 from apps.venues.models import Venue

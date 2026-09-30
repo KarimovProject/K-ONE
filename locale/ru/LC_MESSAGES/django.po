@@ -5273,3 +5273,12 @@ msgstr "Время прихода"
 
 msgid "Busy staff"
 msgstr "Занятые сотрудники"
+
+#: apps/events/services/doctors.py
+#, python-format
+msgid ""
+"%(doctor)s is already assigned to “%(event)s” (%(start)s–%(end)s) at this "
+"time and cannot be assigned"
+msgstr ""
+"%(doctor)s уже назначен(а) на мероприятие «%(event)s» (%(start)s–%(end)s) в "
+"это время и не может быть назначен(а)"

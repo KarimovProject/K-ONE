@@ -1,11 +1,23 @@
 [CmdletBinding()]
-param()
+param([string]$LanIP = "")
 
 $ErrorActionPreference = "Stop"
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $scriptsDir = Join-Path $projectRoot "scripts"
 $logDirectory = Join-Path $projectRoot "logs"
-$lanIP = "10.34.12.152"
+
+# DHCP can hand this machine a new address, so detect the IPv4 of the
+# interface that owns the default route instead of hard-coding it.
+if (-not $LanIP) {
+    $defaultRoute = Get-NetRoute -DestinationPrefix "0.0.0.0/0" -ErrorAction SilentlyContinue |
+        Sort-Object RouteMetric | Select-Object -First 1
+    if ($defaultRoute) {
+        $LanIP = (Get-NetIPAddress -InterfaceIndex $defaultRoute.InterfaceIndex -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+            Select-Object -First 1).IPAddress
+    }
+    if (-not $LanIP) { $LanIP = "127.0.0.1" }
+}
+$lanIP = $LanIP
 $port = 8012
 $baseUrl = "http://${lanIP}:${port}"
 

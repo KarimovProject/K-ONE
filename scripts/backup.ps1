@@ -33,12 +33,8 @@ $databaseHost = Get-IemsValue $values "DB_HOST" "127.0.0.1"
 $databasePort = Get-IemsValue $values "DB_PORT" "5432"
 $mediaRoot = Get-IemsValue $values "DJANGO_MEDIA_ROOT" (Join-Path $resolvedProject "media")
 
-$pgDump = Get-Command pg_dump.exe -ErrorAction SilentlyContinue
-if (-not $pgDump) {
-    $candidate = "C:\Program Files\PostgreSQL\15\bin\pg_dump.exe"
-    if (-not (Test-Path -LiteralPath $candidate)) { throw "pg_dump.exe was not found." }
-    $pgDumpPath = $candidate
-} else { $pgDumpPath = $pgDump.Source }
+. (Join-Path $PSScriptRoot "pg-tools.ps1")
+$pgDumpPath = Find-PgTool "pg_dump.exe"
 
 $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $backupDirectory = Join-Path $BackupRoot $timestamp

@@ -15,9 +15,8 @@ foreach ($entry in $checksums) {
     $actual = (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash.ToLowerInvariant()
     if ($actual -ne $entry.sha256) { throw "Checksum mismatch: $($entry.path)" }
 }
-$pgRestore = Get-Command pg_restore.exe -ErrorAction SilentlyContinue
-$pgRestorePath = if ($pgRestore) { $pgRestore.Source } else { "C:\Program Files\PostgreSQL\15\bin\pg_restore.exe" }
-if (-not (Test-Path -LiteralPath $pgRestorePath)) { throw "pg_restore.exe was not found." }
+. (Join-Path $PSScriptRoot "pg-tools.ps1")
+$pgRestorePath = Find-PgTool "pg_restore.exe"
 & $pgRestorePath --list (Join-Path $resolvedBackup $manifest.database.dump) | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "The PostgreSQL archive is invalid." }
 Write-Output "PASS: backup archive and checksums are valid."

@@ -18,8 +18,12 @@ function Register-IemsScheduledTask(
     [string]$TaskName,
     [string]$Description,
     [string]$Command,
-    [string]$Arguments
+    [string]$Arguments,
+    [string]$TriggerXml = ""
 ) {
+    if (-not $TriggerXml) {
+        $TriggerXml = "<LogonTrigger><UserId>$user</UserId></LogonTrigger>"
+    }
     # Task Scheduler's XML schema (v1.3) has no <Environment> element, so
     # DJANGO_SETTINGS_MODULE is forced via a cmd.exe wrapper instead of
     # relying on manage.py/wsgi.py/celery.py's `local`-defaulting
@@ -28,6 +32,12 @@ function Register-IemsScheduledTask(
     # HTTPS/HSTS, insecure cookies).
     $wrappedCommand = "$env:ComSpec"
     $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& `"$Command`" $Arguments"
+    # Values go into XML text nodes: the raw "&&" above made every task
+    # definition malformed XML, so Task Scheduler rejected all of them.
+    $esc = { param($value) [System.Security.SecurityElement]::Escape($value) }
+    $Description = & $esc $Description
+    $wrappedCommand = & $esc $wrappedCommand
+    $wrappedArguments = & $esc $wrappedArguments
     $xml = @"
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
@@ -60,9 +70,7 @@ function Register-IemsScheduledTask(
     <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
   </Settings>
   <Triggers>
-    <LogonTrigger>
-      <UserId>$user</UserId>
-    </LogonTrigger>
+    $TriggerXml
   </Triggers>
   <Actions Context="Author">
     <Exec>
@@ -77,7 +85,7 @@ function Register-IemsScheduledTask(
     $service.Connect()
     $folder = $service.GetFolder("\")
     $task = $folder.RegisterTask($TaskName, $xml, 6, $null, $null, 3)
-    Write-Host "Registered task '$TaskName' (Logon trigger, RestartOnFailure 3x, ExecutionTimeLimit 0s)."
+    Write-Host "Registered task '$TaskName' (RestartOnFailure 3x, ExecutionTimeLimit 0s)."
 }
 
 Register-IemsScheduledTask `
@@ -104,4 +112,12 @@ Register-IemsScheduledTask `
     -Command $pythonwExe `
     -Arguments "manage.py telegram_poll"
 
-Write-Host "All 4 IEMS Windows Scheduled Tasks registered successfully."
+$backupScript = Join-Path $projectRoot "scripts\backup.ps1"
+Register-IemsScheduledTask `
+    -TaskName "IEMS Daily Backup" `
+    -Description "IEMS nightly PostgreSQL + media backup (scripts\backup.ps1)" `
+    -Command "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" `
+    -Arguments "-NoProfile -ExecutionPolicy Bypass -File `"$backupScript`"" `
+    -TriggerXml "<CalendarTrigger><StartBoundary>2026-01-01T02:00:00</StartBoundary><ScheduleByDay><DaysInterval>1</DaysInterval></ScheduleByDay></CalendarTrigger>"
+
+Write-Host "All 5 IEMS Windows Scheduled Tasks registered successfully."

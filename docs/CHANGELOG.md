@@ -2500,3 +2500,40 @@ birinchi tadbir tugagach ruxsat berilishi). Jami: **420 ta test, barchasi
 o'tadi**.
 
 ---
+
+### 3.57 Tuzatildi — Texnik qarz, backup/Task Scheduler skriptlari va shifokor bandligi (2026-09-28/30)
+
+- `apps/events/views.py` (1224 qator) `apps/events/views/` paketiga bo'lindi
+  (`core`, `workflow`, `public`, `program`, `master_data`, `calendar_views`);
+  `__init__.py` barcha view'larni qayta eksport qiladi, URLconf o'zgarmadi.
+- Shifokor yordamchilari (`busy_attending_doctor_errors`,
+  `notify_assigned_doctors`) `apps/events/services/doctors.py`ga ko'chirildi —
+  `wizard.py` endi view qatlamidan import qilmaydi.
+- Shifokor bir vaqtning o'zida boshqa jonli tadbirda (DRAFT/CANCELLED/
+  REJECTED/DISPLACED/POSTPONED emas) ma'ruzachi bo'lsa, tayinlash bloklanadi;
+  tahrirlanayotgan tadbirning o'zi hisobga olinmaydi. Yangi xato matni
+  uz/ru/en/tr'ga tarjima qilindi.
+- Tayinlash emaili `apps.notifications.tasks.send_notification_email_task`
+  orqali Celery'ga yuboriladi; broker ishlamasa sinxron fallback.
+- `backup.ps1`/`verify-backup.ps1`/`restore.ps1` PostgreSQL 15 yo'liga qattiq
+  bog'langan edi (o'rnatilgani 16) — backup 2026-08-13 dan beri ishlamagan.
+  Umumiy `scripts/pg-tools.ps1` (`Find-PgTool`) qo'shildi; real backup olinib
+  tekshirildi.
+- `register-tasks.ps1`: `cmd /c ...&&...` XML'da escape qilinmagani uchun
+  barcha task ta'riflari yaroqsiz XML edi — `SecurityElement::Escape` bilan
+  tuzatildi; kunlik 02:00 "IEMS Daily Backup" task qo'shildi.
+- `start-local.ps1` LAN IP'ni default route interfeysidan avtomatik aniqlaydi
+  (`-LanIP` bilan override qilish mumkin).
+- `check-services.ps1`: `memurai-cli.exe` qo'llab-quvvatlandi, PostgreSQL
+  servisi to'xtagan bo'lsa xato beradi.
+- Repo'da o'zidan paydo bo'ladigan 0-baytli fayllar (goals.md 4-bo'lim
+  16-band) sababi topilib tuzatildi: lokal `.claude/settings.json` hook'lari
+  `cmd /c "..."` shaklida edi; Git Bash `/c`ni yo'lga aylantirgani uchun
+  `cmd.exe` interaktiv rejimda hook stdin'idagi JSON'ni buyruq sifatida
+  bajarardi (`-> int` → `int` fayli, `&&` → buyruq). Hook'lar to'g'ridan-to'g'ri
+  `node "$CLAUDE_PROJECT_DIR/..."` qilindi (lokal fayl, repoga kirmaydi).
+
+10 ta yangi test (`tests/test_doctor_event_overlap.py`). Jami: **430 ta test,
+barchasi o'tadi**.
+
+---
