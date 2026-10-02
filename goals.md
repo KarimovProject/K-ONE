@@ -4,7 +4,17 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-10-02 (Windows LAN deploy — Waitress orqali
+Oxirgi yangilanish: 2026-10-02 (Master-data formalar — Tashkilot/Sponsor/
+Speaker/Venue/EventType — dizayni qayta qurildi: endi karta ko'rinishida,
+textarea/fayl maydonlari butun kenglikka cho'ziladi, checkbox'lar to'g'ri
+stillandi; telefon kiritishda davlat tanlab kod avtomatik qo'yiladigan
+bo'ldi (`static/js/phone-country.js`, ~190 davlat); tashkilot/sponsor
+izohlari va tadbir rad etish/bekor qilish sabablariga 1000 belgi chegarasi
+qo'yildi; yo'l-yo'lakay oldingi bandda (3.60) qo'shilgan SSL/cookie
+env-override'lari `.env`dan o'qilib test to'plamini buzayotgani aniqlanib,
+bitta `IEMS_PLAIN_HTTP_LAN` bayrog'iga birlashtirildi (endi testlarga yoki
+TLS-proxy ortidagi production'ga ta'sir qilmaydi); tafsilot
+`docs/CHANGELOG.md` 3.61-bo'limda); bundan oldin: 2026-10-02 (Windows LAN deploy — Waitress orqali
 tarmoqqa ochish butunlay ishlamas edi: `SECURE_SSL_REDIRECT=True` har bir
 so'rovni mavjud bo'lmagan HTTPS'ga redirect qilib abadiy osilib qolishga
 sabab bo'lgan; static fayllar manifesti Django 5.1+da `STATICFILES_STORAGE`
@@ -147,6 +157,17 @@ orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
 ### So'nggi yakunlangan yirik ishlar (2026-10-02 holatiga)
 
+- **Master-data formalar dizayni, telefon davlat kodi, izoh chegarasi
+  (2026-10-02, `docs/CHANGELOG.md` 3.61)**: Tashkilot/Sponsor/Speaker/
+  Venue/EventType formalari karta ko'rinishiga o'tkazildi (textarea/fayl
+  maydonlari endi butun kenglikka cho'ziladi, checkbox'lar to'g'ri
+  stillandi); `speaker_form.html` butunlay stilsiz klasslardan dizayn
+  tizimiga o'tkazildi; telefon kiritishda davlat tanlab kod avtomatik
+  qo'yiladigan bo'ldi (~190 davlat); tashkilot/sponsor izohlari va tadbir
+  rad etish/bekor qilish sabablariga 1000 belgi chegarasi qo'yildi;
+  yo'l-yo'lakay 3.60-banddagi SSL/cookie sozlamalari bitta
+  `IEMS_PLAIN_HTTP_LAN` bayrog'iga birlashtirilib, test to'plamini
+  buzayotgan regressiya tuzatildi. 439 ta test o'tadi.
 - **Windows LAN deploy (Waitress) tuzatildi (2026-10-02, `docs/CHANGELOG.md`
   3.60)**: production sozlamalari TLS-proxy ortida ishlashni nazarda tutgani
   sababli oddiy HTTP'da ishlaydigan LAN deploy butunlay ishlamas edi —

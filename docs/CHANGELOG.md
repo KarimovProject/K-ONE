@@ -2612,3 +2612,58 @@ Tasdiqlandi: `/health/ready/` → 200, login ishladi, CSS hash'langan fayllar
 Commit: `8841ff1`, `6dc8fdc`.
 
 ---
+
+### 3.61 Tuzatildi — Master-data formalar dizayni, telefon uchun davlat kodi tanlovi, izoh/sabab maydonlariga chegara (2026-10-02)
+
+Foydalanuvchi so'rovi: "Tashkilot yaratish" sahifasi dizayni xunuk, telefon
+kiritishda davlat tanlab kod avtomatik qo'yilsin, izohlar cheksiz ketib
+qolmasin.
+
+- **Master-data formalar dizayni**: `templates/master_data/form.html`
+  (Organization, Sponsor, Venue, EventType — hammasi shu bitta umumiy
+  shablonni ishlatadi) avval oddiy `display:grid` bo'lib, har bir maydon
+  (jumladan uzun `notes` textarea va `logo` fayl yuklash) bir xil 280px
+  katakka tiqilib, yagonasiz "devor" ko'rinishida edi. Endi `.data-form`
+  karta (fon, chegara, padding, soya) bo'lib, textarea/fayl/ko'p tanlovli
+  maydonlar butun kenglikka cho'ziladi. `.checkbox-field`/`.check-control`
+  klasslari (shu shablon va `speaker_form.html`da ishlatiladi) uchun CSS
+  umuman yo'q edi — `is_active`/`public_profile_enabled` checkbox'lari
+  stilsiz ko'rinardi; endi qatorga tekis joylashtirilgan ko'rinishga ega.
+- **`templates/events/speaker_form.html` butunlay qayta yozildi**: avval
+  `.form-container`/`.app-form`/`.grid-layout` klasslaridan foydalanardi —
+  bularning HECH biriga loyihada CSS yo'q edi (butunlay dizayn tizimidan
+  tashqarida, stilsiz). Endi boshqa master-data formalari bilan bir xil
+  `.data-form`/`.form-grid` andozasiga o'tkazildi.
+- **Telefon uchun davlat kodi tanlovi**: `static/js/phone-country.js` —
+  har bir `input[type="tel"]` yoniga ~190 davlatlik ro'yxat bilan `<select>`
+  qo'shadi; davlat tanlanganda uning kodi (masalan O'zbekiston → `+998`)
+  avtomatik raqam boshiga qo'yiladi, tahrirlash formalarida esa mavjud
+  qiymatdan davlat avtomatik aniqlanadi. Hech qanday yangi kutubxona
+  qo'shilmadi — oddiy JS, build jarayonisiz, loyihaning qolgan
+  `static/js/` fayllari kabi. Tashkilot, Sponsor va shifokor ro'yxatdan
+  o'tish formalariga ulandi.
+- **Izoh/sabab maydonlariga chegara**: `Organization.notes`/`Sponsor.notes`
+  (`max_length=1000`, migratsiya 0003) va tadbirni rad etish/bekor
+  qilish/kechiktirish/favqulodda bekor qilish sabablari (`EventRejectForm`,
+  `EventCancelForm`, `EventPostponeForm`, `EventEmergencyOverrideForm` —
+  barchasida `max_length=1000`, Django avtomatik `maxlength` HTML
+  atributini ham qo'shadi).
+- **Yon tuzatish (regressiya)**: oldingi band (3.60)da qo'shilgan
+  `SECURE_SSL_REDIRECT`/`SESSION_COOKIE_SECURE`/`CSRF_COOKIE_SECURE`
+  env-override'lari `.env` faylidan o'qilgani uchun, shu mashinadagi
+  `.env`da tasodifan turgan qiymat test to'plamidagi
+  `test_production_settings_are_secure`ni ham "buzib" qo'ygan edi (har
+  qanday jarayon `.env`ni o'qiydi, testlar ham). Uchala sozlama endi
+  bitta `IEMS_PLAIN_HTTP_LAN` bayrog'iga birlashtirildi — bu faqat
+  `register-tasks.ps1`dagi "IEMS Web" vazifasi uchun to'g'ridan-to'g'ri
+  jarayon muhitiga o'rnatiladi, `.env`dan hech qachon o'qilmaydi, shuning
+  uchun testlarga yoki haqiqiy TLS-proxy ortidagi production'ga sira
+  ta'sir qilmaydi.
+
+439 ta test o'tadi. Tasdiqlandi: tashkilot/sponsor/speaker formalari
+`/master-data/...` va `/events/speakers/...` manzillarida 200 qaytaradi,
+yangi dizayn klasslari va `phone-country.js` sahifada mavjud, rad etish
+formasida `maxlength="1000"` HTML atributi chiqadi. Migratsiya production
+bazasiga qo'llandi.
+
+---
