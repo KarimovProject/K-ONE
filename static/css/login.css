@@ -511,8 +511,12 @@
   grid-column: 1 / -1;
 }
 /* No icon is rendered inside these auto-generated fields, so drop the
-   icon-reserved left padding that .auth-input assumes by default. */
-.auth-field-grid .auth-input {
+   icon-reserved left padding that .auth-input assumes by default — except
+   the phone field, which intl-tel-input re-wraps and gives its own
+   dynamic left padding (via an inline style) to make room for the flag/
+   dial-code prefix; this !important was overriding that and making the
+   typed number overlap the flag. */
+.auth-field-grid .auth-input:not(.iti__tel-input) {
   padding-left: 14px !important;
 }
 .auth-field-help {
