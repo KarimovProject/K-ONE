@@ -2563,3 +2563,52 @@ barchasi o'tadi**.
   `ULTRA_REVIEW_REPORT.md` o'chirildi. 439 ta test o'tadi.
 
 ---
+
+### 3.60 Tuzatildi — Windows LAN deploy (Waitress) butunlay ishlamas edi: HTTPS redirect, static manifest, CSRF, Telegram poller qulashi (2026-10-02)
+
+`config/settings/production.py` TLS-terminating reverse proxy ortida ishlashni
+nazarda tutib yozilgan edi, lekin `scripts/start-local.ps1`/`register-tasks.ps1`
+orqali ishlaydigan Windows Scheduled Task (Waitress, 0.0.0.0:8012) hech qanday
+TLS'siz, sof HTTP orqali ishlaydi. Bu nomuvofiqlik tarmoqdagi deploy'ni butunlay
+ishlamaydigan holga keltirgan edi — ketma-ket to'rtta bog'liq bug topilib
+tuzatildi:
+
+- **`SECURE_SSL_REDIRECT=True` har bir so'rovni mavjud bo'lmagan `https://`ga
+  301 qilib yuborardi** — mijoz TLS handshake qila olmay abadiy osilib
+  qolardi (server portni tinglardi, lekin hech qanday so'rovga javob
+  bermasdek ko'rinardi). `production.py`da endi `env.bool("SECURE_SSL_REDIRECT",
+  default=True)`; `register-tasks.ps1`dagi "IEMS Web" vazifasi uchun cmd.exe
+  wrapper orqali `False`ga o'rnatiladi (haqiqiy TLS-proxy ortidagi
+  production/Docker uchun standart `True` o'zgarishsiz qoladi).
+- **Static fayllar manifesti yaratilmasdi, dizayn "dabdala" ko'rinardi**:
+  `STATICFILES_STORAGE` (eski Django sozlamasi) Django 5.1+da butunlay
+  e'tiborga olinmaydi — `STORAGES` lug'ati kerak. `production.py` shunga
+  o'tkazildi; `collectstatic --clear` qayta ishga tushirilib, 539 fayl
+  to'g'ri hash bilan qayta yaratildi.
+- **Login paytida "CSRF tekshiruvi amalga oshmadi" xatosi**: `SESSION_COOKIE_SECURE`/
+  `CSRF_COOKIE_SECURE=True` cookie'larni faqat HTTPS orqali yuborishga
+  majburlardi; oddiy HTTP ustida brauzer bu cookie'larni saqlamaydi/yubormaydi.
+  Ikkalasi ham endi env orqali boshqariladi, "IEMS Web" vazifasi uchun `False`.
+- **Telegram bot `/start`ga javob bermay qolgan edi**: `getUpdates()` uzoq
+  so'rov (long-poll) davomida vaqti-vaqti bilan yuz beradigan
+  `ConnectionResetError`ni `urllib.request.do_open()` faqat so'rov yuborish
+  tomonida `URLError`ga o'raydi, javob o'qish tomonida (aynan long-poll
+  vaqtining aksariyati shu yerda o'tadi) xom holicha chiqarib yuboradi.
+  `apps/notifications/telegram/client.py`dagi transport faqat
+  `URLError`/`TimeoutError`ni ushlar edi — xom `ConnectionResetError` butun
+  `telegram_poll` buyrug'ini qulatib yuborgan, `pythonw.exe` konsolsiz
+  ishlagani sabab hech qanday iz qolmagan, Windows esa `RestartOnFailure`
+  (3x) tugagach vazifani to'xtatib qo'ygan. Endi `except OSError` (URLError
+  ham OSError'ning farzandi) orqali bu holat ham mavjud
+  `TelegramTransientError` backoff-retry yo'liga yo'naltiriladi; vazifa
+  endi `logs/telegram_poll.log`ga yoziladi (avval hech qayerga yozmasdi).
+
+Barcha to'rtta tuzatish faqat Windows LAN vazifasiga xos env o'zgaruvchilar
+orqali amalga oshirildi (`register-tasks.ps1`dagi cmd.exe wrapper) — haqiqiy
+TLS-proxy ortidagi production/Docker xavfsizlik darajasi o'zgarishsiz qoladi.
+Tasdiqlandi: `/health/ready/` → 200, login ishladi, CSS hash'langan fayllar
+200 bilan yuklandi, 3 ta kutib turgan `/start` xabari qayta ishlanib
+`TelegramConnection` yozuvlari yaratildi, poller "Running" holatida barqaror.
+Commit: `8841ff1`, `6dc8fdc`.
+
+---

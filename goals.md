@@ -4,7 +4,20 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-09-24 (Public QR check-in: tadbir boshlanmagan bo'lsa
+Oxirgi yangilanish: 2026-10-02 (Windows LAN deploy — Waitress orqali
+tarmoqqa ochish butunlay ishlamas edi: `SECURE_SSL_REDIRECT=True` har bir
+so'rovni mavjud bo'lmagan HTTPS'ga redirect qilib abadiy osilib qolishga
+sabab bo'lgan; static fayllar manifesti Django 5.1+da `STATICFILES_STORAGE`
+e'tiborga olinmagani uchun yaratilmay, dizayn buzilib ko'ringan;
+`SESSION_COOKIE_SECURE`/`CSRF_COOKIE_SECURE=True` HTTP ustida login paytida
+CSRF xatosiga sabab bo'lgan; Telegram poller esa long-poll paytidagi
+`ConnectionResetError`ni `urllib` noto'g'ri ishlashi (javob o'qish tomonida
+`OSError`ni o'ramasligi) sababli butunlay qulab tushib, botni `/start`ga
+javob bermaydigan qilib qo'ygan edi — hammasi `register-tasks.ps1`dagi LAN
+vazifasiga xos env o'zgaruvchilar va `client.py`dagi `except OSError`
+orqali tuzatildi, production/Docker xavfsizligi o'zgarishsiz;
+tafsilot `docs/CHANGELOG.md` 3.60-bo'limda); bundan oldin: 2026-09-24
+(Public QR check-in: tadbir boshlanmagan bo'lsa
 sahifada ogohlantirish chiqadigan bo'ldi va "bir vaqtda bitta tadbir" qoidasi
 sessiya o'rniga bazaga bog'landi — ikkala mantiq ham aslida buzilmagan edi,
 sabablari boshqa bo'lib chiqdi, `docs/CHANGELOG.md` 3.56-band; bundan oldin:
@@ -132,8 +145,14 @@ mustasno) doim tekshiriladi — joriy holat: **439 test o'tadi**, ma'lum
 muvaffaqiyatsizlik yo'q. Endi CI ham bor: har push/PR'da GitHub Actions
 orqali `ruff` + `manage.py check` + `pytest` avtomatik ishga tushadi.
 
-### So'nggi yakunlangan yirik ishlar (2026-09-24 holatiga)
+### So'nggi yakunlangan yirik ishlar (2026-10-02 holatiga)
 
+- **Windows LAN deploy (Waitress) tuzatildi (2026-10-02, `docs/CHANGELOG.md`
+  3.60)**: production sozlamalari TLS-proxy ortida ishlashni nazarda tutgani
+  sababli oddiy HTTP'da ishlaydigan LAN deploy butunlay ishlamas edi —
+  HTTPS redirect, static manifest (Django 5.1+ `STORAGES`), login CSRF
+  xatosi va Telegram poller'ning `ConnectionResetError`dan qulashi —
+  to'rttasi ham tuzatildi. Tafsilot va sabablar `docs/CHANGELOG.md`da.
 - **Speaker sahifalari faqat xodimlarga (2026-09-30, `docs/CHANGELOG.md`
   3.58)**: shifokor va boshqa read-only rollar endi ma'ruzachilarni ko'ra,
   qo'sha va tahrirlay olmaydi (403).
