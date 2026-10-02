@@ -6,6 +6,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/login.css' %}?v=27.21">
+<link rel="stylesheet" href="{% static 'vendor/intl-tel-input/css/intlTelInput.min.css' %}">
 {% endblock %}
 
 {% block unauthenticated_content %}
@@ -95,5 +96,6 @@
   });
 })();
 </script>
-<script src="{% static 'js/phone-country.js' %}" defer></script>
+<script src="{% static 'vendor/intl-tel-input/js/intlTelInputWithUtils.min.js' %}" defer></script>
+<script src="{% static 'js/phone-intl.js' %}" defer></script>
 {% endblock %}
