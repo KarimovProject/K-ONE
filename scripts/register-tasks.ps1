@@ -31,7 +31,14 @@ function Register-IemsScheduledTask(
     # config.settings.local in production (DEBUG=True default, no forced
     # HTTPS/HSTS, insecure cookies).
     $wrappedCommand = "$env:ComSpec"
-    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& `"$Command`" $Arguments"
+    # SECURE_SSL_REDIRECT=False: this LAN deployment is plain HTTP via
+    # Waitress with no TLS-terminating reverse proxy in front of it, so the
+    # production default (force HTTPS redirect) would 301 every request to
+    # an https:// endpoint that doesn't exist, hanging every client.
+    # SESSION/CSRF_COOKIE_SECURE=False: a browser will not store or send a
+    # cookie marked Secure over a plain HTTP connection, which broke login
+    # with a CSRF failure until these were relaxed for this HTTP-only LAN path.
+    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& set `"SECURE_SSL_REDIRECT=False`"&& set `"SESSION_COOKIE_SECURE=False`"&& set `"CSRF_COOKIE_SECURE=False`"&& `"$Command`" $Arguments"
     # Values go into XML text nodes: the raw "&&" above made every task
     # definition malformed XML, so Task Scheduler rejected all of them.
     $esc = { param($value) [System.Security.SecurityElement]::Escape($value) }

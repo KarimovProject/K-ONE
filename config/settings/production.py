@@ -5,12 +5,19 @@ DEBUG = False
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 CSRF_TRUSTED_ORIGINS = env.list("DJANGO_CSRF_TRUSTED_ORIGINS")
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# Default True for deployments behind TLS; the Windows LAN Scheduled Task
+# (plain HTTP, no reverse proxy) overrides both to False via
+# register-tasks.ps1, since a browser won't store/send a Secure cookie
+# over HTTP — that was breaking login with a CSRF failure.
+SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
+CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
-SECURE_SSL_REDIRECT = True
+# Default True for deployments behind a TLS-terminating reverse proxy;
+# the Windows LAN Scheduled Task (Waitress, no reverse proxy) overrides this
+# to False via register-tasks.ps1, since there is no TLS to redirect to.
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
 SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=31536000)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True)
 SECURE_HSTS_PRELOAD = env.bool("SECURE_HSTS_PRELOAD", default=False)
@@ -21,7 +28,15 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 X_FRAME_OPTIONS = "DENY"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE is ignored by Django 5.1+ (removed in favor of
+# STORAGES) — without this, collectstatic silently fell back to the
+# unhashed default storage and never wrote a manifest.
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    },
+}
 EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.dummy.EmailBackend")
 # "file" is kept alongside "production_console" so logs still land somewhere
 # when the process has no attached console/stdout (e.g. native Windows
