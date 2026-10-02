@@ -366,16 +366,63 @@ select {
   cursor: pointer;
 }
 
+/* File inputs had no styling anywhere in the project — the bare OS
+   "Choose File / No file chosen" control was what rendered on every
+   logo/photo upload field. Style the dropzone and re-skin the native
+   file-picker button to match .btn-neutral. */
+input[type="file"] {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+  padding: var(--space-3);
+  background: var(--color-surface-1);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  transition: border-color var(--duration-micro) var(--ease-out), background var(--duration-micro) var(--ease-out);
+}
+
+input[type="file"]:hover {
+  border-color: var(--color-cobalt);
+  background: var(--color-cobalt-subtle);
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: var(--space-3);
+  padding: 0 var(--space-4);
+  height: 34px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-3);
+  color: var(--color-text-title);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: background var(--duration-micro) var(--ease-out), border-color var(--duration-micro) var(--ease-out);
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--color-surface-1);
+  border-color: var(--color-text-title);
+}
+
 /* Form Layouts */
 .data-form {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  background: var(--color-surface-2);
+  /* surface-3 (white) is the "elevated card" surface used by .detail-card
+     etc. — surface-2 sits only a few shades off the page canvas, so the
+     card had almost no visible separation from the background. */
+  background: var(--color-surface-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-6);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-sm);
 }
 
 .form-grid {
