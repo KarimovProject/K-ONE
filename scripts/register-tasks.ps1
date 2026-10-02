@@ -19,7 +19,8 @@ function Register-IemsScheduledTask(
     [string]$Description,
     [string]$Command,
     [string]$Arguments,
-    [string]$TriggerXml = ""
+    [string]$TriggerXml = "",
+    [string]$LogFile = ""
 ) {
     if (-not $TriggerXml) {
         $TriggerXml = "<LogonTrigger><UserId>$user</UserId></LogonTrigger>"
@@ -38,7 +39,11 @@ function Register-IemsScheduledTask(
     # SESSION/CSRF_COOKIE_SECURE=False: a browser will not store or send a
     # cookie marked Secure over a plain HTTP connection, which broke login
     # with a CSRF failure until these were relaxed for this HTTP-only LAN path.
-    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& set `"SECURE_SSL_REDIRECT=False`"&& set `"SESSION_COOKIE_SECURE=False`"&& set `"CSRF_COOKIE_SECURE=False`"&& `"$Command`" $Arguments"
+    $redirect = if ($LogFile) { " >> `"$LogFile`" 2>&1" } else { "" }
+    # pythonw.exe has no console, so without this redirect an uncaught
+    # exception (e.g. the command crashing) leaves no trace anywhere —
+    # the task just silently stops with LastTaskResult=1.
+    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& set `"SECURE_SSL_REDIRECT=False`"&& set `"SESSION_COOKIE_SECURE=False`"&& set `"CSRF_COOKIE_SECURE=False`"&& `"$Command`" $Arguments$redirect"
     # Values go into XML text nodes: the raw "&&" above made every task
     # definition malformed XML, so Task Scheduler rejected all of them.
     $esc = { param($value) [System.Security.SecurityElement]::Escape($value) }
@@ -117,7 +122,8 @@ Register-IemsScheduledTask `
     -TaskName "IEMS Telegram Poll" `
     -Description "IEMS Telegram long-poll listener (/start account linking)" `
     -Command $pythonwExe `
-    -Arguments "manage.py telegram_poll"
+    -Arguments "manage.py telegram_poll" `
+    -LogFile (Join-Path $logDir "telegram_poll.log")
 
 $backupScript = Join-Path $projectRoot "scripts\backup.ps1"
 Register-IemsScheduledTask `

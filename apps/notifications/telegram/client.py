@@ -49,7 +49,12 @@ class UrlLibTelegramTransport:
                 else TelegramPermanentError
             )
             raise error(description) from exc
-        except (TimeoutError, urllib.error.URLError) as exc:
+        except OSError as exc:
+            # Covers urllib.error.URLError (itself an OSError) as well as raw
+            # socket errors like ConnectionResetError, which urllib only wraps
+            # on the request side (do_open), not while reading the response —
+            # exactly what a long-poll getUpdates() call spends most of its
+            # time doing. Left uncaught, this crashed the whole poll command.
             raise TelegramTransientError("Telegram network request failed") from exc
 
 
