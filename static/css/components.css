@@ -467,21 +467,59 @@ input[type="file"]::file-selector-button:hover {
 }
 
 /* Phone number input + country/dial-code select, injected by
-   static/js/phone-country.js next to every input[type="tel"]. */
+   static/js/phone-country.js next to every input[type="tel"]. Fused into
+   one pill control (shared border/background, divider between the two
+   parts) instead of two separate boxes with a gap between them — the
+   earlier version looked disjointed. */
 .phone-input-group {
   display: flex;
-  gap: var(--space-2);
+  align-items: stretch;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--duration-micro) var(--ease-out), box-shadow var(--duration-micro) var(--ease-out);
+}
+
+.phone-input-group:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus);
 }
 
 .phone-input-group select.phone-country-select {
   flex: 0 0 auto;
   width: auto;
-  max-width: 168px;
+  min-width: 76px;
+  max-width: 76px;
+  height: 38px;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid var(--color-border);
+  border-radius: 0;
+  padding: 0 24px 0 var(--space-2);
+  background-position: right 6px center;
+  text-align: center;
+  text-align-last: center;
+}
+
+.phone-input-group select.phone-country-select:focus {
+  box-shadow: none;
 }
 
 .phone-input-group input[type="tel"] {
   flex: 1 1 auto;
   min-width: 0;
+  height: 38px;
+  margin: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.phone-input-group input[type="tel"]:focus {
+  box-shadow: none;
+  background: transparent;
 }
 
 .form-stack {

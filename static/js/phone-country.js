@@ -221,6 +221,16 @@
     return null;
   }
 
+  function flagEmoji(iso2) {
+    var codePoints = iso2
+      .toUpperCase()
+      .split("")
+      .map(function (c) {
+        return 127397 + c.charCodeAt(0);
+      });
+    return String.fromCodePoint.apply(String, codePoints);
+  }
+
   function buildSelect(selected) {
     var select = document.createElement("select");
     select.className = "phone-country-select";
@@ -229,9 +239,16 @@
       var option = document.createElement("option");
       option.value = country[1];
       option.dataset.iso = country[0];
-      option.textContent = "+" + country[1] + " — " + country[2];
+      option.textContent = flagEmoji(country[0]) + " +" + country[1];
+      option.title = country[2] + " (+" + country[1] + ")";
       if (selected && selected[0] === country[0]) option.selected = true;
       select.appendChild(option);
+    });
+    select.title = select.options[select.selectedIndex]
+      ? select.options[select.selectedIndex].title
+      : "";
+    select.addEventListener("change", function () {
+      select.title = select.options[select.selectedIndex].title;
     });
     return select;
   }
