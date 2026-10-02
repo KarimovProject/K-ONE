@@ -2734,3 +2734,17 @@ Tasdiqlandi: vendor CSS/JS/rasm fayllari hash'langan nomlar bilan 200
 qaytaradi, manifest `url()` havolalarini to'g'ri qayta yozdi.
 
 ---
+
+### 3.65 Tuzatildi — Ro'yxatdan o'tish sahifasida telefon maydoni buzilib ko'rinishi (2026-10-02)
+
+intl-tel-input (3.64) ulangandan keyin shifokor ro'yxatdan o'tish sahifasida
+telefon maydoni "buzilgan" ko'rinardi — sabab: `login.css`dagi
+`.auth-field-grid .auth-input { padding-left: 14px !important }` qoidasi
+(avtomatik generatsiya qilingan maydonlarda ikonka uchun ajratilgan
+paddingni olib tashlash uchun yozilgan edi) intl-tel-input o'zi bayroq/kod
+uchun qo'yadigan inline padding-left'ni ham bekor qilib yuborgan —
+`!important` har doim inline style'dan kuchliroq, shuning uchun yozilgan
+raqam bayroq belgisi ustiga chiqib ketardi. `.iti__tel-input` klassi shu
+qoidadan istisno qilindi.
+
+---

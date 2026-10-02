@@ -4,7 +4,12 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-10-02 (Telefon maydoni uchun o'z yozilgan widget
+Oxirgi yangilanish: 2026-10-02 (Ro'yxatdan o'tish sahifasida telefon
+maydoni buzilib ko'rinishi tuzatildi — `login.css`dagi `!important`
+padding qoidasi intl-tel-input'ning bayroq uchun qo'ygan inline
+padding'ini bekor qilib, raqam bayroq ustiga chiqib ketishiga sabab
+bo'lgan edi; tafsilot `docs/CHANGELOG.md` 3.65-bo'limda); bundan oldin:
+2026-10-02 (Telefon maydoni uchun o'z yozilgan widget
 butunlay olib tashlanib, **intl-tel-input** kutubxonasiga (MIT, mahalliy
 joylashtirilgan, CDN emas) o'tkazildi — haqiqiy bayroq ikonkalari,
 qidiruvli davlatlar ro'yxati, aksariyat platformalar ishlatadigan
