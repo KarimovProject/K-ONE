@@ -2667,3 +2667,22 @@ formasida `maxlength="1000"` HTML atributi chiqadi. Migratsiya production
 bazasiga qo'llandi.
 
 ---
+
+### 3.62 Tuzatildi — Forma kartasi fon kontrasti va fayl tanlash tugmasi (2026-10-02)
+
+3.61-banddagi dizayn tuzatishidan keyin ham foydalanuvchi sahifa hali
+"xunuk" ko'rinayotganini va fayl tanlash tugmasi ham xунук ekanini
+ta'kidladi. Ikkita aniq, ko'z bilan ko'rinadigan sababi topildi:
+
+- `.data-form` foni `--color-surface-2` (`#EEF4FA`) edi, sahifa foni
+  (`--color-canvas`, `#F8FAFC`) bilan atigi bir necha ton farq qilardi —
+  "karta" sahifadan deyarli ajralib turmasdi. Boshqa joylarda (`.detail-card`)
+  ishlatiladigan `--color-surface-3` (oq) + `--shadow-sm`ga o'tkazildi.
+- `input[type="file"]` uchun loyihada HECH QANDAY CSS yo'q edi — har bir
+  logo/rasm yuklash maydoni brauzerning xom "Choose File / No file chosen"
+  elementi sifatida chiqardi. Dropzone uslubi + `::file-selector-button`
+  qayta stillandi (`.btn-neutral`ga mos).
+
+Faqat `static/css/components.css` o'zgardi, shablonlarga tegilmadi.
+
+---

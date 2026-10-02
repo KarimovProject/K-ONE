@@ -4,7 +4,12 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-10-02 (Master-data formalar — Tashkilot/Sponsor/
+Oxirgi yangilanish: 2026-10-02 (Forma kartasi fon kontrasti va fayl
+tanlash tugmasi tuzatildi — `.data-form` foni sahifa foniga deyarli bir
+xil rangda bo'lgani uchun "karta" ko'rinmasdi (endi oq fon +
+`--shadow-sm`), `input[type="file"]` uchun loyihada CSS umuman yo'q edi
+(endi dropzone va `::file-selector-button` stillandi); tafsilot
+`docs/CHANGELOG.md` 3.62-bo'limda); bundan oldin: 2026-10-02 (Master-data formalar — Tashkilot/Sponsor/
 Speaker/Venue/EventType — dizayni qayta qurildi: endi karta ko'rinishida,
 textarea/fayl maydonlari butun kenglikka cho'ziladi, checkbox'lar to'g'ri
 stillandi; telefon kiritishda davlat tanlab kod avtomatik qo'yiladigan
