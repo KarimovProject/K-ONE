@@ -32,18 +32,18 @@ function Register-IemsScheduledTask(
     # config.settings.local in production (DEBUG=True default, no forced
     # HTTPS/HSTS, insecure cookies).
     $wrappedCommand = "$env:ComSpec"
-    # SECURE_SSL_REDIRECT=False: this LAN deployment is plain HTTP via
-    # Waitress with no TLS-terminating reverse proxy in front of it, so the
-    # production default (force HTTPS redirect) would 301 every request to
-    # an https:// endpoint that doesn't exist, hanging every client.
-    # SESSION/CSRF_COOKIE_SECURE=False: a browser will not store or send a
-    # cookie marked Secure over a plain HTTP connection, which broke login
-    # with a CSRF failure until these were relaxed for this HTTP-only LAN path.
+    # IEMS_PLAIN_HTTP_LAN=True: this LAN deployment is plain HTTP via Waitress
+    # with no TLS-terminating reverse proxy in front of it, so production's
+    # default HTTPS-only settings (SSL redirect + Secure cookies) would
+    # 301-redirect every request to a nonexistent https:// endpoint and drop
+    # the CSRF/session cookies entirely. Only this task sets the flag — it is
+    # a dedicated name read directly from the process environment (not .env),
+    # so it can never leak into a real TLS-fronted deployment or into tests.
     $redirect = if ($LogFile) { " >> `"$LogFile`" 2>&1" } else { "" }
     # pythonw.exe has no console, so without this redirect an uncaught
     # exception (e.g. the command crashing) leaves no trace anywhere —
     # the task just silently stops with LastTaskResult=1.
-    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& set `"SECURE_SSL_REDIRECT=False`"&& set `"SESSION_COOKIE_SECURE=False`"&& set `"CSRF_COOKIE_SECURE=False`"&& `"$Command`" $Arguments$redirect"
+    $wrappedArguments = "/c set `"DJANGO_SETTINGS_MODULE=config.settings.production`"&& set `"IEMS_PLAIN_HTTP_LAN=True`"&& `"$Command`" $Arguments$redirect"
     # Values go into XML text nodes: the raw "&&" above made every task
     # definition malformed XML, so Task Scheduler rejected all of them.
     $esc = { param($value) [System.Security.SecurityElement]::Escape($value) }
