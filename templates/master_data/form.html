@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}{{ page_title }} · K-ONE{% endblock %}
 {% block content %}
 {% include "master_data/page_header.html" %}
@@ -26,4 +26,7 @@
     <button class="btn-primary compact" type="submit">{% trans "Save changes" %}</button>
   </div>
 </form>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/phone-country.js' %}" defer></script>
 {% endblock %}

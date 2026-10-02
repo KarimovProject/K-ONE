@@ -3,62 +3,34 @@
 {% block title %}{% if object %}{% trans "Edit Speaker" %}{% else %}{% trans "Add Speaker" %}{% endif %} · K-ONE{% endblock %}
 
 {% block content %}
-<div class="form-container wide">
-  <div class="form-header">
-    <h1>{% if object %}{% trans "Edit Speaker" %}: {{ object.full_name }}{% else %}{% trans "Add New Speaker" %}{% endif %}</h1>
+<section class="page-heading" aria-labelledby="page-title">
+  <div>
+    <span class="eyebrow">K-ONE / {% trans "Speakers" %}</span>
+    <h1 id="page-title">{% if object %}{% trans "Edit Speaker" %}: {{ object.full_name }}{% else %}{% trans "Add New Speaker" %}{% endif %}</h1>
   </div>
+</section>
 
-  <form method="post" enctype="multipart/form-data" class="app-form" data-testid="speaker-form">
-    {% csrf_token %}
-
-    <div class="form-group">
-      <label class="form-label">{% trans "Full Name" %}</label>
-      {{ form.full_name }}
-    </div>
-
-    <div class="grid-layout cols-2 gap-10">
-      <div class="form-group">
-        <label class="form-label">{% trans "Title / Position" %}</label>
-        {{ form.title }}
+<form class="data-form" method="post" enctype="multipart/form-data" novalidate data-image-form data-testid="speaker-form">
+  {% csrf_token %}
+  {% if form.non_field_errors %}<div class="form-alert" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+  <div class="form-grid">
+    {% for field in form %}
+      <div class="form-field{% if field.field.widget.input_type == 'checkbox' %} checkbox-field{% endif %}{% if field.errors %} has-error{% endif %}">
+        {% if field.field.widget.input_type == 'checkbox' %}
+          <label class="check-control">{{ field }}<span>{{ field.label }}</span></label>
+        {% else %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true">*</span>{% endif %}</label>
+          {{ field }}
+        {% endif %}
+        {% if field.help_text %}<small id="{{ field.id_for_label }}_helptext">{{ field.help_text }}</small>{% endif %}
+        {% if field.errors %}<div class="field-error" id="{{ field.id_for_label }}_error" role="alert">{{ field.errors }}</div>{% endif %}
+        {% if field.field.widget.input_type == 'file' %}<img class="image-preview" data-image-preview alt="{% trans 'Selected image preview' %}" hidden>{% endif %}
       </div>
-      <div class="form-group">
-        <label class="form-label">{% trans "Organization" %}</label>
-        {{ form.organization }}
-      </div>
-    </div>
-
-    <div class="grid-layout cols-2 gap-10">
-      <div class="form-group">
-        <label class="form-label">{% trans "Country" %}</label>
-        {{ form.country }}
-      </div>
-      <div class="form-group">
-        <label class="form-label">{% trans "Email (Private - Internal Only)" %}</label>
-        {{ form.email }}
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">{% trans "Biography / Profile" %}</label>
-      {{ form.bio }}
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">{% trans "Speaker Photo" %}</label>
-      {{ form.photo }}
-    </div>
-
-    <div class="form-group">
-      <label style="font-weight: 600; cursor: pointer;">
-        {{ form.public_profile_enabled }}
-        {% trans "Enable Public Profile on Event Program Pages" %}
-      </label>
-    </div>
-
-    <div class="form-actions align-right">
-      <a class="btn-neutral" href="{% url 'events:speaker-list' %}">{% trans "Cancel" %}</a>
-      <button class="btn-primary" type="submit" data-testid="save-speaker-btn">{% trans "Save Speaker" %}</button>
-    </div>
-  </form>
-</div>
+    {% endfor %}
+  </div>
+  <div class="form-actions">
+    <a class="secondary-link" href="{% url 'events:speaker-list' %}">{% trans "Cancel" %}</a>
+    <button class="btn-primary compact" type="submit" data-testid="save-speaker-btn">{% trans "Save Speaker" %}</button>
+  </div>
+</form>
 {% endblock %}

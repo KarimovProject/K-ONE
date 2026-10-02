@@ -240,6 +240,7 @@ class EventCancelForm(forms.Form):
     reason = forms.CharField(
         label=_("Cancellation Reason"),
         required=False,
+        max_length=1000,
         widget=forms.Textarea(
             attrs={
                 "rows": 3,
@@ -253,6 +254,7 @@ class EventRejectForm(forms.Form):
     reason = forms.CharField(
         label=_("Rejection Rationale"),
         required=True,
+        max_length=1000,
         widget=forms.Textarea(
             attrs={
                 "rows": 4,
@@ -266,6 +268,7 @@ class EventEmergencyOverrideForm(forms.Form):
     justification = forms.CharField(
         label=_("Emergency Justification"),
         required=True,
+        max_length=1000,
         widget=forms.Textarea(
             attrs={
                 "rows": 4,
@@ -281,6 +284,7 @@ class EventPostponeForm(forms.Form):
     reason = forms.CharField(
         label=_("Postponement Reason"),
         required=False,
+        max_length=1000,
         widget=forms.Textarea(
             attrs={
                 "rows": 3,

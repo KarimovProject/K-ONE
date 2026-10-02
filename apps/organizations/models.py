@@ -33,7 +33,7 @@ class Organization(models.Model):
         validators=[validate_image_upload],
         blank=True,
     )
-    notes = models.TextField(_("notes"), blank=True)
+    notes = models.TextField(_("notes"), max_length=1000, blank=True)
     is_active = models.BooleanField(_("active"), default=True)
 
     class Meta:
@@ -62,7 +62,7 @@ class Sponsor(models.Model):
         blank=True,
     )
     is_active = models.BooleanField(_("active"), default=True)
-    notes = models.TextField(_("notes"), blank=True)
+    notes = models.TextField(_("notes"), max_length=1000, blank=True)
 
     class Meta:
         ordering = ("name",)

@@ -367,7 +367,18 @@ select {
 }
 
 /* Form Layouts */
-.data-form, .form-grid {
+.data-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-xs);
+}
+
+.form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-4);
@@ -377,6 +388,17 @@ select {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+}
+
+/* Multi-line / file / multi-select fields should span the full grid width
+   instead of squeezing into a single 280px column next to short fields —
+   that's what made auto-generated forms like organization/sponsor look
+   like a cramped wall of uniform boxes. */
+.form-grid .form-field:has(textarea),
+.form-grid .form-field:has(input[type="file"]),
+.form-grid .form-field:has(.checkbox-multiple),
+.form-grid .form-field:has(select[multiple]) {
+  grid-column: 1 / -1;
 }
 
 .form-field label, .form-group label {
@@ -391,6 +413,28 @@ select {
   align-items: center;
   gap: var(--space-3);
   padding-top: var(--space-4);
+}
+
+.data-form > .form-actions {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* Phone number input + country/dial-code select, injected by
+   static/js/phone-country.js next to every input[type="tel"]. */
+.phone-input-group {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.phone-input-group select.phone-country-select {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 168px;
+}
+
+.phone-input-group input[type="tel"] {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .form-stack {
@@ -424,6 +468,32 @@ select {
 
 .form-field--checkbox label {
   margin: 0;
+}
+
+/* .checkbox-field / .check-control: used by master_data/form.html and
+   speaker_form.html's auto-generated field loop — same row layout as
+   .form-field--checkbox above, which those templates don't reference. */
+.form-field.checkbox-field {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.check-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-title);
+  cursor: pointer;
+}
+
+.check-control input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .checkbox-multiple {
