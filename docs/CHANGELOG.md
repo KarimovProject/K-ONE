@@ -2686,3 +2686,22 @@ ta'kidladi. Ikkita aniq, ko'z bilan ko'rinadigan sababi topildi:
 Faqat `static/css/components.css` o'zgardi, shablonlarga tegilmadi.
 
 ---
+
+### 3.63 Tuzatildi — Telefon davlat kodi tanlovi: ikkita alohida quti o'rniga bitta yaxlit ko'rinish (2026-10-02)
+
+Foydalanuvchi telefon kiritish maydoni ham xunuk ko'rinishini ta'kidladi:
+davlat tanlash `<select>` va telefon `<input>` ikkita mustaqil, orasida
+bo'shliq bor quti sifatida chiqardi, select esa tor (~168px) bo'lib,
+"+998 — O'zbekiston" kabi uzun matn sig'may ketardi.
+
+- `static/js/phone-country.js`: endi select ichida faqat bayroq emoji +
+  kod ko'rsatiladi (masalan "🇺🇿 +998"), to'liq davlat nomi option'ning
+  `title` tooltipiga ko'chirildi. Bayroqlar ISO2 koddan Unicode regional
+  indicator belgilari orqali generatsiya qilinadi — rasm fayli kerak emas.
+- `static/css/components.css`: `.phone-input-group` endi bitta chegarali
+  "pill" (umumiy fon, bitta border, select/input orasida ichki chiziq,
+  guruh darajasidagi fokus halqasi) — ikkita mustaqil maydon emas. Select
+  endi atigi 76px (faqat bayroq+kodga joy yetadi).
+
+
+---
