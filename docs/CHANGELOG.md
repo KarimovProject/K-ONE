@@ -2705,3 +2705,32 @@ bo'shliq bor quti sifatida chiqardi, select esa tor (~168px) bo'lib,
 
 
 ---
+
+### 3.64 Telefon widget tanish kutubxonaga (intl-tel-input) almashtirildi (2026-10-02)
+
+Ikki bosqichli CSS tuzatishdan keyin ham o'z yozilgan select+input widget
+foydalanuvchiga yetarlicha ideal ko'rinmadi ("ko'p platformalar ishlatgandek
+chiqsin" so'ralgan). Shu sababli maxsus widget butunlay olib tashlanib,
+**intl-tel-input** (MIT litsenziya, v24.8.2) kutubxonasiga o'tkazildi —
+aksariyat platformalar aynan shuni ishlatadi: haqiqiy bayroq ikonkalari,
+qidiruvli davlatlar ro'yxati, libphonenumber asosidagi formatlash/validatsiya.
+
+- `static/vendor/intl-tel-input/` ostiga **mahalliy** joylashtirildi (CDN
+  emas) — CSS + "WithUtils" JS bundle (formatlash/validatsiya kutubxonasi
+  ichiga qo'shilgan, alohida fayl yuklanmaydi) + bayroq/globus sprite
+  rasmlari. Sabab: bu ilova ichki LAN tarmog'ida ishlaydi, mijoz
+  brauzeridan tashqi CDN'ga kafolatlangan yo'l yo'q; qolgan hamma narsa
+  allaqachon collectstatic/whitenoise orqali o'zida xizmat qiladi.
+- `static/js/phone-intl.js` — har bir `input[type="tel"]`ga ulanadi,
+  davlatlar tartibida O'zbekiston birinchi (keyin qo'shni davlatlar),
+  forma yuborilganda qiymat `iti.getNumber()`ning to'liq E.164 satriga
+  almashtiriladi — server tomonidagi telefon validatori hech narsa
+  o'zgarmaganday ishlayveradi.
+- `static/css/components.css` kutubxonaning o'z CSS custom property'lari
+  orqali loyiha tokenlariga temalandi (markup'ni qo'lda qayta yozish
+  o'rniga).
+
+Tasdiqlandi: vendor CSS/JS/rasm fayllari hash'langan nomlar bilan 200
+qaytaradi, manifest `url()` havolalarini to'g'ri qayta yozdi.
+
+---

@@ -4,7 +4,12 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-10-02 (Telefon davlat kodi tanlovi qayta
+Oxirgi yangilanish: 2026-10-02 (Telefon maydoni uchun o'z yozilgan widget
+butunlay olib tashlanib, **intl-tel-input** kutubxonasiga (MIT, mahalliy
+joylashtirilgan, CDN emas) o'tkazildi — haqiqiy bayroq ikonkalari,
+qidiruvli davlatlar ro'yxati, aksariyat platformalar ishlatadigan
+ko'rinish; tafsilot `docs/CHANGELOG.md` 3.64-bo'limda); bundan oldin:
+2026-10-02 (Telefon davlat kodi tanlovi qayta
 ishlandi — select va input ikkita alohida, bo'shliqli quti o'rniga bitta
 yaxlit "pill" ko'rinishga birlashtirildi, davlat nomi o'rniga bayroq
 emoji + kod ko'rsatiladigan bo'ldi (to'liq nom tooltipda); tafsilot
