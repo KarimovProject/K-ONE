@@ -508,6 +508,10 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 - [x] `apps/approvals` (bo'sh app) repodan va `INSTALLED_APPS`dan olib
       tashlandi, eskirgan `ULTRA_REVIEW_REPORT.md` o'chirildi (2026-09-30,
       `docs/CHANGELOG.md` 3.59).
+- [x] kone.cancercenter.uz (shared hosting, Passenger, SQLite) — ishga tushdi
+      (2026-10-06). Server: `~/apps/kone`, baza: `~/apps/kone/data/db.sqlite3`,
+      `.env`da `DB_ENGINE=sqlite`. Hostingda PostgreSQL ma'lumoti yo'q,
+      MariaDB 10.4 esa Django 5.2 uchun yaroqsiz. Zaxira olish kerak.
 - [~] Production'ga chiqishdan oldin: HTTPS reverse proxy — Docker Compose
       uchun tayyor (Caddy `proxy` xizmati, `docker/Caddyfile`, 3.66-band).
       Qolgan: subdomen DNS, serverda `.env` (IEMS_DOMAIN, DJANGO_ALLOWED_HOSTS,
