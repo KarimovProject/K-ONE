@@ -162,12 +162,26 @@ CELERY_BEAT_SCHEDULE["publication-dispatcher"] = {
     "schedule": 60.0,
 }
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": REDIS_URL,
+# CACHE_BACKEND=db is for hosts without Redis (shared hosting). The cache table
+# is created with `manage.py createcachetable`. Default remains Redis.
+if env("CACHE_BACKEND", default="redis") == "db":
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+            "LOCATION": "django_cache",
+        }
     }
-}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": REDIS_URL,
+        }
+    }
+
+# Without a broker (shared hosting), run Celery tasks inline instead of queueing.
+CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_TASK_ALWAYS_EAGER", default=False)
+CELERY_TASK_EAGER_PROPAGATES = CELERY_TASK_ALWAYS_EAGER
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
