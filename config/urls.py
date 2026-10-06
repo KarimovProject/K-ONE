@@ -27,6 +27,7 @@ from apps.events.views import (
     PublicKioskView,
     VenueLiveStatusView,
 )
+from apps.notifications.telegram.webhook import telegram_webhook
 from apps.organizations.urls import organization_patterns, sponsor_patterns
 from apps.reporting.views import (
     LeadershipDashboardView,
@@ -105,6 +106,7 @@ urlpatterns = [
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("logout/", RedirectView.as_view(pattern_name="logout", permanent=False)),
     path("i18n/", include("django.conf.urls.i18n")),
+    path("telegram/webhook/", telegram_webhook, name="telegram-webhook"),
     path("health/", health.application_health, name="application-health"),
     path("health/database/", health.database_health, name="database-health"),
     path("health/redis/", health.redis_health, name="redis-health"),

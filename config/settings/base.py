@@ -158,6 +158,8 @@ CELERY_BEAT_SCHEDULE = {
 TELEGRAM_BOT_ENABLED = env.bool("TELEGRAM_BOT_ENABLED", default=False)
 TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
 TELEGRAM_BOT_USERNAME = env("TELEGRAM_BOT_USERNAME", default="")
+# Secret Telegram echoes back in X-Telegram-Bot-Api-Secret-Token (set via setWebhook).
+TELEGRAM_WEBHOOK_SECRET = env("TELEGRAM_WEBHOOK_SECRET", default="")
 TELEGRAM_API_BASE_URL = env("TELEGRAM_API_BASE_URL", default="https://api.telegram.org")
 TELEGRAM_LINK_TOKEN_TTL_SECONDS = env.int("TELEGRAM_LINK_TOKEN_TTL_SECONDS", default=600)
 IEMS_BASE_URL = env("IEMS_BASE_URL", default="")

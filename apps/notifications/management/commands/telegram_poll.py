@@ -7,7 +7,7 @@ from apps.notifications.telegram.client import (
     TelegramPermanentError,
     TelegramTransientError,
 )
-from apps.notifications.telegram.linking import consume_link_token
+from apps.notifications.telegram.updates import handle_update
 
 MAX_BACKOFF_SECONDS = 30
 
@@ -41,42 +41,8 @@ class Command(BaseCommand):
                 backoff = 1
                 for update in updates:
                     offset = int(update["update_id"]) + 1
-                    message = update.get("message") or {}
-                    text = str(message.get("text", ""))
-                    chat = message.get("chat") or {}
-                    chat_id = str(chat.get("id", ""))
-
-                    if text.startswith("/start ") and text.split(maxsplit=1)[1].strip():
-                        raw_token = text.split(maxsplit=1)[1].strip()
-                        sender = message.get("from") or {}
-                        connection = consume_link_token(
-                            raw_token,
-                            chat_id=chat_id,
-                            telegram_user_id=int(sender.get("id", 0)),
-                            telegram_username=str(sender.get("username", "")),
-                        )
-                        reply = (
-                            "✅ IEMS hisobingiz ulandi."
-                            if connection
-                            else (
-                                "Bu havola yaroqsiz, eskirgan yoki allaqachon "
-                                "ishlatilgan. IEMS saytida \"Sozlamalar → "
-                                "Telegram\" bo'limidan yangi havola oling."
-                            )
-                        )
-                    elif text.strip() == "/start":
-                        # No token attached — the user opened the bot
-                        # directly instead of via the website's deep link.
-                        reply = (
-                            "Salom! Hisobingizni ulash uchun IEMS saytida "
-                            "\"Sozlamalar → Telegram\" bo'limiga o'ting va "
-                            "\"Telegram'ni ulash\" tugmasini bosing."
-                        )
-                    else:
-                        continue
-
                     try:
-                        client.send_message(chat_id, reply)
+                        handle_update(client, update)
                     except TelegramTransientError as exc:
                         self.stderr.write(self.style.WARNING(f"Reply send failed: {exc}"))
                 if options["once"]:

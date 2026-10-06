@@ -105,6 +105,14 @@ class TelegramClient:
     def health(self) -> bool:
         return bool(self._call("getMe", {}))
 
+    def set_webhook(self, url: str, secret_token: str) -> bool:
+        return bool(
+            self._call(
+                "setWebhook",
+                {"url": url, "secret_token": secret_token, "allowed_updates": ["message"]},
+            )
+        )
+
     def get_updates(self, offset: int | None = None, timeout: int = 20) -> list[dict[str, Any]]:
         payload: dict[str, Any] = {"timeout": timeout, "allowed_updates": ["message"]}
         if offset is not None:
