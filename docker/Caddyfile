@@ -1,0 +1,17 @@
+{$IEMS_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	}
+
+	# Uploaded files (avatars, publication images) live on the shared media volume.
+	handle_path /media/* {
+		root * /srv/media
+		file_server
+	}
+
+	# Caddy sets X-Forwarded-Proto/Host, which Django trusts via SECURE_PROXY_SSL_HEADER.
+	reverse_proxy web:8000
+}

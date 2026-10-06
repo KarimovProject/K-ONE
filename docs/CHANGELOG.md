@@ -2748,3 +2748,27 @@ raqam bayroq belgisi ustiga chiqib ketardi. `.iti__tel-input` klassi shu
 qoidadan istisno qilindi.
 
 ---
+
+### 3.66 Production tayyorgarligi — Docker Compose, Caddy reverse proxy, subdomen (2026-10-06)
+
+Serverga joylash uchun konteyner konfiguratsiyasi qayta ko'rib chiqildi.
+
+- docker-compose.yml: Django endi tashqariga ochiq emas (expose: 8000);
+  oldida proxy (Caddy 2) turadi, u 80/443 portlarda ishlaydi va subdomen
+  uchun HTTPS sertifikatini avtomatik oladi (IEMS_DOMAIN orqali).
+- docker/Caddyfile: /media/* yuklamalarini umumiy media_data volume'dan
+  xizmat qiladi (DEBUG=False'da Django buni bermaydi); qolgan so'rovlar
+  web:8000ga proksi qilinadi, X-Forwarded-Proto Django'ga yetadi.
+- Compose healthcheck tuzatildi: ichki so'rov HTTP bo'lgani uchun
+  SECURE_SSL_REDIRECT 301 qaytarib konteynerni doim "unhealthy" qilardi.
+  Endi Host (IEMS_DOMAIN) va X-Forwarded-Proto: https yuboriladi.
+- docker/entrypoint.sh: migrate/collectstatic faqat IEMS_RUN_MIGRATIONS=1
+  bo'lgan webda ishlaydi — uchala konteyner bir vaqtda migrate qilmaydi.
+- POSTGRES_PASSWORD endi majburiy (change-me fallback olib tashlandi).
+- .dockerignore: logs/, ackups/, estore-media/, .env.* image'ga
+  kirmaydi.
+
+Tekshiruv: pytest — 439 test o'tdi. Docker bu kompyuterda o'rnatilmagan,
+shuning uchun docker compose config va image build serverda tekshirilishi kerak.
+
+---

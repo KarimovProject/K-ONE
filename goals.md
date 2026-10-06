@@ -4,7 +4,9 @@
 > bug fix) boshlanishidan **oldin** shu fayl to'liq o'qilishi shart. Har bir muhim
 > o'zgarishdan keyin ("Joriy holat" va "Keyingi qadamlar" bo'limlari) yangilab borilishi kerak.
 
-Oxirgi yangilanish: 2026-10-02 (Ro'yxatdan o'tish sahifasida telefon
+Oxirgi yangilanish: 2026-10-06 (Production tayyorgarligi — Docker Compose,
+Caddy reverse proxy, healthcheck va migratsiya tuzatishlari; tafsilot
+`docs/CHANGELOG.md` 3.66-bo'limda); bundan oldin: 2026-10-02 (Ro'yxatdan o'tish sahifasida telefon
 maydoni buzilib ko'rinishi tuzatildi — `login.css`dagi `!important`
 padding qoidasi intl-tel-input'ning bayroq uchun qo'ygan inline
 padding'ini bekor qilib, raqam bayroq ustiga chiqib ketishiga sabab
@@ -506,9 +508,11 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 - [x] `apps/approvals` (bo'sh app) repodan va `INSTALLED_APPS`dan olib
       tashlandi, eskirgan `ULTRA_REVIEW_REPORT.md` o'chirildi (2026-09-30,
       `docs/CHANGELOG.md` 3.59).
-- [ ] Production'ga chiqishdan oldin: HTTPS reverse proxy (production.py
-      `SECURE_SSL_REDIRECT=True` + secure cookie, Scheduled Task esa oddiy
-      HTTP'da ishlaydi — hozircha vaqtinchalik `local` rejimda ishlatilmoqda).
+- [~] Production'ga chiqishdan oldin: HTTPS reverse proxy — Docker Compose
+      uchun tayyor (Caddy `proxy` xizmati, `docker/Caddyfile`, 3.66-band).
+      Qolgan: subdomen DNS, serverda `.env` (IEMS_DOMAIN, DJANGO_ALLOWED_HOSTS,
+      DJANGO_CSRF_TRUSTED_ORIGINS), `docker compose up` va real HTTPS tekshiruvi.
+      Scheduled Task (LAN) esa oddiy HTTP'da qoladi.
 - [x] Public dashboard qayta qurilishi, HOZIR chizig'i va rate-limit bug'lari
       tuzatildi (2026-09-15/16 — `docs/CHANGELOG.md` 3.25–3.31-bo'limlar).
 - [x] `apps/approvals` app'ining kelajagi — olib tashlandi (2026-09-30).

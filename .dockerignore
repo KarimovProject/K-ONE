@@ -1,11 +1,16 @@
 .env
+.env.*
 .git
 .venv
 __pycache__
 *.pyc
+*.log
 .pytest_cache
 .ruff_cache
 staticfiles
+logs
+backups
+restore-media
 media/*
 !media/.gitkeep
 playwright-report

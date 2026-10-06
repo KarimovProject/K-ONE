@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_DB: ${DB_NAME:-iems}
       POSTGRES_USER: ${DB_USER:-iems}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-change-me}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -34,20 +34,25 @@ services:
     env_file: .env
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.production
+      IEMS_RUN_MIGRATIONS: "1"
       DB_HOST: db
       DB_PORT: 5432
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/1
       CELERY_RESULT_BACKEND: redis://redis:6379/2
-    ports:
-      - "8000:8000"
+      IEMS_DOMAIN: ${IEMS_DOMAIN:?Set IEMS_DOMAIN in .env}
+    # Only the reverse proxy is published; Django is reachable on the internal network.
+    expose:
+      - "8000"
+    volumes:
+      - media_data:/app/media
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health/ready/').status == 200 else 1)"]
+      test: ["CMD", "python", "-c", "import os,sys,urllib.request as u; r=u.Request('http://localhost:8000/health/ready/', headers={'Host': os.environ.get('IEMS_DOMAIN', 'localhost'), 'X-Forwarded-Proto': 'https'}); sys.exit(0 if u.urlopen(r, timeout=4).status == 200 else 1)"]
       interval: 15s
       timeout: 5s
       retries: 5
@@ -67,6 +72,8 @@ services:
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/1
       CELERY_RESULT_BACKEND: redis://redis:6379/2
+    volumes:
+      - media_data:/app/media
     depends_on:
       db:
         condition: service_healthy
@@ -99,6 +106,26 @@ services:
       redis:
         condition: service_healthy
 
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      IEMS_DOMAIN: ${IEMS_DOMAIN:?Set IEMS_DOMAIN in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - media_data:/srv/media:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+
 volumes:
   postgres_data:
   redis_data:
+  media_data:
+  caddy_data:
+  caddy_config:
