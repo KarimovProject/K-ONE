@@ -817,6 +817,7 @@ html {
     order: 3;
     width: 100%;
     margin-top: 12px;
+    position: relative;
   }
   .public-main-nav.premium-segmented-nav {
     width: 100%;
@@ -829,6 +830,20 @@ html {
   }
   .public-main-nav.premium-segmented-nav::-webkit-scrollbar {
     display: none;
+  }
+  /* The nav row doesn't fit every item on narrow screens and scrolls
+     horizontally; without this hint the last pill just looks cut off
+     instead of scrollable. Pinned outside the scrolling element so it
+     stays put regardless of scroll position. */
+  .public-header__center::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 28px;
+    background: linear-gradient(to right, transparent, var(--color-header-bg) 65%);
+    pointer-events: none;
   }
   .public-main-nav.premium-segmented-nav .premium-segment-btn {
     flex: 0 0 auto;

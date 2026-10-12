@@ -89,7 +89,10 @@
    ========================================================================== */
 .exec-metric-rail {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* minmax(0, 1fr), not bare 1fr: grid items default to min-width:auto, so a
+     long label/badge inside a cell would otherwise refuse to shrink below
+     its content width and push the whole rail past the viewport edge. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   background: var(--color-surface-2);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
@@ -154,7 +157,9 @@
 .exec-metric-val-row {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: var(--space-2);
+  min-width: 0;
 }
 
 .exec-metric-value {
@@ -2171,7 +2176,7 @@
 @media (max-width: 1024px) {
   .workspace-metrics { grid-template-columns: repeat(2, 1fr); }
   .workspace-grid, .profile-layout-3zone, .report-grid, .exec-workspace-grid { grid-template-columns: 1fr; }
-  .exec-metric-rail { grid-template-columns: repeat(2, 1fr); }
+  .exec-metric-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .report-panel.report-wide { grid-column: span 1; }
   .compact-filter-bar {
     flex-direction: column;
@@ -2198,7 +2203,7 @@
   }
   .compact-hero-btn, .exec-cta-btn { width: 100%; justify-content: center; }
   .workspace-metrics, .report-kpis { grid-template-columns: 1fr; }
-  .exec-metric-rail { grid-template-columns: repeat(2, 1fr); }
+  .exec-metric-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .executive-kpi-rail { grid-template-columns: 1fr; }
   .exec-metric-item { border-right: 1px solid var(--color-border-subtle); border-bottom: 1px solid var(--color-border-subtle); }
   .exec-metric-item:nth-child(2n) { border-right: none; }

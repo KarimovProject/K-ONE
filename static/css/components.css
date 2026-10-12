@@ -2042,7 +2042,18 @@ input[type="file"]::file-selector-button:hover {
     width: 100%;
   }
 
-  
+  /* .data-toolbar had no flex-wrap, so the filter form (its min content
+     width exceeds the remaining space next to the record count) never
+     dropped to its own line — it just overflowed and visually sat on top
+     of the count text instead. */
+  .data-toolbar {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+  }
+  .command-filter-form {
+    max-width: 100%;
+    width: 100%;
+  }
 
   .command-search-wrap, .command-select, .command-filter-form .btn, .command-filter-form .btn-ghost {
     min-width: 100%;
