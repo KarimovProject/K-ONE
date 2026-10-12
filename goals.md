@@ -508,6 +508,22 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 - [x] `apps/approvals` (bo'sh app) repodan va `INSTALLED_APPS`dan olib
       tashlandi, eskirgan `ULTRA_REVIEW_REPORT.md` o'chirildi (2026-09-30,
       `docs/CHANGELOG.md` 3.59).
+- [x] **HAL QILINDI (2026-10-12)** — Mobil ko'rinishda 3 ta real bug topildi
+      (Playwright + iPhone 13 emulyatsiyasi orqali) va tuzatildi: (1)
+      `.exec-metric-rail` (ish maydoni KPI kartalari) `1fr` grid ustuni
+      kontent kengligidan siqila olmay, matn ekran chetidan chiqib ketardi
+      — `minmax(0,1fr)`ga o'tkazildi (xuddi 3.51-banddagi bug turi); (2)
+      `.data-toolbar`da `flex-wrap` yo'qligi sababli filtr formasi yozuvlar
+      sonini ko'rsatuvchi matn ustiga chiqib qolardi; (3) public navbar'dagi
+      pill navigatsiya mobilda ataylab gorizontal scroll qilinadi, lekin
+      oxirgi band hech qanday belgisiz kesilib ko'rinardi — o'ng chetga
+      xiralashuvchi (fade) belgi qo'shildi. **Muhim eslatma**: LAN deploy
+      (`IEMS Web` task) `production` sozlamalarida ishlaydi va
+      whitenoise manifest orqali statik fayllarni hash'langan holda
+      beradi — CSS o'zgarishi ko'rinishi uchun shunchaki faylni saqlash
+      yetarli emas, `collectstatic` + server qayta ishga tushirish kerak
+      (birinchi marta buni bilmay, tuzatish "ishlamayapti" deb o'ylab
+      qolingan edi). Serverga (`kone.cancercenter.uz`) ham joylandi.
 - [x] **HAL QILINDI (2026-10-12)** — `register-tasks.ps1`dagi `IEMS Celery
       Worker`/`IEMS Celery Beat` Scheduled Task'lari `--logfile=D:\Projects\K
       ONE\K ONE\logs\...` yo'lini qo'shtirnoqsiz yozgani sababli (yo'lda
