@@ -128,6 +128,12 @@ body {
 /* --- Navigation --- */
 .sidebar-nav, .nav-list {
   flex: 1;
+  /* Without this, a flex item defaults to min-height:auto — it grows to
+     fit all the nav links instead of being capped at the space actually
+     available, so overflow-y:auto never triggers and the items past the
+     fold (Telegram, Profil) are simply clipped by .sidebar's
+     overflow:hidden with no way to reach them. */
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 8px 10px;

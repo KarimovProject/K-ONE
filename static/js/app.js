@@ -20,6 +20,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Mobile navigation drawer: the topbar's hamburger button only carries
+  // data-sidebar-open/aria attributes in the markup — nothing was ever
+  // wired up to actually toggle it, so it did nothing on phones/tablets.
+  const shell = document.querySelector('[data-shell]');
+  const openBtn = document.querySelector('[data-sidebar-open]');
+  const closeBtn = document.querySelector('[data-sidebar-close]');
+  if (shell && openBtn) {
+    const setOpen = (isOpen) => {
+      shell.classList.toggle('sidebar-open', isOpen);
+      openBtn.setAttribute('aria-expanded', String(isOpen));
+    };
+    openBtn.addEventListener('click', () => setOpen(true));
+    closeBtn?.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+
   // Restrict phone inputs to digits and the common phone punctuation
   // (+, -, (, ), space) so users can't type letters into a phone field.
   document.querySelectorAll('input[type="tel"]').forEach((input) => {
