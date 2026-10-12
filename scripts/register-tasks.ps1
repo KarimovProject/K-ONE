@@ -106,17 +106,25 @@ Register-IemsScheduledTask `
     -Command $pythonwExe `
     -Arguments "-m waitress --listen=0.0.0.0:8012 config.wsgi:application"
 
+# --logfile's path contains spaces ("K ONE"), so it must be quoted as its own
+# argument — an unquoted path here gets split on the space by the command-line
+# parser, and celery then fails immediately (exit code 2, "Unable to parse
+# extra configuration from command line") without ever writing to the log,
+# which is why this silently stopped sending Telegram/email notifications.
+$workerLogFile = Join-Path $logDir "worker.log"
+$beatLogFile = Join-Path $logDir "beat.log"
+
 Register-IemsScheduledTask `
     -TaskName "IEMS Celery Worker" `
     -Description "IEMS Celery Worker (solo pool)" `
     -Command $pythonwExe `
-    -Arguments "-m celery -A config worker -l info --pool=solo --logfile=D:\Projects\K ONE\K ONE\logs\worker.log"
+    -Arguments "-m celery -A config worker -l info --pool=solo --logfile=`"$workerLogFile`""
 
 Register-IemsScheduledTask `
     -TaskName "IEMS Celery Beat" `
     -Description "IEMS Celery Beat Scheduler" `
     -Command $pythonwExe `
-    -Arguments "-m celery -A config beat -l info --logfile=D:\Projects\K ONE\K ONE\logs\beat.log"
+    -Arguments "-m celery -A config beat -l info --logfile=`"$beatLogFile`""
 
 Register-IemsScheduledTask `
     -TaskName "IEMS Telegram Poll" `
