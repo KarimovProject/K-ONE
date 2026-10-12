@@ -508,6 +508,17 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 - [x] `apps/approvals` (bo'sh app) repodan va `INSTALLED_APPS`dan olib
       tashlandi, eskirgan `ULTRA_REVIEW_REPORT.md` o'chirildi (2026-09-30,
       `docs/CHANGELOG.md` 3.59).
+- [x] **HAL QILINDI (2026-10-12)** — Mobilda 3 chiziqchali menyu tugmasi
+      (`data-sidebar-open`) umuman ishlamas edi: unga JS ulanmagan edi
+      (faqat Django admin uchun alohida, boshqa shablonga mo'ljallangan
+      `admin-ui.js` bor edi). `app.js`ga ochish/yopish logikasi qo'shildi.
+      Shu bilan birga, menyu ochilganda ham pastdagi bandlar (Telegram,
+      Telegram kanal sozlamalari, Profil, va shifokor uchun "Band
+      vaqtlarim") ko'rinmas edi — `.sidebar-nav`da `flex:1` bor-u,
+      `min-height:0` yo'q edi (flex overflow bug), shuning uchun
+      `overflow-y:auto` ishlamay, mazmun chegaradan tashqariga chiqib
+      ko'rinmas qolardi. Ikkalasi ham Playwright+iPhone 13 bilan
+      tasdiqlandi, serverga ham joylandi.
 - [x] **HAL QILINDI (2026-10-12)** — Mobil ko'rinishda 3 ta real bug topildi
       (Playwright + iPhone 13 emulyatsiyasi orqali) va tuzatildi: (1)
       `.exec-metric-rail` (ish maydoni KPI kartalari) `1fr` grid ustuni
