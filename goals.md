@@ -508,6 +508,16 @@ Har bir ishning **to'liq tafsiloti, sababi va tekshiruv usuli** —
 - [x] `apps/approvals` (bo'sh app) repodan va `INSTALLED_APPS`dan olib
       tashlandi, eskirgan `ULTRA_REVIEW_REPORT.md` o'chirildi (2026-09-30,
       `docs/CHANGELOG.md` 3.59).
+- [x] **HAL QILINDI (2026-10-12)** — `register-tasks.ps1`dagi `IEMS Celery
+      Worker`/`IEMS Celery Beat` Scheduled Task'lari `--logfile=D:\Projects\K
+      ONE\K ONE\logs\...` yo'lini qo'shtirnoqsiz yozgani sababli (yo'lda
+      bo'shliq bor — "K ONE") Celery har safar ishga tushishda darhol xato
+      bilan yiqilib tushardi (`exit code 2`, log faylga ham yozilmasdan) —
+      bu LAN deployment'da Telegram eslatmalari, mas'ul tayinlash xabarlari
+      va rejalashtirilgan postlar navbatga qo'yilib, hech qachon
+      yuborilmasdi. Yo'l qo'shtirnoqqa olindi, qayta ro'yxatdan o'tkazilib
+      tekshirildi (worker/beat ishga tushdi, kutib turgan 4 ta xabar darhol
+      yuborildi).
 - [x] kone.cancercenter.uz (shared hosting, Passenger, SQLite) — ishga tushdi
       (2026-10-06). Server: `~/apps/kone`, baza: `~/apps/kone/data/db.sqlite3`,
       `.env`da `DB_ENGINE=sqlite`. Hostingda PostgreSQL ma'lumoti yo'q,
